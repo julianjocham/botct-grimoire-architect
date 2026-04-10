@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+:root {
+  --bg-base: #0a0a0f;
+  --bg-surface: #14141f;
+  --bg-elevated: #1e1e2e;
+  --blood-red: #8b1a1a;
+  --blood-red-light: #c0392b;
+  --good-blue: #2a4a7f;
+  --good-blue-light: #3a6abf;
+  --parchment: #e8dcc8;
+  --parchment-muted: #c8b89a;
+  --gold: #b8965a;
+  --gold-light: #d4a832;
+  --amber-warning: #d4a017;
+  --critical-red: #c0392b;
+  --tip-green: #2d6a4f;
+  --border-subtle: #2a2a3a;
+}
+
+@theme inline {
+  --color-background: var(--bg-base);
+  --color-foreground: var(--parchment);
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--parchment);
+  font-family: "EB Garamond", Georgia, serif;
+}
+
+h1, h2, h3, .font-display {
+  font-family: "Cinzel", "Times New Roman", serif;
+}
+
+.font-mono {
+  font-family: "JetBrains Mono", "Courier New", monospace;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+/* Strength bar colors */
+.strength-very-good { background: #1a5fa8; }
+.strength-good { background: #2a7fd4; }
+.strength-neutral { background: #555577; }
+.strength-evil { background: #8b2222; }
+.strength-very-evil { background: #c0392b; }
+
+/* Team colors */
+.team-townsfolk { color: #5b9bd5; border-color: #2a4a7f; }
+.team-outsider { color: #9b7fd5; border-color: #4a2a7f; }
+.team-minion { color: #d5825b; border-color: #7f2a2a; }
+.team-demon { color: #d55b5b; border-color: #7f1a1a; }

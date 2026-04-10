@@ -1,0 +1,612 @@
+[
+  {
+    "a": "poisoner",
+    "b": "empath",
+    "type": "counter",
+    "severity": "important",
+    "title": "Poisoner silences the Empath",
+    "description": "Poisoner must target Empath every night to suppress recurring info — tying up their ability permanently. If poisoned, you choose what number to show. Lean toward a number that contradicts the truth.",
+    "strengthImpact": -20,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "poisoner",
+    "b": "fortuneteller",
+    "type": "counter",
+    "severity": "important",
+    "title": "Poisoner corrupts Fortune Teller readings",
+    "description": "A poisoned Fortune Teller gets a false yes/no. You can say 'Yes' to cast suspicion on a good player, or 'No' to hide the demon. Decide before waking them.",
+    "strengthImpact": -15,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "poisoner",
+    "b": "washerwoman",
+    "type": "counter",
+    "severity": "tip",
+    "title": "Night-1 poison neutralizes Washerwoman",
+    "description": "If Poisoner targets Washerwoman on night 1, you fabricate the entire result. One-shot info wasted with no second chance.",
+    "strengthImpact": -15,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "poisoner",
+    "b": "investigator",
+    "type": "counter",
+    "severity": "tip",
+    "title": "Poisoner poisons Investigator for maximum misdirection",
+    "description": "A poisoned Investigator gets false info pointing at evil. You can 'confirm' a good player as a Minion, devastating the trust network.",
+    "strengthImpact": -15,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "poisoner",
+    "b": "monk",
+    "type": "counter",
+    "severity": "important",
+    "title": "Poison breaks the Monk's protection",
+    "description": "A poisoned Monk's protection fails silently — the protected player dies and Monk doesn't know their ability failed.",
+    "strengthImpact": -15,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "poisoner",
+    "b": "soldier",
+    "type": "counter",
+    "severity": "important",
+    "title": "Poison makes the Soldier killable",
+    "description": "A poisoned Soldier loses their protection and can die to the demon attack. If the Soldier dies at night, it proves a Poisoner was active.",
+    "strengthImpact": -15,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "spy",
+    "b": "empath",
+    "type": "counter",
+    "severity": "important",
+    "title": "Spy hides from the Empath",
+    "description": "Spy registers as good to the Empath. If Spy neighbors the Empath, the Empath will always read 0 on that side even though an evil player is right there.",
+    "strengthImpact": -25,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "spy",
+    "b": "ravenkeeper",
+    "type": "counter",
+    "severity": "important",
+    "title": "Spy deceives the Ravenkeeper",
+    "description": "If the Ravenkeeper dies and chooses the Spy, you may show any character token. Use this to 'confirm' a player as good or cast suspicion elsewhere.",
+    "strengthImpact": -20,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "spy",
+    "b": "undertaker",
+    "type": "counter",
+    "severity": "tip",
+    "title": "Spy's execution misleads the Undertaker",
+    "description": "If the Spy is executed, you may show the Undertaker any character token — perfect for supporting evil bluffs after the fact.",
+    "strengthImpact": -15,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "recluse",
+    "b": "fortuneteller",
+    "type": "counter",
+    "severity": "important",
+    "title": "Recluse becomes the Fortune Teller's red herring",
+    "description": "Consider making the Recluse the Fortune Teller's red herring — they always get 'Yes' when checking Recluse, thinking they found the demon.",
+    "strengthImpact": -10,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "recluse",
+    "b": "investigator",
+    "type": "counter",
+    "severity": "important",
+    "title": "Recluse 'confirms' a good player as Minion",
+    "description": "Recluse can register as the Minion shown to the Investigator, making the Investigator 'confirm' a good player as evil — devastating misdirection.",
+    "strengthImpact": -10,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "recluse",
+    "b": "empath",
+    "type": "counter",
+    "severity": "tip",
+    "title": "Recluse inflates the Empath's count",
+    "description": "Recluse can register as evil to the Empath, giving a '1' even when both real neighbors are good. Creates doubt about Empath data.",
+    "strengthImpact": -10,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "imp",
+    "b": "scarletwoman",
+    "type": "synergy",
+    "severity": "important",
+    "title": "Two demon survival paths",
+    "description": "Imp can self-kill to pass demon to a Minion (starpass), OR Scarlet Woman activates if Imp is executed with 5+ alive. Two survival paths make this evil team very resilient — good must be precise about execution timing.",
+    "strengthImpact": -10,
+    "category": "demon-resilience"
+  },
+  {
+    "a": "imp",
+    "b": "baron",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Baron+Imp: more Outsiders, fewer Townsfolk abilities",
+    "description": "Baron adds +2 Outsiders (replacing 2 Townsfolk), so the Imp has fewer info roles to worry about and more disruptive Outsiders in the town.",
+    "strengthImpact": -5,
+    "category": "setup-count"
+  },
+  {
+    "a": "baron",
+    "b": "librarian",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Baron reveals its own existence to the Librarian",
+    "description": "Baron adds Outsiders. Players can count Outsiders in play and compare to expectations — if they see extra Outsiders, Baron is likely. Librarian knowing about an Outsider confirms the count is off.",
+    "strengthImpact": 0,
+    "category": "setup-count"
+  },
+  {
+    "a": "assassin",
+    "b": "soldier",
+    "type": "counter",
+    "severity": "important",
+    "title": "Assassin kills the unkillable Soldier",
+    "description": "Assassin's one-shot kill bypasses ALL protection — including Soldier's permanent immunity. One of the most dramatic moments in BotC. Evil must decide if the Soldier is worth the one-shot.",
+    "strengthImpact": -20,
+    "category": "death-rate"
+  },
+  {
+    "a": "assassin",
+    "b": "monk",
+    "type": "counter",
+    "severity": "important",
+    "title": "Assassin bypasses Monk protection",
+    "description": "Assassin kills through Monk protection. The protected player dies despite Monk's action — Monk doesn't know their ability was bypassed.",
+    "strengthImpact": -20,
+    "category": "death-rate"
+  },
+  {
+    "a": "assassin",
+    "b": "sailor",
+    "type": "counter",
+    "severity": "important",
+    "title": "Assassin kills the unkillable Sailor",
+    "description": "Sailor 'can't die' — but the Assassin's one-shot kill ignores this. The most reliable way to kill a Sailor. Evil must decide if burning the one-shot on the Sailor is worth it.",
+    "strengthImpact": -25,
+    "category": "death-rate"
+  },
+  {
+    "a": "assassin",
+    "b": "tealady",
+    "type": "counter",
+    "severity": "important",
+    "title": "Assassin kills through Tea Lady protection",
+    "description": "Tea Lady protects her alive good neighbors — but Assassin's kill ignores all protection. Can break the Tea Lady bubble with a single use.",
+    "strengthImpact": -20,
+    "category": "death-rate"
+  },
+  {
+    "a": "assassin",
+    "b": "fool",
+    "type": "counter",
+    "severity": "tip",
+    "title": "Assassin wastes the Fool's one protection",
+    "description": "Fool's first death is negated — Assassin kills force Fool to burn that protection. They are now fully vulnerable.",
+    "strengthImpact": -15,
+    "category": "death-rate"
+  },
+  {
+    "a": "monk",
+    "b": "soldier",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Double protection: Monk + Soldier",
+    "description": "Monk actively protects one player per night, Soldier is passively immune. Evil has limited kills and now two sources of protection to overcome. Very strong for good without counter-roles.",
+    "strengthImpact": 10,
+    "category": "death-rate"
+  },
+  {
+    "a": "po",
+    "b": "monk",
+    "type": "counter",
+    "severity": "important",
+    "title": "Po triple-kill overwhelms single protection",
+    "description": "Monk protects one player per night. Po's triple-kill targets three players — Monk saves one, but the other two still die. Protection can't keep up with the kill rate.",
+    "strengthImpact": -10,
+    "category": "death-rate"
+  },
+  {
+    "a": "po",
+    "b": "tealady",
+    "type": "counter",
+    "severity": "important",
+    "title": "Po kills around Tea Lady's protection",
+    "description": "Tea Lady protects her two neighbors. Po's triple-kill can target players beyond those neighbors, making the protection bubble less effective in high body-count nights.",
+    "strengthImpact": -10,
+    "category": "death-rate"
+  },
+  {
+    "a": "shabaloth",
+    "b": "professor",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Shabaloth can resurrect Professor's targets",
+    "description": "Shabaloth may resurrect a previously killed player. If Professor also resurrects someone, the two resurrection mechanics can cause confusion about who is actually alive.",
+    "strengthImpact": -5,
+    "category": "death-rate"
+  },
+  {
+    "a": "zombuul",
+    "b": "exorcist",
+    "type": "counter",
+    "severity": "important",
+    "title": "Exorcist stops Zombuul's conditional kill",
+    "description": "Zombuul only kills when no one died that day. If Exorcist correctly picks Zombuul, no kill occurs that night — but this also means Zombuul doesn't get 'blocked' by a day death.",
+    "strengthImpact": 15,
+    "category": "death-rate"
+  },
+  {
+    "a": "pukka",
+    "b": "sailor",
+    "type": "counter",
+    "severity": "important",
+    "title": "Pukka's delayed kill bypasses Sailor's protection",
+    "description": "Pukka poisons tonight and kills the previous poison target tomorrow. Sailor poisoned by Pukka can die the NEXT night even if they chose a different player — because the kill resolves from the previous night's poison. Track the one-night delay carefully.",
+    "strengthImpact": -20,
+    "category": "death-rate"
+  },
+  {
+    "a": "pukka",
+    "b": "fortuneteller",
+    "type": "counter",
+    "severity": "tip",
+    "title": "Pukka poisons Fortune Teller before killing",
+    "description": "Fortune Teller poisoned by Pukka gets false readings the night they're poisoned, then dies the following night. One night of false info before elimination.",
+    "strengthImpact": -10,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "vortox",
+    "b": "empath",
+    "type": "counter",
+    "severity": "critical",
+    "title": "Vortox makes all Empath info wrong",
+    "description": "Under Vortox, the Empath's recurring neighbor count is always false — you choose what false number to show. Sharp players will notice consistent false info and deduce Vortox.",
+    "strengthImpact": -30,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "vortox",
+    "b": "fortuneteller",
+    "type": "counter",
+    "severity": "critical",
+    "title": "Vortox makes all Fortune Teller info wrong",
+    "description": "Under Vortox, all Fortune Teller readings are false. 'No' when one IS the demon, 'Yes' when neither is. The consistent wrongness is itself a clue — if every reading is wrong, Vortox is likely.",
+    "strengthImpact": -30,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "vortox",
+    "b": "mathematician",
+    "type": "synergy",
+    "severity": "important",
+    "title": "Vortox + Mathematician: the paradox",
+    "description": "Vortox makes all Townsfolk info wrong, including Mathematician's count. If Vortox is the demon, the Mathematician's count is also false — which clever players can use as a Vortox confirmation.",
+    "strengthImpact": -15,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "nodashii",
+    "b": "empath",
+    "type": "counter",
+    "severity": "important",
+    "title": "No Dashii permanently poisons neighboring Empath",
+    "description": "No Dashii poisons its two Townsfolk neighbors from the start. If the Empath neighbors No Dashii, they are permanently poisoned — giving false recurring info every night without any Poisoner involvement.",
+    "strengthImpact": -20,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "nodashii",
+    "b": "fortuneteller",
+    "type": "counter",
+    "severity": "important",
+    "title": "No Dashii poisons neighboring Fortune Teller",
+    "description": "No Dashii's passive poison hits its Townsfolk neighbors. A Fortune Teller who neighbors No Dashii gives permanently false readings — with no obvious source of poison.",
+    "strengthImpact": -15,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "vigormortis",
+    "b": "tealady",
+    "type": "counter",
+    "severity": "critical",
+    "title": "Vigormortis permanently poisons Tea Lady through dead Minions",
+    "description": "When Vigormortis kills a Minion, one of their Townsfolk neighbors is permanently poisoned. If Tea Lady becomes that neighbor, her protection is gone forever. The Sailor can also be permanently poisoned this way.",
+    "strengthImpact": -25,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "vigormortis",
+    "b": "sailor",
+    "type": "counter",
+    "severity": "critical",
+    "title": "Vigormortis permanently removes Sailor's protection",
+    "description": "If Vigormortis kills a Minion who neighbors the Sailor, the Sailor becomes permanently poisoned — their 'can't die' protection is gone forever. The hardest counter to Sailor in the game.",
+    "strengthImpact": -30,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "pithag",
+    "b": "barber",
+    "type": "synergy",
+    "severity": "important",
+    "title": "Two character-swap sources: total chaos",
+    "description": "Pit-Hag can change characters nightly; Barber swaps characters when it dies. Two independent character-swap mechanics in the same game creates extreme confusion about who is actually what character. Keep meticulous written notes.",
+    "strengthImpact": -10,
+    "category": "character-change"
+  },
+  {
+    "a": "pithag",
+    "b": "snakecharmer",
+    "type": "synergy",
+    "severity": "important",
+    "title": "Pit-Hag can change the demon mid-game",
+    "description": "Pit-Hag can create a new demon from a non-demon player. If Snake Charmer is also present and swaps with a demon, the 'who is the demon' question becomes extremely complex.",
+    "strengthImpact": -10,
+    "category": "character-change"
+  },
+  {
+    "a": "eviltwin",
+    "b": "sage",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Knowing the demon doesn't solve Evil Twin",
+    "description": "If Demon kills Sage, Sage learns 2 players (one is the Demon). But the Evil Twin complicates the endgame — even knowing the demon player, the town might accidentally execute the Good Twin instead.",
+    "strengthImpact": -5,
+    "category": "info-disruption"
+  },
+  {
+    "a": "cerenovus",
+    "b": "mutant",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Double madness: overlapping mechanics",
+    "description": "Both Cerenovus and Mutant involve madness. Ensure players fully understand what 'being mad' means before the game — having two madness mechanics active simultaneously can confuse new players.",
+    "strengthImpact": -5,
+    "category": "night-complexity"
+  },
+  {
+    "a": "undertaker",
+    "b": "saint",
+    "type": "synergy",
+    "severity": "important",
+    "title": "Undertaker learns the Saint was executed — game over",
+    "description": "If Saint is executed, good loses. The Undertaker would learn that night that the Saint was executed. But the game is already over. Consider how to communicate this outcome.",
+    "strengthImpact": 0,
+    "category": "execution-trap"
+  },
+  {
+    "a": "virgin",
+    "b": "butler",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Butler triggering Virgin: an edge case",
+    "description": "Butler can only vote if their master votes. But Butler CAN nominate independently. If Butler nominates the Virgin, the Virgin's ability triggers — Butler dies. Worth knowing if both are on the script.",
+    "strengthImpact": 0,
+    "category": "info-disruption"
+  },
+  {
+    "a": "lunatic",
+    "b": "po",
+    "type": "synergy",
+    "severity": "important",
+    "title": "Lunatic must simulate Po's triple-kill",
+    "description": "The Lunatic thinks they're the demon and performs that demon's actions. With Po, this means simulating the charge-up mechanic and triple-kill. You must 'act out' a complex demon ability for a player who isn't actually the demon. Plan this before the game.",
+    "strengthImpact": -10,
+    "category": "night-complexity"
+  },
+  {
+    "a": "lunatic",
+    "b": "shabaloth",
+    "type": "synergy",
+    "severity": "important",
+    "title": "Lunatic must simulate Shabaloth's double-kill and resurrection",
+    "description": "Shabaloth kills 2 and may resurrect 1. The Lunatic must simulate choosing 2 targets and the resurrection choice each night. Prepare fake results before running the Lunatic's turn.",
+    "strengthImpact": -10,
+    "category": "night-complexity"
+  },
+  {
+    "a": "lunatic",
+    "b": "zombuul",
+    "type": "synergy",
+    "severity": "important",
+    "title": "Lunatic + Zombuul: simulate the false death mechanic",
+    "description": "Zombuul only kills when no one died that day and can survive a 'first death'. The Lunatic must simulate this conditional kill mechanic — including potentially telling them they 'survived' a fake execution. Very complex.",
+    "strengthImpact": -10,
+    "category": "night-complexity"
+  },
+  {
+    "a": "philosopher",
+    "b": "empath",
+    "type": "synergy",
+    "severity": "important",
+    "title": "Philosopher as Empath: double recurring info",
+    "description": "If Philosopher takes the Empath ability, good has two Empaths running. However, the existing Empath (if in play) becomes drunk. And if Philosopher is poisoned, their Empath info is false.",
+    "strengthImpact": 10,
+    "category": "info-saturation"
+  },
+  {
+    "a": "philosopher",
+    "b": "vortox",
+    "type": "counter",
+    "severity": "important",
+    "title": "Vortox makes all Philosopher-gained abilities wrong",
+    "description": "If Vortox is the demon, any ability the Philosopher gains gives false info — same as any Townsfolk. This makes the Philosopher's one-shot investment potentially worthless.",
+    "strengthImpact": -15,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "godfather",
+    "b": "saint",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Godfather kill after Saint execution ends both teams",
+    "description": "If Saint is executed (good loses), Godfather can get an extra kill that night — but the game is already over. Interesting edge case if both are on script.",
+    "strengthImpact": 0,
+    "category": "execution-trap"
+  },
+  {
+    "a": "godfather",
+    "b": "tinker",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Tinker death can trigger Godfather's kill",
+    "description": "Tinker might die at night (ST choice). If Tinker is the Outsider who dies, Godfather gets an extra kill — even though the death was ST-initiated rather than player-driven. Track day vs. night deaths carefully.",
+    "strengthImpact": -5,
+    "category": "death-rate"
+  },
+  {
+    "a": "mastermind",
+    "b": "zombuul",
+    "type": "synergy",
+    "severity": "important",
+    "title": "Mastermind + Zombuul: two layers of fake death",
+    "description": "Zombuul survives their first death (registers as dead). Mastermind extends the game after the demon is executed. Combined: good might think they've won twice without actually winning.",
+    "strengthImpact": -15,
+    "category": "demon-resilience"
+  },
+  {
+    "a": "devilsadvocate",
+    "b": "exorcist",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Devil's Advocate and Exorcist both protect different roles",
+    "description": "Exorcist protects from demon kills; Devil's Advocate protects from execution. Together they create two layers of protection for evil — demon survives night, demon survives day.",
+    "strengthImpact": -10,
+    "category": "demon-resilience"
+  },
+  {
+    "a": "witch",
+    "b": "virgin",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Witch curse + Virgin nomination: a trap",
+    "description": "If a player is cursed by the Witch and then nominates the Virgin (who is a Townsfolk nomination trigger), the cursed player dies immediately from the Witch curse AND may trigger Virgin's ability — both happen.",
+    "strengthImpact": -5,
+    "category": "execution-trap"
+  },
+  {
+    "a": "gossip",
+    "b": "soldier",
+    "type": "counter",
+    "severity": "important",
+    "title": "True Gossip statement can kill the Soldier",
+    "description": "A true Gossip statement kills a player — and the Soldier is not immune to Gossip deaths. The Soldier only survives the demon's attack. Gossip bypasses Soldier's protection.",
+    "strengthImpact": -10,
+    "category": "death-rate"
+  },
+  {
+    "a": "gossip",
+    "b": "tealady",
+    "type": "counter",
+    "severity": "tip",
+    "title": "Gossip kills can bypass Tea Lady's protection",
+    "description": "Tea Lady protects neighbors from dying. But a true Gossip kill is ST-chosen — you can target a non-protected player, but if you choose a Tea Lady neighbor, their protection status matters.",
+    "strengthImpact": -5,
+    "category": "death-rate"
+  },
+  {
+    "a": "minstrel",
+    "b": "godfather",
+    "type": "synergy",
+    "severity": "important",
+    "title": "Minstrel drunk triggers after Minion execution — during Godfather's kill",
+    "description": "If a Minion is executed and Godfather gets an extra kill that night, ALL players may be drunk (Minstrel triggered). The Godfather's kill still happens, but it occurs in a drunk-everyone context.",
+    "strengthImpact": -5,
+    "category": "night-complexity"
+  },
+  {
+    "a": "clockmaker",
+    "b": "eviltwin",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Clockmaker's step count shifts with Evil Twin",
+    "description": "Clockmaker measures steps from demon to nearest Minion. Evil Twin is a Minion — if the twin pair is near the demon in seating, the step count may be 1 regardless of other Minion placement.",
+    "strengthImpact": -5,
+    "category": "info-disruption"
+  },
+  {
+    "a": "flowergirl",
+    "b": "eviltwin",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Flowergirl tracks demon voting — Evil Twin complicates it",
+    "description": "Flowergirl shows whether the Demon voted. Evil Twin complicates the deduction — even if Flowergirl confirms demon voted, the town still needs to separate the Good Twin from the demon.",
+    "strengthImpact": -5,
+    "category": "info-disruption"
+  },
+  {
+    "a": "grandmother",
+    "b": "pukka",
+    "type": "synergy",
+    "severity": "important",
+    "title": "Pukka's delayed kill can trigger Grandmother's death unexpectedly",
+    "description": "Pukka poisons tonight and kills tomorrow. If Pukka's delayed kill lands on the Grandmother's grandchild, the Grandmother dies that same night — which may catch the town off guard since Pukka's kills come from the previous night.",
+    "strengthImpact": -10,
+    "category": "death-rate"
+  },
+  {
+    "a": "fanggu",
+    "b": "barber",
+    "type": "synergy",
+    "severity": "tip",
+    "title": "Fang Gu + Barber: alignment and character chaos",
+    "description": "Fang Gu can create a new evil Fang Gu from an Outsider. Barber can swap characters when it dies. Combined, tracking who is what character and alignment becomes very complex.",
+    "strengthImpact": -5,
+    "category": "character-change"
+  },
+  {
+    "a": "courtier",
+    "b": "sailor",
+    "type": "counter",
+    "severity": "important",
+    "title": "Courtier removes Sailor's protection for 3 nights",
+    "description": "Courtier can target the Sailor CHARACTER — if in play, Sailor is drunk for 3 nights, making them fully vulnerable to the demon. Unlike Poisoner (must re-target nightly), Courtier is set-and-forget for 3 rounds.",
+    "strengthImpact": 15,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "courtier",
+    "b": "poisoner",
+    "type": "counter",
+    "severity": "important",
+    "title": "Courtier drunks the Poisoner",
+    "description": "Courtier can target the Poisoner CHARACTER directly — if Poisoner is in play, they are drunk for 3 nights and their poison has no effect. Removes evil's key misinformation tool for 3 full rounds.",
+    "strengthImpact": 20,
+    "category": "info-poisoning"
+  },
+  {
+    "a": "exorcist",
+    "b": "imp",
+    "type": "counter",
+    "severity": "important",
+    "title": "Exorcist stops the Imp's kill",
+    "description": "If Exorcist correctly picks the Imp, wake the Imp, show them the Exorcist token, point to the Exorcist, then put them back to sleep. No kill tonight. Very powerful when it hits — evil must avoid the Exorcist or kill them quickly.",
+    "strengthImpact": 20,
+    "category": "death-rate"
+  },
+  {
+    "a": "exorcist",
+    "b": "pukka",
+    "type": "counter",
+    "severity": "important",
+    "title": "Exorcist stops Pukka but previous poison still kills",
+    "description": "Exorcist prevents Pukka from choosing a new poison target tonight. However, last night's poisoned player STILL dies — the kill resolves from the previous poison. Exorcist slows Pukka but doesn't stop an in-progress kill.",
+    "strengthImpact": 15,
+    "category": "death-rate"
+  }
+]
