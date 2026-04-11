@@ -3,7 +3,7 @@
 import { Character, EditionKey } from "@/lib/types";
 import { CharacterToken } from "./CharacterToken";
 import { interactions } from "@/lib/data";
-import { calculateEffectiveStrength } from "@/lib/engine";
+import { calculateEffectiveStrength, getSupportedPlayerCounts } from "@/lib/engine";
 
 interface ScriptStepProps {
   scriptSource: EditionKey | null;
@@ -93,7 +93,15 @@ export function ScriptStep({
     minion: teamCount(scriptChars, "minion"),
     demon: teamCount(scriptChars, "demon"),
   };
-  const TARGETS = { townsfolk: 13, outsider: 4, minion: 4, demon: 1 };
+  const hasBaron = scriptIds.includes("baron");
+  // Baron shifts 2 TF to OS, so targets adjust accordingly
+  const TARGETS = {
+    townsfolk: hasBaron ? 11 : 13,
+    outsider: hasBaron ? 6 : 4,
+    minion: 4,
+    demon: 1,
+  };
+  const tfMin = hasBaron ? 7 : 9; // minimum TF needed for a 7-player game
 
   const valid = isCustom ? scriptIsValid(scriptIds, allCharacters) : scriptSource !== null;
 
@@ -543,12 +551,14 @@ export function ScriptStep({
                     ⚠ You need at least 1 Demon.
                   </div>
                 )}
-                {counts.townsfolk < 9 && (
+                {counts.townsfolk < tfMin && (
                   <div
                     style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#d4a017" }}
                   >
-                    ⚡ Add more Townsfolk — 9 minimum to support a 7-player game, 12 for a full
-                    script (9 + 3 bluffs).
+                    ⚡ Add more Townsfolk —{" "}
+                    {hasBaron
+                      ? "7 minimum with Baron in play (Baron replaces 2 TF with Outsiders)."
+                      : "9 minimum to support a 7-player game, 12 for a full script (9 + 3 bluffs)."}
                   </div>
                 )}
                 {counts.minion === 0 && (
@@ -558,10 +568,18 @@ export function ScriptStep({
                     ⚡ Add at least 1 Minion.
                   </div>
                 )}
+                {hasBaron && counts.townsfolk >= tfMin && (
+                  <div
+                    style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#9b7fd5" }}
+                  >
+                    ⚙ Baron shifts 2 Townsfolk slots to Outsiders in every game — target 11 TF and 6
+                    OS for full coverage.
+                  </div>
+                )}
                 {counts.demon > 1 && (
                   <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#666" }}>
-                    💡 Multiple demons ({counts.demon}) — each game will use exactly 1. More options
-                    is fine.
+                    💡 Multiple demons ({counts.demon}) — each game uses exactly 1. More options is
+                    fine.
                   </div>
                 )}
                 {valid && (
@@ -569,12 +587,57 @@ export function ScriptStep({
                     style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#2d6a4f" }}
                   >
                     ✓ Script is playable.
-                    {counts.townsfolk < 12
-                      ? ` Add ${12 - counts.townsfolk} more Townsfolk for full player range.`
+                    {counts.townsfolk < TARGETS.townsfolk
+                      ? ` Add ${TARGETS.townsfolk - counts.townsfolk} more Townsfolk for full player range.`
                       : " Ready for all player counts."}
                   </div>
                 )}
               </div>
+
+              {/* Player count support grid */}
+              {scriptIds.length > 0 && (
+                <div style={{ marginTop: 14 }}>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-cinzel)",
+                      fontSize: 9,
+                      color: "#555",
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      marginBottom: 6,
+                    }}
+                  >
+                    Supported Player Counts
+                  </div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                    {getSupportedPlayerCounts(scriptIds, allCharacters).map((entry) => (
+                      <div
+                        key={entry.playerCount}
+                        title={
+                          entry.supported
+                            ? `${entry.playerCount}p: ${entry.required.townsfolk}TF ${entry.required.outsider}OS ${entry.required.minion}Mn ${entry.required.demon}Dm`
+                            : `${entry.playerCount}p: not enough characters`
+                        }
+                        style={{
+                          fontFamily: "var(--font-jetbrains)",
+                          fontSize: 10,
+                          width: 26,
+                          height: 22,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          borderRadius: 4,
+                          background: entry.supported ? "#0d1a0d" : "#0a0a14",
+                          border: `1px solid ${entry.supported ? "#2d6a4f" : "#222"}`,
+                          color: entry.supported ? "#4a9a6a" : "#333",
+                        }}
+                      >
+                        {entry.playerCount}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Script character list */}
