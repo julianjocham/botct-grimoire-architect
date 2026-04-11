@@ -269,39 +269,46 @@ export function CharacterDetail({
               </div>
             )}
             {reasons.length > 0 && (
-              <div style={{ marginTop: 8, display: "flex", flexDirection: "column", gap: 3 }}>
+              <div style={{ marginTop: 8, display: "flex", flexDirection: "column", gap: 6 }}>
                 {reasons.map((r) => {
                   const char = allCharacters.find((c) => c.id === r.characterId);
+                  const impactColor = r.impact < 0 ? "#c0392b" : "#2a7fd4";
                   return (
                     <div
                       key={r.characterId}
                       style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        fontFamily: "var(--font-jetbrains)",
-                        fontSize: 10,
-                        color: "#888",
+                        background: r.impact < 0 ? "#150808" : "#080d15",
+                        border: `1px solid ${r.impact < 0 ? "#3a1a1a" : "#1a2a3a"}`,
+                        borderRadius: 5,
+                        padding: "6px 8px",
                       }}
                     >
-                      <button
-                        onClick={() => onNavigate(r.characterId)}
-                        style={{
-                          background: "none",
-                          border: "none",
-                          color: "#b8965a",
-                          cursor: "pointer",
-                          padding: 0,
-                          fontSize: 10,
-                          fontFamily: "var(--font-jetbrains)",
-                          textAlign: "left",
-                        }}
-                      >
-                        {char?.name ?? r.characterId}
-                      </button>
-                      <span style={{ color: r.impact < 0 ? "#c0392b" : "#2a7fd4" }}>
-                        {r.impact > 0 ? "+" : ""}
-                        {r.impact}
-                      </span>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: r.description ? 4 : 0 }}>
+                        <button
+                          onClick={() => onNavigate(r.characterId)}
+                          style={{
+                            background: "none",
+                            border: "none",
+                            color: "#b8965a",
+                            cursor: "pointer",
+                            padding: 0,
+                            fontSize: 11,
+                            fontFamily: "var(--font-cinzel)",
+                            textAlign: "left",
+                          }}
+                        >
+                          {char?.name ?? r.characterId}
+                        </button>
+                        <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 11, color: impactColor, flexShrink: 0, marginLeft: 8 }}>
+                          {r.impact > 0 ? "+" : ""}
+                          {r.impact}
+                        </span>
+                      </div>
+                      {r.description && (
+                        <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#888", lineHeight: 1.45 }}>
+                          {r.description}
+                        </div>
+                      )}
                     </div>
                   );
                 })}

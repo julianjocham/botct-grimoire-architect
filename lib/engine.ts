@@ -78,7 +78,7 @@ export function calculateEffectiveStrength(
       reasons.push({
         characterId: otherInvolved,
         impact: interaction.strengthImpact,
-        description: `${other?.name ?? otherInvolved}: ${interaction.title}`,
+        description: interaction.description,
       });
     }
   }
