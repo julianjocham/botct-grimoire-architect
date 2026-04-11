@@ -53,15 +53,33 @@ const CAT_SHORT: Partial<Record<AbilityCategory, string>> = {
   "lethal-evil": "Extra Kill",
 };
 
-function FeelPill({ label, value }: { label: string; value: string }) {
+// Specialized maps per dimension
+const INFO_LEVEL: Record<string, number> = { Blind: 0, Low: 1, Moderate: 2, High: 3, Flooded: 4 };
+const LETHAL_LEVEL: Record<string, number> = { Gentle: 0, Standard: 1, Deadly: 2, Massacre: 3 };
+const CHAOS_LEVEL: Record<string, number> = { Orderly: 0, Moderate: 1, Chaotic: 2, Pandemonium: 3 };
+const ST_LEVEL: Record<string, number> = { Light: 0, Moderate: 1, Heavy: 2, Exhausting: 3 };
+
+function FeelBar({
+  label,
+  value,
+  levelMap,
+  maxBars = 4,
+}: {
+  label: string;
+  value: string;
+  levelMap: Record<string, number>;
+  maxBars?: number;
+}) {
   const color = FEEL_COLOR[value] ?? "#b8965a";
+  const filled = levelMap[value] ?? 0;
+
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 2,
+        gap: 3,
       }}
     >
       <span
@@ -71,16 +89,30 @@ function FeelPill({ label, value }: { label: string; value: string }) {
           color: "#666",
           textTransform: "uppercase",
           letterSpacing: "0.08em",
+          whiteSpace: "nowrap",
         }}
       >
         {label}
       </span>
+      <div style={{ display: "flex", gap: 2 }}>
+        {Array.from({ length: maxBars }, (_, i) => (
+          <div
+            key={i}
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: 1,
+              background: i <= filled ? color : "#2a2a3a",
+            }}
+          />
+        ))}
+      </div>
       <span
         style={{
           fontFamily: "var(--font-cinzel)",
-          fontSize: 11,
+          fontSize: 9,
           color,
-          fontWeight: 600,
+          whiteSpace: "nowrap",
         }}
       >
         {value}
@@ -107,12 +139,12 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
         flexWrap: "wrap",
       }}
     >
-      {/* Script feel pills */}
-      <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-        <FeelPill label="Info" value={scriptFeel.infoLevel} />
-        <FeelPill label="Lethality" value={scriptFeel.lethalityLevel} />
-        <FeelPill label="Chaos" value={scriptFeel.chaosLevel} />
-        <FeelPill label="ST Load" value={scriptFeel.stWorkload} />
+      {/* Script feel bars */}
+      <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+        <FeelBar label="Info" value={scriptFeel.infoLevel} levelMap={INFO_LEVEL} maxBars={4} />
+        <FeelBar label="Lethal" value={scriptFeel.lethalityLevel} levelMap={LETHAL_LEVEL} maxBars={3} />
+        <FeelBar label="Chaos" value={scriptFeel.chaosLevel} levelMap={CHAOS_LEVEL} maxBars={3} />
+        <FeelBar label="ST Load" value={scriptFeel.stWorkload} levelMap={ST_LEVEL} maxBars={3} />
       </div>
 
       <div style={{ width: 1, height: 28, background: "#2a2a3a", flexShrink: 0 }} />
@@ -145,6 +177,16 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
           }}
         >
           {nightComplexity.complexityRating}
+        </span>
+        <span
+          style={{
+            fontFamily: "var(--font-jetbrains)",
+            fontSize: 9,
+            color: "#555",
+          }}
+          title={`First night: ${nightComplexity.firstNightSteps} steps · Other nights: ${nightComplexity.otherNightSteps} steps`}
+        >
+          {nightComplexity.firstNightSteps}↓ {nightComplexity.otherNightSteps}↻
         </span>
       </div>
 

@@ -27,6 +27,14 @@ const SEVERITY_STYLES: Record<
   tip: { border: "#1a4a2e", bg: "#0a1a10", icon: "💡", label: "Tip" },
 };
 
+// Jinx interactions get their own distinct visual treatment
+const JINX_STYLE = {
+  border: "#7a6200",
+  bg: "#1a1500",
+  icon: "⚖",
+  label: "Djinn Jinx",
+};
+
 export function InteractionFeed({
   hints,
   characters,
@@ -58,7 +66,8 @@ export function InteractionFeed({
       }}
     >
       {hints.map((hint, i) => {
-        const style = SEVERITY_STYLES[hint.severity];
+        const isJinx = hint.category === "jinx";
+        const style = isJinx ? JINX_STYLE : SEVERITY_STYLES[hint.severity];
         const involvedChars = hint.involvedCharacters
           .map((id) => characters.find((c) => c.id === id))
           .filter(Boolean) as Character[];
@@ -71,6 +80,7 @@ export function InteractionFeed({
               background: style.bg,
               borderRadius: 8,
               padding: "10px 12px",
+              ...(isJinx && { borderStyle: "dashed" }),
             }}
           >
             <div
@@ -83,15 +93,33 @@ export function InteractionFeed({
             >
               <span style={{ fontSize: 14, flexShrink: 0 }}>{style.icon}</span>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div
-                  style={{
-                    fontFamily: "var(--font-cinzel)",
-                    fontSize: 12,
-                    color: "#e8dcc8",
-                    marginBottom: 2,
-                  }}
-                >
-                  {hint.title}
+                <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
+                  {isJinx && (
+                    <span
+                      style={{
+                        fontFamily: "var(--font-cinzel)",
+                        fontSize: 9,
+                        color: "#b8965a",
+                        background: "#2a1f00",
+                        border: "1px solid #7a6200",
+                        borderRadius: 3,
+                        padding: "1px 5px",
+                        letterSpacing: "0.05em",
+                        flexShrink: 0,
+                      }}
+                    >
+                      ⚖ Djinn Jinx
+                    </span>
+                  )}
+                  <div
+                    style={{
+                      fontFamily: "var(--font-cinzel)",
+                      fontSize: 12,
+                      color: "#e8dcc8",
+                    }}
+                  >
+                    {hint.title}
+                  </div>
                 </div>
                 <div
                   style={{

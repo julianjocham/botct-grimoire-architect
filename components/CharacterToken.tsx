@@ -10,6 +10,7 @@ interface CharacterTokenProps {
     onDetail: (id: string) => void,
     effectiveStrength?: number,
     compact?: boolean,
+    countersOnScript?: number,
 }
 
 const TEAM_COLORS: Record<string, { border: string; bg: string; text: string }> = {
@@ -48,6 +49,7 @@ export function CharacterToken({
                                    onDetail,
                                    effectiveStrength,
                                    compact = false,
+                                   countersOnScript = 0,
                                }: CharacterTokenProps) {
     const colors = TEAM_COLORS[character.team] ?? TEAM_COLORS.townsfolk;
     const hasEnrichment = !!character.stAdvice;
@@ -91,6 +93,25 @@ export function CharacterToken({
                         )}
                     </div>
                 </div>
+
+                {/* Counter badge */}
+                {countersOnScript > 0 && (
+                    <span
+                        title={`${countersOnScript} counter${countersOnScript !== 1 ? "s" : ""} on this script`}
+                        style={{
+                            background: "#2a1a0a",
+                            border: "1px solid #7a5a00",
+                            borderRadius: 3,
+                            padding: "1px 4px",
+                            fontSize: 9,
+                            color: "#b8965a",
+                            fontFamily: "var(--font-jetbrains)",
+                            flexShrink: 0,
+                        }}
+                    >
+                        ⚔ {countersOnScript}
+                    </span>
+                )}
 
                 {/* Right: add/remove button */}
                 <button

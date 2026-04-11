@@ -112,13 +112,18 @@ export function CharacterPool({
                     allCharacters,
                     interactions
                   );
+                  const countersOnScript = (c.counters ?? []).filter((id) =>
+                    selectedIds.includes(id)
+                  ).length;
                   return (
                     <CharacterToken
+                      key={c.id}
                       character={c}
                       selected={selectedIds.includes(c.id)}
                       onToggle={onToggle}
                       onDetail={onDetail}
                       effectiveStrength={eff.effectiveStrength}
+                      countersOnScript={countersOnScript}
                     />
                   );
                 })}

@@ -11,7 +11,9 @@ import type {
   ScriptRecommendation,
   ScriptAnalysis,
   AbilityCategory,
+  PlayerCountEntry,
 } from "./types";
+import playerCountsData from "@/data/playerCounts.json";
 
 // ─── Night Order ────────────────────────────────────────────────────────────
 
@@ -124,44 +126,57 @@ export function analyzeInteractions(
 
 // ─── Composition Warnings ────────────────────────────────────────────────────
 
+/**
+ * mode "script" — checks full-script requirements (13 TF, 4 OS, 4 Mn, 1 Dm).
+ *                 Used when building or reviewing the script pool.
+ * mode "game"   — skips count-requirement warnings; counts are set by player
+ *                 count and are always correct by construction in Step 2.
+ *                 Focuses only on balance / thematic issues.
+ */
 export function analyzeComposition(
   selectedIds: string[],
-  characters: Character[]
+  characters: Character[],
+  mode: "script" | "game" = "script"
 ): CompositionWarning[] {
   const warnings: CompositionWarning[] = [];
   const selected = characters.filter((c) => selectedIds.includes(c.id));
 
   const byTeam = (team: string) => selected.filter((c) => c.team === team);
-  const townsfolk = byTeam("townsfolk");
-  const outsiders = byTeam("outsider");
-  const minions = byTeam("minion");
   const demons = byTeam("demon");
 
-  // Standard full-script requirements: 13 TF, 4 OS, 4 Mn, 1+ Demon
-  if (townsfolk.length < 9)
-    warnings.push({
-      type: "too-few-townsfolk",
-      message: `Only ${townsfolk.length} Townsfolk. A full script needs at least 9 (ideally 13) to support games up to 15 players.`,
-      severity: "important",
-    });
-  if (outsiders.length < 2)
-    warnings.push({
-      type: "too-few-outsiders",
-      message: `Only ${outsiders.length} Outsiders. A full script needs at least 2 (ideally 4).`,
-      severity: "important",
-    });
-  if (minions.length < 2)
-    warnings.push({
-      type: "too-few-minions",
-      message: `Only ${minions.length} Minions. A full script needs at least 2 (ideally 4).`,
-      severity: "important",
-    });
-  if (demons.length === 0)
-    warnings.push({
-      type: "no-demon",
-      message: "No Demon on the script. You need at least one.",
-      severity: "critical",
-    });
+  if (mode === "script") {
+    // Full-script requirements — only relevant when building/reviewing the script pool
+    const townsfolk = byTeam("townsfolk");
+    const outsiders = byTeam("outsider");
+    const minions   = byTeam("minion");
+
+    if (townsfolk.length < 9)
+      warnings.push({
+        type: "too-few-townsfolk",
+        message: `Only ${townsfolk.length} Townsfolk. A full script needs at least 9 (ideally 13) to support games up to 15 players.`,
+        severity: "important",
+      });
+    if (outsiders.length < 2)
+      warnings.push({
+        type: "too-few-outsiders",
+        message: `Only ${outsiders.length} Outsiders. A full script needs at least 2 (ideally 4).`,
+        severity: "important",
+      });
+    if (minions.length < 2)
+      warnings.push({
+        type: "too-few-minions",
+        message: `Only ${minions.length} Minions. A full script needs at least 2 (ideally 4).`,
+        severity: "important",
+      });
+    if (demons.length === 0)
+      warnings.push({
+        type: "no-demon",
+        message: "No Demon on the script. You need at least one.",
+        severity: "critical",
+      });
+  }
+
+  // ── Game-balance warnings (apply in both modes) ──────────────────────────
 
   // Info saturation
   const infoRecurring = selected.filter(
@@ -478,6 +493,62 @@ export function getRecommendations(
   return recommendations;
 }
 
+// ─── Player Count Support ─────────────────────────────────────────────────────
+
+export function getSupportedPlayerCounts(
+  selectedIds: string[],
+  characters: Character[]
+): PlayerCountEntry[] {
+  const selected = characters.filter((c) => selectedIds.includes(c.id));
+  const tfCount = selected.filter((c) => c.team === "townsfolk").length;
+  const osCount = selected.filter((c) => c.team === "outsider").length;
+  const mnCount = selected.filter((c) => c.team === "minion").length;
+  const dmCount = selected.filter((c) => c.team === "demon").length;
+
+  const hasBaron = selectedIds.includes("baron");
+
+  const counts = playerCountsData.counts as Record<
+    string,
+    { townsfolk: number; outsider: number; minion: number; demon: number }
+  >;
+
+  const results: PlayerCountEntry[] = [];
+
+  for (let pc = 5; pc <= 15; pc++) {
+    const req = counts[String(pc)];
+    // Script needs req.townsfolk in-play TF + 3 unused TF for demon bluffs
+    const needTF = req.townsfolk + 3;
+    const needOS = req.outsider;
+    const needMn = req.minion;
+
+    const supported =
+      tfCount >= needTF && osCount >= needOS && mnCount >= needMn && dmCount >= 1;
+
+    const entry: PlayerCountEntry = {
+      playerCount: pc,
+      required: {
+        townsfolk: req.townsfolk,
+        outsider: req.outsider,
+        minion: req.minion,
+        demon: req.demon,
+      },
+      supported,
+    };
+
+    // Baron shifts 2 OS in, 2 TF out — show the variant distribution
+    if (hasBaron) {
+      entry.baronVariant = {
+        townsfolk: req.townsfolk - 2,
+        outsider: req.outsider + 2,
+      };
+    }
+
+    results.push(entry);
+  }
+
+  return results;
+}
+
 // ─── Strength Totals ──────────────────────────────────────────────────────────
 
 export function calculateStrengthTotals(
@@ -499,12 +570,13 @@ export function calculateStrengthTotals(
 export function analyzeScript(
   selectedIds: string[],
   characters: Character[],
-  interactions: Interaction[]
+  interactions: Interaction[],
+  mode: "script" | "game" = "script"
 ): ScriptAnalysis {
   const { good, evil } = calculateStrengthTotals(selectedIds, characters);
   return {
     interactionHints: analyzeInteractions(selectedIds, interactions),
-    compositionWarnings: analyzeComposition(selectedIds, characters),
+    compositionWarnings: analyzeComposition(selectedIds, characters, mode),
     nightOrder: {
       first: generateNightOrder(characters, selectedIds, "first", interactions),
       other: generateNightOrder(characters, selectedIds, "other", interactions),
@@ -515,5 +587,6 @@ export function analyzeScript(
     recommendations: getRecommendations(selectedIds, characters),
     goodStrengthTotal: good,
     evilStrengthTotal: evil,
+    playerCountSupport: getSupportedPlayerCounts(selectedIds, characters),
   };
 }

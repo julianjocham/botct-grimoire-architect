@@ -21,7 +21,11 @@ export interface CharacterEnrichment {
   abilityCategory: AbilityCategory;
   tags: CharacterTag[];
   strength: {
-    composite: number; // -100 to +100
+    composite: number; // -100 to +100; positive = benefits good team
+    peakPower?: number; // -20 to +20; maximum single-action impact
+    reliability?: number; // 0.0–1.0; how often the ability works as intended
+    vulnerability?: number; // 0.0–1.0; ease of being countered or disabled
+    scalingBonus?: number; // -5 to +5; extra value per additional player
   };
   counters: string[]; // character IDs
   counterDetail: Record<string, string>;
@@ -36,7 +40,13 @@ export interface Character extends RawCharacter {
   stComplexity: 1 | 2 | 3 | 4 | 5;
   abilityCategory: AbilityCategory;
   tags: CharacterTag[];
-  strength: { composite: number };
+  strength: {
+    composite: number;
+    peakPower?: number;
+    reliability?: number;
+    vulnerability?: number;
+    scalingBonus?: number;
+  };
   counters: string[];
   counterDetail: Record<string, string>;
   stAdvice: string;
@@ -87,12 +97,20 @@ export type CharacterTag =
 export interface Interaction {
   a: string;
   b: string;
-  type: "counter" | "synergy" | "dramatic" | "puzzle";
+  type: "counter" | "synergy" | "dramatic" | "puzzle" | "jinx";
   severity: "critical" | "important" | "tip";
   title: string;
   description: string;
   strengthImpact: number;
   category: InteractionCategory;
+}
+
+// Player count distribution entry
+export interface PlayerCountEntry {
+  playerCount: number;
+  required: { townsfolk: number; outsider: number; minion: number; demon: number };
+  supported: boolean; // script has enough chars of each type (incl. 3 TF bluffs)
+  baronVariant?: { townsfolk: number; outsider: number }; // if Baron is on script
 }
 
 export type InteractionCategory =
@@ -191,26 +209,42 @@ export interface ScriptAnalysis {
   recommendations: ScriptRecommendation[];
   goodStrengthTotal: number;
   evilStrengthTotal: number;
+  playerCountSupport: PlayerCountEntry[];
 }
 
-// App state
-export type EditionKey = "tb" | "bmr" | "snv" | "carousel";
+// ─── Wizard state ─────────────────────────────────────────────────────────────
+
+export type AppStep = "script" | "setup" | "dashboard";
+export type EditionKey = "tb" | "bmr" | "snv" | "custom";
 
 export interface GrimoireState {
-  edition: EditionKey;
-  selectedIds: string[];
-  searchQuery: string;
+  step: AppStep;
+
+  // Step 1 – the script pool (all characters that could appear)
+  scriptSource: EditionKey | null;
+  scriptIds: string[];
+
+  // Step 2 – the in-play game characters
+  playerCount: number | null;
+  gameIds: string[];
+
+  // Shared UI
   nightPhase: "first" | "other";
-  activeTab: "interactions" | "night" | "composition";
+  searchQuery: string;
   detailCharacterId: string | null;
 }
 
 export type GrimoireAction =
-  | { type: "SET_EDITION"; edition: EditionKey }
-  | { type: "TOGGLE_CHARACTER"; id: string }
-  | { type: "LOAD_PRESET"; ids: string[] }
-  | { type: "CLEAR_SCRIPT" }
-  | { type: "SET_SEARCH"; query: string }
+  | { type: "SELECT_EDITION"; edition: Exclude<EditionKey, "custom">; ids: string[] }
+  | { type: "SELECT_CUSTOM" }
+  | { type: "TOGGLE_SCRIPT_CHAR"; id: string }
+  | { type: "GO_TO_SETUP" }
+  | { type: "GO_BACK_TO_SCRIPT" }
+  | { type: "GO_TO_DASHBOARD" }
+  | { type: "GO_BACK_TO_SETUP" }
+  | { type: "SET_PLAYER_COUNT"; count: number | null }
+  | { type: "TOGGLE_GAME_CHAR"; id: string }
   | { type: "SET_NIGHT_PHASE"; phase: "first" | "other" }
-  | { type: "SET_TAB"; tab: GrimoireState["activeTab"] }
-  | { type: "SET_DETAIL"; id: string | null };
+  | { type: "SET_SEARCH"; query: string }
+  | { type: "SET_DETAIL"; id: string | null }
+  | { type: "RESET" };

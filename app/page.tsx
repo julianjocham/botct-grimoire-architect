@@ -1,73 +1,84 @@
 "use client";
 
 import { useReducer, useMemo } from "react";
-import { GrimoireState, GrimoireAction, EditionKey } from "@/lib/types";
+import { GrimoireState, GrimoireAction } from "@/lib/types";
 import { allCharacters, interactions, getEditionPool } from "@/lib/data";
-import { analyzeScript, calculateEffectiveStrength } from "@/lib/engine";
-import { CharacterPool } from "@/components/CharacterPool";
-import { CharacterToken } from "@/components/CharacterToken";
-import { InteractionFeed } from "@/components/InteractionFeed";
-import { NightOrder } from "@/components/NightOrder";
-import { ScriptHealthBar } from "@/components/ScriptHealthBar";
+import { calculateEffectiveStrength } from "@/lib/engine";
 import { CharacterDetail } from "@/components/CharacterDetail";
-import { CompositionPanel } from "@/components/CompositionPanel";
-
-const EDITION_KEYS: EditionKey[] = ["tb", "bmr", "snv", "carousel"];
-const EDITION_LABELS: Record<string, string> = {
-  tb: "Trouble Brewing",
-  bmr: "Bad Moon Rising",
-  snv: "Sects & Violets",
-  carousel: "The Carousel",
-};
-const EDITION_SHORT: Record<string, string> = {
-  tb: "TB",
-  bmr: "BMR",
-  snv: "S&V",
-  carousel: "🎠",
-};
-
-const TEAM_ORDER = ["townsfolk", "outsider", "minion", "demon"] as const;
-const TEAM_LABEL: Record<string, string> = {
-  townsfolk: "Townsfolk",
-  outsider: "Outsiders",
-  minion: "Minions",
-  demon: "Demons",
-};
+import { ScriptStep } from "@/components/ScriptStep";
+import { GameSetupStep } from "@/components/GameSetupStep";
+import { DashboardStep } from "@/components/DashboardStep";
 
 const initialState: GrimoireState = {
-  edition: "tb" as EditionKey,
-  selectedIds: [],
-  searchQuery: "",
+  step: "script",
+  scriptSource: null,
+  scriptIds: [],
+  playerCount: null,
+  gameIds: [],
   nightPhase: "first",
-  activeTab: "interactions",
+  searchQuery: "",
   detailCharacterId: null,
 };
 
 function reducer(state: GrimoireState, action: GrimoireAction): GrimoireState {
   switch (action.type) {
-    case "SET_EDITION":
-      return { ...state, edition: action.edition, selectedIds: [], searchQuery: "", detailCharacterId: null };
-    case "TOGGLE_CHARACTER": {
-      const already = state.selectedIds.includes(action.id);
+    case "SELECT_EDITION":
       return {
         ...state,
-        selectedIds: already
-          ? state.selectedIds.filter((id) => id !== action.id)
-          : [...state.selectedIds, action.id],
+        scriptSource: action.edition,
+        scriptIds: action.ids,
+        gameIds: [],
+        playerCount: null,
+        searchQuery: "",
+        detailCharacterId: null,
+      };
+    case "SELECT_CUSTOM":
+      return {
+        ...state,
+        scriptSource: "custom",
+        scriptIds: [],
+        gameIds: [],
+        playerCount: null,
+        searchQuery: "",
+        detailCharacterId: null,
+      };
+    case "TOGGLE_SCRIPT_CHAR": {
+      const inScript = state.scriptIds.includes(action.id);
+      return {
+        ...state,
+        scriptIds: inScript
+          ? state.scriptIds.filter((id) => id !== action.id)
+          : [...state.scriptIds, action.id],
+        gameIds: state.gameIds.filter((id) => id !== action.id),
       };
     }
-    case "LOAD_PRESET":
-      return { ...state, selectedIds: action.ids };
-    case "CLEAR_SCRIPT":
-      return { ...state, selectedIds: [] };
-    case "SET_SEARCH":
-      return { ...state, searchQuery: action.query };
+    case "GO_TO_SETUP":
+      return { ...state, step: "setup", gameIds: [], playerCount: null };
+    case "GO_BACK_TO_SCRIPT":
+      return { ...state, step: "script" };
+    case "GO_TO_DASHBOARD":
+      return { ...state, step: "dashboard" };
+    case "GO_BACK_TO_SETUP":
+      return { ...state, step: "setup" };
+    case "SET_PLAYER_COUNT":
+      return { ...state, playerCount: action.count, gameIds: [] };
+    case "TOGGLE_GAME_CHAR": {
+      const inGame = state.gameIds.includes(action.id);
+      return {
+        ...state,
+        gameIds: inGame
+          ? state.gameIds.filter((id) => id !== action.id)
+          : [...state.gameIds, action.id],
+      };
+    }
     case "SET_NIGHT_PHASE":
       return { ...state, nightPhase: action.phase };
-    case "SET_TAB":
-      return { ...state, activeTab: action.tab };
+    case "SET_SEARCH":
+      return { ...state, searchQuery: action.query };
     case "SET_DETAIL":
       return { ...state, detailCharacterId: action.id };
+    case "RESET":
+      return initialState;
     default:
       return state;
   }
@@ -75,328 +86,191 @@ function reducer(state: GrimoireState, action: GrimoireAction): GrimoireState {
 
 export default function Home() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { edition, selectedIds, searchQuery, nightPhase, activeTab, detailCharacterId } = state;
+  const {
+    step,
+    scriptSource,
+    scriptIds,
+    playerCount,
+    gameIds,
+    nightPhase,
+    searchQuery,
+    detailCharacterId,
+  } = state;
 
-  const pool = useMemo(() => getEditionPool(edition), [edition]);
-
-  const analysis = useMemo(
-    () => analyzeScript(selectedIds, allCharacters, interactions),
-    [selectedIds]
-  );
-
-  const selectedCharacters = useMemo(
-    () => selectedIds.map((id) => allCharacters.find((c) => c.id === id)).filter(Boolean) as typeof allCharacters,
-    [selectedIds]
-  );
-
-  const detailCharacter = detailCharacterId
-    ? allCharacters.find((c) => c.id === detailCharacterId)
+  // Step 1 custom: context is the script being built.
+  // Steps 2 + 3: context is the in-game characters — counters, interactions, and
+  // strength modifiers only reflect characters actually in play.
+  const contextIds = step === "script" ? scriptIds : gameIds;
+  const detailChar = detailCharacterId
+    ? allCharacters.find((c) => c.id === detailCharacterId) ?? null
+    : null;
+  const detailEffStr = detailCharacterId
+    ? calculateEffectiveStrength(detailCharacterId, contextIds, allCharacters, interactions)
     : null;
 
-  const detailEffectiveStrength = detailCharacterId
-    ? calculateEffectiveStrength(detailCharacterId, selectedIds, allCharacters, interactions)
-    : null;
-
-  const byTeam = (team: string) =>
-    selectedCharacters.filter((c) => c.team === team);
+  // Edition pools for the script step cards
+  const editionPools = useMemo(
+    () => ({
+      tb: getEditionPool("tb"),
+      bmr: getEditionPool("bmr"),
+      snv: getEditionPool("snv"),
+    }),
+    []
+  );
 
   return (
     <div
       style={{
         minHeight: "100vh",
+        background: "var(--bg-base)",
         display: "flex",
         flexDirection: "column",
-        background: "var(--bg-base)",
-        maxWidth: 1400,
-        margin: "0 auto",
-        padding: "0 12px",
       }}
     >
-      {/* Header */}
+      {/* Global header */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "14px 0 10px",
+          padding: "12px 24px",
           borderBottom: "1px solid #2a2a3a",
-          flexWrap: "wrap",
-          gap: 8,
+          background: "var(--bg-surface)",
         }}
       >
         <div>
-          <h1
+          <span
             style={{
               fontFamily: "var(--font-cinzel)",
-              fontSize: 20,
+              fontSize: 17,
               color: "#e8dcc8",
-              margin: 0,
               letterSpacing: "0.05em",
             }}
           >
             Grimoire Architect
-          </h1>
-          <div
+          </span>
+          <span
             style={{
               fontFamily: "var(--font-garamond)",
               fontSize: 12,
-              color: "#555",
-              marginTop: 2,
+              color: "#444",
+              marginLeft: 12,
             }}
           >
-            Blood on the Clocktower — Storyteller Script Builder
-          </div>
+            Blood on the Clocktower — Storyteller Tool
+          </span>
         </div>
 
-        {/* Edition tabs */}
-        <div style={{ display: "flex", gap: 4 }}>
-          {EDITION_KEYS.map((ed) => (
-            <button
-              key={ed}
-              onClick={() => dispatch({ type: "SET_EDITION", edition: ed })}
-              style={{
-                background: edition === ed ? "#8b1a1a" : "#14141f",
-                border: `1px solid ${edition === ed ? "#8b1a1a" : "#2a2a3a"}`,
-                borderRadius: 6,
-                padding: "6px 12px",
-                color: edition === ed ? "#e8dcc8" : "#888",
-                cursor: "pointer",
-                fontFamily: "var(--font-cinzel)",
-                fontSize: 11,
-                letterSpacing: "0.05em",
-                transition: "all 0.15s ease",
-              }}
-              title={EDITION_LABELS[ed]}
-            >
-              {EDITION_SHORT[ed]}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Main layout */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "280px 1fr",
-          gap: 12,
-          flex: 1,
-          padding: "12px 0",
-          minHeight: 0,
-        }}
-      >
-        {/* Left: Character Pool */}
-        <div style={{ height: "calc(100vh - 140px)", position: "sticky", top: 12 }}>
-          <CharacterPool
-            pool={pool}
-            allCharacters={allCharacters}
-            selectedIds={selectedIds}
-            searchQuery={searchQuery}
-            onSearch={(q) => dispatch({ type: "SET_SEARCH", query: q })}
-            onToggle={(id) => dispatch({ type: "TOGGLE_CHARACTER", id })}
-            onDetail={(id) => dispatch({ type: "SET_DETAIL", id })}
-          />
-        </div>
-
-        {/* Right: Script + Analysis */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          {/* Script panel */}
-          <div
-            style={{
-              background: "var(--bg-surface)",
-              border: "1px solid #2a2a3a",
-              borderRadius: 10,
-              padding: "12px 14px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: 10,
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <span
+        {/* Step indicator + Reset */}
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div style={{ display: "flex", gap: 6 }}>
+            {(["script", "setup", "dashboard"] as const).map((s, i) => {
+              const labels = ["1 Script", "2 Game Setup", "3 Dashboard"];
+              const reached =
+                s === "script" ||
+                (s === "setup" && (step === "setup" || step === "dashboard")) ||
+                (s === "dashboard" && step === "dashboard");
+              const active = step === s;
+              return (
+                <div
+                  key={s}
                   style={{
                     fontFamily: "var(--font-cinzel)",
-                    fontSize: 13,
-                    color: "#b8965a",
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  Your Script
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-jetbrains)",
-                    fontSize: 11,
-                    color: "#555",
-                  }}
-                >
-                  {selectedIds.length} character{selectedIds.length !== 1 ? "s" : ""}
-                </span>
-              </div>
-              {selectedIds.length > 0 && (
-                <button
-                  onClick={() => dispatch({ type: "CLEAR_SCRIPT" })}
-                  style={{
-                    background: "none",
-                    border: "1px solid #2a2a3a",
+                    fontSize: 10,
+                    letterSpacing: "0.06em",
+                    color: active ? "#e8dcc8" : reached ? "#b8965a" : "#333",
+                    background: active ? "#8b1a1a" : "transparent",
+                    border: `1px solid ${active ? "#8b1a1a" : reached ? "#4a3a20" : "#2a2a3a"}`,
                     borderRadius: 4,
                     padding: "3px 8px",
-                    color: "#555",
-                    cursor: "pointer",
-                    fontFamily: "var(--font-garamond)",
-                    fontSize: 12,
                   }}
                 >
-                  Clear
-                </button>
-              )}
-            </div>
-
-            {selectedIds.length === 0 ? (
-              <div
-                style={{
-                  color: "#444",
-                  fontFamily: "var(--font-garamond)",
-                  fontSize: 14,
-                  textAlign: "center",
-                  padding: "16px 0",
-                }}
-              >
-                Add characters from the pool on the left
-              </div>
-            ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {TEAM_ORDER.map((team) => {
-                  const chars = byTeam(team);
-                  if (chars.length === 0) return null;
-                  return (
-                    <div key={team}>
-                      <div
-                        style={{
-                          fontFamily: "var(--font-cinzel)",
-                          fontSize: 10,
-                          color: "#b8965a",
-                          letterSpacing: "0.08em",
-                          textTransform: "uppercase",
-                          marginBottom: 5,
-                        }}
-                      >
-                        {TEAM_LABEL[team]} ({chars.length})
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          gap: 4,
-                        }}
-                      >
-                        {chars.map((c) => (
-                          <CharacterToken
-                            character={c}
-                            selected
-                            onToggle={(id) => dispatch({ type: "TOGGLE_CHARACTER", id })}
-                            onDetail={(id) => dispatch({ type: "SET_DETAIL", id })}
-                            compact
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+                  {labels[i]}
+                </div>
+              );
+            })}
           </div>
-
-          {/* Analysis tabs */}
-          <div
+          <button
+            onClick={() => dispatch({ type: "RESET" })}
             style={{
-              background: "var(--bg-surface)",
+              background: "none",
               border: "1px solid #2a2a3a",
-              borderRadius: 10,
-              overflow: "hidden",
-              flex: 1,
+              borderRadius: 4,
+              padding: "4px 10px",
+              color: "#555",
+              cursor: "pointer",
+              fontFamily: "var(--font-garamond)",
+              fontSize: 12,
             }}
           >
-            {/* Tab bar */}
-            <div
-              style={{
-                display: "flex",
-                borderBottom: "1px solid #2a2a3a",
-                background: "var(--bg-base)",
-              }}
-            >
-              {(["interactions", "night", "composition"] as const).map((tab) => {
-                const labels = {
-                  interactions: `Interactions (${analysis.interactionHints.length})`,
-                  night: "Night Order",
-                  composition: `Composition${analysis.compositionWarnings.length > 0 ? ` (${analysis.compositionWarnings.length})` : ""}`,
-                };
-                return (
-                  <button
-                    key={tab}
-                    onClick={() => dispatch({ type: "SET_TAB", tab })}
-                    style={{
-                      flex: 1,
-                      padding: "10px 12px",
-                      border: "none",
-                      background: "none",
-                      color: activeTab === tab ? "#e8dcc8" : "#555",
-                      cursor: "pointer",
-                      fontFamily: "var(--font-cinzel)",
-                      fontSize: 11,
-                      borderBottom: activeTab === tab ? "2px solid #8b1a1a" : "2px solid transparent",
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    {labels[tab]}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Tab content */}
-            <div style={{ padding: "12px 14px", overflowY: "auto", maxHeight: "45vh" }}>
-              {activeTab === "interactions" && (
-                <InteractionFeed
-                  hints={analysis.interactionHints}
-                  characters={allCharacters}
-                  onDetail={(id) => dispatch({ type: "SET_DETAIL", id })}
-                />
-              )}
-              {activeTab === "night" && (
-                <NightOrder
-                  steps={nightPhase === "first" ? analysis.nightOrder.first : analysis.nightOrder.other}
-                  phase={nightPhase}
-                  onPhaseChange={(phase) => dispatch({ type: "SET_NIGHT_PHASE", phase })}
-                />
-              )}
-              {activeTab === "composition" && (
-                <CompositionPanel
-                  warnings={analysis.compositionWarnings}
-                  recommendations={analysis.recommendations}
-                  allCharacters={allCharacters}
-                  selectedIds={selectedIds}
-                  onToggle={(id) => dispatch({ type: "TOGGLE_CHARACTER", id })}
-                  onDetail={(id) => dispatch({ type: "SET_DETAIL", id })}
-                />
-              )}
-            </div>
-          </div>
-
-          {/* Script health bar */}
-          <ScriptHealthBar analysis={analysis} />
+            Start Over
+          </button>
         </div>
       </div>
 
-      {/* Character detail slide-in */}
-      {detailCharacter && detailEffectiveStrength && (
+      {/* Step content */}
+      <div style={{ flex: 1 }}>
+        {step === "script" && (
+          <ScriptStep
+            scriptSource={scriptSource}
+            scriptIds={scriptIds}
+            allCharacters={allCharacters}
+            editionPools={editionPools}
+            searchQuery={searchQuery}
+            onSelectEdition={(ed, ids) =>
+              dispatch({ type: "SELECT_EDITION", edition: ed, ids })
+            }
+            onSelectCustom={() => dispatch({ type: "SELECT_CUSTOM" })}
+            onToggleScriptChar={(id) =>
+              dispatch({ type: "TOGGLE_SCRIPT_CHAR", id })
+            }
+            onContinue={() => dispatch({ type: "GO_TO_SETUP" })}
+            onSearch={(q) => dispatch({ type: "SET_SEARCH", query: q })}
+            onDetail={(id) => dispatch({ type: "SET_DETAIL", id })}
+          />
+        )}
+
+        {step === "setup" && (
+          <GameSetupStep
+            scriptSource={scriptSource}
+            scriptIds={scriptIds}
+            playerCount={playerCount}
+            gameIds={gameIds}
+            allCharacters={allCharacters}
+            onSetPlayerCount={(count) =>
+              dispatch({ type: "SET_PLAYER_COUNT", count })
+            }
+            onToggleGameChar={(id) =>
+              dispatch({ type: "TOGGLE_GAME_CHAR", id })
+            }
+            onContinue={() => dispatch({ type: "GO_TO_DASHBOARD" })}
+            onBack={() => dispatch({ type: "GO_BACK_TO_SCRIPT" })}
+            onDetail={(id) => dispatch({ type: "SET_DETAIL", id })}
+          />
+        )}
+
+        {step === "dashboard" && (
+          <DashboardStep
+            scriptSource={scriptSource}
+            scriptIds={scriptIds}
+            playerCount={playerCount!}
+            gameIds={gameIds}
+            allCharacters={allCharacters}
+            interactions={interactions}
+            nightPhase={nightPhase}
+            onNightPhaseChange={(p) =>
+              dispatch({ type: "SET_NIGHT_PHASE", phase: p })
+            }
+            onDetail={(id) => dispatch({ type: "SET_DETAIL", id })}
+            onBackToSetup={() => dispatch({ type: "GO_BACK_TO_SETUP" })}
+            onReset={() => dispatch({ type: "RESET" })}
+          />
+        )}
+      </div>
+
+      {/* Character detail slide-in (all steps) */}
+      {detailChar && detailEffStr && (
         <>
-          {/* Backdrop */}
           <div
             style={{
               position: "fixed",
@@ -407,12 +281,15 @@ export default function Home() {
             onClick={() => dispatch({ type: "SET_DETAIL", id: null })}
           />
           <CharacterDetail
-            character={detailCharacter}
-            effectiveStrength={detailEffectiveStrength}
+            character={detailChar}
+            effectiveStrength={detailEffStr}
             allCharacters={allCharacters}
-            selectedIds={selectedIds}
+            selectedIds={contextIds}
             onClose={() => dispatch({ type: "SET_DETAIL", id: null })}
-            onToggle={(id) => dispatch({ type: "TOGGLE_CHARACTER", id })}
+            onToggle={(id) => {
+              if (step === "script") dispatch({ type: "TOGGLE_SCRIPT_CHAR", id });
+              else if (step === "setup") dispatch({ type: "TOGGLE_GAME_CHAR", id });
+            }}
             onNavigate={(id) => dispatch({ type: "SET_DETAIL", id })}
           />
         </>

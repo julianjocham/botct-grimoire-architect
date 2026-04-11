@@ -65,3 +65,26 @@ h1, h2, h3, .font-display {
 .team-outsider { color: #9b7fd5; border-color: #4a2a7f; }
 .team-minion { color: #d5825b; border-color: #7f2a2a; }
 .team-demon { color: #d55b5b; border-color: #7f1a1a; }
+
+/* Print: hide all UI, show only the game script */
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  /* Hide everything that's not .print-only */
+  body *:not(.print-only):not(.print-only *) {
+    visibility: hidden !important;
+  }
+  .print-only {
+    visibility: visible !important;
+    display: block !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: #fff !important;
+    color: #000 !important;
+    z-index: 9999 !important;
+  }
+}
