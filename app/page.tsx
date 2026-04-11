@@ -2,7 +2,7 @@
 
 import { useReducer, useMemo } from "react";
 import { GrimoireState, GrimoireAction } from "@/lib/types";
-import { allCharacters, interactions, getEditionPool } from "@/lib/data";
+import { allCharacters, interactions, getEditionPool, getEditionTravelers } from "@/lib/data";
 import { calculateEffectiveStrength } from "@/lib/engine";
 import { CharacterDetail } from "@/components/CharacterDetail";
 import { ScriptStep } from "@/components/ScriptStep";
@@ -101,12 +101,6 @@ export default function Home() {
   // Steps 2 + 3: context is the in-game characters — counters, interactions, and
   // strength modifiers only reflect characters actually in play.
   const contextIds = step === "script" ? scriptIds : gameIds;
-  const detailChar = detailCharacterId
-    ? (allCharacters.find((c) => c.id === detailCharacterId) ?? null)
-    : null;
-  const detailEffStr = detailCharacterId
-    ? calculateEffectiveStrength(detailCharacterId, contextIds, allCharacters, interactions)
-    : null;
 
   // Edition pools for the script step cards
   const editionPools = useMemo(
@@ -117,6 +111,24 @@ export default function Home() {
     }),
     []
   );
+
+  // Travelers available for the current script source
+  const editionTravelers = useMemo(
+    () => (scriptSource && scriptSource !== "custom" ? getEditionTravelers(scriptSource) : []),
+    [scriptSource]
+  );
+
+  // CharacterDetail lookup includes travelers so traveler detail panels work
+  const allCharactersWithTravelers = useMemo(
+    () => [...allCharacters, ...editionTravelers],
+    [editionTravelers]
+  );
+  const detailChar = detailCharacterId
+    ? (allCharactersWithTravelers.find((c) => c.id === detailCharacterId) ?? null)
+    : null;
+  const detailEffStr = detailCharacterId
+    ? calculateEffectiveStrength(detailCharacterId, contextIds, allCharacters, interactions)
+    : null;
 
   return (
     <div
@@ -233,6 +245,7 @@ export default function Home() {
             playerCount={playerCount}
             gameIds={gameIds}
             allCharacters={allCharacters}
+            editionTravelers={editionTravelers}
             onSetPlayerCount={(count) => dispatch({ type: "SET_PLAYER_COUNT", count })}
             onToggleGameChar={(id) => dispatch({ type: "TOGGLE_GAME_CHAR", id })}
             onContinue={() => dispatch({ type: "GO_TO_DASHBOARD" })}
@@ -248,6 +261,7 @@ export default function Home() {
             playerCount={playerCount!}
             gameIds={gameIds}
             allCharacters={allCharacters}
+            editionTravelers={editionTravelers}
             interactions={interactions}
             nightPhase={nightPhase}
             onNightPhaseChange={(p) => dispatch({ type: "SET_NIGHT_PHASE", phase: p })}

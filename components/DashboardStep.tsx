@@ -12,6 +12,7 @@ interface DashboardStepProps {
   playerCount: number;
   gameIds: string[];
   allCharacters: Character[];
+  editionTravelers: Character[];
   interactions: Interaction[];
   nightPhase: "first" | "other";
   onNightPhaseChange: (p: "first" | "other") => void;
@@ -78,6 +79,7 @@ export function DashboardStep({
   playerCount,
   gameIds,
   allCharacters,
+  editionTravelers,
   interactions,
   nightPhase,
   onNightPhaseChange,
@@ -85,16 +87,19 @@ export function DashboardStep({
   onBackToSetup,
   onReset,
 }: DashboardStepProps) {
-  const gameChars = allCharacters.filter((c) => gameIds.includes(c.id));
+  const travelerIdSet = new Set(editionTravelers.map((t) => t.id));
+  const coreGameIds = gameIds.filter((id) => !travelerIdSet.has(id));
+  const selectedTravelers = editionTravelers.filter((t) => gameIds.includes(t.id));
+  const gameChars = allCharacters.filter((c) => coreGameIds.includes(c.id));
 
   const analysis = useMemo(
-    () => analyzeScript(gameIds, allCharacters, interactions, "game"),
-    [gameIds, allCharacters, interactions]
+    () => analyzeScript(coreGameIds, allCharacters, interactions, "game"),
+    [coreGameIds, allCharacters, interactions]
   );
 
   const { good: goodTotal, evil: evilTotal } = useMemo(
-    () => calculateStrengthTotals(gameIds, allCharacters),
-    [gameIds, allCharacters]
+    () => calculateStrengthTotals(coreGameIds, allCharacters),
+    [coreGameIds, allCharacters]
   );
 
   const strengthRange = Math.max(Math.abs(goodTotal), Math.abs(evilTotal), 100);
@@ -153,7 +158,8 @@ export function DashboardStep({
               marginTop: 2,
             }}
           >
-            {playerCount} players · {gameIds.length} characters in play
+            {playerCount} players · {coreGameIds.length} characters
+            {selectedTravelers.length > 0 ? ` + ${selectedTravelers.length} traveler${selectedTravelers.length > 1 ? "s" : ""}` : ""} in play
           </div>
         </div>
         <div style={{ display: "flex", gap: 8 }}>
@@ -271,6 +277,41 @@ export function DashboardStep({
               </div>
             );
           })}
+          {selectedTravelers.length > 0 && (
+            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+              <div
+                style={{
+                  fontFamily: "var(--font-cinzel)",
+                  fontSize: 9,
+                  color: "#b8965a",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  minWidth: 64,
+                  flexShrink: 0,
+                }}
+              >
+                Travelers
+              </div>
+              {selectedTravelers.map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => onDetail(c.id)}
+                  style={{
+                    background: "#1a1500",
+                    border: "1px solid #4a3a20",
+                    borderRadius: 5,
+                    padding: "4px 10px",
+                    color: "#b8965a",
+                    cursor: "pointer",
+                    fontFamily: "var(--font-cinzel)",
+                    fontSize: 11,
+                  }}
+                >
+                  {c.name}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

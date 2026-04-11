@@ -132,6 +132,7 @@ export interface EditionConfig {
   name: string;
   description: string;
   characters: string[];
+  travelers?: string[];
 }
 
 // Night order step

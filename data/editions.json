@@ -9,7 +9,8 @@
       "butler", "drunk", "recluse", "saint",
       "poisoner", "spy", "scarletwoman", "baron",
       "imp"
-    ]
+    ],
+    "travelers": ["scapegoat", "gunslinger", "beggar", "bureaucrat", "thief"]
   },
   "bmr": {
     "name": "Bad Moon Rising",
@@ -21,7 +22,8 @@
       "tinker", "moonchild", "goon", "lunatic",
       "godfather", "devilsadvocate", "assassin", "mastermind",
       "zombuul", "pukka", "shabaloth", "po"
-    ]
+    ],
+    "travelers": ["apprentice", "matron", "voudon", "judge", "bishop"]
   },
   "snv": {
     "name": "Sects & Violets",
@@ -33,7 +35,8 @@
       "mutant", "sweetheart", "barber", "klutz",
       "eviltwin", "witch", "cerenovus", "pithag",
       "fanggu", "vigormortis", "nodashii", "vortox"
-    ]
+    ],
+    "travelers": ["butcher", "bonecollector", "harlot", "barista", "deviant"]
   },
   "carousel": {
     "name": "The Carousel",

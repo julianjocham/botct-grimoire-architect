@@ -12,6 +12,7 @@ interface GameSetupStepProps {
   playerCount: number | null;
   gameIds: string[];
   allCharacters: Character[];
+  editionTravelers: Character[];
   onSetPlayerCount: (n: number | null) => void;
   onToggleGameChar: (id: string) => void;
   onContinue: () => void;
@@ -518,6 +519,7 @@ export function GameSetupStep({
   playerCount,
   gameIds,
   allCharacters,
+  editionTravelers,
   onSetPlayerCount,
   onToggleGameChar,
   onContinue,
@@ -528,21 +530,28 @@ export function GameSetupStep({
   const rawReq = playerCount ? RAW_COUNTS[String(playerCount)] : null;
   const req = rawReq ? getAdjustedReq(rawReq, gameIds) : null;
 
-  const travelerCount = playerCount && playerCount > 15 ? playerCount - 15 : 0;
+  const neededTravelers = playerCount && playerCount > 15 ? playerCount - 15 : 0;
+  const travelerIdSet = new Set(editionTravelers.map((t) => t.id));
+  const coreGameIds = gameIds.filter((id) => !travelerIdSet.has(id));
+  const selectedTravelerIds = gameIds.filter((id) => travelerIdSet.has(id));
 
   const gameCounts = {
-    townsfolk: gameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "townsfolk")
+    townsfolk: coreGameIds.filter(
+      (id) => allCharacters.find((c) => c.id === id)?.team === "townsfolk"
+    ).length,
+    outsider: coreGameIds.filter(
+      (id) => allCharacters.find((c) => c.id === id)?.team === "outsider"
+    ).length,
+    minion: coreGameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "minion")
       .length,
-    outsider: gameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "outsider")
+    demon: coreGameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "demon")
       .length,
-    minion: gameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "minion")
-      .length,
-    demon: gameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "demon").length,
   };
 
   const totalNeeded = req ? req.townsfolk + req.outsider + req.minion + req.demon : 0;
-  const totalHave = gameIds.length;
-  const isComplete = req !== null && totalHave === totalNeeded;
+  const coreComplete = req !== null && coreGameIds.length === totalNeeded;
+  const travelersComplete = selectedTravelerIds.length === neededTravelers;
+  const isComplete = coreComplete && travelersComplete;
 
   const activeModifiers = Object.entries(SETUP_MODIFIERS)
     .filter(([id]) => gameIds.includes(id))
@@ -657,7 +666,7 @@ export function GameSetupStep({
               );
             })}
           </div>
-          {travelerCount > 0 && playerCount && (
+          {neededTravelers > 0 && playerCount && (
             <div
               style={{
                 fontFamily: "var(--font-garamond)",
@@ -666,8 +675,8 @@ export function GameSetupStep({
                 marginTop: 8,
               }}
             >
-              Travelers fill the extra {travelerCount} slot{travelerCount > 1 ? "s" : ""} — they are
-              not from your script.
+              Travelers fill the extra {neededTravelers} slot{neededTravelers > 1 ? "s" : ""} —
+              they are not from your script.
             </div>
           )}
         </div>
@@ -761,6 +770,49 @@ export function GameSetupStep({
                     </div>
                   );
                 })}
+                {neededTravelers > 0 && (
+                  <div
+                    style={{
+                      flex: 1,
+                      background: "#0a0a14",
+                      border: `2px solid ${travelersComplete ? "#4a3a20" : "#2a2a3a"}`,
+                      borderRadius: 8,
+                      padding: "10px 6px",
+                      textAlign: "center",
+                      transition: "border-color 0.2s",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: "var(--font-jetbrains)",
+                        fontSize: 22,
+                        color: travelersComplete ? "#b8965a" : "#333",
+                        lineHeight: 1,
+                      }}
+                    >
+                      {selectedTravelerIds.length}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-jetbrains)",
+                        fontSize: 10,
+                        color: "#333",
+                        margin: "2px 0",
+                      }}
+                    >
+                      / {neededTravelers}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-garamond)",
+                        fontSize: 11,
+                        color: "#555",
+                      }}
+                    >
+                      Travelers
+                    </div>
+                  </div>
+                )}
               </div>
               {activeModifiers.length > 0 && (
                 <div style={{ marginTop: 10, display: "flex", flexDirection: "column", gap: 3 }}>
@@ -951,6 +1003,94 @@ export function GameSetupStep({
               })}
             </div>
 
+            {/* Traveler picker — only when 16+ players and edition has travelers */}
+            {neededTravelers > 0 && editionTravelers.length > 0 && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-cinzel)",
+                      fontSize: 11,
+                      color: "#b8965a",
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Travelers
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-jetbrains)",
+                      fontSize: 11,
+                      color: travelersComplete ? "#b8965a" : "#555",
+                      background: "#0a0a14",
+                      border: `1px solid ${travelersComplete ? "#4a3a20" : "#2a2a3a"}`,
+                      borderRadius: 10,
+                      padding: "2px 10px",
+                    }}
+                  >
+                    {selectedTravelerIds.length} / {neededTravelers}
+                  </div>
+                  <div
+                    style={{ fontFamily: "var(--font-garamond)", fontSize: 11, color: "#444" }}
+                  >
+                    (choose {neededTravelers} traveler{neededTravelers !== 1 ? "s" : ""})
+                  </div>
+                </div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                  {editionTravelers.map((traveler) => {
+                    const inGame = gameIds.includes(traveler.id);
+                    const blocked = !inGame && travelersComplete;
+                    return (
+                      <div
+                        key={traveler.id}
+                        style={{
+                          display: "flex",
+                          border: `1px solid ${inGame ? "#4a3a20" : "#2a2a3a"}`,
+                          borderRadius: 7,
+                          overflow: "hidden",
+                          opacity: blocked ? 0.3 : 1,
+                          transition: "all 0.1s ease",
+                        }}
+                      >
+                        <button
+                          onClick={() => onDetail(traveler.id)}
+                          style={{
+                            background: inGame ? "#1a1500" : "#14141f",
+                            border: "none",
+                            borderRight: `1px solid ${inGame ? "#4a3a20" : "#2a2a3a"}`,
+                            padding: "6px 10px",
+                            color: inGame ? "#b8965a" : "#666",
+                            cursor: "pointer",
+                            fontFamily: "var(--font-cinzel)",
+                            fontSize: 12,
+                          }}
+                        >
+                          {traveler.name}
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (!blocked) onToggleGameChar(traveler.id);
+                          }}
+                          disabled={blocked}
+                          style={{
+                            background: inGame ? "#1a1500" : "#14141f",
+                            border: "none",
+                            padding: "6px 10px",
+                            color: inGame ? "#b8965a" : "#555",
+                            cursor: blocked ? "default" : "pointer",
+                            fontSize: 13,
+                          }}
+                        >
+                          {inGame ? "−" : "+"}
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
             {/* Continue */}
             <div style={{ display: "flex", justifyContent: "flex-end", paddingTop: 8 }}>
               <button
@@ -970,7 +1110,9 @@ export function GameSetupStep({
               >
                 {isComplete
                   ? "View Dashboard →"
-                  : `Select ${totalNeeded - totalHave} more character${totalNeeded - totalHave !== 1 ? "s" : ""}…`}
+                  : coreComplete && neededTravelers > 0
+                    ? `Select ${neededTravelers - selectedTravelerIds.length} more traveler${neededTravelers - selectedTravelerIds.length !== 1 ? "s" : ""}…`
+                    : `Select ${totalNeeded - coreGameIds.length} more character${totalNeeded - coreGameIds.length !== 1 ? "s" : ""}…`}
               </button>
             </div>
           </>
