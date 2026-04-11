@@ -42,10 +42,10 @@ const EDITION_LABELS: Record<string, string> = {
 
 const SETUP_MODIFIERS: Record<string, { townsfolk?: number; outsider?: number; label: string }> = {
   baron:       { outsider: 2, townsfolk: -2, label: "Baron: +2 Outsiders, −2 Townsfolk" },
-  godfather:   { outsider: 1,               label: "Godfather: +1 Outsider" },
-  vigormortis: { outsider: -1,              label: "Vigormortis: −1 Outsider" },
-  fanggu:      { outsider: 1,               label: "Fang Gu: +1 Outsider" },
-  balloonist:  { outsider: 1,               label: "Balloonist: +1 Outsider" },
+  godfather:   { outsider: 1, townsfolk: -1, label: "Godfather: +1 Outsider, −1 Townsfolk" },
+  vigormortis: { outsider: -1, townsfolk: 1, label: "Vigormortis: −1 Outsider, +1 Townsfolk" },
+  fanggu:      { outsider: 1, townsfolk: -1, label: "Fang Gu: +1 Outsider, −1 Townsfolk" },
+  balloonist:  { outsider: 1, townsfolk: -1, label: "Balloonist: +1 Outsider, −1 Townsfolk" },
 };
 
 const RAW_COUNTS = playerCountsData.counts as Record<
