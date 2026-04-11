@@ -16,6 +16,30 @@ interface CharacterDetailProps {
 
 const COMPLEXITY_LABEL = ["", "Passive", "Simple", "Recurring", "State-tracking", "Multi-state"];
 
+function SubDimBar({
+  label, value, min, max, color, suffix = "", tooltip,
+}: {
+  label: string; value: number; min: number; max: number;
+  color: string; suffix?: string; tooltip: string;
+}) {
+  const pct = Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100));
+  return (
+    <div title={tooltip}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+        <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 9, color: "#555", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+          {label}
+        </span>
+        <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 9, color }}>
+          {value}{suffix}
+        </span>
+      </div>
+      <div style={{ height: 3, background: "#1a1a2a", borderRadius: 2, overflow: "hidden" }}>
+        <div style={{ height: "100%", width: `${pct}%`, background: color, borderRadius: 2 }} />
+      </div>
+    </div>
+  );
+}
+
 export function CharacterDetail({
   character,
   effectiveStrength,
@@ -138,7 +162,51 @@ export function CharacterDetail({
                   marginTop: 4,
                 }}
               >
-                Base {baseStrength > 0 ? "+" : ""}{baseStrength} → {modifier > 0 ? "+" : ""}{modifier} (script context) → {eff > 0 ? "+" : ""}{eff}
+                Base {baseStrength > 0 ? "+" : ""}{baseStrength} → {modifier > 0 ? "+" : ""}{modifier} (context) → {eff > 0 ? "+" : ""}{eff}
+              </div>
+            )}
+            {/* Sub-dimensions */}
+            {(character.strength.peakPower !== undefined ||
+              character.strength.reliability !== undefined ||
+              character.strength.vulnerability !== undefined) && (
+              <div style={{ marginTop: 10, display: "flex", flexDirection: "column", gap: 5 }}>
+                {character.strength.peakPower !== undefined && (
+                  <SubDimBar
+                    label="Peak Power"
+                    value={character.strength.peakPower}
+                    min={-20} max={20}
+                    color={character.strength.peakPower >= 0 ? "#2a7fd4" : "#c0392b"}
+                    tooltip="Maximum impact in the best-case scenario (-20 to +20)"
+                  />
+                )}
+                {character.strength.reliability !== undefined && (
+                  <SubDimBar
+                    label="Reliability"
+                    value={Math.round(character.strength.reliability * 100)}
+                    min={0} max={100}
+                    color="#b8965a"
+                    suffix="%"
+                    tooltip="How often the ability works as intended (0–100%)"
+                  />
+                )}
+                {character.strength.vulnerability !== undefined && (
+                  <SubDimBar
+                    label="Vulnerability"
+                    value={Math.round(character.strength.vulnerability * 100)}
+                    min={0} max={100}
+                    color="#c0392b"
+                    suffix="%"
+                    tooltip="How exposed to disruption or countering the character is (0–100%)"
+                  />
+                )}
+                {character.strength.scalingBonus !== undefined && character.strength.scalingBonus !== 0 && (
+                  <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--font-jetbrains)", fontSize: 9, color: "#555" }}>
+                    <span title="Bonus or penalty in larger games">Scaling</span>
+                    <span style={{ color: character.strength.scalingBonus > 0 ? "#2a7fd4" : "#c0392b" }}>
+                      {character.strength.scalingBonus > 0 ? "+" : ""}{character.strength.scalingBonus} large games
+                    </span>
+                  </div>
+                )}
               </div>
             )}
             {reasons.length > 0 && (

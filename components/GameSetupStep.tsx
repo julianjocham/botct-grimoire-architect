@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { Character, EditionKey } from "@/lib/types";
+import { Character, EditionKey, Interaction } from "@/lib/types";
 import { analyzeScript, calculateEffectiveStrength } from "@/lib/engine";
 import { interactions as allInteractions } from "@/lib/data";
 import playerCountsData from "@/data/playerCounts.json";
@@ -488,12 +488,23 @@ export function GameSetupStep({
                         const blocked = !inGame && isFull;
                         // Counter badge: how many of this char's counters are in the game
                         const countersInGame = (char.counters ?? []).filter((id) => gameIds.includes(id)).length;
+                        // Synergy badge: how many synergies this char has with already-selected game chars
+                        const synergiesInGame = allInteractions.filter(
+                          (i: Interaction) =>
+                            i.type === "synergy" &&
+                            ((i.a === char.id && gameIds.includes(i.b)) ||
+                             (i.b === char.id && gameIds.includes(i.a)))
+                        );
+                        const synergySummary = synergiesInGame.length > 0
+                          ? synergiesInGame.map((i: Interaction) => i.title).join("\n")
+                          : "";
+
                         return (
                           <div
                             key={char.id}
                             style={{
                               display: "flex",
-                              border: `1px solid ${inGame ? c.border : "#2a2a3a"}`,
+                              border: `1px solid ${inGame ? c.border : synergiesInGame.length > 0 ? "#2a4a20" : "#2a2a3a"}`,
                               borderRadius: 7,
                               overflow: "hidden",
                               opacity: blocked ? 0.3 : 1,
@@ -503,7 +514,7 @@ export function GameSetupStep({
                             <button
                               onClick={() => onDetail(char.id)}
                               style={{
-                                background: inGame ? c.bg : "#14141f",
+                                background: inGame ? c.bg : synergiesInGame.length > 0 ? "#0d1a0d" : "#14141f",
                                 border: "none",
                                 borderRight: `1px solid ${inGame ? c.border : "#2a2a3a"}`,
                                 padding: "6px 10px",
@@ -517,6 +528,14 @@ export function GameSetupStep({
                               }}
                             >
                               {char.name}
+                              {synergiesInGame.length > 0 && !inGame && (
+                                <span
+                                  title={synergySummary}
+                                  style={{ fontFamily: "var(--font-jetbrains)", fontSize: 8, color: "#4a9a4a", background: "#0d1a0d", border: "1px solid #2a4a20", borderRadius: 3, padding: "0 3px", cursor: "help" }}
+                                >
+                                  ✦{synergiesInGame.length}
+                                </span>
+                              )}
                               {countersInGame > 0 && (
                                 <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 8, color: "#b8965a", background: "#2a1a00", border: "1px solid #7a5a00", borderRadius: 3, padding: "0 3px" }}>
                                   ⚔{countersInGame}
