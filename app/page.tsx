@@ -102,7 +102,7 @@ export default function Home() {
   // strength modifiers only reflect characters actually in play.
   const contextIds = step === "script" ? scriptIds : gameIds;
   const detailChar = detailCharacterId
-    ? allCharacters.find((c) => c.id === detailCharacterId) ?? null
+    ? (allCharacters.find((c) => c.id === detailCharacterId) ?? null)
     : null;
   const detailEffStr = detailCharacterId
     ? calculateEffectiveStrength(detailCharacterId, contextIds, allCharacters, interactions)
@@ -217,13 +217,9 @@ export default function Home() {
             allCharacters={allCharacters}
             editionPools={editionPools}
             searchQuery={searchQuery}
-            onSelectEdition={(ed, ids) =>
-              dispatch({ type: "SELECT_EDITION", edition: ed, ids })
-            }
+            onSelectEdition={(ed, ids) => dispatch({ type: "SELECT_EDITION", edition: ed, ids })}
             onSelectCustom={() => dispatch({ type: "SELECT_CUSTOM" })}
-            onToggleScriptChar={(id) =>
-              dispatch({ type: "TOGGLE_SCRIPT_CHAR", id })
-            }
+            onToggleScriptChar={(id) => dispatch({ type: "TOGGLE_SCRIPT_CHAR", id })}
             onContinue={() => dispatch({ type: "GO_TO_SETUP" })}
             onSearch={(q) => dispatch({ type: "SET_SEARCH", query: q })}
             onDetail={(id) => dispatch({ type: "SET_DETAIL", id })}
@@ -237,12 +233,8 @@ export default function Home() {
             playerCount={playerCount}
             gameIds={gameIds}
             allCharacters={allCharacters}
-            onSetPlayerCount={(count) =>
-              dispatch({ type: "SET_PLAYER_COUNT", count })
-            }
-            onToggleGameChar={(id) =>
-              dispatch({ type: "TOGGLE_GAME_CHAR", id })
-            }
+            onSetPlayerCount={(count) => dispatch({ type: "SET_PLAYER_COUNT", count })}
+            onToggleGameChar={(id) => dispatch({ type: "TOGGLE_GAME_CHAR", id })}
             onContinue={() => dispatch({ type: "GO_TO_DASHBOARD" })}
             onBack={() => dispatch({ type: "GO_BACK_TO_SCRIPT" })}
             onDetail={(id) => dispatch({ type: "SET_DETAIL", id })}
@@ -258,9 +250,7 @@ export default function Home() {
             allCharacters={allCharacters}
             interactions={interactions}
             nightPhase={nightPhase}
-            onNightPhaseChange={(p) =>
-              dispatch({ type: "SET_NIGHT_PHASE", phase: p })
-            }
+            onNightPhaseChange={(p) => dispatch({ type: "SET_NIGHT_PHASE", phase: p })}
             onDetail={(id) => dispatch({ type: "SET_DETAIL", id })}
             onBackToSetup={() => dispatch({ type: "GO_BACK_TO_SETUP" })}
             onReset={() => dispatch({ type: "RESET" })}

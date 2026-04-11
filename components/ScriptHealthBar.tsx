@@ -44,7 +44,7 @@ const CAT_SHORT: Partial<Record<AbilityCategory, string>> = {
   "info-start": "Info (1st)",
   "info-recurring": "Info (Rec)",
   "info-on-death": "Info (Death)",
-  "protection": "Protection",
+  protection: "Protection",
   "day-ability": "Day Ability",
   "once-per-game": "Once/Game",
   "info-disruption": "Misinfo",
@@ -122,9 +122,16 @@ function FeelBar({
 }
 
 export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
-  const { scriptFeel, nightComplexity, interactionHints, compositionWarnings, goodStrengthTotal, evilStrengthTotal } = analysis;
-  const criticalCount = interactionHints.filter(h => h.severity === "critical").length;
-  const warnCount = compositionWarnings.filter(w => w.severity !== "tip").length;
+  const {
+    scriptFeel,
+    nightComplexity,
+    interactionHints,
+    compositionWarnings,
+    goodStrengthTotal,
+    evilStrengthTotal,
+  } = analysis;
+  const criticalCount = interactionHints.filter((h) => h.severity === "critical").length;
+  const warnCount = compositionWarnings.filter((w) => w.severity !== "tip").length;
 
   return (
     <div
@@ -142,7 +149,12 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
       {/* Script feel bars */}
       <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
         <FeelBar label="Info" value={scriptFeel.infoLevel} levelMap={INFO_LEVEL} maxBars={4} />
-        <FeelBar label="Lethal" value={scriptFeel.lethalityLevel} levelMap={LETHAL_LEVEL} maxBars={3} />
+        <FeelBar
+          label="Lethal"
+          value={scriptFeel.lethalityLevel}
+          levelMap={LETHAL_LEVEL}
+          maxBars={3}
+        />
         <FeelBar label="Chaos" value={scriptFeel.chaosLevel} levelMap={CHAOS_LEVEL} maxBars={3} />
         <FeelBar label="ST Load" value={scriptFeel.stWorkload} levelMap={ST_LEVEL} maxBars={3} />
       </div>
@@ -195,13 +207,32 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
       {/* Strength totals */}
       <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 9, color: "#2a7fd4", textTransform: "uppercase" }}>Good</span>
+          <span
+            style={{
+              fontFamily: "var(--font-jetbrains)",
+              fontSize: 9,
+              color: "#2a7fd4",
+              textTransform: "uppercase",
+            }}
+          >
+            Good
+          </span>
           <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 11, color: "#2a7fd4" }}>
-            {goodStrengthTotal > 0 ? "+" : ""}{goodStrengthTotal}
+            {goodStrengthTotal > 0 ? "+" : ""}
+            {goodStrengthTotal}
           </span>
         </div>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 9, color: "#c0392b", textTransform: "uppercase" }}>Evil</span>
+          <span
+            style={{
+              fontFamily: "var(--font-jetbrains)",
+              fontSize: 9,
+              color: "#c0392b",
+              textTransform: "uppercase",
+            }}
+          >
+            Evil
+          </span>
           <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 11, color: "#c0392b" }}>
             {evilStrengthTotal}
           </span>
@@ -260,7 +291,9 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
           return (
             <span
               key={cat}
-              title={present ? (analysis.categoryCoverage.good[cat] ?? []).join(", ") : `Missing: ${cat}`}
+              title={
+                present ? (analysis.categoryCoverage.good[cat] ?? []).join(", ") : `Missing: ${cat}`
+              }
               style={{
                 fontSize: 9,
                 padding: "2px 5px",
@@ -281,7 +314,9 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
           return (
             <span
               key={cat}
-              title={present ? (analysis.categoryCoverage.evil[cat] ?? []).join(", ") : `Missing: ${cat}`}
+              title={
+                present ? (analysis.categoryCoverage.evil[cat] ?? []).join(", ") : `Missing: ${cat}`
+              }
               style={{
                 fontSize: 9,
                 padding: "2px 5px",

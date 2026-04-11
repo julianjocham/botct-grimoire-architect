@@ -17,20 +17,40 @@ interface CharacterDetailProps {
 const COMPLEXITY_LABEL = ["", "Passive", "Simple", "Recurring", "State-tracking", "Multi-state"];
 
 function SubDimBar({
-  label, value, min, max, color, suffix = "", tooltip,
+  label,
+  value,
+  min,
+  max,
+  color,
+  suffix = "",
+  tooltip,
 }: {
-  label: string; value: number; min: number; max: number;
-  color: string; suffix?: string; tooltip: string;
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  color: string;
+  suffix?: string;
+  tooltip: string;
 }) {
   const pct = Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100));
   return (
     <div title={tooltip}>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-        <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 9, color: "#555", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+        <span
+          style={{
+            fontFamily: "var(--font-jetbrains)",
+            fontSize: 9,
+            color: "#555",
+            textTransform: "uppercase",
+            letterSpacing: "0.05em",
+          }}
+        >
           {label}
         </span>
         <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 9, color }}>
-          {value}{suffix}
+          {value}
+          {suffix}
         </span>
       </div>
       <div style={{ height: 3, background: "#1a1a2a", borderRadius: 2, overflow: "hidden" }}>
@@ -104,7 +124,8 @@ export function CharacterDetail({
               textTransform: "capitalize",
             }}
           >
-            {character.team} · {character.edition?.toUpperCase() || "Experimental"} · ST Complexity: {COMPLEXITY_LABEL[character.stComplexity ?? 2]}
+            {character.team} · {character.edition?.toUpperCase() || "Experimental"} · ST Complexity:{" "}
+            {COMPLEXITY_LABEL[character.stComplexity ?? 2]}
           </div>
         </div>
         <button
@@ -126,7 +147,16 @@ export function CharacterDetail({
       <div style={{ padding: "12px 16px", display: "flex", flexDirection: "column", gap: 14 }}>
         {/* Ability text */}
         <div>
-          <div style={{ fontFamily: "var(--font-jetbrains)", fontSize: 10, color: "#666", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+          <div
+            style={{
+              fontFamily: "var(--font-jetbrains)",
+              fontSize: 10,
+              color: "#666",
+              marginBottom: 4,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+            }}
+          >
             Ability
           </div>
           <div
@@ -142,14 +172,23 @@ export function CharacterDetail({
               padding: "8px 10px",
             }}
           >
-            "{character.ability}"
+            &ldquo;{character.ability}&rdquo;
           </div>
         </div>
 
         {/* Strength */}
         {character.strength?.composite !== undefined && (
           <div>
-            <div style={{ fontFamily: "var(--font-jetbrains)", fontSize: 10, color: "#666", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <div
+              style={{
+                fontFamily: "var(--font-jetbrains)",
+                fontSize: 10,
+                color: "#666",
+                marginBottom: 6,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+              }}
+            >
               Strength
             </div>
             <StrengthBar value={baseStrength} effectiveValue={eff} />
@@ -162,7 +201,10 @@ export function CharacterDetail({
                   marginTop: 4,
                 }}
               >
-                Base {baseStrength > 0 ? "+" : ""}{baseStrength} → {modifier > 0 ? "+" : ""}{modifier} (context) → {eff > 0 ? "+" : ""}{eff}
+                Base {baseStrength > 0 ? "+" : ""}
+                {baseStrength} → {modifier > 0 ? "+" : ""}
+                {modifier} (context) → {eff > 0 ? "+" : ""}
+                {eff}
               </div>
             )}
             {/* Sub-dimensions */}
@@ -174,7 +216,8 @@ export function CharacterDetail({
                   <SubDimBar
                     label="Peak Power"
                     value={character.strength.peakPower}
-                    min={-20} max={20}
+                    min={-20}
+                    max={20}
                     color={character.strength.peakPower >= 0 ? "#2a7fd4" : "#c0392b"}
                     tooltip="Maximum impact in the best-case scenario (-20 to +20)"
                   />
@@ -183,7 +226,8 @@ export function CharacterDetail({
                   <SubDimBar
                     label="Reliability"
                     value={Math.round(character.strength.reliability * 100)}
-                    min={0} max={100}
+                    min={0}
+                    max={100}
                     color="#b8965a"
                     suffix="%"
                     tooltip="How often the ability works as intended (0–100%)"
@@ -193,20 +237,35 @@ export function CharacterDetail({
                   <SubDimBar
                     label="Vulnerability"
                     value={Math.round(character.strength.vulnerability * 100)}
-                    min={0} max={100}
+                    min={0}
+                    max={100}
                     color="#c0392b"
                     suffix="%"
                     tooltip="How exposed to disruption or countering the character is (0–100%)"
                   />
                 )}
-                {character.strength.scalingBonus !== undefined && character.strength.scalingBonus !== 0 && (
-                  <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--font-jetbrains)", fontSize: 9, color: "#555" }}>
-                    <span title="Bonus or penalty in larger games">Scaling</span>
-                    <span style={{ color: character.strength.scalingBonus > 0 ? "#2a7fd4" : "#c0392b" }}>
-                      {character.strength.scalingBonus > 0 ? "+" : ""}{character.strength.scalingBonus} large games
-                    </span>
-                  </div>
-                )}
+                {character.strength.scalingBonus !== undefined &&
+                  character.strength.scalingBonus !== 0 && (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        fontFamily: "var(--font-jetbrains)",
+                        fontSize: 9,
+                        color: "#555",
+                      }}
+                    >
+                      <span title="Bonus or penalty in larger games">Scaling</span>
+                      <span
+                        style={{
+                          color: character.strength.scalingBonus > 0 ? "#2a7fd4" : "#c0392b",
+                        }}
+                      >
+                        {character.strength.scalingBonus > 0 ? "+" : ""}
+                        {character.strength.scalingBonus} large games
+                      </span>
+                    </div>
+                  )}
               </div>
             )}
             {reasons.length > 0 && (
@@ -240,7 +299,8 @@ export function CharacterDetail({
                         {char?.name ?? r.characterId}
                       </button>
                       <span style={{ color: r.impact < 0 ? "#c0392b" : "#2a7fd4" }}>
-                        {r.impact > 0 ? "+" : ""}{r.impact}
+                        {r.impact > 0 ? "+" : ""}
+                        {r.impact}
                       </span>
                     </div>
                   );
@@ -253,7 +313,16 @@ export function CharacterDetail({
         {/* ST Advice */}
         {character.stAdvice && (
           <div>
-            <div style={{ fontFamily: "var(--font-jetbrains)", fontSize: 10, color: "#666", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <div
+              style={{
+                fontFamily: "var(--font-jetbrains)",
+                fontSize: 10,
+                color: "#666",
+                marginBottom: 4,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+              }}
+            >
               ST Advice
             </div>
             <div
@@ -279,10 +348,26 @@ export function CharacterDetail({
               padding: "8px 10px",
             }}
           >
-            <div style={{ fontFamily: "var(--font-jetbrains)", fontSize: 10, color: "#d4a017", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <div
+              style={{
+                fontFamily: "var(--font-jetbrains)",
+                fontSize: 10,
+                color: "#d4a017",
+                marginBottom: 4,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+              }}
+            >
               ⚠ New ST Warning
             </div>
-            <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#c8a050", lineHeight: 1.5 }}>
+            <div
+              style={{
+                fontFamily: "var(--font-garamond)",
+                fontSize: 12,
+                color: "#c8a050",
+                lineHeight: 1.5,
+              }}
+            >
               {character.newStWarning}
             </div>
           </div>
@@ -291,18 +376,43 @@ export function CharacterDetail({
         {/* Official ST Reminder */}
         {(character.firstNightReminder || character.otherNightReminder) && (
           <div>
-            <div style={{ fontFamily: "var(--font-jetbrains)", fontSize: 10, color: "#666", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <div
+              style={{
+                fontFamily: "var(--font-jetbrains)",
+                fontSize: 10,
+                color: "#666",
+                marginBottom: 4,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+              }}
+            >
               Official Reminders
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
               {character.firstNightReminder && (
-                <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#888", lineHeight: 1.4 }}>
-                  <span style={{ color: "#555" }}>1st: </span>{character.firstNightReminder}
+                <div
+                  style={{
+                    fontFamily: "var(--font-garamond)",
+                    fontSize: 12,
+                    color: "#888",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  <span style={{ color: "#555" }}>1st: </span>
+                  {character.firstNightReminder}
                 </div>
               )}
               {character.otherNightReminder && (
-                <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#888", lineHeight: 1.4 }}>
-                  <span style={{ color: "#555" }}>Other: </span>{character.otherNightReminder}
+                <div
+                  style={{
+                    fontFamily: "var(--font-garamond)",
+                    fontSize: 12,
+                    color: "#888",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  <span style={{ color: "#555" }}>Other: </span>
+                  {character.otherNightReminder}
                 </div>
               )}
             </div>
@@ -312,7 +422,16 @@ export function CharacterDetail({
         {/* Counters on this script */}
         {countersOnScript.length > 0 && (
           <div>
-            <div style={{ fontFamily: "var(--font-jetbrains)", fontSize: 10, color: "#c0392b", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <div
+              style={{
+                fontFamily: "var(--font-jetbrains)",
+                fontSize: 10,
+                color: "#c0392b",
+                marginBottom: 6,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+              }}
+            >
               ⚔ Counters on this script
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -342,7 +461,14 @@ export function CharacterDetail({
                     {counter.name}
                   </button>
                   {character.counterDetail[counter.id] && (
-                    <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#888", lineHeight: 1.4 }}>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-garamond)",
+                        fontSize: 12,
+                        color: "#888",
+                        lineHeight: 1.4,
+                      }}
+                    >
                       {character.counterDetail[counter.id]}
                     </div>
                   )}
@@ -355,10 +481,26 @@ export function CharacterDetail({
         {/* Bluff advice */}
         {character.bluffAdvice && (
           <div>
-            <div style={{ fontFamily: "var(--font-jetbrains)", fontSize: 10, color: "#666", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <div
+              style={{
+                fontFamily: "var(--font-jetbrains)",
+                fontSize: 10,
+                color: "#666",
+                marginBottom: 4,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+              }}
+            >
               Bluff Advice
             </div>
-            <div style={{ fontFamily: "var(--font-garamond)", fontSize: 13, color: "#c8b89a", lineHeight: 1.5 }}>
+            <div
+              style={{
+                fontFamily: "var(--font-garamond)",
+                fontSize: 13,
+                color: "#c8b89a",
+                lineHeight: 1.5,
+              }}
+            >
               {character.bluffAdvice}
             </div>
           </div>

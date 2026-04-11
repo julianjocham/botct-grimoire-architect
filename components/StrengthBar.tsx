@@ -29,10 +29,7 @@ export function StrengthBar({
   return (
     <div className={`flex items-center gap-1 ${small ? "gap-0.5" : ""}`}>
       {/* Negative side */}
-      <div
-        className="flex-1 flex justify-end"
-        style={{ height: small ? 4 : 6 }}
-      >
+      <div className="flex-1 flex justify-end" style={{ height: small ? 4 : 6 }}>
         <div
           style={{
             width: !isPositive ? barWidth : "0%",

@@ -35,7 +35,10 @@ export default function RootLayout({
       lang="en"
       className={`${cinzel.variable} ${garamond.variable} ${jetbrains.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col" style={{ background: "var(--bg-base)", color: "var(--parchment)" }}>
+      <body
+        className="min-h-full flex flex-col"
+        style={{ background: "var(--bg-base)", color: "var(--parchment)" }}
+      >
         {children}
       </body>
     </html>

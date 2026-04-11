@@ -33,9 +33,8 @@ export function CompositionPanel({
     minion: selectedIds.filter((id) =>
       allCharacters.find((c) => c.id === id && c.team === "minion")
     ).length,
-    demon: selectedIds.filter((id) =>
-      allCharacters.find((c) => c.id === id && c.team === "demon")
-    ).length,
+    demon: selectedIds.filter((id) => allCharacters.find((c) => c.id === id && c.team === "demon"))
+      .length,
   };
 
   const TARGETS = { townsfolk: 13, outsider: 4, minion: 4, demon: 1 };
@@ -120,8 +119,8 @@ export function CompositionPanel({
                     w.severity === "critical"
                       ? "#1a0808"
                       : w.severity === "important"
-                      ? "#1a1500"
-                      : "#0a140a",
+                        ? "#1a1500"
+                        : "#0a140a",
                   border: `1px solid ${w.severity === "critical" ? "#8b1a1a" : w.severity === "important" ? "#7a5a00" : "#1a4a2e"}`,
                   borderRadius: 6,
                   padding: "8px 10px",
@@ -301,8 +300,8 @@ export function CompositionPanel({
                   background: isActive
                     ? "rgba(139,26,26,0.18)"
                     : supported
-                    ? "rgba(45,106,79,0.07)"
-                    : "transparent",
+                      ? "rgba(45,106,79,0.07)"
+                      : "transparent",
                   outline: isActive ? "1px solid #8b1a1a" : "none",
                   outlineOffset: -1,
                   borderRadius: isActive ? 3 : 0,

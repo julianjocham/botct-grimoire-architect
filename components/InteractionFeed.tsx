@@ -8,24 +8,22 @@ interface InteractionFeedProps {
   onDetail: (id: string) => void;
 }
 
-const SEVERITY_STYLES: Record<
-  string,
-  { border: string; bg: string; icon: string; label: string }
-> = {
-  critical: {
-    border: "#8b1a1a",
-    bg: "#1a0808",
-    icon: "⚠",
-    label: "Critical",
-  },
-  important: {
-    border: "#7a5a00",
-    bg: "#1a1500",
-    icon: "⚡",
-    label: "Important",
-  },
-  tip: { border: "#1a4a2e", bg: "#0a1a10", icon: "💡", label: "Tip" },
-};
+const SEVERITY_STYLES: Record<string, { border: string; bg: string; icon: string; label: string }> =
+  {
+    critical: {
+      border: "#8b1a1a",
+      bg: "#1a0808",
+      icon: "⚠",
+      label: "Critical",
+    },
+    important: {
+      border: "#7a5a00",
+      bg: "#1a1500",
+      icon: "⚡",
+      label: "Important",
+    },
+    tip: { border: "#1a4a2e", bg: "#0a1a10", icon: "💡", label: "Tip" },
+  };
 
 // Jinx interactions get their own distinct visual treatment
 const JINX_STYLE = {
@@ -35,11 +33,7 @@ const JINX_STYLE = {
   label: "Djinn Jinx",
 };
 
-export function InteractionFeed({
-  hints,
-  characters,
-  onDetail,
-}: InteractionFeedProps) {
+export function InteractionFeed({ hints, characters, onDetail }: InteractionFeedProps) {
   if (hints.length === 0) {
     return (
       <div

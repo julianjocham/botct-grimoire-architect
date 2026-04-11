@@ -21,12 +21,13 @@ const TEAM_LABEL: Record<string, string> = {
   minion: "Minions",
   demon: "Demons",
 };
-const TEAM_COLORS: Record<string, { text: string; border: string; bg: string; selected: string }> = {
-  townsfolk: { text: "#5b9bd5", border: "#2a4a7f", bg: "#0d1a2e", selected: "#1a3060" },
-  outsider:  { text: "#9b7fd5", border: "#4a2a7f", bg: "#1a0d2e", selected: "#2e1a50" },
-  minion:    { text: "#d5825b", border: "#7f2a2a", bg: "#2e0d0d", selected: "#4a1a1a" },
-  demon:     { text: "#d55b5b", border: "#7f1a1a", bg: "#2e0808", selected: "#5a1010" },
-};
+const TEAM_COLORS: Record<string, { text: string; border: string; bg: string; selected: string }> =
+  {
+    townsfolk: { text: "#5b9bd5", border: "#2a4a7f", bg: "#0d1a2e", selected: "#1a3060" },
+    outsider: { text: "#9b7fd5", border: "#4a2a7f", bg: "#1a0d2e", selected: "#2e1a50" },
+    minion: { text: "#d5825b", border: "#7f2a2a", bg: "#2e0d0d", selected: "#4a1a1a" },
+    demon: { text: "#d55b5b", border: "#7f1a1a", bg: "#2e0808", selected: "#5a1010" },
+  };
 
 const RAW_COUNTS = playerCountsData.counts as Record<
   string,
@@ -142,7 +143,8 @@ export function GamePanel({
               marginTop: 6,
             }}
           >
-            Base 15-player distribution + {travelerCount} traveler{travelerCount > 1 ? "s" : ""}. Travelers are not part of the script.
+            Base 15-player distribution + {travelerCount} traveler{travelerCount > 1 ? "s" : ""}.
+            Travelers are not part of the script.
           </div>
         )}
       </div>
@@ -317,7 +319,13 @@ export function GamePanel({
                             onClick={() => {
                               if (!overLimit || inGame) onToggleGameCharacter(c.id);
                             }}
-                            title={inGame ? "Remove from game" : overLimit ? "Team slot full" : "Add to game"}
+                            title={
+                              inGame
+                                ? "Remove from game"
+                                : overLimit
+                                  ? "Team slot full"
+                                  : "Add to game"
+                            }
                             style={{
                               background: inGame ? colors.selected : "#14141f",
                               border: `1px solid ${inGame ? colors.border : "#2a2a3a"}`,
@@ -397,7 +405,14 @@ export function GamePanel({
       {isComplete && (
         <div className="print-only" style={{ display: "none" }}>
           <div style={{ fontFamily: "Georgia, serif", padding: 24 }}>
-            <h1 style={{ fontSize: 22, marginBottom: 4, borderBottom: "2px solid #000", paddingBottom: 8 }}>
+            <h1
+              style={{
+                fontSize: 22,
+                marginBottom: 4,
+                borderBottom: "2px solid #000",
+                paddingBottom: 8,
+              }}
+            >
               Blood on the Clocktower — Game Script
             </h1>
             <p style={{ fontSize: 12, color: "#666", marginBottom: 20 }}>

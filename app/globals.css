@@ -29,7 +29,10 @@ body {
   font-family: "EB Garamond", Georgia, serif;
 }
 
-h1, h2, h3, .font-display {
+h1,
+h2,
+h3,
+.font-display {
   font-family: "Cinzel", "Times New Roman", serif;
 }
 
@@ -54,17 +57,39 @@ h1, h2, h3, .font-display {
 }
 
 /* Strength bar colors */
-.strength-very-good { background: #1a5fa8; }
-.strength-good { background: #2a7fd4; }
-.strength-neutral { background: #555577; }
-.strength-evil { background: #8b2222; }
-.strength-very-evil { background: #c0392b; }
+.strength-very-good {
+  background: #1a5fa8;
+}
+.strength-good {
+  background: #2a7fd4;
+}
+.strength-neutral {
+  background: #555577;
+}
+.strength-evil {
+  background: #8b2222;
+}
+.strength-very-evil {
+  background: #c0392b;
+}
 
 /* Team colors */
-.team-townsfolk { color: #5b9bd5; border-color: #2a4a7f; }
-.team-outsider { color: #9b7fd5; border-color: #4a2a7f; }
-.team-minion { color: #d5825b; border-color: #7f2a2a; }
-.team-demon { color: #d55b5b; border-color: #7f1a1a; }
+.team-townsfolk {
+  color: #5b9bd5;
+  border-color: #2a4a7f;
+}
+.team-outsider {
+  color: #9b7fd5;
+  border-color: #4a2a7f;
+}
+.team-minion {
+  color: #d5825b;
+  border-color: #7f2a2a;
+}
+.team-demon {
+  color: #d55b5b;
+  border-color: #7f1a1a;
+}
 
 /* Print: hide all UI, show only the game script */
 @media print {

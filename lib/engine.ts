@@ -24,8 +24,7 @@ export function generateNightOrder(
   interactions: Interaction[]
 ): NightStep[] {
   const field = phase === "first" ? "firstNight" : "otherNight";
-  const reminderField =
-    phase === "first" ? "firstNightReminder" : "otherNightReminder";
+  const reminderField = phase === "first" ? "firstNightReminder" : "otherNightReminder";
 
   return characters
     .filter((c) => selectedIds.includes(c.id) && c[field] > 0)
@@ -71,10 +70,8 @@ export function calculateEffectiveStrength(
   let modifier = 0;
 
   for (const interaction of interactions) {
-    const isInvolved =
-      interaction.a === characterId || interaction.b === characterId;
-    const otherInvolved =
-      interaction.a === characterId ? interaction.b : interaction.a;
+    const isInvolved = interaction.a === characterId || interaction.b === characterId;
+    const otherInvolved = interaction.a === characterId ? interaction.b : interaction.a;
     if (isInvolved && selectedIds.includes(otherInvolved)) {
       modifier += interaction.strengthImpact;
       const other = characters.find((c) => c.id === otherInvolved);
@@ -103,10 +100,7 @@ export function analyzeInteractions(
   const hints: InteractionHint[] = [];
 
   for (const interaction of interactions) {
-    if (
-      selectedIds.includes(interaction.a) &&
-      selectedIds.includes(interaction.b)
-    ) {
+    if (selectedIds.includes(interaction.a) && selectedIds.includes(interaction.b)) {
       hints.push({
         severity: interaction.severity,
         involvedCharacters: [interaction.a, interaction.b],
@@ -148,7 +142,7 @@ export function analyzeComposition(
     // Full-script requirements — only relevant when building/reviewing the script pool
     const townsfolk = byTeam("townsfolk");
     const outsiders = byTeam("outsider");
-    const minions   = byTeam("minion");
+    const minions = byTeam("minion");
 
     if (townsfolk.length < 9)
       warnings.push({
@@ -188,10 +182,14 @@ export function analyzeComposition(
       message: `High info density (${infoRecurring.length} recurring info roles). Evil needs strong misinformation tools or good will solve the puzzle quickly.`,
       severity: "tip",
     });
-  if (infoRecurring.length === 0 && selected.filter(c => c.tags?.includes("info-first-night")).length < 2)
+  if (
+    infoRecurring.length === 0 &&
+    selected.filter((c) => c.tags?.includes("info-first-night")).length < 2
+  )
     warnings.push({
       type: "low-info",
-      message: "Very low information. Good team is flying blind — ensure there are day abilities or other ways to find evil.",
+      message:
+        "Very low information. Good team is flying blind — ensure there are day abilities or other ways to find evil.",
       severity: "important",
     });
 
@@ -213,7 +211,8 @@ export function analyzeComposition(
   if (misinformation.length === 0 && infoRecurring.length >= 2)
     warnings.push({
       type: "no-misinformation",
-      message: "Good team has strong info but evil has no misinformation tools. Consider adding Poisoner, Spy, or Drunk.",
+      message:
+        "Good team has strong info but evil has no misinformation tools. Consider adding Poisoner, Spy, or Drunk.",
       severity: "important",
     });
 
@@ -222,7 +221,7 @@ export function analyzeComposition(
   if (setupMods.length > 2)
     warnings.push({
       type: "excessive-setup-modifiers",
-      message: `${setupMods.length} setup-modifying characters (${setupMods.map(c => c.name).join(", ")}). Outsider count may be confusing to track.`,
+      message: `${setupMods.length} setup-modifying characters (${setupMods.map((c) => c.name).join(", ")}). Outsider count may be confusing to track.`,
       severity: "important",
     });
 
@@ -242,16 +241,13 @@ export function analyzeComposition(
 
 // ─── Script Feel ─────────────────────────────────────────────────────────────
 
-export function calculateScriptFeel(
-  selectedIds: string[],
-  characters: Character[]
-): ScriptFeel {
+export function calculateScriptFeel(selectedIds: string[], characters: Character[]): ScriptFeel {
   const selected = characters.filter((c) => selectedIds.includes(c.id));
 
   // Info level: count info-producing good roles
   const infoRoles = selected.filter(
     (c) =>
-      (c.team === "townsfolk") &&
+      c.team === "townsfolk" &&
       (c.tags?.includes("info-first-night") ||
         c.tags?.includes("info-recurring") ||
         c.tags?.includes("info-on-death") ||
@@ -262,60 +258,52 @@ export function calculateScriptFeel(
     infoRoles >= 8
       ? "Flooded"
       : infoRoles >= 5
-      ? "High"
-      : infoRoles >= 3
-      ? "Moderate"
-      : infoRoles >= 1
-      ? "Low"
-      : "Blind";
+        ? "High"
+        : infoRoles >= 3
+          ? "Moderate"
+          : infoRoles >= 1
+            ? "Low"
+            : "Blind";
 
   // Lethality: count night-kill sources
   const killSources = selected.filter(
-    (c) =>
-      c.team === "demon" ||
-      c.tags?.includes("lethal-evil") ||
-      c.tags?.includes("lethal-good")
+    (c) => c.team === "demon" || c.tags?.includes("lethal-evil") || c.tags?.includes("lethal-good")
   ).length;
 
   const lethalityLevel: ScriptFeel["lethalityLevel"] =
     killSources >= 5
       ? "Massacre"
       : killSources >= 3
-      ? "Deadly"
-      : killSources >= 2
-      ? "Standard"
-      : "Gentle";
+        ? "Deadly"
+        : killSources >= 2
+          ? "Standard"
+          : "Gentle";
 
   // Chaos: character swaps, alignment changes, madness
   const chaosTags = ["character-change", "alignment-change", "madness"] as const;
-  const chaosRoles = selected.filter((c) =>
-    chaosTags.some((tag) => c.tags?.includes(tag))
-  ).length;
+  const chaosRoles = selected.filter((c) => chaosTags.some((tag) => c.tags?.includes(tag))).length;
 
   const chaosLevel: ScriptFeel["chaosLevel"] =
     chaosRoles >= 4
       ? "Pandemonium"
       : chaosRoles >= 2
-      ? "Chaotic"
-      : chaosRoles >= 1
-      ? "Moderate"
-      : "Orderly";
+        ? "Chaotic"
+        : chaosRoles >= 1
+          ? "Moderate"
+          : "Orderly";
 
   // ST workload: sum of stComplexity for selected chars
-  const complexitySum = selected.reduce(
-    (sum, c) => sum + (c.stComplexity ?? 2),
-    0
-  );
+  const complexitySum = selected.reduce((sum, c) => sum + (c.stComplexity ?? 2), 0);
   const avgComplexity = selected.length > 0 ? complexitySum / selected.length : 0;
 
   const stWorkload: ScriptFeel["stWorkload"] =
     avgComplexity >= 4
       ? "Exhausting"
       : avgComplexity >= 3
-      ? "Heavy"
-      : avgComplexity >= 2
-      ? "Moderate"
-      : "Light";
+        ? "Heavy"
+        : avgComplexity >= 2
+          ? "Moderate"
+          : "Light";
 
   const summary = `${infoLevel.toUpperCase()} info, ${lethalityLevel.toUpperCase()} lethality, ${chaosLevel.toUpperCase()} chaos. ST workload: ${stWorkload.toUpperCase()}.`;
 
@@ -331,26 +319,22 @@ export function calculateNightComplexity(
   const selected = characters.filter((c) => selectedIds.includes(c.id));
   const firstNightSteps = selected.filter((c) => c.firstNight > 0).length;
   const otherNightSteps = selected.filter((c) => c.otherNight > 0).length;
-  const stateTrackingRoles = selected
-    .filter((c) => (c.stComplexity ?? 1) >= 4)
-    .map((c) => c.name);
+  const stateTrackingRoles = selected.filter((c) => (c.stComplexity ?? 1) >= 4).map((c) => c.name);
 
   const warnings: string[] = [];
   if (otherNightSteps > 8)
     warnings.push(`${otherNightSteps} actions per night — allow extra time.`);
   if (stateTrackingRoles.length > 2)
-    warnings.push(
-      `${stateTrackingRoles.length} state-tracking roles require ongoing bookkeeping.`
-    );
+    warnings.push(`${stateTrackingRoles.length} state-tracking roles require ongoing bookkeeping.`);
 
   const complexityRating: NightComplexityReport["complexityRating"] =
     otherNightSteps >= 8 || stateTrackingRoles.length >= 3
       ? "Expert"
       : otherNightSteps >= 5 || stateTrackingRoles.length >= 2
-      ? "Advanced"
-      : otherNightSteps >= 3
-      ? "Intermediate"
-      : "Beginner";
+        ? "Advanced"
+        : otherNightSteps >= 3
+          ? "Intermediate"
+          : "Beginner";
 
   return {
     firstNightSteps,
@@ -416,7 +400,7 @@ const GOOD_CATEGORY_LABELS: Partial<Record<AbilityCategory, string>> = {
   "info-conditional": "conditional info",
   "day-ability": "day abilities",
   "once-per-game": "once-per-game power",
-  "protection": "protection roles",
+  protection: "protection roles",
 };
 
 const EVIL_CATEGORY_LABELS: Partial<Record<AbilityCategory, string>> = {
@@ -442,10 +426,7 @@ export function getRecommendations(
     "protection",
     "day-ability",
   ];
-  const evilCategories: AbilityCategory[] = [
-    "info-disruption",
-    "demon-resilience",
-  ];
+  const evilCategories: AbilityCategory[] = ["info-disruption", "demon-resilience"];
 
   for (const cat of goodCategories) {
     if (!coverage.good[cat]) {
@@ -521,8 +502,7 @@ export function getSupportedPlayerCounts(
     const needOS = req.outsider;
     const needMn = req.minion;
 
-    const supported =
-      tfCount >= needTF && osCount >= needOS && mnCount >= needMn && dmCount >= 1;
+    const supported = tfCount >= needTF && osCount >= needOS && mnCount >= needMn && dmCount >= 1;
 
     const entry: PlayerCountEntry = {
       playerCount: pc,

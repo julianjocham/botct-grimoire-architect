@@ -95,9 +95,7 @@ export function ScriptStep({
   };
   const TARGETS = { townsfolk: 13, outsider: 4, minion: 4, demon: 1 };
 
-  const valid = isCustom
-    ? scriptIsValid(scriptIds, allCharacters)
-    : scriptSource !== null;
+  const valid = isCustom ? scriptIsValid(scriptIds, allCharacters) : scriptSource !== null;
 
   // Custom builder: filtered pool
   const filteredPool = isCustom
@@ -140,7 +138,8 @@ export function ScriptStep({
             margin: 0,
           }}
         >
-          A script is the set of characters available to appear in your game. Choose a pre-made script or build your own.
+          A script is the set of characters available to appear in your game. Choose a pre-made
+          script or build your own.
         </p>
       </div>
 
@@ -154,7 +153,12 @@ export function ScriptStep({
               return (
                 <div
                   key={ed.key}
-                  onClick={() => onSelectEdition(ed.key, pool.map((c) => c.id))}
+                  onClick={() =>
+                    onSelectEdition(
+                      ed.key,
+                      pool.map((c) => c.id)
+                    )
+                  }
                   style={{
                     background: isSelected ? "#1a0f0f" : "var(--bg-surface)",
                     border: `2px solid ${isSelected ? "#8b1a1a" : "#2a2a3a"}`,
@@ -241,7 +245,10 @@ export function ScriptStep({
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      onSelectEdition(ed.key, pool.map((c) => c.id));
+                      onSelectEdition(
+                        ed.key,
+                        pool.map((c) => c.id)
+                      );
                     }}
                     style={{
                       width: "100%",
@@ -296,7 +303,8 @@ export function ScriptStep({
                   lineHeight: 1.5,
                 }}
               >
-                Mix characters from all editions. Aim for 13+ Townsfolk, 4 Outsiders, 4 Minions, and at least 1 Demon to support all player counts.
+                Mix characters from all editions. Aim for 13+ Townsfolk, 4 Outsiders, 4 Minions, and
+                at least 1 Demon to support all player counts.
               </div>
             </div>
             <button
@@ -377,7 +385,16 @@ export function ScriptStep({
                 }}
               />
             </div>
-            <div style={{ flex: 1, overflowY: "auto", padding: "8px 10px", display: "flex", flexDirection: "column", gap: 10 }}>
+            <div
+              style={{
+                flex: 1,
+                overflowY: "auto",
+                padding: "8px 10px",
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+              }}
+            >
               {TEAM_ORDER.map((team) => {
                 const chars = filteredPool.filter((c) => c.team === team);
                 if (chars.length === 0) return null;
@@ -399,7 +416,12 @@ export function ScriptStep({
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                       {chars.map((c) => {
-                        const eff = calculateEffectiveStrength(c.id, scriptIds, allCharacters, interactions);
+                        const eff = calculateEffectiveStrength(
+                          c.id,
+                          scriptIds,
+                          allCharacters,
+                          interactions
+                        );
                         return (
                           <CharacterToken
                             key={c.id}
@@ -422,7 +444,12 @@ export function ScriptStep({
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {/* Back button */}
             <button
-              onClick={() => onSelectEdition("tb", editionPools.tb.map((c) => c.id))}
+              onClick={() =>
+                onSelectEdition(
+                  "tb",
+                  editionPools.tb.map((c) => c.id)
+                )
+              }
               style={{
                 alignSelf: "flex-start",
                 background: "none",
@@ -477,13 +504,29 @@ export function ScriptStep({
                         padding: "8px 4px",
                       }}
                     >
-                      <div style={{ fontFamily: "var(--font-jetbrains)", fontSize: 20, color: ok ? c.text : "#444" }}>
+                      <div
+                        style={{
+                          fontFamily: "var(--font-jetbrains)",
+                          fontSize: 20,
+                          color: ok ? c.text : "#444",
+                        }}
+                      >
                         {have}
                       </div>
-                      <div style={{ fontFamily: "var(--font-jetbrains)", fontSize: 8, color: "#444" }}>
+                      <div
+                        style={{ fontFamily: "var(--font-jetbrains)", fontSize: 8, color: "#444" }}
+                      >
                         / {need}
                       </div>
-                      <div style={{ fontFamily: "var(--font-garamond)", fontSize: 10, color: "#555", textTransform: "capitalize", marginTop: 3 }}>
+                      <div
+                        style={{
+                          fontFamily: "var(--font-garamond)",
+                          fontSize: 10,
+                          color: "#555",
+                          textTransform: "capitalize",
+                          marginTop: 3,
+                        }}
+                      >
                         {team}
                       </div>
                     </div>
@@ -494,27 +537,37 @@ export function ScriptStep({
               {/* Hint messages */}
               <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: 4 }}>
                 {counts.demon === 0 && (
-                  <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#c0392b" }}>
+                  <div
+                    style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#c0392b" }}
+                  >
                     ⚠ You need at least 1 Demon.
                   </div>
                 )}
                 {counts.townsfolk < 9 && (
-                  <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#d4a017" }}>
-                    ⚡ Add more Townsfolk — 9 minimum to support a 7-player game, 12 for a full script (9 + 3 bluffs).
+                  <div
+                    style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#d4a017" }}
+                  >
+                    ⚡ Add more Townsfolk — 9 minimum to support a 7-player game, 12 for a full
+                    script (9 + 3 bluffs).
                   </div>
                 )}
                 {counts.minion === 0 && (
-                  <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#d4a017" }}>
+                  <div
+                    style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#d4a017" }}
+                  >
                     ⚡ Add at least 1 Minion.
                   </div>
                 )}
                 {counts.demon > 1 && (
                   <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#666" }}>
-                    💡 Multiple demons ({counts.demon}) — each game will use exactly 1. More options is fine.
+                    💡 Multiple demons ({counts.demon}) — each game will use exactly 1. More options
+                    is fine.
                   </div>
                 )}
                 {valid && (
-                  <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#2d6a4f" }}>
+                  <div
+                    style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#2d6a4f" }}
+                  >
                     ✓ Script is playable.
                     {counts.townsfolk < 12
                       ? ` Add ${12 - counts.townsfolk} more Townsfolk for full player range.`
