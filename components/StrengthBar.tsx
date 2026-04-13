@@ -10,12 +10,7 @@ function getBarColor(value: number): string {
   return "#c0392b";
 }
 
-export function StrengthBar({
-  value,
-  showNumber = true,
-  effectiveValue,
-  small = false,
-}: StrengthBarProps) {
+export function StrengthBar({ value, showNumber = true, effectiveValue, small = false }: StrengthBarProps) {
   const displayValue = effectiveValue ?? value;
   const barWidth = `${Math.abs(displayValue)}%`;
   const isPositive = displayValue >= 0;
@@ -24,14 +19,14 @@ export function StrengthBar({
   return (
     <div className={`flex items-center gap-1 ${small ? "gap-0.5" : ""}`}>
       {/* Negative side */}
-      <div className="flex-1 flex justify-end" style={{ height: small ? 4 : 6 }}>
+      <div className="flex flex-1 justify-end" style={{ height: small ? 4 : 6 }}>
         <div
           style={{
             width: !isPositive ? barWidth : "0%",
             background: color,
             height: "100%",
             borderRadius: "2px 0 0 2px",
-            transition: "width 0.2s ease",
+            transition: "width 0.2s ease"
           }}
         />
       </div>
@@ -42,7 +37,7 @@ export function StrengthBar({
           width: 1,
           background: "#3a3a4a",
           height: small ? 8 : 10,
-          flexShrink: 0,
+          flexShrink: 0
         }}
       />
 
@@ -54,7 +49,7 @@ export function StrengthBar({
             background: color,
             height: "100%",
             borderRadius: "0 2px 2px 0",
-            transition: "width 0.2s ease",
+            transition: "width 0.2s ease"
           }}
         />
       </div>
@@ -66,7 +61,7 @@ export function StrengthBar({
             fontFamily: "var(--font-jetbrains)",
             fontSize: small ? 10 : 11,
             minWidth: 32,
-            textAlign: "right",
+            textAlign: "right"
           }}
         >
           {displayValue > 0 ? "+" : ""}

@@ -24,19 +24,13 @@ function getAdjustedReq(
     townsfolk: Math.max(0, tf),
     outsider: Math.max(0, os),
     minion: rawReq.minion,
-    demon: rawReq.demon,
+    demon: rawReq.demon
   };
 }
 
 // ─── Analysis sidebar ────────────────────────────────────────────────────────
 
-function AnalysisSidebar({
-  gameIds,
-  allCharacters,
-}: {
-  gameIds: string[];
-  allCharacters: Character[];
-}) {
+function AnalysisSidebar({ gameIds, allCharacters }: { gameIds: string[]; allCharacters: Character[] }) {
   const analysis = useMemo(
     () => analyzeScript(gameIds, allCharacters, allInteractions, "game"),
     [gameIds, allCharacters]
@@ -46,9 +40,7 @@ function AnalysisSidebar({
   const maxAbs = Math.max(Math.abs(good), Math.abs(evil), 1);
 
   // Only show non-tip interactions
-  const keyHints = analysis.interactionHints.filter(
-    (h) => h.severity !== "tip" || h.category === "jinx"
-  );
+  const keyHints = analysis.interactionHints.filter((h) => h.severity !== "tip" || h.category === "jinx");
 
   if (gameIds.length === 0) {
     return (
@@ -58,7 +50,7 @@ function AnalysisSidebar({
           fontFamily: "var(--font-garamond)",
           fontSize: 13,
           textAlign: "center",
-          padding: "40px 16px",
+          padding: "40px 16px"
         }}
       >
         Select characters to see live analysis.
@@ -77,7 +69,7 @@ function AnalysisSidebar({
             color: "#b8965a",
             letterSpacing: "0.08em",
             textTransform: "uppercase",
-            marginBottom: 10,
+            marginBottom: 10
           }}
         >
           Team Strength
@@ -85,7 +77,7 @@ function AnalysisSidebar({
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {[
             { label: "Good", value: good, color: "#2a7fd4" },
-            { label: "Evil", value: evil, color: "#c0392b" },
+            { label: "Evil", value: evil, color: "#c0392b" }
           ].map(({ label, value, color }) => (
             <div key={label}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
@@ -94,7 +86,7 @@ function AnalysisSidebar({
                     fontFamily: "var(--font-jetbrains)",
                     fontSize: 9,
                     color,
-                    textTransform: "uppercase",
+                    textTransform: "uppercase"
                   }}
                 >
                   {label}
@@ -104,15 +96,13 @@ function AnalysisSidebar({
                   {value}
                 </span>
               </div>
-              <div
-                style={{ height: 6, background: "#1a1a2a", borderRadius: 3, overflow: "hidden" }}
-              >
+              <div style={{ height: 6, background: "#1a1a2a", borderRadius: 3, overflow: "hidden" }}>
                 <div
                   style={{
                     height: "100%",
                     width: `${(Math.abs(value) / maxAbs) * 100}%`,
                     background: color,
-                    borderRadius: 3,
+                    borderRadius: 3
                   }}
                 />
               </div>
@@ -131,7 +121,7 @@ function AnalysisSidebar({
               color: "#b8965a",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              marginBottom: 10,
+              marginBottom: 10
             }}
           >
             Game Feel
@@ -143,22 +133,18 @@ function AnalysisSidebar({
               const color = FEEL_COLOR[val] ?? "#b8965a";
               return (
                 <div key={key}>
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}
-                  >
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
                     <span
                       style={{
                         fontFamily: "var(--font-jetbrains)",
                         fontSize: 9,
                         color: "#555",
-                        textTransform: "uppercase",
+                        textTransform: "uppercase"
                       }}
                     >
                       {label}
                     </span>
-                    <span style={{ fontFamily: "var(--font-cinzel)", fontSize: 9, color }}>
-                      {val}
-                    </span>
+                    <span style={{ fontFamily: "var(--font-cinzel)", fontSize: 9, color }}>{val}</span>
                   </div>
                   <div style={{ display: "flex", gap: 2 }}>
                     {levels.map((_, i) => (
@@ -168,7 +154,7 @@ function AnalysisSidebar({
                           flex: 1,
                           height: 5,
                           borderRadius: 2,
-                          background: i <= idx ? color : "#2a2a3a",
+                          background: i <= idx ? color : "#2a2a3a"
                         }}
                       />
                     ))}
@@ -190,7 +176,7 @@ function AnalysisSidebar({
               color: "#b8965a",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              marginBottom: 8,
+              marginBottom: 8
             }}
           >
             Interactions ({keyHints.length})
@@ -201,16 +187,8 @@ function AnalysisSidebar({
               const involvedChars = hint.involvedCharacters
                 .map((id) => allCharacters.find((c) => c.id === id))
                 .filter(Boolean) as Character[];
-              const borderColor = isJinx
-                ? "#7a6200"
-                : hint.severity === "critical"
-                  ? "#8b1a1a"
-                  : "#7a5a00";
-              const bgColor = isJinx
-                ? "#1a1500"
-                : hint.severity === "critical"
-                  ? "#1a0808"
-                  : "#1a1400";
+              const borderColor = isJinx ? "#7a6200" : hint.severity === "critical" ? "#8b1a1a" : "#7a5a00";
+              const bgColor = isJinx ? "#1a1500" : hint.severity === "critical" ? "#1a0808" : "#1a1400";
               return (
                 <div
                   key={i}
@@ -219,7 +197,7 @@ function AnalysisSidebar({
                     borderStyle: isJinx ? "dashed" : "solid",
                     background: bgColor,
                     borderRadius: 6,
-                    padding: "8px 10px",
+                    padding: "8px 10px"
                   }}
                 >
                   <div
@@ -228,7 +206,7 @@ function AnalysisSidebar({
                       alignItems: "center",
                       gap: 5,
                       marginBottom: 4,
-                      flexWrap: "wrap",
+                      flexWrap: "wrap"
                     }}
                   >
                     {isJinx && (
@@ -241,7 +219,7 @@ function AnalysisSidebar({
                           border: "1px solid #7a6200",
                           borderRadius: 3,
                           padding: "1px 4px",
-                          flexShrink: 0,
+                          flexShrink: 0
                         }}
                       >
                         ⚖ Jinx
@@ -256,7 +234,7 @@ function AnalysisSidebar({
                           color: "#b8965a",
                           background: "#2a2a3a",
                           borderRadius: 3,
-                          padding: "1px 5px",
+                          padding: "1px 5px"
                         }}
                       >
                         {c.name}
@@ -268,7 +246,7 @@ function AnalysisSidebar({
                       fontFamily: "var(--font-cinzel)",
                       fontSize: 11,
                       color: "#e8dcc8",
-                      marginBottom: 3,
+                      marginBottom: 3
                     }}
                   >
                     {hint.title}
@@ -278,7 +256,7 @@ function AnalysisSidebar({
                       fontFamily: "var(--font-garamond)",
                       fontSize: 12,
                       color: "#c8b89a",
-                      lineHeight: 1.5,
+                      lineHeight: 1.5
                     }}
                   >
                     {hint.description}
@@ -300,7 +278,7 @@ function AnalysisSidebar({
               color: "#b8965a",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              marginBottom: 8,
+              marginBottom: 8
             }}
           >
             Issues
@@ -311,22 +289,17 @@ function AnalysisSidebar({
                 key={i}
                 style={{
                   background:
-                    w.severity === "critical"
-                      ? "#1a0808"
-                      : w.severity === "important"
-                        ? "#1a1400"
-                        : "#0a1408",
+                    w.severity === "critical" ? "#1a0808" : w.severity === "important" ? "#1a1400" : "#0a1408",
                   border: `1px solid ${w.severity === "critical" ? "#8b1a1a" : w.severity === "important" ? "#7a5a00" : "#1a4a2e"}`,
                   borderRadius: 5,
                   padding: "6px 8px",
                   fontFamily: "var(--font-garamond)",
                   fontSize: 12,
                   color: "#c8b89a",
-                  lineHeight: 1.5,
+                  lineHeight: 1.5
                 }}
               >
-                {w.severity === "critical" ? "⚠" : w.severity === "important" ? "⚡" : "💡"}{" "}
-                {w.message}
+                {w.severity === "critical" ? "⚠" : w.severity === "important" ? "⚡" : "💡"} {w.message}
               </div>
             ))}
           </div>
@@ -343,7 +316,7 @@ function AnalysisSidebar({
               color: "#b8965a",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              marginBottom: 8,
+              marginBottom: 8
             }}
           >
             Character Strengths
@@ -357,16 +330,13 @@ function AnalysisSidebar({
                 return { char, eff };
               })
               .filter(Boolean)
-              .sort(
-                (a, b) => Math.abs(b!.eff.effectiveStrength) - Math.abs(a!.eff.effectiveStrength)
-              )
+              .sort((a, b) => Math.abs(b!.eff.effectiveStrength) - Math.abs(a!.eff.effectiveStrength))
               .map((entry) => {
                 if (!entry) return null;
                 const { char, eff } = entry;
                 const col = TEAM_COLORS[char.team];
                 const s = eff.effectiveStrength;
-                const barColor =
-                  s > 30 ? "#2a7fd4" : s > 0 ? "#5b9bd5" : s > -30 ? "#c0392b" : "#8b1a1a";
+                const barColor = s > 30 ? "#2a7fd4" : s > 0 ? "#5b9bd5" : s > -30 ? "#c0392b" : "#8b1a1a";
                 return (
                   <div key={char.id} style={{ display: "flex", alignItems: "center", gap: 6 }}>
                     <div
@@ -378,7 +348,7 @@ function AnalysisSidebar({
                         flexShrink: 0,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
+                        whiteSpace: "nowrap"
                       }}
                     >
                       {char.name}
@@ -389,7 +359,7 @@ function AnalysisSidebar({
                         height: 4,
                         background: "#1a1a2a",
                         borderRadius: 2,
-                        overflow: "hidden",
+                        overflow: "hidden"
                       }}
                     >
                       <div
@@ -397,7 +367,7 @@ function AnalysisSidebar({
                           height: "100%",
                           width: `${(Math.abs(s) / 100) * 100}%`,
                           background: barColor,
-                          borderRadius: 2,
+                          borderRadius: 2
                         }}
                       />
                     </div>
@@ -408,7 +378,7 @@ function AnalysisSidebar({
                         color: barColor,
                         minWidth: 28,
                         textAlign: "right",
-                        flexShrink: 0,
+                        flexShrink: 0
                       }}
                     >
                       {s > 0 ? "+" : ""}
@@ -420,7 +390,7 @@ function AnalysisSidebar({
                           fontFamily: "var(--font-jetbrains)",
                           fontSize: 8,
                           color: eff.modifier > 0 ? "#2a7fd4" : "#c0392b",
-                          flexShrink: 0,
+                          flexShrink: 0
                         }}
                       >
                         ({eff.modifier > 0 ? "+" : ""}
@@ -450,7 +420,7 @@ export function GameSetupStep({
   onToggleGameChar,
   onContinue,
   onBack,
-  onDetail,
+  onDetail
 }: GameSetupStepProps) {
   const scriptChars = allCharacters.filter((c) => scriptIds.includes(c.id));
   const rawReq = playerCount ? RAW_COUNTS[String(playerCount)] : null;
@@ -462,16 +432,10 @@ export function GameSetupStep({
   const selectedTravelerIds = gameIds.filter((id) => travelerIdSet.has(id));
 
   const gameCounts = {
-    townsfolk: coreGameIds.filter(
-      (id) => allCharacters.find((c) => c.id === id)?.team === "townsfolk"
-    ).length,
-    outsider: coreGameIds.filter(
-      (id) => allCharacters.find((c) => c.id === id)?.team === "outsider"
-    ).length,
-    minion: coreGameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "minion")
-      .length,
-    demon: coreGameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "demon")
-      .length,
+    townsfolk: coreGameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "townsfolk").length,
+    outsider: coreGameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "outsider").length,
+    minion: coreGameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "minion").length,
+    demon: coreGameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "demon").length
   };
 
   const totalNeeded = req ? req.townsfolk + req.outsider + req.minion + req.demon : 0;
@@ -492,7 +456,7 @@ export function GameSetupStep({
         display: "grid",
         gridTemplateColumns: "1fr 300px",
         gap: 20,
-        alignItems: "start",
+        alignItems: "start"
       }}
     >
       {/* ── Left: selection ── */}
@@ -506,7 +470,7 @@ export function GameSetupStep({
                 fontSize: 22,
                 color: "#e8dcc8",
                 margin: "0 0 6px",
-                letterSpacing: "0.04em",
+                letterSpacing: "0.04em"
               }}
             >
               Step 2 — Set Up Your Game
@@ -527,7 +491,7 @@ export function GameSetupStep({
               color: "#666",
               cursor: "pointer",
               fontFamily: "var(--font-garamond)",
-              fontSize: 13,
+              fontSize: 13
             }}
           >
             ← Change Script
@@ -543,7 +507,7 @@ export function GameSetupStep({
               color: "#b8965a",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              marginBottom: 10,
+              marginBottom: 10
             }}
           >
             How many players?
@@ -566,13 +530,9 @@ export function GameSetupStep({
                     fontFamily: "var(--font-jetbrains)",
                     fontSize: isTraveler ? 11 : 14,
                     fontWeight: active ? 700 : 400,
-                    transition: "all 0.1s ease",
+                    transition: "all 0.1s ease"
                   }}
-                  title={
-                    isTraveler
-                      ? `${n} players (${n - 15} traveler${n - 15 > 1 ? "s" : ""})`
-                      : `${n} players`
-                  }
+                  title={isTraveler ? `${n} players (${n - 15} traveler${n - 15 > 1 ? "s" : ""})` : `${n} players`}
                 >
                   {n}
                   {isTraveler && (
@@ -581,7 +541,7 @@ export function GameSetupStep({
                         fontSize: 8,
                         color: active ? "#e8dcc8" : "#444",
                         display: "block",
-                        lineHeight: 1,
+                        lineHeight: 1
                       }}
                     >
                       +{n - 15}T
@@ -597,11 +557,11 @@ export function GameSetupStep({
                 fontFamily: "var(--font-garamond)",
                 fontSize: 12,
                 color: "#555",
-                marginTop: 8,
+                marginTop: 8
               }}
             >
-              Travelers fill the extra {neededTravelers} slot{neededTravelers > 1 ? "s" : ""} — they
-              are not from your script.
+              Travelers fill the extra {neededTravelers} slot{neededTravelers > 1 ? "s" : ""} — they are not from your
+              script.
             </div>
           )}
         </div>
@@ -615,7 +575,7 @@ export function GameSetupStep({
                 background: "var(--bg-surface)",
                 border: "1px solid #2a2a3a",
                 borderRadius: 10,
-                padding: "14px 16px",
+                padding: "14px 16px"
               }}
             >
               <div
@@ -623,7 +583,7 @@ export function GameSetupStep({
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  marginBottom: 12,
+                  marginBottom: 12
                 }}
               >
                 <div
@@ -632,7 +592,7 @@ export function GameSetupStep({
                     fontSize: 12,
                     color: "#b8965a",
                     letterSpacing: "0.06em",
-                    textTransform: "uppercase",
+                    textTransform: "uppercase"
                   }}
                 >
                   {playerCount}-Player Distribution
@@ -659,7 +619,7 @@ export function GameSetupStep({
                         borderRadius: 8,
                         padding: "10px 6px",
                         textAlign: "center",
-                        transition: "border-color 0.2s",
+                        transition: "border-color 0.2s"
                       }}
                     >
                       <div
@@ -667,7 +627,7 @@ export function GameSetupStep({
                           fontFamily: "var(--font-jetbrains)",
                           fontSize: 22,
                           color: done ? c.text : "#333",
-                          lineHeight: 1,
+                          lineHeight: 1
                         }}
                       >
                         {have}
@@ -677,7 +637,7 @@ export function GameSetupStep({
                           fontFamily: "var(--font-jetbrains)",
                           fontSize: 10,
                           color: "#333",
-                          margin: "2px 0",
+                          margin: "2px 0"
                         }}
                       >
                         / {needed}
@@ -687,7 +647,7 @@ export function GameSetupStep({
                           fontFamily: "var(--font-garamond)",
                           fontSize: 11,
                           color: "#555",
-                          textTransform: "capitalize",
+                          textTransform: "capitalize"
                         }}
                       >
                         {team}
@@ -704,7 +664,7 @@ export function GameSetupStep({
                       borderRadius: 8,
                       padding: "10px 6px",
                       textAlign: "center",
-                      transition: "border-color 0.2s",
+                      transition: "border-color 0.2s"
                     }}
                   >
                     <div
@@ -712,7 +672,7 @@ export function GameSetupStep({
                         fontFamily: "var(--font-jetbrains)",
                         fontSize: 22,
                         color: travelersComplete ? "#b8965a" : "#333",
-                        lineHeight: 1,
+                        lineHeight: 1
                       }}
                     >
                       {selectedTravelerIds.length}
@@ -722,7 +682,7 @@ export function GameSetupStep({
                         fontFamily: "var(--font-jetbrains)",
                         fontSize: 10,
                         color: "#333",
-                        margin: "2px 0",
+                        margin: "2px 0"
                       }}
                     >
                       / {neededTravelers}
@@ -731,7 +691,7 @@ export function GameSetupStep({
                       style={{
                         fontFamily: "var(--font-garamond)",
                         fontSize: 11,
-                        color: "#555",
+                        color: "#555"
                       }}
                     >
                       Travelers
@@ -742,10 +702,7 @@ export function GameSetupStep({
               {activeModifiers.length > 0 && (
                 <div style={{ marginTop: 10, display: "flex", flexDirection: "column", gap: 3 }}>
                   {activeModifiers.map((note, i) => (
-                    <div
-                      key={i}
-                      style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#d5825b" }}
-                    >
+                    <div key={i} style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#d5825b" }}>
                       ⚙ {note}
                     </div>
                   ))}
@@ -761,7 +718,7 @@ export function GameSetupStep({
                   fontSize: 11,
                   color: "#b8965a",
                   letterSpacing: "0.08em",
-                  textTransform: "uppercase",
+                  textTransform: "uppercase"
                 }}
               >
                 Choose Characters for This Game
@@ -777,16 +734,14 @@ export function GameSetupStep({
 
                 return (
                   <div key={team}>
-                    <div
-                      style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}
-                    >
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
                       <div
                         style={{
                           fontFamily: "var(--font-cinzel)",
                           fontSize: 12,
                           color: c.text,
                           letterSpacing: "0.06em",
-                          textTransform: "uppercase",
+                          textTransform: "uppercase"
                         }}
                       >
                         {TEAM_LABEL[team]}
@@ -799,7 +754,7 @@ export function GameSetupStep({
                           background: "#0a0a14",
                           border: `1px solid ${isFull ? c.border : "#2a2a3a"}`,
                           borderRadius: 10,
-                          padding: "2px 10px",
+                          padding: "2px 10px"
                         }}
                       >
                         {have} / {needed}
@@ -809,7 +764,7 @@ export function GameSetupStep({
                           style={{
                             fontFamily: "var(--font-garamond)",
                             fontSize: 11,
-                            color: "#444",
+                            color: "#444"
                           }}
                         >
                           (none needed at this count)
@@ -822,20 +777,15 @@ export function GameSetupStep({
                         const inGame = gameIds.includes(char.id);
                         const blocked = !inGame && isFull;
                         // Counter badge: how many of this char's counters are in the game
-                        const countersInGame = (char.counters ?? []).filter((id) =>
-                          gameIds.includes(id)
-                        ).length;
+                        const countersInGame = (char.counters ?? []).filter((id) => gameIds.includes(id)).length;
                         // Synergy badge: how many synergies this char has with already-selected game chars
                         const synergiesInGame = allInteractions.filter(
                           (i: Interaction) =>
                             i.type === "synergy" &&
-                            ((i.a === char.id && gameIds.includes(i.b)) ||
-                              (i.b === char.id && gameIds.includes(i.a)))
+                            ((i.a === char.id && gameIds.includes(i.b)) || (i.b === char.id && gameIds.includes(i.a)))
                         );
                         const synergySummary =
-                          synergiesInGame.length > 0
-                            ? synergiesInGame.map((i: Interaction) => i.title).join("\n")
-                            : "";
+                          synergiesInGame.length > 0 ? synergiesInGame.map((i: Interaction) => i.title).join("\n") : "";
 
                         return (
                           <div
@@ -846,17 +796,13 @@ export function GameSetupStep({
                               borderRadius: 7,
                               overflow: "hidden",
                               opacity: blocked ? 0.3 : 1,
-                              transition: "all 0.1s ease",
+                              transition: "all 0.1s ease"
                             }}
                           >
                             <button
                               onClick={() => onDetail(char.id)}
                               style={{
-                                background: inGame
-                                  ? c.bg
-                                  : synergiesInGame.length > 0
-                                    ? "#0d1a0d"
-                                    : "#14141f",
+                                background: inGame ? c.bg : synergiesInGame.length > 0 ? "#0d1a0d" : "#14141f",
                                 border: "none",
                                 borderRight: `1px solid ${inGame ? c.border : "#2a2a3a"}`,
                                 padding: "6px 10px",
@@ -866,7 +812,7 @@ export function GameSetupStep({
                                 fontSize: 12,
                                 display: "flex",
                                 alignItems: "center",
-                                gap: 5,
+                                gap: 5
                               }}
                             >
                               {char.name}
@@ -881,7 +827,7 @@ export function GameSetupStep({
                                     border: "1px solid #2a4a20",
                                     borderRadius: 3,
                                     padding: "0 3px",
-                                    cursor: "help",
+                                    cursor: "help"
                                   }}
                                 >
                                   ✦{synergiesInGame.length}
@@ -896,7 +842,7 @@ export function GameSetupStep({
                                     background: "#2a1a00",
                                     border: "1px solid #7a5a00",
                                     borderRadius: 3,
-                                    padding: "0 3px",
+                                    padding: "0 3px"
                                   }}
                                 >
                                   ⚔{countersInGame}
@@ -914,7 +860,7 @@ export function GameSetupStep({
                                 padding: "6px 10px",
                                 color: inGame ? c.text : "#555",
                                 cursor: blocked ? "default" : "pointer",
-                                fontSize: 13,
+                                fontSize: 13
                               }}
                             >
                               {inGame ? "−" : "+"}
@@ -938,7 +884,7 @@ export function GameSetupStep({
                       fontSize: 11,
                       color: "#b8965a",
                       letterSpacing: "0.08em",
-                      textTransform: "uppercase",
+                      textTransform: "uppercase"
                     }}
                   >
                     Travelers
@@ -951,7 +897,7 @@ export function GameSetupStep({
                       background: "#0a0a14",
                       border: `1px solid ${travelersComplete ? "#4a3a20" : "#2a2a3a"}`,
                       borderRadius: 10,
-                      padding: "2px 10px",
+                      padding: "2px 10px"
                     }}
                   >
                     {selectedTravelerIds.length} / {neededTravelers}
@@ -973,7 +919,7 @@ export function GameSetupStep({
                           borderRadius: 7,
                           overflow: "hidden",
                           opacity: blocked ? 0.3 : 1,
-                          transition: "all 0.1s ease",
+                          transition: "all 0.1s ease"
                         }}
                       >
                         <button
@@ -986,7 +932,7 @@ export function GameSetupStep({
                             color: inGame ? "#b8965a" : "#666",
                             cursor: "pointer",
                             fontFamily: "var(--font-cinzel)",
-                            fontSize: 12,
+                            fontSize: 12
                           }}
                         >
                           {traveler.name}
@@ -1002,7 +948,7 @@ export function GameSetupStep({
                             padding: "6px 10px",
                             color: inGame ? "#b8965a" : "#555",
                             cursor: blocked ? "default" : "pointer",
-                            fontSize: 13,
+                            fontSize: 13
                           }}
                         >
                           {inGame ? "−" : "+"}
@@ -1028,7 +974,7 @@ export function GameSetupStep({
                   cursor: isComplete ? "pointer" : "default",
                   fontFamily: "var(--font-cinzel)",
                   fontSize: 13,
-                  letterSpacing: "0.06em",
+                  letterSpacing: "0.06em"
                 }}
               >
                 {isComplete
@@ -1048,7 +994,7 @@ export function GameSetupStep({
               fontFamily: "var(--font-garamond)",
               fontSize: 14,
               textAlign: "center",
-              padding: "30px 0",
+              padding: "30px 0"
             }}
           >
             Choose a player count above to begin selecting characters.
@@ -1066,7 +1012,7 @@ export function GameSetupStep({
           position: "sticky",
           top: 16,
           maxHeight: "calc(100vh - 100px)",
-          overflowY: "auto",
+          overflowY: "auto"
         }}
       >
         <div
@@ -1076,7 +1022,7 @@ export function GameSetupStep({
             color: "#b8965a",
             letterSpacing: "0.08em",
             textTransform: "uppercase",
-            marginBottom: 12,
+            marginBottom: 12
           }}
         >
           Live Analysis

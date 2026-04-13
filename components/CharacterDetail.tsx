@@ -12,7 +12,7 @@ function SubDimBar({
   max,
   color,
   suffix = "",
-  tooltip,
+  tooltip
 }: {
   label: string;
   value: number;
@@ -32,7 +32,7 @@ function SubDimBar({
             fontSize: 9,
             color: "#555",
             textTransform: "uppercase",
-            letterSpacing: "0.05em",
+            letterSpacing: "0.05em"
           }}
         >
           {label}
@@ -56,7 +56,7 @@ export function CharacterDetail({
   selectedIds,
   onClose,
   onToggle,
-  onNavigate,
+  onNavigate
 }: CharacterDetailProps) {
   const isSelected = selectedIds.includes(character.id);
   const { baseStrength, modifier, effectiveStrength: eff, reasons } = effectiveStrength;
@@ -80,7 +80,7 @@ export function CharacterDetail({
         zIndex: 100,
         display: "flex",
         flexDirection: "column",
-        overflowY: "auto",
+        overflowY: "auto"
       }}
     >
       {/* Header */}
@@ -91,7 +91,7 @@ export function CharacterDetail({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-start",
-          gap: 10,
+          gap: 10
         }}
       >
         <div>
@@ -100,7 +100,7 @@ export function CharacterDetail({
               fontFamily: "var(--font-cinzel)",
               fontSize: 15,
               color: "#e8dcc8",
-              marginBottom: 2,
+              marginBottom: 2
             }}
           >
             {character.name}
@@ -110,7 +110,7 @@ export function CharacterDetail({
               fontFamily: "var(--font-garamond)",
               fontSize: 12,
               color: "#666",
-              textTransform: "capitalize",
+              textTransform: "capitalize"
             }}
           >
             {character.team} · {character.edition?.toUpperCase() || "Experimental"} · ST Complexity:{" "}
@@ -126,7 +126,7 @@ export function CharacterDetail({
             cursor: "pointer",
             fontSize: 18,
             lineHeight: 1,
-            flexShrink: 0,
+            flexShrink: 0
           }}
         >
           ×
@@ -143,7 +143,7 @@ export function CharacterDetail({
               color: "#666",
               marginBottom: 4,
               textTransform: "uppercase",
-              letterSpacing: "0.08em",
+              letterSpacing: "0.08em"
             }}
           >
             Ability
@@ -158,7 +158,7 @@ export function CharacterDetail({
               background: "#14141f",
               border: "1px solid #2a2a3a",
               borderRadius: 6,
-              padding: "8px 10px",
+              padding: "8px 10px"
             }}
           >
             &ldquo;{character.ability}&rdquo;
@@ -175,7 +175,7 @@ export function CharacterDetail({
                 color: "#666",
                 marginBottom: 6,
                 textTransform: "uppercase",
-                letterSpacing: "0.08em",
+                letterSpacing: "0.08em"
               }}
             >
               Strength
@@ -187,7 +187,7 @@ export function CharacterDetail({
                   fontFamily: "var(--font-jetbrains)",
                   fontSize: 10,
                   color: modifier < 0 ? "#c0392b" : "#2a7fd4",
-                  marginTop: 4,
+                  marginTop: 4
                 }}
               >
                 Base {baseStrength > 0 ? "+" : ""}
@@ -233,28 +233,27 @@ export function CharacterDetail({
                     tooltip="How exposed to disruption or countering the character is (0–100%)"
                   />
                 )}
-                {character.strength.scalingBonus !== undefined &&
-                  character.strength.scalingBonus !== 0 && (
-                    <div
+                {character.strength.scalingBonus !== undefined && character.strength.scalingBonus !== 0 && (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      fontFamily: "var(--font-jetbrains)",
+                      fontSize: 9,
+                      color: "#555"
+                    }}
+                  >
+                    <span title="Bonus or penalty in larger games">Scaling</span>
+                    <span
                       style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        fontFamily: "var(--font-jetbrains)",
-                        fontSize: 9,
-                        color: "#555",
+                        color: character.strength.scalingBonus > 0 ? "#2a7fd4" : "#c0392b"
                       }}
                     >
-                      <span title="Bonus or penalty in larger games">Scaling</span>
-                      <span
-                        style={{
-                          color: character.strength.scalingBonus > 0 ? "#2a7fd4" : "#c0392b",
-                        }}
-                      >
-                        {character.strength.scalingBonus > 0 ? "+" : ""}
-                        {character.strength.scalingBonus} large games
-                      </span>
-                    </div>
-                  )}
+                      {character.strength.scalingBonus > 0 ? "+" : ""}
+                      {character.strength.scalingBonus} large games
+                    </span>
+                  </div>
+                )}
               </div>
             )}
             {reasons.length > 0 && (
@@ -269,7 +268,7 @@ export function CharacterDetail({
                         background: r.impact < 0 ? "#150808" : "#080d15",
                         border: `1px solid ${r.impact < 0 ? "#3a1a1a" : "#1a2a3a"}`,
                         borderRadius: 5,
-                        padding: "6px 8px",
+                        padding: "6px 8px"
                       }}
                     >
                       <div
@@ -277,7 +276,7 @@ export function CharacterDetail({
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "center",
-                          marginBottom: r.description ? 4 : 0,
+                          marginBottom: r.description ? 4 : 0
                         }}
                       >
                         <button
@@ -290,7 +289,7 @@ export function CharacterDetail({
                             padding: 0,
                             fontSize: 11,
                             fontFamily: "var(--font-cinzel)",
-                            textAlign: "left",
+                            textAlign: "left"
                           }}
                         >
                           {char?.name ?? r.characterId}
@@ -301,7 +300,7 @@ export function CharacterDetail({
                             fontSize: 11,
                             color: impactColor,
                             flexShrink: 0,
-                            marginLeft: 8,
+                            marginLeft: 8
                           }}
                         >
                           {r.impact > 0 ? "+" : ""}
@@ -314,7 +313,7 @@ export function CharacterDetail({
                             fontFamily: "var(--font-garamond)",
                             fontSize: 12,
                             color: "#888",
-                            lineHeight: 1.45,
+                            lineHeight: 1.45
                           }}
                         >
                           {r.description}
@@ -338,7 +337,7 @@ export function CharacterDetail({
                 color: "#666",
                 marginBottom: 4,
                 textTransform: "uppercase",
-                letterSpacing: "0.08em",
+                letterSpacing: "0.08em"
               }}
             >
               ST Advice
@@ -348,7 +347,7 @@ export function CharacterDetail({
                 fontFamily: "var(--font-garamond)",
                 fontSize: 13,
                 color: "#c8b89a",
-                lineHeight: 1.6,
+                lineHeight: 1.6
               }}
             >
               {character.stAdvice}
@@ -363,7 +362,7 @@ export function CharacterDetail({
               background: "#1a0a00",
               border: "1px solid #5a3000",
               borderRadius: 6,
-              padding: "8px 10px",
+              padding: "8px 10px"
             }}
           >
             <div
@@ -373,7 +372,7 @@ export function CharacterDetail({
                 color: "#d4a017",
                 marginBottom: 4,
                 textTransform: "uppercase",
-                letterSpacing: "0.08em",
+                letterSpacing: "0.08em"
               }}
             >
               ⚠ New ST Warning
@@ -383,7 +382,7 @@ export function CharacterDetail({
                 fontFamily: "var(--font-garamond)",
                 fontSize: 12,
                 color: "#c8a050",
-                lineHeight: 1.5,
+                lineHeight: 1.5
               }}
             >
               {character.newStWarning}
@@ -401,7 +400,7 @@ export function CharacterDetail({
                 color: "#666",
                 marginBottom: 4,
                 textTransform: "uppercase",
-                letterSpacing: "0.08em",
+                letterSpacing: "0.08em"
               }}
             >
               Official Reminders
@@ -413,7 +412,7 @@ export function CharacterDetail({
                     fontFamily: "var(--font-garamond)",
                     fontSize: 12,
                     color: "#888",
-                    lineHeight: 1.4,
+                    lineHeight: 1.4
                   }}
                 >
                   <span style={{ color: "#555" }}>1st: </span>
@@ -426,7 +425,7 @@ export function CharacterDetail({
                     fontFamily: "var(--font-garamond)",
                     fontSize: 12,
                     color: "#888",
-                    lineHeight: 1.4,
+                    lineHeight: 1.4
                   }}
                 >
                   <span style={{ color: "#555" }}>Other: </span>
@@ -447,7 +446,7 @@ export function CharacterDetail({
                 color: "#c0392b",
                 marginBottom: 6,
                 textTransform: "uppercase",
-                letterSpacing: "0.08em",
+                letterSpacing: "0.08em"
               }}
             >
               ⚔ Counters on this script
@@ -460,7 +459,7 @@ export function CharacterDetail({
                     background: "#1a0808",
                     border: "1px solid #4a1a1a",
                     borderRadius: 6,
-                    padding: "6px 10px",
+                    padding: "6px 10px"
                   }}
                 >
                   <button
@@ -473,7 +472,7 @@ export function CharacterDetail({
                       padding: 0,
                       fontFamily: "var(--font-cinzel)",
                       fontSize: 12,
-                      marginBottom: 2,
+                      marginBottom: 2
                     }}
                   >
                     {counter.name}
@@ -484,7 +483,7 @@ export function CharacterDetail({
                         fontFamily: "var(--font-garamond)",
                         fontSize: 12,
                         color: "#888",
-                        lineHeight: 1.4,
+                        lineHeight: 1.4
                       }}
                     >
                       {character.counterDetail[counter.id]}
@@ -506,7 +505,7 @@ export function CharacterDetail({
                 color: "#666",
                 marginBottom: 4,
                 textTransform: "uppercase",
-                letterSpacing: "0.08em",
+                letterSpacing: "0.08em"
               }}
             >
               Bluff Advice
@@ -516,7 +515,7 @@ export function CharacterDetail({
                 fontFamily: "var(--font-garamond)",
                 fontSize: 13,
                 color: "#c8b89a",
-                lineHeight: 1.5,
+                lineHeight: 1.5
               }}
             >
               {character.bluffAdvice}
@@ -536,7 +535,7 @@ export function CharacterDetail({
             cursor: "pointer",
             fontFamily: "var(--font-cinzel)",
             fontSize: 12,
-            letterSpacing: "0.05em",
+            letterSpacing: "0.05em"
           }}
         >
           {isSelected ? "Remove from Script" : "Add to Script"}

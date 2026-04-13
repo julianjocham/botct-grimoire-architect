@@ -12,20 +12,13 @@ export function CompositionPanel({
   playerCountSupport,
   selectedPlayerCount = null,
   onToggle,
-  onDetail,
+  onDetail
 }: CompositionPanelProps) {
   const counts = {
-    townsfolk: selectedIds.filter((id) =>
-      allCharacters.find((c) => c.id === id && c.team === "townsfolk")
-    ).length,
-    outsider: selectedIds.filter((id) =>
-      allCharacters.find((c) => c.id === id && c.team === "outsider")
-    ).length,
-    minion: selectedIds.filter((id) =>
-      allCharacters.find((c) => c.id === id && c.team === "minion")
-    ).length,
-    demon: selectedIds.filter((id) => allCharacters.find((c) => c.id === id && c.team === "demon"))
-      .length,
+    townsfolk: selectedIds.filter((id) => allCharacters.find((c) => c.id === id && c.team === "townsfolk")).length,
+    outsider: selectedIds.filter((id) => allCharacters.find((c) => c.id === id && c.team === "outsider")).length,
+    minion: selectedIds.filter((id) => allCharacters.find((c) => c.id === id && c.team === "minion")).length,
+    demon: selectedIds.filter((id) => allCharacters.find((c) => c.id === id && c.team === "demon")).length
   };
 
   return (
@@ -41,14 +34,14 @@ export function CompositionPanel({
               border: `1px solid ${counts[team] >= MAX_TARGETS[team] ? COLORS[team] + "66" : "#2a2a3a"}`,
               borderRadius: 6,
               padding: "6px 8px",
-              textAlign: "center",
+              textAlign: "center"
             }}
           >
             <div
               style={{
                 fontFamily: "var(--font-jetbrains)",
                 fontSize: 16,
-                color: COLORS[team],
+                color: COLORS[team]
               }}
             >
               {counts[team]}
@@ -58,7 +51,7 @@ export function CompositionPanel({
                 fontFamily: "var(--font-jetbrains)",
                 fontSize: 8,
                 color: "#555",
-                textTransform: "uppercase",
+                textTransform: "uppercase"
               }}
             >
               / {MAX_TARGETS[team]}
@@ -69,7 +62,7 @@ export function CompositionPanel({
                 fontSize: 10,
                 color: "#666",
                 textTransform: "capitalize",
-                marginTop: 2,
+                marginTop: 2
               }}
             >
               {team}
@@ -88,7 +81,7 @@ export function CompositionPanel({
               color: "#b8965a",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              marginBottom: 6,
+              marginBottom: 6
             }}
           >
             Composition Warnings
@@ -99,18 +92,14 @@ export function CompositionPanel({
                 key={i}
                 style={{
                   background:
-                    w.severity === "critical"
-                      ? "#1a0808"
-                      : w.severity === "important"
-                        ? "#1a1500"
-                        : "#0a140a",
+                    w.severity === "critical" ? "#1a0808" : w.severity === "important" ? "#1a1500" : "#0a140a",
                   border: `1px solid ${w.severity === "critical" ? "#8b1a1a" : w.severity === "important" ? "#7a5a00" : "#1a4a2e"}`,
                   borderRadius: 6,
                   padding: "8px 10px",
                   fontFamily: "var(--font-garamond)",
                   fontSize: 13,
                   color: "#c8b89a",
-                  lineHeight: 1.5,
+                  lineHeight: 1.5
                 }}
               >
                 {w.message}
@@ -130,7 +119,7 @@ export function CompositionPanel({
               color: "#b8965a",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              marginBottom: 6,
+              marginBottom: 6
             }}
           >
             Recommendations
@@ -147,7 +136,7 @@ export function CompositionPanel({
                     background: "#0a1400",
                     border: "1px solid #2a3a1a",
                     borderRadius: 6,
-                    padding: "8px 10px",
+                    padding: "8px 10px"
                   }}
                 >
                   <div
@@ -156,7 +145,7 @@ export function CompositionPanel({
                       fontSize: 13,
                       color: "#c8b89a",
                       lineHeight: 1.5,
-                      marginBottom: 6,
+                      marginBottom: 6
                     }}
                   >
                     💡 {rec.reason}
@@ -174,7 +163,7 @@ export function CompositionPanel({
                             fontSize: 11,
                             color: "#4a9a6a",
                             cursor: "pointer",
-                            fontFamily: "var(--font-cinzel)",
+                            fontFamily: "var(--font-cinzel)"
                           }}
                         >
                           {c.name}
@@ -188,7 +177,7 @@ export function CompositionPanel({
                             padding: "2px 6px",
                             fontSize: 11,
                             color: selectedIds.includes(c.id) ? "#c0392b" : "#4a9a6a",
-                            cursor: "pointer",
+                            cursor: "pointer"
                           }}
                         >
                           {selectedIds.includes(c.id) ? "−" : "+"}
@@ -210,7 +199,7 @@ export function CompositionPanel({
             textAlign: "center",
             padding: "20px",
             fontFamily: "var(--font-garamond)",
-            fontSize: 14,
+            fontSize: 14
           }}
         >
           Add more characters to see composition analysis.
@@ -226,7 +215,7 @@ export function CompositionPanel({
             color: "#b8965a",
             letterSpacing: "0.08em",
             textTransform: "uppercase",
-            marginBottom: 8,
+            marginBottom: 8
           }}
         >
           Player Count Support
@@ -236,7 +225,7 @@ export function CompositionPanel({
             background: "#0a0a14",
             border: "1px solid #2a2a3a",
             borderRadius: 6,
-            overflow: "hidden",
+            overflow: "hidden"
           }}
         >
           {/* Header row */}
@@ -246,7 +235,7 @@ export function CompositionPanel({
               gridTemplateColumns: "36px 1fr 1fr 1fr 1fr 28px",
               borderBottom: "1px solid #2a2a3a",
               padding: "4px 8px",
-              gap: 4,
+              gap: 4
             }}
           >
             {["P", "TF", "OS", "Mn", "Dm", ""].map((h) => (
@@ -257,7 +246,7 @@ export function CompositionPanel({
                   fontSize: 9,
                   color: "#555",
                   textTransform: "uppercase",
-                  textAlign: "center",
+                  textAlign: "center"
                 }}
               >
                 {h}
@@ -280,14 +269,10 @@ export function CompositionPanel({
                   padding: "4px 8px",
                   gap: 4,
                   borderBottom: pc < 15 ? "1px solid #16161f" : "none",
-                  background: isActive
-                    ? "rgba(139,26,26,0.18)"
-                    : supported
-                      ? "rgba(45,106,79,0.07)"
-                      : "transparent",
+                  background: isActive ? "rgba(139,26,26,0.18)" : supported ? "rgba(45,106,79,0.07)" : "transparent",
                   outline: isActive ? "1px solid #8b1a1a" : "none",
                   outlineOffset: -1,
-                  borderRadius: isActive ? 3 : 0,
+                  borderRadius: isActive ? 3 : 0
                 }}
               >
                 <div
@@ -296,7 +281,7 @@ export function CompositionPanel({
                     fontSize: 10,
                     color: isActive ? "#e8dcc8" : "#b8965a",
                     textAlign: "center",
-                    fontWeight: isActive ? 700 : 600,
+                    fontWeight: isActive ? 700 : 600
                   }}
                 >
                   {pc}
@@ -306,37 +291,29 @@ export function CompositionPanel({
                     fontFamily: "var(--font-jetbrains)",
                     fontSize: 10,
                     color: "#5b9bd5",
-                    textAlign: "center",
+                    textAlign: "center"
                   }}
                 >
                   {displayTF}
-                  {baronVariant && (
-                    <span style={{ fontSize: 8, color: "#555", marginLeft: 2 }}>
-                      ({req.townsfolk})
-                    </span>
-                  )}
+                  {baronVariant && <span style={{ fontSize: 8, color: "#555", marginLeft: 2 }}>({req.townsfolk})</span>}
                 </div>
                 <div
                   style={{
                     fontFamily: "var(--font-jetbrains)",
                     fontSize: 10,
                     color: "#9b7fd5",
-                    textAlign: "center",
+                    textAlign: "center"
                   }}
                 >
                   {displayOS}
-                  {baronVariant && (
-                    <span style={{ fontSize: 8, color: "#555", marginLeft: 2 }}>
-                      ({req.outsider})
-                    </span>
-                  )}
+                  {baronVariant && <span style={{ fontSize: 8, color: "#555", marginLeft: 2 }}>({req.outsider})</span>}
                 </div>
                 <div
                   style={{
                     fontFamily: "var(--font-jetbrains)",
                     fontSize: 10,
                     color: "#d5825b",
-                    textAlign: "center",
+                    textAlign: "center"
                   }}
                 >
                   {req.minion}
@@ -346,7 +323,7 @@ export function CompositionPanel({
                     fontFamily: "var(--font-jetbrains)",
                     fontSize: 10,
                     color: "#d55b5b",
-                    textAlign: "center",
+                    textAlign: "center"
                   }}
                 >
                   {req.demon}
@@ -367,7 +344,7 @@ export function CompositionPanel({
             fontFamily: "var(--font-garamond)",
             fontSize: 11,
             color: "#444",
-            marginTop: 4,
+            marginTop: 4
           }}
         >
           ✓ = script has enough of each type (TF includes 3 demon bluffs)

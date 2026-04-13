@@ -2,13 +2,7 @@ import rawCharacters from "@/data/characters.json";
 import enrichmentData from "@/data/enrichment.json";
 import interactionsData from "@/data/interactions.json";
 import editionsData from "@/data/editions.json";
-import type {
-  Character,
-  Interaction,
-  RawCharacter,
-  CharacterEnrichment,
-  EditionConfig,
-} from "./types";
+import type { Character, Interaction, RawCharacter, CharacterEnrichment, EditionConfig } from "./types";
 
 const enrichment = enrichmentData as Record<string, CharacterEnrichment>;
 
@@ -25,7 +19,7 @@ function mergeCharacter(c: RawCharacter): Character {
     stAdvice: e?.stAdvice ?? "",
     newStWarning: e?.newStWarning,
     bluffAdvice: e?.bluffAdvice,
-    jinxes: e?.jinxes ?? [],
+    jinxes: e?.jinxes ?? []
   } as Character;
 }
 

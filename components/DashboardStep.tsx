@@ -19,7 +19,7 @@ export function DashboardStep({
   onNightPhaseChange,
   onDetail,
   onBackToSetup,
-  onReset,
+  onReset
 }: DashboardStepProps) {
   const travelerIdSet = new Set(editionTravelers.map((t) => t.id));
   const coreGameIds = gameIds.filter((id) => !travelerIdSet.has(id));
@@ -41,9 +41,7 @@ export function DashboardStep({
   const evilPct = Math.round((Math.abs(evilTotal) / strengthRange) * 100);
 
   const criticals = analysis.interactionHints.filter((h) => h.severity === "critical");
-  const important = analysis.interactionHints.filter(
-    (h) => h.severity === "important" && h.category !== "jinx"
-  );
+  const important = analysis.interactionHints.filter((h) => h.severity === "important" && h.category !== "jinx");
   const jinxes = analysis.interactionHints.filter((h) => h.category === "jinx");
 
   const nightSteps = nightPhase === "first" ? analysis.nightOrder.first : analysis.nightOrder.other;
@@ -60,7 +58,7 @@ export function DashboardStep({
         padding: "24px 24px 48px",
         display: "flex",
         flexDirection: "column",
-        gap: 20,
+        gap: 20
       }}
     >
       {/* Top bar */}
@@ -70,7 +68,7 @@ export function DashboardStep({
           alignItems: "center",
           justifyContent: "space-between",
           flexWrap: "wrap",
-          gap: 12,
+          gap: 12
         }}
       >
         <div>
@@ -79,7 +77,7 @@ export function DashboardStep({
               fontFamily: "var(--font-cinzel)",
               fontSize: 20,
               color: "#e8dcc8",
-              letterSpacing: "0.04em",
+              letterSpacing: "0.04em"
             }}
           >
             {EDITIONS[scriptSource ?? "custom"]}
@@ -89,7 +87,7 @@ export function DashboardStep({
               fontFamily: "var(--font-garamond)",
               fontSize: 13,
               color: "#666",
-              marginTop: 2,
+              marginTop: 2
             }}
           >
             {playerCount} players · {coreGameIds.length} characters
@@ -110,7 +108,7 @@ export function DashboardStep({
               color: "#666",
               cursor: "pointer",
               fontFamily: "var(--font-garamond)",
-              fontSize: 13,
+              fontSize: 13
             }}
           >
             ← Adjust Roster
@@ -126,7 +124,7 @@ export function DashboardStep({
               cursor: "pointer",
               fontFamily: "var(--font-cinzel)",
               fontSize: 11,
-              letterSpacing: "0.05em",
+              letterSpacing: "0.05em"
             }}
           >
             Print Script
@@ -141,7 +139,7 @@ export function DashboardStep({
               color: "#8b1a1a",
               cursor: "pointer",
               fontFamily: "var(--font-garamond)",
-              fontSize: 13,
+              fontSize: 13
             }}
           >
             New Game
@@ -155,7 +153,7 @@ export function DashboardStep({
           background: "var(--bg-surface)",
           border: "1px solid #2a2a3a",
           borderRadius: 10,
-          padding: "12px 16px",
+          padding: "12px 16px"
         }}
       >
         <div
@@ -165,7 +163,7 @@ export function DashboardStep({
             color: "#555",
             letterSpacing: "0.1em",
             textTransform: "uppercase",
-            marginBottom: 10,
+            marginBottom: 10
           }}
         >
           In Play — {gameIds.length} Characters
@@ -176,10 +174,7 @@ export function DashboardStep({
             if (chars.length === 0) return null;
             const col = TEAM_COLORS[team];
             return (
-              <div
-                key={team}
-                style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}
-              >
+              <div key={team} style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                 <div
                   style={{
                     fontFamily: "var(--font-cinzel)",
@@ -188,7 +183,7 @@ export function DashboardStep({
                     textTransform: "uppercase",
                     letterSpacing: "0.1em",
                     minWidth: 64,
-                    flexShrink: 0,
+                    flexShrink: 0
                   }}
                 >
                   {TEAM_LABEL[team]}
@@ -205,7 +200,7 @@ export function DashboardStep({
                       color: col.text,
                       cursor: "pointer",
                       fontFamily: "var(--font-cinzel)",
-                      fontSize: 11,
+                      fontSize: 11
                     }}
                   >
                     {c.name}
@@ -224,7 +219,7 @@ export function DashboardStep({
                   textTransform: "uppercase",
                   letterSpacing: "0.1em",
                   minWidth: 64,
-                  flexShrink: 0,
+                  flexShrink: 0
                 }}
               >
                 Travelers
@@ -241,7 +236,7 @@ export function DashboardStep({
                     color: "#b8965a",
                     cursor: "pointer",
                     fontFamily: "var(--font-cinzel)",
-                    fontSize: 11,
+                    fontSize: 11
                   }}
                 >
                   {c.name}
@@ -262,7 +257,7 @@ export function DashboardStep({
             borderRadius: 10,
             padding: "14px 16px",
             display: "flex",
-            flexDirection: "column",
+            flexDirection: "column"
           }}
         >
           <div
@@ -272,7 +267,7 @@ export function DashboardStep({
               color: "#b8965a",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              marginBottom: 10,
+              marginBottom: 10
             }}
           >
             Night Order
@@ -290,7 +285,7 @@ export function DashboardStep({
             borderRadius: 10,
             padding: "14px 16px",
             display: "flex",
-            flexDirection: "column",
+            flexDirection: "column"
           }}
         >
           <div
@@ -300,17 +295,13 @@ export function DashboardStep({
               color: "#b8965a",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              marginBottom: 10,
+              marginBottom: 10
             }}
           >
             Interactions ({analysis.interactionHints.length})
           </div>
           <div style={{ overflowY: "auto", maxHeight: 480, flex: 1 }}>
-            <InteractionFeed
-              hints={analysis.interactionHints}
-              characters={allCharacters}
-              onDetail={onDetail}
-            />
+            <InteractionFeed hints={analysis.interactionHints} characters={allCharacters} onDetail={onDetail} />
           </div>
         </div>
 
@@ -322,7 +313,7 @@ export function DashboardStep({
               background: "var(--bg-surface)",
               border: "1px solid #2a2a3a",
               borderRadius: 10,
-              padding: "14px 16px",
+              padding: "14px 16px"
             }}
           >
             <div
@@ -332,7 +323,7 @@ export function DashboardStep({
                 color: "#b8965a",
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
-                marginBottom: 12,
+                marginBottom: 12
               }}
             >
               Team Strength
@@ -347,28 +338,24 @@ export function DashboardStep({
                       fontFamily: "var(--font-jetbrains)",
                       fontSize: 10,
                       color: "#5b9bd5",
-                      textTransform: "uppercase",
+                      textTransform: "uppercase"
                     }}
                   >
                     Good
                   </span>
-                  <span
-                    style={{ fontFamily: "var(--font-jetbrains)", fontSize: 11, color: "#5b9bd5" }}
-                  >
+                  <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 11, color: "#5b9bd5" }}>
                     {goodTotal > 0 ? "+" : ""}
                     {goodTotal}
                   </span>
                 </div>
-                <div
-                  style={{ height: 8, background: "#14141f", borderRadius: 4, overflow: "hidden" }}
-                >
+                <div style={{ height: 8, background: "#14141f", borderRadius: 4, overflow: "hidden" }}>
                   <div
                     style={{
                       height: "100%",
                       width: `${goodPct}%`,
                       background: "#2a7fd4",
                       borderRadius: 4,
-                      transition: "width 0.3s",
+                      transition: "width 0.3s"
                     }}
                   />
                 </div>
@@ -381,27 +368,23 @@ export function DashboardStep({
                       fontFamily: "var(--font-jetbrains)",
                       fontSize: 10,
                       color: "#d55b5b",
-                      textTransform: "uppercase",
+                      textTransform: "uppercase"
                     }}
                   >
                     Evil
                   </span>
-                  <span
-                    style={{ fontFamily: "var(--font-jetbrains)", fontSize: 11, color: "#d55b5b" }}
-                  >
+                  <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 11, color: "#d55b5b" }}>
                     {evilTotal}
                   </span>
                 </div>
-                <div
-                  style={{ height: 8, background: "#14141f", borderRadius: 4, overflow: "hidden" }}
-                >
+                <div style={{ height: 8, background: "#14141f", borderRadius: 4, overflow: "hidden" }}>
                   <div
                     style={{
                       height: "100%",
                       width: `${evilPct}%`,
                       background: "#c0392b",
                       borderRadius: 4,
-                      transition: "width 0.3s",
+                      transition: "width 0.3s"
                     }}
                   />
                 </div>
@@ -412,7 +395,7 @@ export function DashboardStep({
                   fontSize: 11,
                   color: "#555",
                   textAlign: "center",
-                  marginTop: 2,
+                  marginTop: 2
                 }}
               >
                 {goodTotal > Math.abs(evilTotal) * 1.2
@@ -430,7 +413,7 @@ export function DashboardStep({
               background: "var(--bg-surface)",
               border: "1px solid #2a2a3a",
               borderRadius: 10,
-              padding: "14px 16px",
+              padding: "14px 16px"
             }}
           >
             <div
@@ -440,7 +423,7 @@ export function DashboardStep({
                 color: "#b8965a",
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
-                marginBottom: 12,
+                marginBottom: 12
               }}
             >
               Game Feel
@@ -452,23 +435,19 @@ export function DashboardStep({
                 const color = FEEL_COLOR[val] ?? "#b8965a";
                 return (
                   <div key={key}>
-                    <div
-                      style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}
-                    >
+                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
                       <span
                         style={{
                           fontFamily: "var(--font-jetbrains)",
                           fontSize: 9,
                           color: "#555",
                           textTransform: "uppercase",
-                          letterSpacing: "0.06em",
+                          letterSpacing: "0.06em"
                         }}
                       >
                         {label}
                       </span>
-                      <span style={{ fontFamily: "var(--font-cinzel)", fontSize: 9, color }}>
-                        {val}
-                      </span>
+                      <span style={{ fontFamily: "var(--font-cinzel)", fontSize: 9, color }}>{val}</span>
                     </div>
                     <div style={{ display: "flex", gap: 2 }}>
                       {levels.map((_, i) => (
@@ -478,7 +457,7 @@ export function DashboardStep({
                             flex: 1,
                             height: 6,
                             borderRadius: 2,
-                            background: i <= idx ? color : "#2a2a3a",
+                            background: i <= idx ? color : "#2a2a3a"
                           }}
                         />
                       ))}
@@ -493,7 +472,7 @@ export function DashboardStep({
                 fontSize: 9,
                 color: "#444",
                 marginTop: 10,
-                textAlign: "center",
+                textAlign: "center"
               }}
             >
               Night: {analysis.nightComplexity.complexityRating}
@@ -509,7 +488,7 @@ export function DashboardStep({
                 background: "var(--bg-surface)",
                 border: "1px solid #2a2a3a",
                 borderRadius: 10,
-                padding: "14px 16px",
+                padding: "14px 16px"
               }}
             >
               <div
@@ -519,7 +498,7 @@ export function DashboardStep({
                   color: "#b8965a",
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  marginBottom: 10,
+                  marginBottom: 10
                 }}
               >
                 Issues
@@ -530,22 +509,17 @@ export function DashboardStep({
                     key={i}
                     style={{
                       background:
-                        w.severity === "critical"
-                          ? "#1a0808"
-                          : w.severity === "important"
-                            ? "#1a1400"
-                            : "#0a1408",
+                        w.severity === "critical" ? "#1a0808" : w.severity === "important" ? "#1a1400" : "#0a1408",
                       border: `1px solid ${w.severity === "critical" ? "#8b1a1a" : w.severity === "important" ? "#7a5a00" : "#1a4a2e"}`,
                       borderRadius: 5,
                       padding: "6px 9px",
                       fontFamily: "var(--font-garamond)",
                       fontSize: 12,
                       color: "#c8b89a",
-                      lineHeight: 1.5,
+                      lineHeight: 1.5
                     }}
                   >
-                    {w.severity === "critical" ? "⚠" : w.severity === "important" ? "⚡" : "💡"}{" "}
-                    {w.message}
+                    {w.severity === "critical" ? "⚠" : w.severity === "important" ? "⚡" : "💡"} {w.message}
                   </div>
                 ))}
                 {jinxes.length > 0 && (
@@ -557,11 +531,10 @@ export function DashboardStep({
                       padding: "6px 9px",
                       fontFamily: "var(--font-garamond)",
                       fontSize: 12,
-                      color: "#b8965a",
+                      color: "#b8965a"
                     }}
                   >
-                    ⚖ {jinxes.length} Djinn Jinx{jinxes.length > 1 ? "es" : ""} — see Interactions
-                    tab
+                    ⚖ {jinxes.length} Djinn Jinx{jinxes.length > 1 ? "es" : ""} — see Interactions tab
                   </div>
                 )}
               </div>
@@ -578,7 +551,7 @@ export function DashboardStep({
               fontSize: 24,
               marginBottom: 4,
               borderBottom: "2px solid #000",
-              paddingBottom: 8,
+              paddingBottom: 8
             }}
           >
             Blood on the Clocktower — {EDITIONS[scriptSource ?? "custom"]}
@@ -593,7 +566,7 @@ export function DashboardStep({
               fontSize: 16,
               borderBottom: "1px solid #ccc",
               paddingBottom: 4,
-              marginBottom: 12,
+              marginBottom: 12
             }}
           >
             Night Order
@@ -603,7 +576,7 @@ export function DashboardStep({
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
               gap: "0 24px",
-              marginBottom: 24,
+              marginBottom: 24
             }}
           >
             <div>
@@ -613,9 +586,7 @@ export function DashboardStep({
                   <strong>
                     {i + 1}. {s.character.name}
                   </strong>
-                  {s.reminder && (
-                    <div style={{ color: "#666", fontSize: 10, marginLeft: 12 }}>{s.reminder}</div>
-                  )}
+                  {s.reminder && <div style={{ color: "#666", fontSize: 10, marginLeft: 12 }}>{s.reminder}</div>}
                 </div>
               ))}
             </div>
@@ -626,9 +597,7 @@ export function DashboardStep({
                   <strong>
                     {i + 1}. {s.character.name}
                   </strong>
-                  {s.reminder && (
-                    <div style={{ color: "#666", fontSize: 10, marginLeft: 12 }}>{s.reminder}</div>
-                  )}
+                  {s.reminder && <div style={{ color: "#666", fontSize: 10, marginLeft: 12 }}>{s.reminder}</div>}
                 </div>
               ))}
             </div>
@@ -641,7 +610,7 @@ export function DashboardStep({
               borderBottom: "1px solid #ccc",
               paddingBottom: 4,
               marginBottom: 12,
-              pageBreakBefore: "always",
+              pageBreakBefore: "always"
             }}
           >
             Characters in Play
@@ -658,7 +627,7 @@ export function DashboardStep({
                     letterSpacing: "0.08em",
                     borderBottom: "1px solid #eee",
                     paddingBottom: 4,
-                    marginBottom: 10,
+                    marginBottom: 10
                   }}
                 >
                   {TEAM_LABEL[team]} ({chars.length})
@@ -668,18 +637,14 @@ export function DashboardStep({
                   .map((c) => (
                     <div key={c.id} style={{ marginBottom: 10, pageBreakInside: "avoid" }}>
                       <strong style={{ fontSize: 13 }}>{c.name}</strong>
-                      <div style={{ fontSize: 11, color: "#444", marginTop: 2, lineHeight: 1.5 }}>
-                        {c.ability}
-                      </div>
+                      <div style={{ fontSize: 11, color: "#444", marginTop: 2, lineHeight: 1.5 }}>{c.ability}</div>
                       {c.firstNightReminder && (
                         <div style={{ fontSize: 10, color: "#888", marginTop: 2 }}>
                           1st Night: {c.firstNightReminder}
                         </div>
                       )}
                       {c.otherNightReminder && (
-                        <div style={{ fontSize: 10, color: "#888" }}>
-                          Other Nights: {c.otherNightReminder}
-                        </div>
+                        <div style={{ fontSize: 10, color: "#888" }}>Other Nights: {c.otherNightReminder}</div>
                       )}
                     </div>
                   ))}
@@ -696,7 +661,7 @@ export function DashboardStep({
                   borderBottom: "1px solid #ccc",
                   paddingBottom: 4,
                   marginBottom: 12,
-                  pageBreakBefore: "always",
+                  pageBreakBefore: "always"
                 }}
               >
                 Key Interactions

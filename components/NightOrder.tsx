@@ -13,7 +13,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
           marginBottom: 12,
           background: "var(--bg-base)",
           borderRadius: 6,
-          padding: 3,
+          padding: 3
         }}
       >
         {(["first", "other"] as const).map((p) => (
@@ -30,7 +30,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
               cursor: "pointer",
               fontFamily: "var(--font-cinzel)",
               fontSize: 11,
-              letterSpacing: "0.05em",
+              letterSpacing: "0.05em"
             }}
           >
             {p === "first" ? "First Night" : "Other Nights"}
@@ -45,7 +45,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
             textAlign: "center",
             padding: "20px",
             fontFamily: "var(--font-garamond)",
-            fontSize: 14,
+            fontSize: 14
           }}
         >
           No night actions for this phase.
@@ -56,7 +56,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: 0,
+          gap: 0
         }}
       >
         {steps.map((step, i) => (
@@ -65,7 +65,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
             style={{
               display: "flex",
               gap: 10,
-              position: "relative",
+              position: "relative"
             }}
           >
             {/* Timeline line */}
@@ -75,7 +75,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
                 flexDirection: "column",
                 alignItems: "center",
                 flexShrink: 0,
-                width: 28,
+                width: 28
               }}
             >
               <div
@@ -92,7 +92,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
                   fontSize: 10,
                   color: "#b8965a",
                   flexShrink: 0,
-                  zIndex: 1,
+                  zIndex: 1
                 }}
               >
                 {step.order}
@@ -103,7 +103,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
                     width: 1,
                     flex: 1,
                     minHeight: 12,
-                    background: "#2a2a3a",
+                    background: "#2a2a3a"
                   }}
                 />
               )}
@@ -114,7 +114,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
               style={{
                 flex: 1,
                 paddingBottom: 12,
-                minWidth: 0,
+                minWidth: 0
               }}
             >
               <div
@@ -122,7 +122,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
                   fontFamily: "var(--font-cinzel)",
                   fontSize: 12,
                   color: "#e8dcc8",
-                  marginBottom: 3,
+                  marginBottom: 3
                 }}
               >
                 {step.character.name}
@@ -133,7 +133,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
                   fontSize: 12,
                   color: "#888",
                   lineHeight: 1.4,
-                  marginBottom: step.contextHints.length > 0 ? 6 : 0,
+                  marginBottom: step.contextHints.length > 0 ? 6 : 0
                 }}
               >
                 {step.reminder}
@@ -150,7 +150,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
                     border: "1px solid #3a3000",
                     borderRadius: 4,
                     padding: "4px 8px",
-                    marginTop: 4,
+                    marginTop: 4
                   }}
                 >
                   ⚡ {hint}

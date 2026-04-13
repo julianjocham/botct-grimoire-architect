@@ -13,7 +13,7 @@ export function InteractionFeed({ hints, characters, onDetail }: InteractionFeed
           color: "#555",
           textAlign: "center",
           fontFamily: "var(--font-garamond)",
-          fontSize: 14,
+          fontSize: 14
         }}
       >
         Add characters to see interaction warnings and tips.
@@ -27,7 +27,7 @@ export function InteractionFeed({ hints, characters, onDetail }: InteractionFeed
         display: "flex",
         flexDirection: "column",
         gap: 8,
-        padding: "8px 0",
+        padding: "8px 0"
       }}
     >
       {hints.map((hint, i) => {
@@ -45,7 +45,7 @@ export function InteractionFeed({ hints, characters, onDetail }: InteractionFeed
               background: style.bg,
               borderRadius: 8,
               padding: "10px 12px",
-              ...(isJinx && { borderStyle: "dashed" }),
+              ...(isJinx && { borderStyle: "dashed" })
             }}
           >
             <div
@@ -53,7 +53,7 @@ export function InteractionFeed({ hints, characters, onDetail }: InteractionFeed
                 display: "flex",
                 alignItems: "flex-start",
                 gap: 8,
-                marginBottom: 6,
+                marginBottom: 6
               }}
             >
               <span style={{ fontSize: 14, flexShrink: 0 }}>{style.icon}</span>
@@ -70,7 +70,7 @@ export function InteractionFeed({ hints, characters, onDetail }: InteractionFeed
                         borderRadius: 3,
                         padding: "1px 5px",
                         letterSpacing: "0.05em",
-                        flexShrink: 0,
+                        flexShrink: 0
                       }}
                     >
                       ⚖ Djinn Jinx
@@ -80,7 +80,7 @@ export function InteractionFeed({ hints, characters, onDetail }: InteractionFeed
                     style={{
                       fontFamily: "var(--font-cinzel)",
                       fontSize: 12,
-                      color: "#e8dcc8",
+                      color: "#e8dcc8"
                     }}
                   >
                     {hint.title}
@@ -91,7 +91,7 @@ export function InteractionFeed({ hints, characters, onDetail }: InteractionFeed
                     display: "flex",
                     gap: 4,
                     flexWrap: "wrap",
-                    marginBottom: 6,
+                    marginBottom: 6
                   }}
                 >
                   {involvedChars.map((c) => (
@@ -106,7 +106,7 @@ export function InteractionFeed({ hints, characters, onDetail }: InteractionFeed
                         fontSize: 11,
                         color: "#b8965a",
                         cursor: "pointer",
-                        fontFamily: "var(--font-cinzel)",
+                        fontFamily: "var(--font-cinzel)"
                       }}
                     >
                       {c.name}
@@ -118,7 +118,7 @@ export function InteractionFeed({ hints, characters, onDetail }: InteractionFeed
                     fontFamily: "var(--font-garamond)",
                     fontSize: 13,
                     color: "#c8b89a",
-                    lineHeight: 1.5,
+                    lineHeight: 1.5
                   }}
                 >
                   {hint.description}

@@ -32,7 +32,7 @@ export function ScriptStep({
   onToggleScriptChar,
   onContinue,
   onSearch,
-  onDetail,
+  onDetail
 }: ScriptStepProps) {
   const isCustom = scriptSource === "custom";
 
@@ -42,7 +42,7 @@ export function ScriptStep({
     townsfolk: teamCount(scriptChars, "townsfolk"),
     outsider: teamCount(scriptChars, "outsider"),
     minion: teamCount(scriptChars, "minion"),
-    demon: teamCount(scriptChars, "demon"),
+    demon: teamCount(scriptChars, "demon")
   };
   const hasBaron = scriptIds.includes("baron");
   // Baron shifts 2 TF to OS, so targets adjust accordingly
@@ -50,7 +50,7 @@ export function ScriptStep({
     townsfolk: hasBaron ? 11 : 13,
     outsider: hasBaron ? 6 : 4,
     minion: 4,
-    demon: 1,
+    demon: 1
   };
   const tfMin = hasBaron ? 7 : 9; // minimum TF needed for a 7-player game
 
@@ -74,7 +74,7 @@ export function ScriptStep({
         padding: "32px 24px",
         display: "flex",
         flexDirection: "column",
-        gap: 32,
+        gap: 32
       }}
     >
       <div>
@@ -84,7 +84,7 @@ export function ScriptStep({
             fontSize: 22,
             color: "#e8dcc8",
             margin: "0 0 6px",
-            letterSpacing: "0.04em",
+            letterSpacing: "0.04em"
           }}
         >
           Step 1 — Choose Your Script
@@ -94,11 +94,11 @@ export function ScriptStep({
             fontFamily: "var(--font-garamond)",
             fontSize: 14,
             color: "#555",
-            margin: 0,
+            margin: 0
           }}
         >
-          A script is the set of characters available to appear in your game. Choose a pre-made
-          script or build your own.
+          A script is the set of characters available to appear in your game. Choose a pre-made script or build your
+          own.
         </p>
       </div>
 
@@ -124,7 +124,7 @@ export function ScriptStep({
                     borderRadius: 12,
                     padding: "20px 22px",
                     cursor: "pointer",
-                    transition: "all 0.15s ease",
+                    transition: "all 0.15s ease"
                   }}
                 >
                   <div
@@ -132,7 +132,7 @@ export function ScriptStep({
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "flex-start",
-                      marginBottom: 10,
+                      marginBottom: 10
                     }}
                   >
                     <div
@@ -140,7 +140,7 @@ export function ScriptStep({
                         fontFamily: "var(--font-cinzel)",
                         fontSize: 15,
                         color: isSelected ? "#e8dcc8" : "#b8965a",
-                        letterSpacing: "0.04em",
+                        letterSpacing: "0.04em"
                       }}
                     >
                       {ed.name}
@@ -153,7 +153,7 @@ export function ScriptStep({
                         border: `1px solid ${ed.diffColor}44`,
                         borderRadius: 3,
                         padding: "2px 7px",
-                        flexShrink: 0,
+                        flexShrink: 0
                       }}
                     >
                       {ed.difficulty}
@@ -167,7 +167,7 @@ export function ScriptStep({
                       color: "#666",
                       lineHeight: 1.5,
                       marginBottom: 16,
-                      minHeight: 40,
+                      minHeight: 40
                     }}
                   >
                     {ed.tagline}
@@ -179,7 +179,7 @@ export function ScriptStep({
                       display: "grid",
                       gridTemplateColumns: "1fr 1fr",
                       gap: "4px 12px",
-                      marginBottom: 16,
+                      marginBottom: 16
                     }}
                   >
                     {TEAM_ORDER.map((team) => {
@@ -192,7 +192,7 @@ export function ScriptStep({
                           style={{
                             fontFamily: "var(--font-jetbrains)",
                             fontSize: 11,
-                            color: c.text,
+                            color: c.text
                           }}
                         >
                           {n} {TEAM_LABEL[team]}
@@ -220,7 +220,7 @@ export function ScriptStep({
                       fontFamily: "var(--font-cinzel)",
                       fontSize: 11,
                       letterSpacing: "0.05em",
-                      transition: "all 0.15s ease",
+                      transition: "all 0.15s ease"
                     }}
                   >
                     {isSelected ? "✓ Selected" : "Select Script"}
@@ -240,7 +240,7 @@ export function ScriptStep({
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              gap: 16,
+              gap: 16
             }}
           >
             <div>
@@ -249,7 +249,7 @@ export function ScriptStep({
                   fontFamily: "var(--font-cinzel)",
                   fontSize: 14,
                   color: "#b8965a",
-                  marginBottom: 4,
+                  marginBottom: 4
                 }}
               >
                 Custom Script
@@ -259,11 +259,11 @@ export function ScriptStep({
                   fontFamily: "var(--font-garamond)",
                   fontSize: 13,
                   color: "#555",
-                  lineHeight: 1.5,
+                  lineHeight: 1.5
                 }}
               >
-                Mix characters from all editions. Aim for 13+ Townsfolk, 4 Outsiders, 4 Minions, and
-                at least 1 Demon to support all player counts.
+                Mix characters from all editions. Aim for 13+ Townsfolk, 4 Outsiders, 4 Minions, and at least 1 Demon to
+                support all player counts.
               </div>
             </div>
             <button
@@ -279,7 +279,7 @@ export function ScriptStep({
                 fontSize: 11,
                 letterSpacing: "0.05em",
                 whiteSpace: "nowrap",
-                flexShrink: 0,
+                flexShrink: 0
               }}
             >
               Build Custom →
@@ -300,7 +300,7 @@ export function ScriptStep({
                   cursor: "pointer",
                   fontFamily: "var(--font-cinzel)",
                   fontSize: 13,
-                  letterSpacing: "0.06em",
+                  letterSpacing: "0.06em"
                 }}
               >
                 Set Up Game →
@@ -321,7 +321,7 @@ export function ScriptStep({
               borderRadius: 10,
               display: "flex",
               flexDirection: "column",
-              overflow: "hidden",
+              overflow: "hidden"
             }}
           >
             <div style={{ padding: "10px 12px", borderBottom: "1px solid #2a2a3a" }}>
@@ -340,7 +340,7 @@ export function ScriptStep({
                   fontFamily: "var(--font-garamond)",
                   fontSize: 13,
                   outline: "none",
-                  boxSizing: "border-box",
+                  boxSizing: "border-box"
                 }}
               />
             </div>
@@ -351,7 +351,7 @@ export function ScriptStep({
                 padding: "8px 10px",
                 display: "flex",
                 flexDirection: "column",
-                gap: 10,
+                gap: 10
               }}
             >
               {TEAM_ORDER.map((team) => {
@@ -368,19 +368,14 @@ export function ScriptStep({
                         textTransform: "uppercase",
                         marginBottom: 5,
                         paddingBottom: 3,
-                        borderBottom: "1px solid #2a2a3a",
+                        borderBottom: "1px solid #2a2a3a"
                       }}
                     >
                       {TEAM_LABEL[team]} ({chars.length})
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                       {chars.map((c) => {
-                        const eff = calculateEffectiveStrength(
-                          c.id,
-                          scriptIds,
-                          allCharacters,
-                          interactions
-                        );
+                        const eff = calculateEffectiveStrength(c.id, scriptIds, allCharacters, interactions);
                         return (
                           <CharacterToken
                             key={c.id}
@@ -418,7 +413,7 @@ export function ScriptStep({
                 color: "#666",
                 cursor: "pointer",
                 fontFamily: "var(--font-garamond)",
-                fontSize: 13,
+                fontSize: 13
               }}
             >
               ← Back to Script Selection
@@ -430,7 +425,7 @@ export function ScriptStep({
                 background: "var(--bg-surface)",
                 border: "1px solid #2a2a3a",
                 borderRadius: 10,
-                padding: "14px 16px",
+                padding: "14px 16px"
               }}
             >
               <div
@@ -440,7 +435,7 @@ export function ScriptStep({
                   color: "#b8965a",
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
-                  marginBottom: 12,
+                  marginBottom: 12
                 }}
               >
                 Your Script — {scriptIds.length} characters
@@ -460,30 +455,26 @@ export function ScriptStep({
                         background: "#0a0a14",
                         border: `1px solid ${ok ? c.border : "#2a2a3a"}`,
                         borderRadius: 7,
-                        padding: "8px 4px",
+                        padding: "8px 4px"
                       }}
                     >
                       <div
                         style={{
                           fontFamily: "var(--font-jetbrains)",
                           fontSize: 20,
-                          color: ok ? c.text : "#444",
+                          color: ok ? c.text : "#444"
                         }}
                       >
                         {have}
                       </div>
-                      <div
-                        style={{ fontFamily: "var(--font-jetbrains)", fontSize: 8, color: "#444" }}
-                      >
-                        / {need}
-                      </div>
+                      <div style={{ fontFamily: "var(--font-jetbrains)", fontSize: 8, color: "#444" }}>/ {need}</div>
                       <div
                         style={{
                           fontFamily: "var(--font-garamond)",
                           fontSize: 10,
                           color: "#555",
                           textTransform: "capitalize",
-                          marginTop: 3,
+                          marginTop: 3
                         }}
                       >
                         {team}
@@ -496,16 +487,12 @@ export function ScriptStep({
               {/* Hint messages */}
               <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: 4 }}>
                 {counts.demon === 0 && (
-                  <div
-                    style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#c0392b" }}
-                  >
+                  <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#c0392b" }}>
                     ⚠ You need at least 1 Demon.
                   </div>
                 )}
                 {counts.townsfolk < tfMin && (
-                  <div
-                    style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#d4a017" }}
-                  >
+                  <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#d4a017" }}>
                     ⚡ Add more Townsfolk —{" "}
                     {hasBaron
                       ? "7 minimum with Baron in play (Baron replaces 2 TF with Outsiders)."
@@ -513,30 +500,23 @@ export function ScriptStep({
                   </div>
                 )}
                 {counts.minion === 0 && (
-                  <div
-                    style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#d4a017" }}
-                  >
+                  <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#d4a017" }}>
                     ⚡ Add at least 1 Minion.
                   </div>
                 )}
                 {hasBaron && counts.townsfolk >= tfMin && (
-                  <div
-                    style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#9b7fd5" }}
-                  >
-                    ⚙ Baron shifts 2 Townsfolk slots to Outsiders in every game — target 11 TF and 6
-                    OS for full coverage.
+                  <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#9b7fd5" }}>
+                    ⚙ Baron shifts 2 Townsfolk slots to Outsiders in every game — target 11 TF and 6 OS for full
+                    coverage.
                   </div>
                 )}
                 {counts.demon > 1 && (
                   <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#666" }}>
-                    💡 Multiple demons ({counts.demon}) — each game uses exactly 1. More options is
-                    fine.
+                    💡 Multiple demons ({counts.demon}) — each game uses exactly 1. More options is fine.
                   </div>
                 )}
                 {valid && (
-                  <div
-                    style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#2d6a4f" }}
-                  >
+                  <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#2d6a4f" }}>
                     ✓ Script is playable.
                     {counts.townsfolk < TARGETS.townsfolk
                       ? ` Add ${TARGETS.townsfolk - counts.townsfolk} more Townsfolk for full player range.`
@@ -555,7 +535,7 @@ export function ScriptStep({
                       color: "#555",
                       letterSpacing: "0.08em",
                       textTransform: "uppercase",
-                      marginBottom: 6,
+                      marginBottom: 6
                     }}
                   >
                     Supported Player Counts
@@ -580,7 +560,7 @@ export function ScriptStep({
                           borderRadius: 4,
                           background: entry.supported ? "#0d1a0d" : "#0a0a14",
                           border: `1px solid ${entry.supported ? "#2d6a4f" : "#222"}`,
-                          color: entry.supported ? "#4a9a6a" : "#333",
+                          color: entry.supported ? "#4a9a6a" : "#333"
                         }}
                       >
                         {entry.playerCount}
@@ -600,7 +580,7 @@ export function ScriptStep({
                   borderRadius: 10,
                   padding: "14px 16px",
                   flex: 1,
-                  overflowY: "auto",
+                  overflowY: "auto"
                 }}
               >
                 <div
@@ -610,7 +590,7 @@ export function ScriptStep({
                     color: "#b8965a",
                     letterSpacing: "0.06em",
                     textTransform: "uppercase",
-                    marginBottom: 12,
+                    marginBottom: 12
                   }}
                 >
                   Script Contents
@@ -628,7 +608,7 @@ export function ScriptStep({
                           color: c.text,
                           letterSpacing: "0.08em",
                           textTransform: "uppercase",
-                          marginBottom: 5,
+                          marginBottom: 5
                         }}
                       >
                         {TEAM_LABEL[team]} ({chars.length})
@@ -647,7 +627,7 @@ export function ScriptStep({
                               color: c.text,
                               cursor: "pointer",
                               fontFamily: "var(--font-cinzel)",
-                              fontSize: 11,
+                              fontSize: 11
                             }}
                           >
                             {char.name} ×
@@ -674,7 +654,7 @@ export function ScriptStep({
                   cursor: valid ? "pointer" : "default",
                   fontFamily: "var(--font-cinzel)",
                   fontSize: 13,
-                  letterSpacing: "0.06em",
+                  letterSpacing: "0.06em"
                 }}
               >
                 Set Up Game →

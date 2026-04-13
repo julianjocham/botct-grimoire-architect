@@ -11,7 +11,7 @@ import type {
   ScriptRecommendation,
   ScriptAnalysis,
   AbilityCategory,
-  PlayerCountEntry,
+  PlayerCountEntry
 } from "./types";
 import playerCountsData from "@/data/playerCounts.json";
 
@@ -33,15 +33,11 @@ export function generateNightOrder(
       order: index + 1,
       character: c,
       reminder: c[reminderField],
-      contextHints: getNightContextHints(c.id, selectedIds, interactions),
+      contextHints: getNightContextHints(c.id, selectedIds, interactions)
     }));
 }
 
-function getNightContextHints(
-  characterId: string,
-  selectedIds: string[],
-  interactions: Interaction[]
-): string[] {
+function getNightContextHints(characterId: string, selectedIds: string[], interactions: Interaction[]): string[] {
   const hints: string[] = [];
   const enrich = interactions.filter(
     (i) =>
@@ -78,7 +74,7 @@ export function calculateEffectiveStrength(
       reasons.push({
         characterId: otherInvolved,
         impact: interaction.strengthImpact,
-        description: interaction.description,
+        description: interaction.description
       });
     }
   }
@@ -87,16 +83,13 @@ export function calculateEffectiveStrength(
     baseStrength: base,
     modifier,
     effectiveStrength: Math.max(-100, Math.min(100, base + modifier)),
-    reasons,
+    reasons
   };
 }
 
 // ─── Interaction Feed ────────────────────────────────────────────────────────
 
-export function analyzeInteractions(
-  selectedIds: string[],
-  interactions: Interaction[]
-): InteractionHint[] {
+export function analyzeInteractions(selectedIds: string[], interactions: Interaction[]): InteractionHint[] {
   const hints: InteractionHint[] = [];
 
   for (const interaction of interactions) {
@@ -106,7 +99,7 @@ export function analyzeInteractions(
         involvedCharacters: [interaction.a, interaction.b],
         title: interaction.title,
         description: interaction.description,
-        category: interaction.category,
+        category: interaction.category
       });
     }
   }
@@ -148,25 +141,25 @@ export function analyzeComposition(
       warnings.push({
         type: "too-few-townsfolk",
         message: `Only ${townsfolk.length} Townsfolk. A full script needs at least 9 (ideally 13) to support games up to 15 players.`,
-        severity: "important",
+        severity: "important"
       });
     if (outsiders.length < 2)
       warnings.push({
         type: "too-few-outsiders",
         message: `Only ${outsiders.length} Outsiders. A full script needs at least 2 (ideally 4).`,
-        severity: "important",
+        severity: "important"
       });
     if (minions.length < 2)
       warnings.push({
         type: "too-few-minions",
         message: `Only ${minions.length} Minions. A full script needs at least 2 (ideally 4).`,
-        severity: "important",
+        severity: "important"
       });
     if (demons.length === 0)
       warnings.push({
         type: "no-demon",
         message: "No Demon on the script. You need at least one.",
-        severity: "critical",
+        severity: "critical"
       });
   }
 
@@ -180,28 +173,23 @@ export function analyzeComposition(
     warnings.push({
       type: "high-info",
       message: `High info density (${infoRecurring.length} recurring info roles). Evil needs strong misinformation tools or good will solve the puzzle quickly.`,
-      severity: "tip",
+      severity: "tip"
     });
-  if (
-    infoRecurring.length === 0 &&
-    selected.filter((c) => c.tags?.includes("info-first-night")).length < 2
-  )
+  if (infoRecurring.length === 0 && selected.filter((c) => c.tags?.includes("info-first-night")).length < 2)
     warnings.push({
       type: "low-info",
       message:
         "Very low information. Good team is flying blind — ensure there are day abilities or other ways to find evil.",
-      severity: "important",
+      severity: "important"
     });
 
   // Protection
-  const protection = selected.filter(
-    (c) => c.tags?.includes("protection") && c.team === "townsfolk"
-  );
+  const protection = selected.filter((c) => c.tags?.includes("protection") && c.team === "townsfolk");
   if (protection.length === 0)
     warnings.push({
       type: "no-protection",
       message: "No protection roles on this script. Demon kills will be unimpeded every night.",
-      severity: "tip",
+      severity: "tip"
     });
 
   // Misinformation
@@ -213,7 +201,7 @@ export function analyzeComposition(
       type: "no-misinformation",
       message:
         "Good team has strong info but evil has no misinformation tools. Consider adding Poisoner, Spy, or Drunk.",
-      severity: "important",
+      severity: "important"
     });
 
   // Setup modifiers
@@ -222,18 +210,16 @@ export function analyzeComposition(
     warnings.push({
       type: "excessive-setup-modifiers",
       message: `${setupMods.length} setup-modifying characters (${setupMods.map((c) => c.name).join(", ")}). Outsider count may be confusing to track.`,
-      severity: "important",
+      severity: "important"
     });
 
   // Day abilities
-  const dayAbilities = selected.filter(
-    (c) => c.tags?.includes("day-ability") && c.team === "townsfolk"
-  );
+  const dayAbilities = selected.filter((c) => c.tags?.includes("day-ability") && c.team === "townsfolk");
   if (dayAbilities.length === 0)
     warnings.push({
       type: "no-day-abilities",
       message: "No day-ability Townsfolk. Daytime play is purely social with no mechanical tools.",
-      severity: "tip",
+      severity: "tip"
     });
 
   return warnings;
@@ -271,39 +257,21 @@ export function calculateScriptFeel(selectedIds: string[], characters: Character
   ).length;
 
   const lethalityLevel: ScriptFeel["lethalityLevel"] =
-    killSources >= 5
-      ? "Massacre"
-      : killSources >= 3
-        ? "Deadly"
-        : killSources >= 2
-          ? "Standard"
-          : "Gentle";
+    killSources >= 5 ? "Massacre" : killSources >= 3 ? "Deadly" : killSources >= 2 ? "Standard" : "Gentle";
 
   // Chaos: character swaps, alignment changes, madness
   const chaosTags = ["character-change", "alignment-change", "madness"] as const;
   const chaosRoles = selected.filter((c) => chaosTags.some((tag) => c.tags?.includes(tag))).length;
 
   const chaosLevel: ScriptFeel["chaosLevel"] =
-    chaosRoles >= 4
-      ? "Pandemonium"
-      : chaosRoles >= 2
-        ? "Chaotic"
-        : chaosRoles >= 1
-          ? "Moderate"
-          : "Orderly";
+    chaosRoles >= 4 ? "Pandemonium" : chaosRoles >= 2 ? "Chaotic" : chaosRoles >= 1 ? "Moderate" : "Orderly";
 
   // ST workload: sum of stComplexity for selected chars
   const complexitySum = selected.reduce((sum, c) => sum + (c.stComplexity ?? 2), 0);
   const avgComplexity = selected.length > 0 ? complexitySum / selected.length : 0;
 
   const stWorkload: ScriptFeel["stWorkload"] =
-    avgComplexity >= 4
-      ? "Exhausting"
-      : avgComplexity >= 3
-        ? "Heavy"
-        : avgComplexity >= 2
-          ? "Moderate"
-          : "Light";
+    avgComplexity >= 4 ? "Exhausting" : avgComplexity >= 3 ? "Heavy" : avgComplexity >= 2 ? "Moderate" : "Light";
 
   const summary = `${infoLevel.toUpperCase()} info, ${lethalityLevel.toUpperCase()} lethality, ${chaosLevel.toUpperCase()} chaos. ST workload: ${stWorkload.toUpperCase()}.`;
 
@@ -312,18 +280,14 @@ export function calculateScriptFeel(selectedIds: string[], characters: Character
 
 // ─── Night Complexity ─────────────────────────────────────────────────────────
 
-export function calculateNightComplexity(
-  selectedIds: string[],
-  characters: Character[]
-): NightComplexityReport {
+export function calculateNightComplexity(selectedIds: string[], characters: Character[]): NightComplexityReport {
   const selected = characters.filter((c) => selectedIds.includes(c.id));
   const firstNightSteps = selected.filter((c) => c.firstNight > 0).length;
   const otherNightSteps = selected.filter((c) => c.otherNight > 0).length;
   const stateTrackingRoles = selected.filter((c) => (c.stComplexity ?? 1) >= 4).map((c) => c.name);
 
   const warnings: string[] = [];
-  if (otherNightSteps > 8)
-    warnings.push(`${otherNightSteps} actions per night — allow extra time.`);
+  if (otherNightSteps > 8) warnings.push(`${otherNightSteps} actions per night — allow extra time.`);
   if (stateTrackingRoles.length > 2)
     warnings.push(`${stateTrackingRoles.length} state-tracking roles require ongoing bookkeeping.`);
 
@@ -341,16 +305,13 @@ export function calculateNightComplexity(
     otherNightSteps,
     stateTrackingRoles,
     complexityRating,
-    warnings,
+    warnings
   };
 }
 
 // ─── Category Coverage ────────────────────────────────────────────────────────
 
-export function getCategoryCoverage(
-  selectedIds: string[],
-  characters: Character[]
-): CategoryCoverage {
+export function getCategoryCoverage(selectedIds: string[], characters: Character[]): CategoryCoverage {
   const selected = characters.filter((c) => selectedIds.includes(c.id));
 
   const goodCategories: AbilityCategory[] = [
@@ -360,7 +321,7 @@ export function getCategoryCoverage(
     "info-conditional",
     "day-ability",
     "once-per-game",
-    "protection",
+    "protection"
   ];
   const evilCategories: AbilityCategory[] = [
     "info-disruption",
@@ -368,7 +329,7 @@ export function getCategoryCoverage(
     "demon-resilience",
     "lethal-evil",
     "social-evil",
-    "character-change",
+    "character-change"
   ];
 
   const goodCoverage: Partial<Record<AbilityCategory, string[]>> = {};
@@ -400,7 +361,7 @@ const GOOD_CATEGORY_LABELS: Partial<Record<AbilityCategory, string>> = {
   "info-conditional": "conditional info",
   "day-ability": "day abilities",
   "once-per-game": "once-per-game power",
-  protection: "protection roles",
+  "protection": "protection roles"
 };
 
 const EVIL_CATEGORY_LABELS: Partial<Record<AbilityCategory, string>> = {
@@ -409,23 +370,15 @@ const EVIL_CATEGORY_LABELS: Partial<Record<AbilityCategory, string>> = {
   "demon-resilience": "demon resilience",
   "lethal-evil": "extra kill power",
   "social-evil": "social disruption (Witch/Cerenovus)",
-  "character-change": "character-swap chaos",
+  "character-change": "character-swap chaos"
 };
 
-export function getRecommendations(
-  selectedIds: string[],
-  characters: Character[]
-): ScriptRecommendation[] {
+export function getRecommendations(selectedIds: string[], characters: Character[]): ScriptRecommendation[] {
   const coverage = getCategoryCoverage(selectedIds, characters);
   const recommendations: ScriptRecommendation[] = [];
   const selected = characters.filter((c) => selectedIds.includes(c.id));
 
-  const goodCategories: AbilityCategory[] = [
-    "info-start",
-    "info-recurring",
-    "protection",
-    "day-ability",
-  ];
+  const goodCategories: AbilityCategory[] = ["info-start", "info-recurring", "protection", "day-ability"];
   const evilCategories: AbilityCategory[] = ["info-disruption", "demon-resilience"];
 
   for (const cat of goodCategories) {
@@ -443,7 +396,7 @@ export function getRecommendations(
           category: cat,
           reason: `No ${GOOD_CATEGORY_LABELS[cat]} on the script. Good team may lack tools in this area.`,
           severity: cat === "protection" || cat === "info-recurring" ? "important" : "tip",
-          suggestedIds: candidates.map((c) => c.id),
+          suggestedIds: candidates.map((c) => c.id)
         });
       }
     }
@@ -454,10 +407,7 @@ export function getRecommendations(
     if (!coverage.evil[cat] && hasGoodInfo) {
       const candidates = characters
         .filter(
-          (c) =>
-            c.abilityCategory === cat &&
-            (c.team === "minion" || c.team === "demon") &&
-            !selectedIds.includes(c.id)
+          (c) => c.abilityCategory === cat && (c.team === "minion" || c.team === "demon") && !selectedIds.includes(c.id)
         )
         .slice(0, 3);
       if (candidates.length > 0) {
@@ -465,7 +415,7 @@ export function getRecommendations(
           category: cat,
           reason: `Good has strong info but evil lacks ${EVIL_CATEGORY_LABELS[cat]}.`,
           severity: "important",
-          suggestedIds: candidates.map((c) => c.id),
+          suggestedIds: candidates.map((c) => c.id)
         });
       }
     }
@@ -476,10 +426,7 @@ export function getRecommendations(
 
 // ─── Player Count Support ─────────────────────────────────────────────────────
 
-export function getSupportedPlayerCounts(
-  selectedIds: string[],
-  characters: Character[]
-): PlayerCountEntry[] {
+export function getSupportedPlayerCounts(selectedIds: string[], characters: Character[]): PlayerCountEntry[] {
   const selected = characters.filter((c) => selectedIds.includes(c.id));
   const tfCount = selected.filter((c) => c.team === "townsfolk").length;
   const osCount = selected.filter((c) => c.team === "outsider").length;
@@ -510,16 +457,16 @@ export function getSupportedPlayerCounts(
         townsfolk: req.townsfolk,
         outsider: req.outsider,
         minion: req.minion,
-        demon: req.demon,
+        demon: req.demon
       },
-      supported,
+      supported
     };
 
     // Baron shifts 2 OS in, 2 TF out — show the variant distribution
     if (hasBaron) {
       entry.baronVariant = {
         townsfolk: req.townsfolk - 2,
-        outsider: req.outsider + 2,
+        outsider: req.outsider + 2
       };
     }
 
@@ -559,7 +506,7 @@ export function analyzeScript(
     compositionWarnings: analyzeComposition(selectedIds, characters, mode),
     nightOrder: {
       first: generateNightOrder(characters, selectedIds, "first", interactions),
-      other: generateNightOrder(characters, selectedIds, "other", interactions),
+      other: generateNightOrder(characters, selectedIds, "other", interactions)
     },
     nightComplexity: calculateNightComplexity(selectedIds, characters),
     scriptFeel: calculateScriptFeel(selectedIds, characters),
@@ -567,6 +514,6 @@ export function analyzeScript(
     recommendations: getRecommendations(selectedIds, characters),
     goodStrengthTotal: good,
     evilStrengthTotal: evil,
-    playerCountSupport: getSupportedPlayerCounts(selectedIds, characters),
+    playerCountSupport: getSupportedPlayerCounts(selectedIds, characters)
   };
 }

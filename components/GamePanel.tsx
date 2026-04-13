@@ -16,7 +16,7 @@ function GamePanel({
   allCharacters,
   onToggleGameCharacter,
   onClearGame,
-  onDetail,
+  onDetail
 }: GamePanelProps) {
   const scriptChars = allCharacters.filter((c) => selectedIds.includes(c.id));
 
@@ -27,7 +27,7 @@ function GamePanel({
         townsfolk: rawReq.townsfolk - (hasBaron ? 2 : 0),
         outsider: rawReq.outsider + (hasBaron ? 2 : 0),
         minion: rawReq.minion,
-        demon: rawReq.demon,
+        demon: rawReq.demon
       }
     : null;
 
@@ -37,7 +37,7 @@ function GamePanel({
     townsfolk: gameCharacterIds.filter((id) => teamOf(id, allCharacters) === "townsfolk").length,
     outsider: gameCharacterIds.filter((id) => teamOf(id, allCharacters) === "outsider").length,
     minion: gameCharacterIds.filter((id) => teamOf(id, allCharacters) === "minion").length,
-    demon: gameCharacterIds.filter((id) => teamOf(id, allCharacters) === "demon").length,
+    demon: gameCharacterIds.filter((id) => teamOf(id, allCharacters) === "demon").length
   };
 
   const totalGame = gameCharacterIds.length;
@@ -59,7 +59,7 @@ function GamePanel({
             color: "#b8965a",
             letterSpacing: "0.08em",
             textTransform: "uppercase",
-            marginBottom: 8,
+            marginBottom: 8
           }}
         >
           Player Count
@@ -82,7 +82,7 @@ function GamePanel({
                   fontFamily: "var(--font-jetbrains)",
                   fontSize: 12,
                   position: "relative",
-                  transition: "all 0.1s ease",
+                  transition: "all 0.1s ease"
                 }}
                 title={isTraveler ? `${n - 15} traveler${n - 15 > 1 ? "s" : ""}` : `${n} players`}
               >
@@ -94,7 +94,7 @@ function GamePanel({
                       top: 1,
                       right: 2,
                       fontSize: 6,
-                      color: isSelected ? "#e8dcc8" : "#555",
+                      color: isSelected ? "#e8dcc8" : "#555"
                     }}
                   >
                     +T
@@ -110,11 +110,11 @@ function GamePanel({
               fontFamily: "var(--font-garamond)",
               fontSize: 12,
               color: "#666",
-              marginTop: 6,
+              marginTop: 6
             }}
           >
-            Base 15-player distribution + {travelerCount} traveler{travelerCount > 1 ? "s" : ""}.
-            Travelers are not part of the script.
+            Base 15-player distribution + {travelerCount} traveler{travelerCount > 1 ? "s" : ""}. Travelers are not part
+            of the script.
           </div>
         )}
       </div>
@@ -130,15 +130,11 @@ function GamePanel({
                 color: "#b8965a",
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
-                marginBottom: 8,
+                marginBottom: 8
               }}
             >
               Game Distribution — {playerCount} Players
-              {hasBaron && (
-                <span style={{ color: "#d5825b", marginLeft: 8, fontSize: 9 }}>
-                  (Baron: +2 OS, −2 TF)
-                </span>
-              )}
+              {hasBaron && <span style={{ color: "#d5825b", marginLeft: 8, fontSize: 9 }}>(Baron: +2 OS, −2 TF)</span>}
             </div>
             <div style={{ display: "flex", gap: 6 }}>
               {TEAM_ORDER.map((team) => {
@@ -155,7 +151,7 @@ function GamePanel({
                       border: `1px solid ${done ? colors.border : "#2a2a3a"}`,
                       borderRadius: 6,
                       padding: "6px 8px",
-                      textAlign: "center",
+                      textAlign: "center"
                     }}
                   >
                     <div
@@ -163,7 +159,7 @@ function GamePanel({
                         fontFamily: "var(--font-jetbrains)",
                         fontSize: 18,
                         color: done ? colors.text : "#555",
-                        lineHeight: 1,
+                        lineHeight: 1
                       }}
                     >
                       {have}
@@ -172,7 +168,7 @@ function GamePanel({
                       style={{
                         fontFamily: "var(--font-jetbrains)",
                         fontSize: 9,
-                        color: "#444",
+                        color: "#444"
                       }}
                     >
                       / {needed}
@@ -183,7 +179,7 @@ function GamePanel({
                         fontSize: 10,
                         color: "#555",
                         textTransform: "capitalize",
-                        marginTop: 2,
+                        marginTop: 2
                       }}
                     >
                       {team}
@@ -199,7 +195,7 @@ function GamePanel({
                   fontSize: 12,
                   color: "#2d6a4f",
                   marginTop: 8,
-                  textAlign: "center",
+                  textAlign: "center"
                 }}
               >
                 ✓ Game roster complete — {totalNeeded} characters selected
@@ -215,7 +211,7 @@ function GamePanel({
                 fontSize: 10,
                 color: "#b8965a",
                 letterSpacing: "0.08em",
-                textTransform: "uppercase",
+                textTransform: "uppercase"
               }}
             >
               Select Characters for This Game
@@ -234,7 +230,7 @@ function GamePanel({
                       display: "flex",
                       alignItems: "center",
                       gap: 8,
-                      marginBottom: 6,
+                      marginBottom: 6
                     }}
                   >
                     <div
@@ -243,7 +239,7 @@ function GamePanel({
                         fontSize: 10,
                         color: colors.text,
                         letterSpacing: "0.06em",
-                        textTransform: "uppercase",
+                        textTransform: "uppercase"
                       }}
                     >
                       {TEAM_LABEL[team]}
@@ -256,7 +252,7 @@ function GamePanel({
                         background: "#14141f",
                         border: `1px solid ${have >= needed ? colors.border : "#2a2a3a"}`,
                         borderRadius: 10,
-                        padding: "1px 8px",
+                        padding: "1px 8px"
                       }}
                     >
                       {have} / {needed}
@@ -280,7 +276,7 @@ function GamePanel({
                               cursor: "pointer",
                               fontFamily: "var(--font-cinzel)",
                               fontSize: 11,
-                              transition: "all 0.1s ease",
+                              transition: "all 0.1s ease"
                             }}
                           >
                             {c.name}
@@ -289,13 +285,7 @@ function GamePanel({
                             onClick={() => {
                               if (!overLimit || inGame) onToggleGameCharacter(c.id);
                             }}
-                            title={
-                              inGame
-                                ? "Remove from game"
-                                : overLimit
-                                  ? "Team slot full"
-                                  : "Add to game"
-                            }
+                            title={inGame ? "Remove from game" : overLimit ? "Team slot full" : "Add to game"}
                             style={{
                               background: inGame ? colors.selected : "#14141f", //todo remove
                               border: `1px solid ${inGame ? colors.border : "#2a2a3a"}`,
@@ -304,7 +294,7 @@ function GamePanel({
                               color: inGame ? colors.text : overLimit ? "#2a2a2a" : "#444",
                               cursor: overLimit && !inGame ? "default" : "pointer",
                               fontSize: 12,
-                              transition: "all 0.1s ease",
+                              transition: "all 0.1s ease"
                             }}
                           >
                             {inGame ? "−" : "+"}
@@ -330,7 +320,7 @@ function GamePanel({
                 color: "#555",
                 cursor: "pointer",
                 fontFamily: "var(--font-garamond)",
-                fontSize: 13,
+                fontSize: 13
               }}
             >
               Clear Selection
@@ -347,7 +337,7 @@ function GamePanel({
                 cursor: isComplete ? "pointer" : "default",
                 fontFamily: "var(--font-cinzel)",
                 fontSize: 11,
-                letterSpacing: "0.05em",
+                letterSpacing: "0.05em"
               }}
               title={!isComplete ? "Complete game roster first" : "Print game script"}
             >
@@ -364,7 +354,7 @@ function GamePanel({
             fontFamily: "var(--font-garamond)",
             fontSize: 14,
             textAlign: "center",
-            padding: "16px 0",
+            padding: "16px 0"
           }}
         >
           Select a player count to configure a specific game session.
@@ -380,7 +370,7 @@ function GamePanel({
                 fontSize: 22,
                 marginBottom: 4,
                 borderBottom: "2px solid #000",
-                paddingBottom: 8,
+                paddingBottom: 8
               }}
             >
               Blood on the Clocktower — Game Script
@@ -402,7 +392,7 @@ function GamePanel({
                       letterSpacing: "0.1em",
                       borderBottom: "1px solid #ccc",
                       paddingBottom: 4,
-                      marginBottom: 10,
+                      marginBottom: 10
                     }}
                   >
                     {TEAM_LABEL[team]} ({chars.length})
@@ -410,9 +400,7 @@ function GamePanel({
                   {chars.map((c) => (
                     <div key={c.id} style={{ marginBottom: 10, pageBreakInside: "avoid" }}>
                       <strong style={{ fontSize: 13 }}>{c.name}</strong>
-                      <div style={{ fontSize: 11, color: "#444", marginTop: 2, lineHeight: 1.5 }}>
-                        {c.ability}
-                      </div>
+                      <div style={{ fontSize: 11, color: "#444", marginTop: 2, lineHeight: 1.5 }}>{c.ability}</div>
                     </div>
                   ))}
                 </div>

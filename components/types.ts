@@ -8,7 +8,7 @@ import {
   NightStep,
   PlayerCountEntry,
   ScriptAnalysis,
-  ScriptRecommendation,
+  ScriptRecommendation
 } from "@/lib/types";
 
 export interface CharacterDetailProps {

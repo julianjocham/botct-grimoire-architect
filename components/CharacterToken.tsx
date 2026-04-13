@@ -14,7 +14,7 @@ const COMPLEXITY_DOTS = (n: number) =>
         borderRadius: "50%",
         background: i < n ? "#b8965a" : "#2a2a3a",
         display: "inline-block",
-        marginRight: 1,
+        marginRight: 1
       }}
     />
   ));
@@ -26,7 +26,7 @@ export function CharacterToken({
   onDetail,
   effectiveStrength,
   compact = false,
-  countersOnScript = 0,
+  countersOnScript = 0
 }: CharacterTokenProps) {
   const colors = TEAM_COLORS[character.team] ?? TEAM_COLORS.townsfolk;
   const hasEnrichment = !!character.stAdvice;
@@ -40,13 +40,13 @@ export function CharacterToken({
         padding: compact ? "6px 8px" : "8px 10px",
         cursor: "pointer",
         transition: "all 0.15s ease",
-        opacity: hasEnrichment ? 1 : 0.7,
+        opacity: hasEnrichment ? 1 : 0.7
       }}
       onClick={() => onDetail(character.id)}
     >
       <div className="flex items-center justify-between gap-2">
         {/* Left: icon + name + complexity */}
-        <div className="flex items-center gap-2 min-w-0">
+        <div className="flex min-w-0 items-center gap-2">
           <span style={{ fontSize: compact ? 12 : 14 }}>{TEAM_ICON[character.team] ?? "?"}</span>
           <div className="min-w-0">
             <div
@@ -56,14 +56,12 @@ export function CharacterToken({
                 color: colors.text,
                 whiteSpace: "nowrap",
                 overflow: "hidden",
-                textOverflow: "ellipsis",
+                textOverflow: "ellipsis"
               }}
             >
               {character.name}
             </div>
-            {!compact && (
-              <div style={{ marginTop: 2 }}>{COMPLEXITY_DOTS(character.stComplexity ?? 2)}</div>
-            )}
+            {!compact && <div style={{ marginTop: 2 }}>{COMPLEXITY_DOTS(character.stComplexity ?? 2)}</div>}
           </div>
         </div>
 
@@ -79,7 +77,7 @@ export function CharacterToken({
               fontSize: 9,
               color: "#b8965a",
               fontFamily: "var(--font-jetbrains)",
-              flexShrink: 0,
+              flexShrink: 0
             }}
           >
             ⚔ {countersOnScript}
@@ -104,7 +102,7 @@ export function CharacterToken({
             alignItems: "center",
             justifyContent: "center",
             fontSize: 14,
-            flexShrink: 0,
+            flexShrink: 0
           }}
           title={selected ? "Remove from script" : "Add to script"}
         >
@@ -115,11 +113,7 @@ export function CharacterToken({
       {/* Strength bar */}
       {!compact && character.strength?.composite !== undefined && (
         <div style={{ marginTop: 6 }}>
-          <StrengthBar
-            value={character.strength.composite}
-            effectiveValue={effectiveStrength}
-            small
-          />
+          <StrengthBar value={character.strength.composite} effectiveValue={effectiveStrength} small />
         </div>
       )}
     </div>

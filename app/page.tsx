@@ -17,7 +17,7 @@ const initialState: GrimoireState = {
   gameIds: [],
   nightPhase: "first",
   searchQuery: "",
-  detailCharacterId: null,
+  detailCharacterId: null
 };
 
 function reducer(state: GrimoireState, action: GrimoireAction): GrimoireState {
@@ -30,7 +30,7 @@ function reducer(state: GrimoireState, action: GrimoireAction): GrimoireState {
         gameIds: [],
         playerCount: null,
         searchQuery: "",
-        detailCharacterId: null,
+        detailCharacterId: null
       };
     case "SELECT_CUSTOM":
       return {
@@ -40,16 +40,14 @@ function reducer(state: GrimoireState, action: GrimoireAction): GrimoireState {
         gameIds: [],
         playerCount: null,
         searchQuery: "",
-        detailCharacterId: null,
+        detailCharacterId: null
       };
     case "TOGGLE_SCRIPT_CHAR": {
       const inScript = state.scriptIds.includes(action.id);
       return {
         ...state,
-        scriptIds: inScript
-          ? state.scriptIds.filter((id) => id !== action.id)
-          : [...state.scriptIds, action.id],
-        gameIds: state.gameIds.filter((id) => id !== action.id),
+        scriptIds: inScript ? state.scriptIds.filter((id) => id !== action.id) : [...state.scriptIds, action.id],
+        gameIds: state.gameIds.filter((id) => id !== action.id)
       };
     }
     case "GO_TO_SETUP":
@@ -66,9 +64,7 @@ function reducer(state: GrimoireState, action: GrimoireAction): GrimoireState {
       const inGame = state.gameIds.includes(action.id);
       return {
         ...state,
-        gameIds: inGame
-          ? state.gameIds.filter((id) => id !== action.id)
-          : [...state.gameIds, action.id],
+        gameIds: inGame ? state.gameIds.filter((id) => id !== action.id) : [...state.gameIds, action.id]
       };
     }
     case "SET_NIGHT_PHASE":
@@ -86,16 +82,7 @@ function reducer(state: GrimoireState, action: GrimoireAction): GrimoireState {
 
 export default function Home() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const {
-    step,
-    scriptSource,
-    scriptIds,
-    playerCount,
-    gameIds,
-    nightPhase,
-    searchQuery,
-    detailCharacterId,
-  } = state;
+  const { step, scriptSource, scriptIds, playerCount, gameIds, nightPhase, searchQuery, detailCharacterId } = state;
 
   // Step 1 custom: context is the script being built.
   // Steps 2 + 3: context is the in-game characters — counters, interactions, and
@@ -107,7 +94,7 @@ export default function Home() {
     () => ({
       tb: getEditionPool("tb"),
       bmr: getEditionPool("bmr"),
-      snv: getEditionPool("snv"),
+      snv: getEditionPool("snv")
     }),
     []
   );
@@ -119,10 +106,7 @@ export default function Home() {
   );
 
   // CharacterDetail lookup includes travelers so traveler detail panels work
-  const allCharactersWithTravelers = useMemo(
-    () => [...allCharacters, ...editionTravelers],
-    [editionTravelers]
-  );
+  const allCharactersWithTravelers = useMemo(() => [...allCharacters, ...editionTravelers], [editionTravelers]);
   const detailChar = detailCharacterId
     ? (allCharactersWithTravelers.find((c) => c.id === detailCharacterId) ?? null)
     : null;
@@ -136,7 +120,7 @@ export default function Home() {
         minHeight: "100vh",
         background: "var(--bg-base)",
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "column"
       }}
     >
       {/* Global header */}
@@ -147,7 +131,7 @@ export default function Home() {
           justifyContent: "space-between",
           padding: "12px 24px",
           borderBottom: "1px solid #2a2a3a",
-          background: "var(--bg-surface)",
+          background: "var(--bg-surface)"
         }}
       >
         <div>
@@ -156,7 +140,7 @@ export default function Home() {
               fontFamily: "var(--font-cinzel)",
               fontSize: 17,
               color: "#e8dcc8",
-              letterSpacing: "0.05em",
+              letterSpacing: "0.05em"
             }}
           >
             Grimoire Architect
@@ -166,7 +150,7 @@ export default function Home() {
               fontFamily: "var(--font-garamond)",
               fontSize: 12,
               color: "#444",
-              marginLeft: 12,
+              marginLeft: 12
             }}
           >
             Blood on the Clocktower — Storyteller Tool
@@ -194,7 +178,7 @@ export default function Home() {
                     background: active ? "#8b1a1a" : "transparent",
                     border: `1px solid ${active ? "#8b1a1a" : reached ? "#4a3a20" : "#2a2a3a"}`,
                     borderRadius: 4,
-                    padding: "3px 8px",
+                    padding: "3px 8px"
                   }}
                 >
                   {labels[i]}
@@ -212,7 +196,7 @@ export default function Home() {
               color: "#555",
               cursor: "pointer",
               fontFamily: "var(--font-garamond)",
-              fontSize: 12,
+              fontSize: 12
             }}
           >
             Start Over
@@ -280,7 +264,7 @@ export default function Home() {
               position: "fixed",
               inset: 0,
               background: "rgba(0,0,0,0.5)",
-              zIndex: 99,
+              zIndex: 99
             }}
             onClick={() => dispatch({ type: "SET_DETAIL", id: null })}
           />

@@ -13,7 +13,7 @@ function CharacterPool({
   searchQuery,
   onSearch,
   onToggle,
-  onDetail,
+  onDetail
 }: CharacterPoolProps) {
   const filtered = pool.filter(
     (c) =>
@@ -33,7 +33,7 @@ function CharacterPool({
         background: "var(--bg-surface)",
         borderRadius: 10,
         overflow: "hidden",
-        border: "1px solid #2a2a3a",
+        border: "1px solid #2a2a3a"
       }}
     >
       {/* Search */}
@@ -52,7 +52,7 @@ function CharacterPool({
             color: "var(--parchment)",
             fontFamily: "var(--font-garamond)",
             fontSize: 13,
-            outline: "none",
+            outline: "none"
           }}
         />
       </div>
@@ -65,7 +65,7 @@ function CharacterPool({
           padding: "8px 10px",
           display: "flex",
           flexDirection: "column",
-          gap: 12,
+          gap: 12
         }}
       >
         {TEAM_ORDER.map((team) => {
@@ -82,22 +82,15 @@ function CharacterPool({
                   textTransform: "uppercase",
                   marginBottom: 6,
                   paddingBottom: 4,
-                  borderBottom: "1px solid #2a2a3a",
+                  borderBottom: "1px solid #2a2a3a"
                 }}
               >
                 {TEAM_LABEL[team]} ({chars.length})
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 {chars.map((c) => {
-                  const eff = calculateEffectiveStrength(
-                    c.id,
-                    selectedIds,
-                    allCharacters,
-                    interactions
-                  );
-                  const countersOnScript = (c.counters ?? []).filter((id) =>
-                    selectedIds.includes(id)
-                  ).length;
+                  const eff = calculateEffectiveStrength(c.id, selectedIds, allCharacters, interactions);
+                  const countersOnScript = (c.counters ?? []).filter((id) => selectedIds.includes(id)).length;
                   return (
                     <CharacterToken
                       key={c.id}
@@ -120,7 +113,7 @@ function CharacterPool({
               color: "#666",
               textAlign: "center",
               padding: "20px",
-              fontFamily: "var(--font-garamond)",
+              fontFamily: "var(--font-garamond)"
             }}
           >
             No characters match your search.
