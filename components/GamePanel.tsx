@@ -2,17 +2,7 @@
 
 import { Character } from "@/lib/types";
 import playerCountsData from "@/data/playerCounts.json";
-
-interface GamePanelProps {
-  playerCount: number | null;
-  onSetPlayerCount: (count: number | null) => void;
-  gameCharacterIds: string[];
-  selectedIds: string[];
-  allCharacters: Character[];
-  onToggleGameCharacter: (id: string) => void;
-  onClearGame: () => void;
-  onDetail: (id: string) => void;
-}
+import { GamePanelProps } from "@/components/types";
 
 const TEAM_ORDER = ["townsfolk", "outsider", "minion", "demon"] as const;
 const TEAM_LABEL: Record<string, string> = {

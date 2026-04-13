@@ -1,10 +1,7 @@
 "use client";
 
-import { ScriptAnalysis, AbilityCategory } from "@/lib/types";
-
-interface ScriptHealthBarProps {
-  analysis: ScriptAnalysis;
-}
+import { AbilityCategory } from "@/lib/types";
+import { ScriptHealthBarProps } from "@/components/types";
 
 const FEEL_COLOR: Record<string, string> = {
   Blind: "#c0392b",

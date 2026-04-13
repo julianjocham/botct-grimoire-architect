@@ -1,17 +1,7 @@
 "use client";
 
-import { CompositionWarning, ScriptRecommendation, Character, PlayerCountEntry } from "@/lib/types";
-
-interface CompositionPanelProps {
-  warnings: CompositionWarning[];
-  recommendations: ScriptRecommendation[];
-  allCharacters: Character[];
-  selectedIds: string[];
-  playerCountSupport: PlayerCountEntry[];
-  selectedPlayerCount?: number | null;
-  onToggle: (id: string) => void;
-  onDetail: (id: string) => void;
-}
+import { Character } from "@/lib/types";
+import { CompositionPanelProps } from "@/components/types";
 
 export function CompositionPanel({
   warnings,

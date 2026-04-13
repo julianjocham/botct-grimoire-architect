@@ -1,25 +1,10 @@
 "use client";
 
 import { useMemo } from "react";
-import { Character, Interaction, EditionKey } from "@/lib/types";
 import { analyzeScript, calculateStrengthTotals } from "@/lib/engine";
 import { NightOrder } from "./NightOrder";
 import { InteractionFeed } from "./InteractionFeed";
-
-interface DashboardStepProps {
-  scriptSource: EditionKey | null;
-  scriptIds: string[];
-  playerCount: number;
-  gameIds: string[];
-  allCharacters: Character[];
-  editionTravelers: Character[];
-  interactions: Interaction[];
-  nightPhase: "first" | "other";
-  onNightPhaseChange: (p: "first" | "other") => void;
-  onDetail: (id: string) => void;
-  onBackToSetup: () => void;
-  onReset: () => void;
-}
+import { DashboardStepProps } from "@/components/types";
 
 const EDITION_LABELS: Record<string, string> = {
   tb: "Trouble Brewing",
@@ -159,7 +144,10 @@ export function DashboardStep({
             }}
           >
             {playerCount} players · {coreGameIds.length} characters
-            {selectedTravelers.length > 0 ? ` + ${selectedTravelers.length} traveler${selectedTravelers.length > 1 ? "s" : ""}` : ""} in play
+            {selectedTravelers.length > 0
+              ? ` + ${selectedTravelers.length} traveler${selectedTravelers.length > 1 ? "s" : ""}`
+              : ""}{" "}
+            in play
           </div>
         </div>
         <div style={{ display: "flex", gap: 8 }}>

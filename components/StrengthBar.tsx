@@ -1,11 +1,6 @@
 "use client";
 
-interface StrengthBarProps {
-  value: number; // -100 to +100
-  showNumber?: boolean;
-  effectiveValue?: number;
-  small?: boolean;
-}
+import { StrengthBarProps } from "@/components/types";
 
 function getBarColor(value: number): string {
   if (value >= 40) return "#2a7fd4";

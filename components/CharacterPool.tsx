@@ -1,19 +1,9 @@
 "use client";
 
-import { Character } from "@/lib/types";
 import { CharacterToken } from "./CharacterToken";
 import { calculateEffectiveStrength } from "@/lib/engine";
 import { interactions } from "@/lib/data";
-
-interface CharacterPoolProps {
-  pool: Character[];
-  allCharacters: Character[];
-  selectedIds: string[];
-  searchQuery: string;
-  onSearch: (q: string) => void;
-  onToggle: (id: string) => void;
-  onDetail: (id: string) => void;
-}
+import { CharacterPoolProps } from "@/components/types";
 
 const TEAM_ORDER = ["townsfolk", "outsider", "minion", "demon"] as const;
 const TEAM_LABEL: Record<string, string> = {

@@ -1,12 +1,6 @@
 "use client";
 
-import { NightStep } from "@/lib/types";
-
-interface NightOrderProps {
-  steps: NightStep[];
-  phase: "first" | "other";
-  onPhaseChange: (phase: "first" | "other") => void;
-}
+import { NightOrderProps } from "@/components/types";
 
 export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
   return (

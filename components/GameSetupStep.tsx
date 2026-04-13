@@ -1,24 +1,11 @@
 "use client";
 
 import { useMemo } from "react";
-import { Character, EditionKey, Interaction } from "@/lib/types";
+import { Character, Interaction } from "@/lib/types";
 import { analyzeScript, calculateEffectiveStrength } from "@/lib/engine";
 import { interactions as allInteractions } from "@/lib/data";
 import playerCountsData from "@/data/playerCounts.json";
-
-interface GameSetupStepProps {
-  scriptSource: EditionKey | null;
-  scriptIds: string[];
-  playerCount: number | null;
-  gameIds: string[];
-  allCharacters: Character[];
-  editionTravelers: Character[];
-  onSetPlayerCount: (n: number | null) => void;
-  onToggleGameChar: (id: string) => void;
-  onContinue: () => void;
-  onBack: () => void;
-  onDetail: (id: string) => void;
-}
+import { GameSetupStepProps } from "@/components/types";
 
 const TEAM_ORDER = ["townsfolk", "outsider", "minion", "demon"] as const;
 const TEAM_LABEL: Record<string, string> = {
@@ -675,8 +662,8 @@ export function GameSetupStep({
                 marginTop: 8,
               }}
             >
-              Travelers fill the extra {neededTravelers} slot{neededTravelers > 1 ? "s" : ""} —
-              they are not from your script.
+              Travelers fill the extra {neededTravelers} slot{neededTravelers > 1 ? "s" : ""} — they
+              are not from your script.
             </div>
           )}
         </div>
@@ -1031,9 +1018,7 @@ export function GameSetupStep({
                   >
                     {selectedTravelerIds.length} / {neededTravelers}
                   </div>
-                  <div
-                    style={{ fontFamily: "var(--font-garamond)", fontSize: 11, color: "#444" }}
-                  >
+                  <div style={{ fontFamily: "var(--font-garamond)", fontSize: 11, color: "#444" }}>
                     (choose {neededTravelers} traveler{neededTravelers !== 1 ? "s" : ""})
                   </div>
                 </div>

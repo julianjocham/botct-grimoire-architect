@@ -1,18 +1,8 @@
 "use client";
 
 import { Character } from "@/lib/types";
-import { EffectiveStrength } from "@/lib/types";
 import { StrengthBar } from "./StrengthBar";
-
-interface CharacterDetailProps {
-  character: Character;
-  effectiveStrength: EffectiveStrength;
-  allCharacters: Character[];
-  selectedIds: string[];
-  onClose: () => void;
-  onToggle: (id: string) => void;
-  onNavigate: (id: string) => void;
-}
+import { CharacterDetailProps } from "@/components/types";
 
 const COMPLEXITY_LABEL = ["", "Passive", "Simple", "Recurring", "State-tracking", "Multi-state"];
 
@@ -283,7 +273,14 @@ export function CharacterDetail({
                         padding: "6px 8px",
                       }}
                     >
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: r.description ? 4 : 0 }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          marginBottom: r.description ? 4 : 0,
+                        }}
+                      >
                         <button
                           onClick={() => onNavigate(r.characterId)}
                           style={{
@@ -299,13 +296,28 @@ export function CharacterDetail({
                         >
                           {char?.name ?? r.characterId}
                         </button>
-                        <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 11, color: impactColor, flexShrink: 0, marginLeft: 8 }}>
+                        <span
+                          style={{
+                            fontFamily: "var(--font-jetbrains)",
+                            fontSize: 11,
+                            color: impactColor,
+                            flexShrink: 0,
+                            marginLeft: 8,
+                          }}
+                        >
                           {r.impact > 0 ? "+" : ""}
                           {r.impact}
                         </span>
                       </div>
                       {r.description && (
-                        <div style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#888", lineHeight: 1.45 }}>
+                        <div
+                          style={{
+                            fontFamily: "var(--font-garamond)",
+                            fontSize: 12,
+                            color: "#888",
+                            lineHeight: 1.45,
+                          }}
+                        >
                           {r.description}
                         </div>
                       )}

@@ -1,12 +1,7 @@
 "use client";
 
-import { InteractionHint, Character } from "@/lib/types";
-
-interface InteractionFeedProps {
-  hints: InteractionHint[];
-  characters: Character[];
-  onDetail: (id: string) => void;
-}
+import { Character } from "@/lib/types";
+import { InteractionFeedProps } from "@/components/types";
 
 const SEVERITY_STYLES: Record<string, { border: string; bg: string; icon: string; label: string }> =
   {

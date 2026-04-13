@@ -1,17 +1,7 @@
 "use client";
 
-import { Character } from "@/lib/types";
 import { StrengthBar } from "./StrengthBar";
-
-interface CharacterTokenProps {
-  character: Character;
-  selected?: boolean;
-  onToggle: (id: string) => void;
-  onDetail: (id: string) => void;
-  effectiveStrength?: number;
-  compact?: boolean;
-  countersOnScript?: number;
-}
+import { CharacterTokenProps } from "@/components/types";
 
 const TEAM_COLORS: Record<string, { border: string; bg: string; text: string }> = {
   townsfolk: { border: "#2a4a7f", bg: "#0d1a2e", text: "#5b9bd5" },

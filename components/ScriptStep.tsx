@@ -1,23 +1,10 @@
 "use client";
 
-import { Character, EditionKey } from "@/lib/types";
+import { Character } from "@/lib/types";
 import { CharacterToken } from "./CharacterToken";
 import { interactions } from "@/lib/data";
 import { calculateEffectiveStrength, getSupportedPlayerCounts } from "@/lib/engine";
-
-interface ScriptStepProps {
-  scriptSource: EditionKey | null;
-  scriptIds: string[];
-  allCharacters: Character[];
-  editionPools: { tb: Character[]; bmr: Character[]; snv: Character[] };
-  searchQuery: string;
-  onSelectEdition: (ed: "tb" | "bmr" | "snv", ids: string[]) => void;
-  onSelectCustom: () => void;
-  onToggleScriptChar: (id: string) => void;
-  onContinue: () => void;
-  onSearch: (q: string) => void;
-  onDetail: (id: string) => void;
-}
+import { ScriptStepProps } from "@/components/types";
 
 const EDITIONS = [
   {
