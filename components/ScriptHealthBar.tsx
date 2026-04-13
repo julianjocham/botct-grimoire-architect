@@ -1,60 +1,16 @@
 "use client";
 
-import { AbilityCategory } from "@/lib/types";
 import { ScriptHealthBarProps } from "@/components/types";
-
-const FEEL_COLOR: Record<string, string> = {
-  Blind: "#c0392b",
-  Low: "#e67e22",
-  Moderate: "#b8965a",
-  High: "#2a7fd4",
-  Flooded: "#1a5fa8",
-  Gentle: "#2d6a4f",
-  Standard: "#b8965a",
-  Deadly: "#e67e22",
-  Massacre: "#c0392b",
-  Orderly: "#2d6a4f",
-  Chaotic: "#e67e22",
-  Pandemonium: "#c0392b",
-  Light: "#2d6a4f",
-  Heavy: "#e67e22",
-  Exhausting: "#c0392b",
-};
-
-const GOOD_CATEGORIES: AbilityCategory[] = [
-  "info-start",
-  "info-recurring",
-  "info-on-death",
-  "protection",
-  "day-ability",
-  "once-per-game",
-];
-
-const EVIL_CATEGORIES: AbilityCategory[] = [
-  "info-disruption",
-  "setup-modifier",
-  "demon-resilience",
-  "lethal-evil",
-];
-
-const CAT_SHORT: Partial<Record<AbilityCategory, string>> = {
-  "info-start": "Info (1st)",
-  "info-recurring": "Info (Rec)",
-  "info-on-death": "Info (Death)",
-  protection: "Protection",
-  "day-ability": "Day Ability",
-  "once-per-game": "Once/Game",
-  "info-disruption": "Misinfo",
-  "setup-modifier": "Setup Mod",
-  "demon-resilience": "Demon Res.",
-  "lethal-evil": "Extra Kill",
-};
-
-// Specialized maps per dimension
-const INFO_LEVEL: Record<string, number> = { Blind: 0, Low: 1, Moderate: 2, High: 3, Flooded: 4 };
-const LETHAL_LEVEL: Record<string, number> = { Gentle: 0, Standard: 1, Deadly: 2, Massacre: 3 };
-const CHAOS_LEVEL: Record<string, number> = { Orderly: 0, Moderate: 1, Chaotic: 2, Pandemonium: 3 };
-const ST_LEVEL: Record<string, number> = { Light: 0, Moderate: 1, Heavy: 2, Exhausting: 3 };
+import {
+  CAT_SHORT,
+  CHAOS_LEVEL,
+  EVIL_CATEGORIES,
+  FEEL_COLOR,
+  GOOD_CATEGORIES,
+  INFO_LEVEL,
+  LETHAL_LEVEL,
+  ST_LEVEL,
+} from "@/constants/info";
 
 function FeelBar({
   label,

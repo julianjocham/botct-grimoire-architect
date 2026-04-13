@@ -1,34 +1,14 @@
 "use client";
 
 import { Character } from "@/lib/types";
-import playerCountsData from "@/data/playerCounts.json";
 import { GamePanelProps } from "@/components/types";
-
-const TEAM_ORDER = ["townsfolk", "outsider", "minion", "demon"] as const;
-const TEAM_LABEL: Record<string, string> = {
-  townsfolk: "Townsfolk",
-  outsider: "Outsiders",
-  minion: "Minions",
-  demon: "Demons",
-};
-const TEAM_COLORS: Record<string, { text: string; border: string; bg: string; selected: string }> =
-  {
-    townsfolk: { text: "#5b9bd5", border: "#2a4a7f", bg: "#0d1a2e", selected: "#1a3060" },
-    outsider: { text: "#9b7fd5", border: "#4a2a7f", bg: "#1a0d2e", selected: "#2e1a50" },
-    minion: { text: "#d5825b", border: "#7f2a2a", bg: "#2e0d0d", selected: "#4a1a1a" },
-    demon: { text: "#d55b5b", border: "#7f1a1a", bg: "#2e0808", selected: "#5a1010" },
-  };
-
-const RAW_COUNTS = playerCountsData.counts as Record<
-  string,
-  { townsfolk: number; outsider: number; minion: number; demon: number }
->;
+import { RAW_COUNTS, TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 
 function teamOf(id: string, chars: Character[]) {
   return chars.find((c) => c.id === id)?.team ?? "";
 }
 
-export function GamePanel({
+function GamePanel({
   playerCount,
   onSetPlayerCount,
   gameCharacterIds,
@@ -317,7 +297,7 @@ export function GamePanel({
                                   : "Add to game"
                             }
                             style={{
-                              background: inGame ? colors.selected : "#14141f",
+                              background: inGame ? colors.selected : "#14141f", //todo remove
                               border: `1px solid ${inGame ? colors.border : "#2a2a3a"}`,
                               borderRadius: "0 5px 5px 0",
                               padding: "4px 7px",
@@ -444,3 +424,5 @@ export function GamePanel({
     </div>
   );
 }
+
+export default GamePanel;

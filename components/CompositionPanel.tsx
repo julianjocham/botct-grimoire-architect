@@ -2,6 +2,7 @@
 
 import { Character } from "@/lib/types";
 import { CompositionPanelProps } from "@/components/types";
+import { COLORS, MAX_TARGETS } from "@/constants/team";
 
 export function CompositionPanel({
   warnings,
@@ -27,14 +28,6 @@ export function CompositionPanel({
       .length,
   };
 
-  const TARGETS = { townsfolk: 13, outsider: 4, minion: 4, demon: 1 };
-  const COLORS = {
-    townsfolk: "#2a7fd4",
-    outsider: "#9b7fd5",
-    minion: "#d5825b",
-    demon: "#d55b5b",
-  };
-
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       {/* Count summary */}
@@ -45,7 +38,7 @@ export function CompositionPanel({
             style={{
               flex: 1,
               background: "#14141f",
-              border: `1px solid ${counts[team] >= TARGETS[team] ? COLORS[team] + "66" : "#2a2a3a"}`,
+              border: `1px solid ${counts[team] >= MAX_TARGETS[team] ? COLORS[team] + "66" : "#2a2a3a"}`,
               borderRadius: 6,
               padding: "6px 8px",
               textAlign: "center",
@@ -68,7 +61,7 @@ export function CompositionPanel({
                 textTransform: "uppercase",
               }}
             >
-              / {TARGETS[team]}
+              / {MAX_TARGETS[team]}
             </div>
             <div
               style={{

@@ -5,59 +5,8 @@ import { analyzeScript, calculateStrengthTotals } from "@/lib/engine";
 import { NightOrder } from "./NightOrder";
 import { InteractionFeed } from "./InteractionFeed";
 import { DashboardStepProps } from "@/components/types";
-
-const EDITION_LABELS: Record<string, string> = {
-  tb: "Trouble Brewing",
-  bmr: "Bad Moon Rising",
-  snv: "Sects & Violets",
-  custom: "Custom Script",
-};
-
-const TEAM_ORDER = ["townsfolk", "outsider", "minion", "demon"] as const;
-const TEAM_LABEL: Record<string, string> = {
-  townsfolk: "Townsfolk",
-  outsider: "Outsiders",
-  minion: "Minions",
-  demon: "Demons",
-};
-const TEAM_COLORS: Record<string, { text: string; border: string; bg: string }> = {
-  townsfolk: { text: "#5b9bd5", border: "#2a4a7f", bg: "#0d1a2e" },
-  outsider: { text: "#9b7fd5", border: "#4a2a7f", bg: "#1a0d2e" },
-  minion: { text: "#d5825b", border: "#7f2a2a", bg: "#2e0d0d" },
-  demon: { text: "#d55b5b", border: "#7f1a1a", bg: "#2e0808" },
-};
-
-const FEEL_BARS: Array<{
-  key: "infoLevel" | "lethalityLevel" | "chaosLevel" | "stWorkload";
-  label: string;
-  levels: string[];
-}> = [
-  { key: "infoLevel", label: "Info", levels: ["Blind", "Low", "Moderate", "High", "Flooded"] },
-  {
-    key: "lethalityLevel",
-    label: "Lethality",
-    levels: ["Gentle", "Standard", "Deadly", "Massacre"],
-  },
-  { key: "chaosLevel", label: "Chaos", levels: ["Orderly", "Moderate", "Chaotic", "Pandemonium"] },
-  { key: "stWorkload", label: "ST Load", levels: ["Light", "Moderate", "Heavy", "Exhausting"] },
-];
-const FEEL_COLOR: Record<string, string> = {
-  Blind: "#c0392b",
-  Low: "#e67e22",
-  Moderate: "#b8965a",
-  High: "#2a7fd4",
-  Flooded: "#1a5fa8",
-  Gentle: "#2d6a4f",
-  Standard: "#b8965a",
-  Deadly: "#e67e22",
-  Massacre: "#c0392b",
-  Orderly: "#2d6a4f",
-  Chaotic: "#e67e22",
-  Pandemonium: "#c0392b",
-  Light: "#2d6a4f",
-  Heavy: "#e67e22",
-  Exhausting: "#c0392b",
-};
+import { EDITIONS, FEEL_BARS, FEEL_COLOR } from "@/constants/info";
+import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 
 export function DashboardStep({
   scriptSource,
@@ -133,7 +82,7 @@ export function DashboardStep({
               letterSpacing: "0.04em",
             }}
           >
-            {EDITION_LABELS[scriptSource ?? "custom"]}
+            {EDITIONS[scriptSource ?? "custom"]}
           </div>
           <div
             style={{
@@ -632,7 +581,7 @@ export function DashboardStep({
               paddingBottom: 8,
             }}
           >
-            Blood on the Clocktower — {EDITION_LABELS[scriptSource ?? "custom"]}
+            Blood on the Clocktower — {EDITIONS[scriptSource ?? "custom"]}
           </h1>
           <p style={{ fontSize: 12, color: "#666", marginBottom: 24 }}>
             {playerCount} players · {new Date().toLocaleDateString()}

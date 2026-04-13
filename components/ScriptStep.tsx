@@ -5,44 +5,8 @@ import { CharacterToken } from "./CharacterToken";
 import { interactions } from "@/lib/data";
 import { calculateEffectiveStrength, getSupportedPlayerCounts } from "@/lib/engine";
 import { ScriptStepProps } from "@/components/types";
-
-const EDITIONS = [
-  {
-    key: "tb" as const,
-    name: "Trouble Brewing",
-    tagline: "The classic beginner script — clear roles, straightforward deduction.",
-    difficulty: "Beginner",
-    diffColor: "#2d6a4f",
-  },
-  {
-    key: "bmr" as const,
-    name: "Bad Moon Rising",
-    tagline: "Deadly and chaotic — multiple demons, surprising kill sources.",
-    difficulty: "Intermediate",
-    diffColor: "#d4a017",
-  },
-  {
-    key: "snv" as const,
-    name: "Sects & Violets",
-    tagline: "Information overload — rich info roles clashing with clever evil.",
-    difficulty: "Advanced",
-    diffColor: "#c0392b",
-  },
-] as const;
-
-const TEAM_ORDER = ["townsfolk", "outsider", "minion", "demon"] as const;
-const TEAM_LABEL: Record<string, string> = {
-  townsfolk: "Townsfolk",
-  outsider: "Outsiders",
-  minion: "Minions",
-  demon: "Demons",
-};
-const TEAM_COLORS: Record<string, { text: string; border: string }> = {
-  townsfolk: { text: "#5b9bd5", border: "#2a4a7f" },
-  outsider: { text: "#9b7fd5", border: "#4a2a7f" },
-  minion: { text: "#d5825b", border: "#7f2a2a" },
-  demon: { text: "#d55b5b", border: "#7f1a1a" },
-};
+import { EDITIONS } from "@/constants/info";
+import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 
 function teamCount(chars: Character[], team: string) {
   return chars.filter((c) => c.team === team).length;

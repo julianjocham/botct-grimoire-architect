@@ -4,70 +4,9 @@ import { useMemo } from "react";
 import { Character, Interaction } from "@/lib/types";
 import { analyzeScript, calculateEffectiveStrength } from "@/lib/engine";
 import { interactions as allInteractions } from "@/lib/data";
-import playerCountsData from "@/data/playerCounts.json";
 import { GameSetupStepProps } from "@/components/types";
-
-const TEAM_ORDER = ["townsfolk", "outsider", "minion", "demon"] as const;
-const TEAM_LABEL: Record<string, string> = {
-  townsfolk: "Townsfolk",
-  outsider: "Outsiders",
-  minion: "Minions",
-  demon: "Demons",
-};
-const TEAM_COLORS: Record<string, { text: string; border: string; bg: string }> = {
-  townsfolk: { text: "#5b9bd5", border: "#2a4a7f", bg: "#0d1a2e" },
-  outsider: { text: "#9b7fd5", border: "#4a2a7f", bg: "#1a0d2e" },
-  minion: { text: "#d5825b", border: "#7f2a2a", bg: "#2e0d0d" },
-  demon: { text: "#d55b5b", border: "#7f1a1a", bg: "#2e0808" },
-};
-
-const EDITION_LABELS: Record<string, string> = {
-  tb: "Trouble Brewing",
-  bmr: "Bad Moon Rising",
-  snv: "Sects & Violets",
-  custom: "Custom Script",
-};
-
-const SETUP_MODIFIERS: Record<string, { townsfolk?: number; outsider?: number; label: string }> = {
-  baron: { outsider: 2, townsfolk: -2, label: "Baron: +2 Outsiders, −2 Townsfolk" },
-  godfather: { outsider: 1, townsfolk: -1, label: "Godfather: +1 Outsider, −1 Townsfolk" },
-  vigormortis: { outsider: -1, townsfolk: 1, label: "Vigormortis: −1 Outsider, +1 Townsfolk" },
-  fanggu: { outsider: 1, townsfolk: -1, label: "Fang Gu: +1 Outsider, −1 Townsfolk" },
-  balloonist: { outsider: 1, townsfolk: -1, label: "Balloonist: +1 Outsider, −1 Townsfolk" },
-};
-
-const RAW_COUNTS = playerCountsData.counts as Record<
-  string,
-  { townsfolk: number; outsider: number; minion: number; demon: number }
->;
-
-const FEEL_BARS: Array<{
-  key: "infoLevel" | "lethalityLevel" | "chaosLevel" | "stWorkload";
-  label: string;
-  levels: string[];
-}> = [
-  { key: "infoLevel", label: "Info", levels: ["Blind", "Low", "Moderate", "High", "Flooded"] },
-  { key: "lethalityLevel", label: "Lethal", levels: ["Gentle", "Standard", "Deadly", "Massacre"] },
-  { key: "chaosLevel", label: "Chaos", levels: ["Orderly", "Moderate", "Chaotic", "Pandemonium"] },
-  { key: "stWorkload", label: "ST Load", levels: ["Light", "Moderate", "Heavy", "Exhausting"] },
-];
-const FEEL_COLOR: Record<string, string> = {
-  Blind: "#c0392b",
-  Low: "#e67e22",
-  Moderate: "#b8965a",
-  High: "#2a7fd4",
-  Flooded: "#1a5fa8",
-  Gentle: "#2d6a4f",
-  Standard: "#b8965a",
-  Deadly: "#e67e22",
-  Massacre: "#c0392b",
-  Orderly: "#2d6a4f",
-  Chaotic: "#e67e22",
-  Pandemonium: "#c0392b",
-  Light: "#2d6a4f",
-  Heavy: "#e67e22",
-  Exhausting: "#c0392b",
-};
+import { RAW_COUNTS, SETUP_MODIFIERS, TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
+import { EDITIONS, FEEL_BARS, FEEL_COLOR } from "@/constants/info";
 
 function getAdjustedReq(
   rawReq: { townsfolk: number; outsider: number; minion: number; demon: number },
@@ -573,8 +512,7 @@ export function GameSetupStep({
               Step 2 — Set Up Your Game
             </h2>
             <div style={{ fontFamily: "var(--font-garamond)", fontSize: 13, color: "#555" }}>
-              Script:{" "}
-              <span style={{ color: "#b8965a" }}>{EDITION_LABELS[scriptSource ?? "custom"]}</span>
+              Script: <span style={{ color: "#b8965a" }}>{EDITIONS[scriptSource ?? "custom"]}</span>
               {" · "}
               {scriptIds.length} characters available
             </div>

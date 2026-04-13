@@ -2,13 +2,7 @@
 
 import { StrengthBar } from "./StrengthBar";
 import { CharacterTokenProps } from "@/components/types";
-
-const TEAM_COLORS: Record<string, { border: string; bg: string; text: string }> = {
-  townsfolk: { border: "#2a4a7f", bg: "#0d1a2e", text: "#5b9bd5" },
-  outsider: { border: "#4a2a7f", bg: "#1a0d2e", text: "#9b7fd5" },
-  minion: { border: "#7f2a2a", bg: "#2e0d0d", text: "#d5825b" },
-  demon: { border: "#7f1a1a", bg: "#2e0808", text: "#d55b5b" },
-};
+import { TEAM_COLORS, TEAM_ICON } from "@/constants/team";
 
 const COMPLEXITY_DOTS = (n: number) =>
   Array.from({ length: 5 }, (_, i) => (
@@ -24,13 +18,6 @@ const COMPLEXITY_DOTS = (n: number) =>
       }}
     />
   ));
-
-const TEAM_ICON: Record<string, string> = {
-  townsfolk: "👤",
-  outsider: "👥",
-  minion: "💀",
-  demon: "🔴",
-};
 
 export function CharacterToken({
   character,

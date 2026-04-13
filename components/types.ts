@@ -87,7 +87,7 @@ export interface ScriptStepProps {
   allCharacters: Character[];
   editionPools: { tb: Character[]; bmr: Character[]; snv: Character[] };
   searchQuery: string;
-  onSelectEdition: (ed: "tb" | "bmr" | "snv", ids: string[]) => void;
+  onSelectEdition: (ed: string, ids: string[]) => void;
   onSelectCustom: () => void;
   onToggleScriptChar: (id: string) => void;
   onContinue: () => void;

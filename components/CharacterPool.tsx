@@ -4,16 +4,9 @@ import { CharacterToken } from "./CharacterToken";
 import { calculateEffectiveStrength } from "@/lib/engine";
 import { interactions } from "@/lib/data";
 import { CharacterPoolProps } from "@/components/types";
+import { TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 
-const TEAM_ORDER = ["townsfolk", "outsider", "minion", "demon"] as const;
-const TEAM_LABEL: Record<string, string> = {
-  townsfolk: "Townsfolk",
-  outsider: "Outsiders",
-  minion: "Minions",
-  demon: "Demons",
-};
-
-export function CharacterPool({
+function CharacterPool({
   pool,
   allCharacters,
   selectedIds,
@@ -137,3 +130,5 @@ export function CharacterPool({
     </div>
   );
 }
+
+export default CharacterPool;

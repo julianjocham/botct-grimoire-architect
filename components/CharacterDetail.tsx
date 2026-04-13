@@ -3,8 +3,7 @@
 import { Character } from "@/lib/types";
 import { StrengthBar } from "./StrengthBar";
 import { CharacterDetailProps } from "@/components/types";
-
-const COMPLEXITY_LABEL = ["", "Passive", "Simple", "Recurring", "State-tracking", "Multi-state"];
+import { COMPLEXITY_LABEL } from "@/constants/character";
 
 function SubDimBar({
   label,
