@@ -111,7 +111,7 @@ export default function Home() {
     ? (allCharactersWithTravelers.find((c) => c.id === detailCharacterId) ?? null)
     : null;
   const detailEffStr = detailCharacterId
-    ? calculateEffectiveStrength(detailCharacterId, contextIds, allCharacters, interactions)
+    ? calculateEffectiveStrength(detailCharacterId, contextIds, allCharacters)
     : null;
 
   return (

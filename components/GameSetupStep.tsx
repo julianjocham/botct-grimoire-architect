@@ -326,7 +326,7 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
               .map((id) => {
                 const char = allCharacters.find((c) => c.id === id);
                 if (!char) return null;
-                const eff = calculateEffectiveStrength(id, gameIds, allCharacters, allInteractions);
+                const eff = calculateEffectiveStrength(id, gameIds, allCharacters);
                 return { char, eff };
               })
               .filter(Boolean)

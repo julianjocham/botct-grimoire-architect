@@ -186,7 +186,7 @@ export function CharacterDetail({
                 style={{
                   fontFamily: "var(--font-jetbrains)",
                   fontSize: 10,
-                  color: modifier < 0 ? "#c0392b" : "#2a7fd4",
+                  color: eff < 0 ? "#c0392b" : "#2a7fd4",
                   marginTop: 4
                 }}
               >

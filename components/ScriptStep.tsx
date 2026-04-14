@@ -2,7 +2,6 @@
 
 import { Character } from "@/lib/types";
 import { CharacterToken } from "./CharacterToken";
-import { interactions } from "@/lib/data";
 import { calculateEffectiveStrength, getSupportedPlayerCounts } from "@/lib/engine";
 import { ScriptStepProps } from "@/components/types";
 import { EDITIONS } from "@/constants/info";
@@ -375,7 +374,7 @@ export function ScriptStep({
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                       {chars.map((c) => {
-                        const eff = calculateEffectiveStrength(c.id, scriptIds, allCharacters, interactions);
+                        const eff = calculateEffectiveStrength(c.id, scriptIds, allCharacters);
                         return (
                           <CharacterToken
                             key={c.id}

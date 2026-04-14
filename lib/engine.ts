@@ -1,5 +1,6 @@
 import type {
   Character,
+  CharacterTag,
   Interaction,
   NightStep,
   InteractionHint,
@@ -54,27 +55,138 @@ function getNightContextHints(characterId: string, selectedIds: string[], intera
 
 // ─── Effective Strength ─────────────────────────────────────────────────────
 
+// A rule that adjusts a character's effective strength based on the ability
+// types present elsewhere in the selection — no named character pairings needed.
+// Target criteria are ANDed; within each field (tags/categories) it is OR.
+interface StrengthModifierRule {
+  targetCategories?: AbilityCategory[];
+  targetTags?: CharacterTag[];
+  targetTeams?: string[];
+  triggerCategories?: AbilityCategory[];
+  triggerTags?: CharacterTag[];
+  triggerTeams?: string[];
+  impactPerMatch: number;
+  maxMatches?: number;
+  reason: string;
+}
+
+const STRENGTH_MODIFIER_RULES: StrengthModifierRule[] = [
+  // ── Info roles vs. drunk/poison sources ──────────────────────────────────
+  // Any character that can drunk or poison others reduces info reliability
+  {
+    targetCategories: ["info-start", "info-recurring", "info-on-death", "info-conditional"],
+    triggerTags: ["poison-drunk"],
+    impactPerMatch: -10,
+    reason: "drunk/poison source undermines info reliability"
+  },
+  // Recurring info roles get extra damage — they need to work every single night
+  {
+    targetCategories: ["info-recurring"],
+    triggerTags: ["poison-drunk"],
+    impactPerMatch: -5,
+    reason: "recurring info is especially exposed to permanent drunk/poison"
+  },
+  // Info-disruption roles (Vortox, Spy, Drunk) warp info without direct poisoning
+  {
+    targetCategories: ["info-start", "info-recurring", "info-on-death", "info-conditional"],
+    triggerCategories: ["info-disruption"],
+    impactPerMatch: -5,
+    reason: "info-disruption role warps or inverts information"
+  },
+
+  // ── Protection roles vs. bypass sources ──────────────────────────────────
+  // Drunk/poison silently breaks protection — Monk fails, Soldier dies
+  {
+    targetCategories: ["protection"],
+    triggerTags: ["poison-drunk"],
+    impactPerMatch: -10,
+    reason: "drunk/poison silently breaks protection"
+  },
+  // Multiple kill sources reduce how much a single protection role can cover
+  {
+    targetCategories: ["protection"],
+    triggerTags: ["lethal-evil"],
+    impactPerMatch: -8,
+    maxMatches: 2,
+    reason: "extra kill sources reduce single-target protection coverage"
+  },
+
+  // ── Once-per-game roles vs. drunk/poison ─────────────────────────────────
+  {
+    targetCategories: ["once-per-game"],
+    triggerTags: ["poison-drunk"],
+    impactPerMatch: -8,
+    maxMatches: 1,
+    reason: "may be drunk/poisoned at the moment of use"
+  },
+
+  // ── Demons gain power from demon-resilience support ───────────────────────
+  {
+    targetTeams: ["demon"],
+    triggerTags: ["demon-resilience"],
+    impactPerMatch: 10,
+    reason: "demon-resilience minion extends demon survival"
+  },
+
+  // ── Demon-resilience roles are only active when a demon is in play ────────
+  {
+    targetTags: ["demon-resilience"],
+    triggerTeams: ["demon"],
+    impactPerMatch: 5,
+    reason: "demon presence activates resilience abilities"
+  },
+
+  // ── Info-disruption gains value from recurring info roles to target ───────
+  {
+    targetCategories: ["info-disruption"],
+    triggerCategories: ["info-recurring"],
+    impactPerMatch: 5,
+    maxMatches: 3,
+    reason: "more recurring info targets to disrupt"
+  }
+];
+
+function matchesTarget(c: Character, rule: StrengthModifierRule): boolean {
+  if (rule.targetCategories && !rule.targetCategories.includes(c.abilityCategory)) return false;
+  if (rule.targetTags && !rule.targetTags.some((t) => c.tags?.includes(t))) return false;
+  if (rule.targetTeams && !rule.targetTeams.includes(c.team)) return false;
+  return true;
+}
+
+function matchesTrigger(c: Character, rule: StrengthModifierRule): boolean {
+  if (rule.triggerCategories && !rule.triggerCategories.includes(c.abilityCategory)) return false;
+  if (rule.triggerTags && !rule.triggerTags.some((t) => c.tags?.includes(t))) return false;
+  if (rule.triggerTeams && !rule.triggerTeams.includes(c.team)) return false;
+  return true;
+}
+
 export function calculateEffectiveStrength(
   characterId: string,
   selectedIds: string[],
-  characters: Character[],
-  interactions: Interaction[]
+  characters: Character[]
 ): EffectiveStrength {
   const character = characters.find((c) => c.id === characterId);
-  const base = character?.strength?.composite ?? 0;
+  if (!character) return { baseStrength: 0, modifier: 0, effectiveStrength: 0, reasons: [] };
+
+  const base = character.strength?.composite ?? 0;
+  const others = characters.filter((c) => selectedIds.includes(c.id) && c.id !== characterId);
   const reasons: EffectiveStrength["reasons"] = [];
   let modifier = 0;
 
-  for (const interaction of interactions) {
-    const isInvolved = interaction.a === characterId || interaction.b === characterId;
-    const otherInvolved = interaction.a === characterId ? interaction.b : interaction.a;
-    if (isInvolved && selectedIds.includes(otherInvolved)) {
-      modifier += interaction.strengthImpact;
-      const other = characters.find((c) => c.id === otherInvolved);
+  for (const rule of STRENGTH_MODIFIER_RULES) {
+    if (!matchesTarget(character, rule)) continue;
+
+    const triggers = others.filter((c) => matchesTrigger(c, rule));
+    const matchCount = rule.maxMatches !== undefined
+      ? Math.min(triggers.length, rule.maxMatches)
+      : triggers.length;
+
+    for (let i = 0; i < matchCount; i++) {
+      modifier += rule.impactPerMatch;
       reasons.push({
-        characterId: otherInvolved,
-        impact: interaction.strengthImpact,
-        description: interaction.description
+        characterId: triggers[i].id,
+        impact: rule.impactPerMatch,
+        description: rule.reason
       });
     }
   }

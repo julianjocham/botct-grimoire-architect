@@ -264,7 +264,7 @@
   },
   "drunk": {
     "stComplexity": 4,
-    "abilityCategory": "info-disruption",
+    "abilityCategory": "restriction",
     "tags": ["setup-modifier"],
     "strength": {
       "composite": -30,
