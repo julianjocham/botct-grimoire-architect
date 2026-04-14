@@ -177,9 +177,7 @@ export function calculateEffectiveStrength(
     if (!matchesTarget(character, rule)) continue;
 
     const triggers = others.filter((c) => matchesTrigger(c, rule));
-    const matchCount = rule.maxMatches !== undefined
-      ? Math.min(triggers.length, rule.maxMatches)
-      : triggers.length;
+    const matchCount = rule.maxMatches !== undefined ? Math.min(triggers.length, rule.maxMatches) : triggers.length;
 
     for (let i = 0; i < matchCount; i++) {
       modifier += rule.impactPerMatch;
