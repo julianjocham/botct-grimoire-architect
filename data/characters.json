@@ -583,7 +583,7 @@
     "otherNightReminder": "If an Outsider died today: The Godfather points to a player. That player dies.",
     "reminders": ["Died today", "Dead"],
     "setup": true,
-    "ability": "You start knowing which Outsiders are in play. If 1 died today, choose a player tonight: they die. [\u22121 or +1 Outsider]"
+    "ability": "You start knowing which Outsiders are in play. If 1 died today, choose a player tonight: they die. [-1 or +1 Outsider]"
   },
   {
     "id": "devilsadvocate",
@@ -1038,7 +1038,7 @@
     "otherNightReminder": "The Vigormortis points to a player. That player dies. If a Minion, they keep their ability and one of their Townsfolk neighbours is poisoned.",
     "reminders": ["Dead", "Has ability", "Poisoned"],
     "setup": true,
-    "ability": "Each night*, choose a player: they die. Minions you kill keep their ability & poison 1 Townsfolk neighbour. [\u22121 Outsider]"
+    "ability": "Each night*, choose a player: they die. Minions you kill keep their ability & poison 1 Townsfolk neighbour. [-1 Outsider]"
   },
   {
     "id": "nodashii",

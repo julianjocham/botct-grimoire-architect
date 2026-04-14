@@ -24,10 +24,6 @@
       "vigormortis": { "outsider": -1, "description": "−1 Outsider" },
       "fanggu": { "outsider": 1, "description": "+1 Outsider" },
       "balloonist": { "outsider": 1, "description": "+1 Outsider" },
-      "bountyhunter": {
-        "townsfolk": -1,
-        "description": "1 Townsfolk becomes evil (is registered as Townsfolk but is evil)"
-      },
       "lilmonsta": { "minion": 1, "description": "+1 Minion" },
       "legion": { "description": "Most players are Legion — ignores normal distribution" },
       "atheist": { "description": "No evil characters in play" },
