@@ -51,45 +51,14 @@ export function DashboardStep({
   }
 
   return (
-    <div
-      style={{
-        maxWidth: 1300,
-        margin: "0 auto",
-        padding: "24px 24px 48px",
-        display: "flex",
-        flexDirection: "column",
-        gap: 20
-      }}
-    >
+    <div className="mx-auto flex max-w-[1300px] flex-col gap-5 px-6 pt-6 pb-12">
       {/* Top bar */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: 12
-        }}
-      >
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <div
-            style={{
-              fontFamily: "var(--font-cinzel)",
-              fontSize: 20,
-              color: "#e8dcc8",
-              letterSpacing: "0.04em"
-            }}
-          >
+          <div className="font-display text-parchment text-[20px] tracking-[0.04em]">
             {EDITIONS[scriptSource ?? "custom"]}
           </div>
-          <div
-            style={{
-              fontFamily: "var(--font-garamond)",
-              fontSize: 13,
-              color: "#666",
-              marginTop: 2
-            }}
-          >
+          <div className="font-body text-muted mt-0.5 text-[13px]">
             {playerCount} players · {coreGameIds.length} characters
             {selectedTravelers.length > 0
               ? ` + ${selectedTravelers.length} traveler${selectedTravelers.length > 1 ? "s" : ""}`
@@ -97,50 +66,22 @@ export function DashboardStep({
             in play
           </div>
         </div>
-        <div style={{ display: "flex", gap: 8 }}>
+        <div className="flex gap-2">
           <button
             onClick={onBackToSetup}
-            style={{
-              background: "none",
-              border: "1px solid #2a2a3a",
-              borderRadius: 6,
-              padding: "7px 16px",
-              color: "#666",
-              cursor: "pointer",
-              fontFamily: "var(--font-garamond)",
-              fontSize: 13
-            }}
+            className="border-subtle text-muted font-body cursor-pointer rounded-[6px] border bg-transparent px-4 py-[7px] text-[13px]"
           >
             ← Adjust Roster
           </button>
           <button
             onClick={handlePrint}
-            style={{
-              background: "#1a3a1a",
-              border: "1px solid #2d6a4f",
-              borderRadius: 6,
-              padding: "7px 16px",
-              color: "#4a9a6a",
-              cursor: "pointer",
-              fontFamily: "var(--font-cinzel)",
-              fontSize: 11,
-              letterSpacing: "0.05em"
-            }}
+            className="border-tip font-display cursor-pointer rounded-[6px] border bg-[#1a3a1a] px-4 py-[7px] text-[11px] tracking-[0.05em] text-[#4a9a6a]"
           >
             Print Script
           </button>
           <button
             onClick={onReset}
-            style={{
-              background: "none",
-              border: "1px solid #3a1a1a",
-              borderRadius: 6,
-              padding: "7px 16px",
-              color: "#8b1a1a",
-              cursor: "pointer",
-              fontFamily: "var(--font-garamond)",
-              fontSize: 13
-            }}
+            className="text-blood font-body cursor-pointer rounded-[6px] border border-[#3a1a1a] bg-transparent px-4 py-[7px] text-[13px]"
           >
             New Game
           </button>
@@ -148,43 +89,20 @@ export function DashboardStep({
       </div>
 
       {/* In-play character strip */}
-      <div
-        style={{
-          background: "var(--bg-surface)",
-          border: "1px solid #2a2a3a",
-          borderRadius: 10,
-          padding: "12px 16px"
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-cinzel)",
-            fontSize: 10,
-            color: "#555",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            marginBottom: 10
-          }}
-        >
+      <div className="bg-surface border-subtle rounded-[10px] border px-4 py-3">
+        <div className="font-display text-dim mb-[10px] text-[10px] tracking-[0.1em] uppercase">
           In Play — {gameIds.length} Characters
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <div className="flex flex-col gap-[10px]">
           {TEAM_ORDER.map((team) => {
             const chars = gameChars.filter((c) => c.team === team);
             if (chars.length === 0) return null;
             const col = TEAM_COLORS[team];
             return (
-              <div key={team} style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+              <div key={team} className="flex flex-wrap items-center gap-2">
                 <div
-                  style={{
-                    fontFamily: "var(--font-cinzel)",
-                    fontSize: 9,
-                    color: col.text,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em",
-                    minWidth: 64,
-                    flexShrink: 0
-                  }}
+                  style={{ color: col.text }}
+                  className="font-display min-w-16 shrink-0 text-[9px] tracking-[0.1em] uppercase"
                 >
                   {TEAM_LABEL[team]}
                 </div>
@@ -192,16 +110,8 @@ export function DashboardStep({
                   <button
                     key={c.id}
                     onClick={() => onDetail(c.id)}
-                    style={{
-                      background: col.bg,
-                      border: `1px solid ${col.border}`,
-                      borderRadius: 5,
-                      padding: "4px 10px",
-                      color: col.text,
-                      cursor: "pointer",
-                      fontFamily: "var(--font-cinzel)",
-                      fontSize: 11
-                    }}
+                    style={{ background: col.bg, borderColor: col.border, color: col.text }}
+                    className="font-display cursor-pointer rounded-[5px] border px-[10px] py-1 text-[11px]"
                   >
                     {c.name}
                   </button>
@@ -210,34 +120,15 @@ export function DashboardStep({
             );
           })}
           {selectedTravelers.length > 0 && (
-            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-              <div
-                style={{
-                  fontFamily: "var(--font-cinzel)",
-                  fontSize: 9,
-                  color: "#b8965a",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  minWidth: 64,
-                  flexShrink: 0
-                }}
-              >
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="font-display text-gold min-w-16 shrink-0 text-[9px] tracking-[0.1em] uppercase">
                 Travelers
               </div>
               {selectedTravelers.map((c) => (
                 <button
                   key={c.id}
                   onClick={() => onDetail(c.id)}
-                  style={{
-                    background: "#1a1500",
-                    border: "1px solid #4a3a20",
-                    borderRadius: 5,
-                    padding: "4px 10px",
-                    color: "#b8965a",
-                    cursor: "pointer",
-                    fontFamily: "var(--font-cinzel)",
-                    fontSize: 11
-                  }}
+                  className="text-gold font-display cursor-pointer rounded-[5px] border border-[#4a3a20] bg-[#1a1500] px-[10px] py-1 text-[11px]"
                 >
                   {c.name}
                 </button>
@@ -248,156 +139,62 @@ export function DashboardStep({
       </div>
 
       {/* Main 3-column grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 300px", gap: 16 }}>
+      <div className="grid grid-cols-[1fr_1fr_300px] gap-4">
         {/* Night Order */}
-        <div
-          style={{
-            background: "var(--bg-surface)",
-            border: "1px solid #2a2a3a",
-            borderRadius: 10,
-            padding: "14px 16px",
-            display: "flex",
-            flexDirection: "column"
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-cinzel)",
-              fontSize: 11,
-              color: "#b8965a",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              marginBottom: 10
-            }}
-          >
-            Night Order
-          </div>
-          <div style={{ overflowY: "auto", maxHeight: 480, flex: 1 }}>
+        <div className="bg-surface border-subtle flex flex-col rounded-[10px] border px-4 py-[14px]">
+          <div className="font-display text-gold mb-[10px] text-[11px] tracking-[0.08em] uppercase">Night Order</div>
+          <div className="max-h-[480px] flex-1 overflow-y-auto">
             <NightOrder steps={nightSteps} phase={nightPhase} onPhaseChange={onNightPhaseChange} />
           </div>
         </div>
 
         {/* Interactions */}
-        <div
-          style={{
-            background: "var(--bg-surface)",
-            border: "1px solid #2a2a3a",
-            borderRadius: 10,
-            padding: "14px 16px",
-            display: "flex",
-            flexDirection: "column"
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-cinzel)",
-              fontSize: 11,
-              color: "#b8965a",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              marginBottom: 10
-            }}
-          >
+        <div className="bg-surface border-subtle flex flex-col rounded-[10px] border px-4 py-[14px]">
+          <div className="font-display text-gold mb-[10px] text-[11px] tracking-[0.08em] uppercase">
             Interactions ({analysis.interactionHints.length})
           </div>
-          <div style={{ overflowY: "auto", maxHeight: 480, flex: 1 }}>
+          <div className="max-h-[480px] flex-1 overflow-y-auto">
             <InteractionFeed hints={analysis.interactionHints} characters={allCharacters} onDetail={onDetail} />
           </div>
         </div>
 
         {/* Right column: Strength + Feel + Issues */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <div className="flex flex-col gap-[14px]">
           {/* Team strength */}
-          <div
-            style={{
-              background: "var(--bg-surface)",
-              border: "1px solid #2a2a3a",
-              borderRadius: 10,
-              padding: "14px 16px"
-            }}
-          >
-            <div
-              style={{
-                fontFamily: "var(--font-cinzel)",
-                fontSize: 11,
-                color: "#b8965a",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                marginBottom: 12
-              }}
-            >
-              Team Strength
-            </div>
+          <div className="bg-surface border-subtle rounded-[10px] border px-4 py-[14px]">
+            <div className="font-display text-gold mb-3 text-[11px] tracking-[0.08em] uppercase">Team Strength</div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <div className="flex flex-col gap-[10px]">
               {/* Good */}
               <div>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-jetbrains)",
-                      fontSize: 10,
-                      color: "#5b9bd5",
-                      textTransform: "uppercase"
-                    }}
-                  >
-                    Good
-                  </span>
-                  <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 11, color: "#5b9bd5" }}>
+                <div className="mb-1 flex justify-between">
+                  <span className="text-townsfolk font-mono text-[10px] uppercase">Good</span>
+                  <span className="text-townsfolk font-mono text-[11px]">
                     {goodTotal > 0 ? "+" : ""}
                     {goodTotal}
                   </span>
                 </div>
-                <div style={{ height: 8, background: "#14141f", borderRadius: 4, overflow: "hidden" }}>
+                <div className="bg-surface h-2 overflow-hidden rounded-[4px]">
                   <div
-                    style={{
-                      height: "100%",
-                      width: `${goodPct}%`,
-                      background: "#2a7fd4",
-                      borderRadius: 4,
-                      transition: "width 0.3s"
-                    }}
+                    style={{ width: `${goodPct}%` }}
+                    className="bg-good-blue h-full rounded-[4px] transition-[width] duration-300"
                   />
                 </div>
               </div>
               {/* Evil */}
               <div>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-jetbrains)",
-                      fontSize: 10,
-                      color: "#d55b5b",
-                      textTransform: "uppercase"
-                    }}
-                  >
-                    Evil
-                  </span>
-                  <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 11, color: "#d55b5b" }}>
-                    {evilTotal}
-                  </span>
+                <div className="mb-1 flex justify-between">
+                  <span className="text-demon font-mono text-[10px] uppercase">Evil</span>
+                  <span className="text-demon font-mono text-[11px]">{evilTotal}</span>
                 </div>
-                <div style={{ height: 8, background: "#14141f", borderRadius: 4, overflow: "hidden" }}>
+                <div className="bg-surface h-2 overflow-hidden rounded-[4px]">
                   <div
-                    style={{
-                      height: "100%",
-                      width: `${evilPct}%`,
-                      background: "#c0392b",
-                      borderRadius: 4,
-                      transition: "width 0.3s"
-                    }}
+                    style={{ width: `${evilPct}%` }}
+                    className="bg-blood-light h-full rounded-[4px] transition-[width] duration-300"
                   />
                 </div>
               </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-garamond)",
-                  fontSize: 11,
-                  color: "#555",
-                  textAlign: "center",
-                  marginTop: 2
-                }}
-              >
+              <div className="font-body text-dim mt-0.5 text-center text-[11px]">
                 {goodTotal > Math.abs(evilTotal) * 1.2
                   ? "Good has a strong advantage"
                   : Math.abs(evilTotal) > goodTotal * 1.2
@@ -408,57 +205,27 @@ export function DashboardStep({
           </div>
 
           {/* Script feel */}
-          <div
-            style={{
-              background: "var(--bg-surface)",
-              border: "1px solid #2a2a3a",
-              borderRadius: 10,
-              padding: "14px 16px"
-            }}
-          >
-            <div
-              style={{
-                fontFamily: "var(--font-cinzel)",
-                fontSize: 11,
-                color: "#b8965a",
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                marginBottom: 12
-              }}
-            >
-              Game Feel
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div className="bg-surface border-subtle rounded-[10px] border px-4 py-[14px]">
+            <div className="font-display text-gold mb-3 text-[11px] tracking-[0.08em] uppercase">Game Feel</div>
+            <div className="flex flex-col gap-2">
               {FEEL_BARS.map(({ key, label, levels }) => {
                 const val = analysis.scriptFeel[key] as string;
                 const idx = levels.indexOf(val);
                 const color = FEEL_COLOR[val] ?? "#b8965a";
                 return (
                   <div key={key}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-jetbrains)",
-                          fontSize: 9,
-                          color: "#555",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.06em"
-                        }}
-                      >
-                        {label}
+                    <div className="mb-[3px] flex justify-between">
+                      <span className="text-dim font-mono text-[9px] tracking-[0.06em] uppercase">{label}</span>
+                      <span style={{ color }} className="font-display text-[9px]">
+                        {val}
                       </span>
-                      <span style={{ fontFamily: "var(--font-cinzel)", fontSize: 9, color }}>{val}</span>
                     </div>
-                    <div style={{ display: "flex", gap: 2 }}>
+                    <div className="flex gap-0.5">
                       {levels.map((_, i) => (
                         <div
                           key={i}
-                          style={{
-                            flex: 1,
-                            height: 6,
-                            borderRadius: 2,
-                            background: i <= idx ? color : "#2a2a3a"
-                          }}
+                          style={{ background: i <= idx ? color : undefined }}
+                          className={`h-[6px] flex-1 rounded-[2px]${i <= idx ? "" : "bg-subtle"}`}
                         />
                       ))}
                     </div>
@@ -466,15 +233,7 @@ export function DashboardStep({
                 );
               })}
             </div>
-            <div
-              style={{
-                fontFamily: "var(--font-jetbrains)",
-                fontSize: 9,
-                color: "#444",
-                marginTop: 10,
-                textAlign: "center"
-              }}
-            >
+            <div className="text-dimmer mt-[10px] text-center font-mono text-[9px]">
               Night: {analysis.nightComplexity.complexityRating}
               {" · "}
               {analysis.nightOrder.first.length}↓ {analysis.nightOrder.other.length}↻
@@ -483,57 +242,25 @@ export function DashboardStep({
 
           {/* Issues */}
           {(analysis.compositionWarnings.length > 0 || criticals.length > 0) && (
-            <div
-              style={{
-                background: "var(--bg-surface)",
-                border: "1px solid #2a2a3a",
-                borderRadius: 10,
-                padding: "14px 16px"
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "var(--font-cinzel)",
-                  fontSize: 11,
-                  color: "#b8965a",
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  marginBottom: 10
-                }}
-              >
-                Issues
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <div className="bg-surface border-subtle rounded-[10px] border px-4 py-[14px]">
+              <div className="font-display text-gold mb-[10px] text-[11px] tracking-[0.08em] uppercase">Issues</div>
+              <div className="flex flex-col gap-[6px]">
                 {analysis.compositionWarnings.map((w, i) => (
                   <div
                     key={i}
-                    style={{
-                      background:
-                        w.severity === "critical" ? "#1a0808" : w.severity === "important" ? "#1a1400" : "#0a1408",
-                      border: `1px solid ${w.severity === "critical" ? "#8b1a1a" : w.severity === "important" ? "#7a5a00" : "#1a4a2e"}`,
-                      borderRadius: 5,
-                      padding: "6px 9px",
-                      fontFamily: "var(--font-garamond)",
-                      fontSize: 12,
-                      color: "#c8b89a",
-                      lineHeight: 1.5
-                    }}
+                    className={`font-body text-parchment-muted rounded-[5px] border px-[9px] py-[6px] text-[12px] leading-[1.5] ${
+                      w.severity === "critical"
+                        ? "border-blood bg-[#1a0808]"
+                        : w.severity === "important"
+                          ? "border-[#7a5a00] bg-[#1a1400]"
+                          : "border-[#1a4a2e] bg-[#0a1408]"
+                    }`}
                   >
                     {w.severity === "critical" ? "⚠" : w.severity === "important" ? "⚡" : "💡"} {w.message}
                   </div>
                 ))}
                 {jinxes.length > 0 && (
-                  <div
-                    style={{
-                      background: "#1a1500",
-                      border: "1px dashed #7a6200",
-                      borderRadius: 5,
-                      padding: "6px 9px",
-                      fontFamily: "var(--font-garamond)",
-                      fontSize: 12,
-                      color: "#b8965a"
-                    }}
-                  >
+                  <div className="font-body text-gold rounded-[5px] border border-dashed border-[#7a6200] bg-[#1a1500] px-[9px] py-[6px] text-[12px]">
                     ⚖ {jinxes.length} Djinn Jinx{jinxes.length > 1 ? "es" : ""} — see Interactions tab
                   </div>
                 )}
@@ -544,107 +271,65 @@ export function DashboardStep({
       </div>
 
       {/* Print-only area */}
-      <div className="print-only" style={{ display: "none" }}>
-        <div style={{ fontFamily: "Georgia, serif", padding: 32, color: "#000" }}>
-          <h1
-            style={{
-              fontSize: 24,
-              marginBottom: 4,
-              borderBottom: "2px solid #000",
-              paddingBottom: 8
-            }}
-          >
+      <div className="print-only hidden">
+        <div className="p-8 font-[Georgia,serif] text-black">
+          <h1 className="mb-1 border-b-2 border-black pb-2 text-[24px]">
             Blood on the Clocktower — {EDITIONS[scriptSource ?? "custom"]}
           </h1>
-          <p style={{ fontSize: 12, color: "#666", marginBottom: 24 }}>
+          <p className="mb-6 text-[12px] text-[#666]">
             {playerCount} players · {new Date().toLocaleDateString()}
           </p>
 
           {/* Night order */}
-          <h2
-            style={{
-              fontSize: 16,
-              borderBottom: "1px solid #ccc",
-              paddingBottom: 4,
-              marginBottom: 12
-            }}
-          >
-            Night Order
-          </h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "0 24px",
-              marginBottom: 24
-            }}
-          >
+          <h2 className="mb-3 border-b border-[#ccc] pb-1 text-[16px]">Night Order</h2>
+          <div className="mb-6 grid grid-cols-2 gap-x-6">
             <div>
-              <h3 style={{ fontSize: 13, marginBottom: 8, color: "#333" }}>First Night</h3>
+              <h3 className="mb-2 text-[13px] text-[#333]">First Night</h3>
               {analysis.nightOrder.first.map((s, i) => (
-                <div key={s.character.id} style={{ fontSize: 11, marginBottom: 4 }}>
+                <div key={s.character.id} className="mb-1 text-[11px]">
                   <strong>
                     {i + 1}. {s.character.name}
                   </strong>
-                  {s.reminder && <div style={{ color: "#666", fontSize: 10, marginLeft: 12 }}>{s.reminder}</div>}
+                  {s.reminder && <div className="ml-3 text-[10px] text-[#666]">{s.reminder}</div>}
                 </div>
               ))}
             </div>
             <div>
-              <h3 style={{ fontSize: 13, marginBottom: 8, color: "#333" }}>Other Nights</h3>
+              <h3 className="mb-2 text-[13px] text-[#333]">Other Nights</h3>
               {analysis.nightOrder.other.map((s, i) => (
-                <div key={s.character.id} style={{ fontSize: 11, marginBottom: 4 }}>
+                <div key={s.character.id} className="mb-1 text-[11px]">
                   <strong>
                     {i + 1}. {s.character.name}
                   </strong>
-                  {s.reminder && <div style={{ color: "#666", fontSize: 10, marginLeft: 12 }}>{s.reminder}</div>}
+                  {s.reminder && <div className="ml-3 text-[10px] text-[#666]">{s.reminder}</div>}
                 </div>
               ))}
             </div>
           </div>
 
           {/* Characters by team */}
-          <h2
-            style={{
-              fontSize: 16,
-              borderBottom: "1px solid #ccc",
-              paddingBottom: 4,
-              marginBottom: 12,
-              pageBreakBefore: "always"
-            }}
-          >
+          <h2 className="mb-3 border-b border-[#ccc] pb-1 text-[16px] [page-break-before:always]">
             Characters in Play
           </h2>
           {TEAM_ORDER.map((team) => {
             const chars = gameChars.filter((c) => c.team === team);
             if (chars.length === 0) return null;
             return (
-              <div key={team} style={{ marginBottom: 20 }}>
-                <h3
-                  style={{
-                    fontSize: 14,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.08em",
-                    borderBottom: "1px solid #eee",
-                    paddingBottom: 4,
-                    marginBottom: 10
-                  }}
-                >
+              <div key={team} className="mb-5">
+                <h3 className="mb-[10px] border-b border-[#eee] pb-1 text-[14px] tracking-[0.08em] uppercase">
                   {TEAM_LABEL[team]} ({chars.length})
                 </h3>
                 {chars
                   .sort((a, b) => a.name.localeCompare(b.name))
                   .map((c) => (
-                    <div key={c.id} style={{ marginBottom: 10, pageBreakInside: "avoid" }}>
-                      <strong style={{ fontSize: 13 }}>{c.name}</strong>
-                      <div style={{ fontSize: 11, color: "#444", marginTop: 2, lineHeight: 1.5 }}>{c.ability}</div>
+                    <div key={c.id} className="mb-[10px] [page-break-inside:avoid]">
+                      <strong className="text-[13px]">{c.name}</strong>
+                      <div className="text-dimmer mt-0.5 text-[11px] leading-[1.5]">{c.ability}</div>
                       {c.firstNightReminder && (
-                        <div style={{ fontSize: 10, color: "#888", marginTop: 2 }}>
-                          1st Night: {c.firstNightReminder}
-                        </div>
+                        <div className="mt-0.5 text-[10px] text-[#888]">1st Night: {c.firstNightReminder}</div>
                       )}
                       {c.otherNightReminder && (
-                        <div style={{ fontSize: 10, color: "#888" }}>Other Nights: {c.otherNightReminder}</div>
+                        <div className="text-[10px] text-[#888]">Other Nights: {c.otherNightReminder}</div>
                       )}
                     </div>
                   ))}
@@ -655,21 +340,13 @@ export function DashboardStep({
           {/* Key interactions */}
           {criticals.concat(important).length > 0 && (
             <>
-              <h2
-                style={{
-                  fontSize: 16,
-                  borderBottom: "1px solid #ccc",
-                  paddingBottom: 4,
-                  marginBottom: 12,
-                  pageBreakBefore: "always"
-                }}
-              >
+              <h2 className="mb-3 border-b border-[#ccc] pb-1 text-[16px] [page-break-before:always]">
                 Key Interactions
               </h2>
               {criticals.concat(important).map((h, i) => (
-                <div key={i} style={{ marginBottom: 10, fontSize: 11 }}>
+                <div key={i} className="mb-[10px] text-[11px]">
                   <strong>{h.title}</strong>
-                  <div style={{ color: "#555", marginTop: 2 }}>{h.description}</div>
+                  <div className="text-dim mt-0.5">{h.description}</div>
                 </div>
               ))}
             </>

@@ -19,51 +19,32 @@ export function StrengthBar({ value, showNumber = true, effectiveValue, small = 
   return (
     <div className={`flex items-center gap-1 ${small ? "gap-0.5" : ""}`}>
       {/* Negative side */}
-      <div className="flex flex-1 justify-end" style={{ height: small ? 4 : 6 }}>
+      <div className={`flex flex-1 justify-end ${small ? "h-1" : "h-1.5"}`}>
         <div
+          className="h-full rounded-l-[2px] transition-[width] duration-200 ease-in-out"
           style={{
             width: !isPositive ? barWidth : "0%",
-            background: color,
-            height: "100%",
-            borderRadius: "2px 0 0 2px",
-            transition: "width 0.2s ease"
+            background: color
           }}
         />
       </div>
 
       {/* Center line */}
-      <div
-        style={{
-          width: 1,
-          background: "#3a3a4a",
-          height: small ? 8 : 10,
-          flexShrink: 0
-        }}
-      />
+      <div className={`w-px shrink-0 bg-[#3a3a4a] ${small ? "h-2" : "h-2.5"}`} />
 
       {/* Positive side */}
-      <div className="flex-1" style={{ height: small ? 4 : 6 }}>
+      <div className={`flex-1 ${small ? "h-1" : "h-1.5"}`}>
         <div
+          className="h-full rounded-r-[2px] transition-[width] duration-200 ease-in-out"
           style={{
             width: isPositive ? barWidth : "0%",
-            background: color,
-            height: "100%",
-            borderRadius: "0 2px 2px 0",
-            transition: "width 0.2s ease"
+            background: color
           }}
         />
       </div>
 
       {showNumber && (
-        <span
-          style={{
-            color: color,
-            fontFamily: "var(--font-jetbrains)",
-            fontSize: small ? 10 : 11,
-            minWidth: 32,
-            textAlign: "right"
-          }}
-        >
+        <span className={`min-w-8 text-right font-mono ${small ? "text-[10px]" : "text-[11px]"}`} style={{ color }}>
           {displayValue > 0 ? "+" : ""}
           {displayValue}
         </span>

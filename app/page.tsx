@@ -115,51 +115,17 @@ export default function Home() {
     : null;
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "var(--bg-base)",
-        display: "flex",
-        flexDirection: "column"
-      }}
-    >
+    <div className="bg-background flex min-h-screen flex-col">
       {/* Global header */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "12px 24px",
-          borderBottom: "1px solid #2a2a3a",
-          background: "var(--bg-surface)"
-        }}
-      >
+      <div className="border-subtle bg-surface flex items-center justify-between border-b px-6 py-3">
         <div>
-          <span
-            style={{
-              fontFamily: "var(--font-cinzel)",
-              fontSize: 17,
-              color: "#e8dcc8",
-              letterSpacing: "0.05em"
-            }}
-          >
-            Grimoire Architect
-          </span>
-          <span
-            style={{
-              fontFamily: "var(--font-garamond)",
-              fontSize: 12,
-              color: "#444",
-              marginLeft: 12
-            }}
-          >
-            Blood on the Clocktower — Storyteller Tool
-          </span>
+          <span className="font-display text-parchment text-[17px] tracking-[0.05em]">Grimoire Architect</span>
+          <span className="font-body text-dimmer ml-3 text-[12px]">Blood on the Clocktower — Storyteller Tool</span>
         </div>
 
         {/* Step indicator + Reset */}
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ display: "flex", gap: 6 }}>
+        <div className="flex items-center gap-4">
+          <div className="flex gap-1.5">
             {(["script", "setup", "dashboard"] as const).map((s, i) => {
               const labels = ["1 Script", "2 Game Setup", "3 Dashboard"];
               const reached =
@@ -170,16 +136,14 @@ export default function Home() {
               return (
                 <div
                   key={s}
-                  style={{
-                    fontFamily: "var(--font-cinzel)",
-                    fontSize: 10,
-                    letterSpacing: "0.06em",
-                    color: active ? "#e8dcc8" : reached ? "#b8965a" : "#333",
-                    background: active ? "#8b1a1a" : "transparent",
-                    border: `1px solid ${active ? "#8b1a1a" : reached ? "#4a3a20" : "#2a2a3a"}`,
-                    borderRadius: 4,
-                    padding: "3px 8px"
-                  }}
+                  className={[
+                    "font-display rounded-[4px] px-2 py-[3px] text-[10px] tracking-[0.06em]",
+                    active
+                      ? "text-parchment bg-blood border-blood border"
+                      : reached
+                        ? "text-gold border border-[#4a3a20] bg-transparent"
+                        : "border-subtle border bg-transparent text-[#333]"
+                  ].join(" ")}
                 >
                   {labels[i]}
                 </div>
@@ -188,16 +152,7 @@ export default function Home() {
           </div>
           <button
             onClick={() => dispatch({ type: "RESET" })}
-            style={{
-              background: "none",
-              border: "1px solid #2a2a3a",
-              borderRadius: 4,
-              padding: "4px 10px",
-              color: "#555",
-              cursor: "pointer",
-              fontFamily: "var(--font-garamond)",
-              fontSize: 12
-            }}
+            className="border-subtle text-dim font-body cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-[12px]"
           >
             Start Over
           </button>
@@ -205,7 +160,7 @@ export default function Home() {
       </div>
 
       {/* Step content */}
-      <div style={{ flex: 1 }}>
+      <div className="flex-1">
         {step === "script" && (
           <ScriptStep
             scriptSource={scriptSource}
@@ -260,12 +215,7 @@ export default function Home() {
       {detailChar && detailEffStr && (
         <>
           <div
-            style={{
-              position: "fixed",
-              inset: 0,
-              background: "rgba(0,0,0,0.5)",
-              zIndex: 99
-            }}
+            className="fixed inset-0 z-[99] bg-black/50"
             onClick={() => dispatch({ type: "SET_DETAIL", id: null })}
           />
           <CharacterDetail

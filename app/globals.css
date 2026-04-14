@@ -19,8 +19,36 @@
 }
 
 @theme inline {
+  /* Base surface colors */
   --color-background: var(--bg-base);
   --color-foreground: var(--parchment);
+  --color-surface: var(--bg-surface);
+  --color-elevated: var(--bg-elevated);
+  /* Brand colors */
+  --color-parchment: var(--parchment);
+  --color-parchment-muted: var(--parchment-muted);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-blood: var(--blood-red);
+  --color-blood-light: var(--blood-red-light);
+  --color-tip: var(--tip-green);
+  --color-amber: var(--amber-warning);
+  /* UI neutral colors */
+  --color-subtle: var(--border-subtle);
+  --color-muted: #666;
+  --color-dim: #555;
+  --color-dimmer: #444;
+  /* Team colors */
+  --color-townsfolk: #5b9bd5;
+  --color-outsider: #9b7fd5;
+  --color-minion: #d5825b;
+  --color-demon: #d55b5b;
+  /* Good-side blue */
+  --color-good-blue: #2a7fd4;
+  /* Fonts — map Next.js font variables to Tailwind utilities */
+  --font-display: var(--font-cinzel);
+  --font-body: var(--font-garamond);
+  --font-mono: var(--font-jetbrains);
 }
 
 body {

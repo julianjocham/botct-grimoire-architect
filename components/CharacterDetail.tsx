@@ -25,25 +25,15 @@ function SubDimBar({
   const pct = Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100));
   return (
     <div title={tooltip}>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-        <span
-          style={{
-            fontFamily: "var(--font-jetbrains)",
-            fontSize: 9,
-            color: "#555",
-            textTransform: "uppercase",
-            letterSpacing: "0.05em"
-          }}
-        >
-          {label}
-        </span>
-        <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 9, color }}>
+      <div className="mb-0.5 flex justify-between">
+        <span className="text-dim font-mono text-[9px] tracking-[0.05em] uppercase">{label}</span>
+        <span className="font-mono text-[9px]" style={{ color }}>
           {value}
           {suffix}
         </span>
       </div>
-      <div style={{ height: 3, background: "#1a1a2a", borderRadius: 2, overflow: "hidden" }}>
-        <div style={{ height: "100%", width: `${pct}%`, background: color, borderRadius: 2 }} />
+      <div className="h-[3px] overflow-hidden rounded-[2px] bg-[#1a1a2a]">
+        <div className="h-full rounded-[2px]" style={{ width: `${pct}%`, background: color }} />
       </div>
     </div>
   );
@@ -67,100 +57,29 @@ export function CharacterDetail({
     .filter((c) => c && selectedIds.includes(c.id)) as Character[];
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        right: 0,
-        bottom: 0,
-        width: 340,
-        background: "#0f0f1a",
-        border: "1px solid #2a2a3a",
-        borderRight: "none",
-        zIndex: 100,
-        display: "flex",
-        flexDirection: "column",
-        overflowY: "auto"
-      }}
-    >
+    <div className="border-subtle fixed top-0 right-0 bottom-0 z-[100] flex w-[340px] flex-col overflow-y-auto border border-r-0 bg-[#0f0f1a]">
       {/* Header */}
-      <div
-        style={{
-          padding: "14px 16px",
-          borderBottom: "1px solid #2a2a3a",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          gap: 10
-        }}
-      >
+      <div className="border-subtle flex items-start justify-between gap-[10px] border-b px-4 py-[14px]">
         <div>
-          <div
-            style={{
-              fontFamily: "var(--font-cinzel)",
-              fontSize: 15,
-              color: "#e8dcc8",
-              marginBottom: 2
-            }}
-          >
-            {character.name}
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-garamond)",
-              fontSize: 12,
-              color: "#666",
-              textTransform: "capitalize"
-            }}
-          >
+          <div className="font-display text-parchment mb-0.5 text-[15px]">{character.name}</div>
+          <div className="font-body text-muted text-[12px] capitalize">
             {character.team} · {character.edition?.toUpperCase() || "Experimental"} · ST Complexity:{" "}
             {COMPLEXITY_LABEL[character.stComplexity ?? 2]}
           </div>
         </div>
         <button
           onClick={onClose}
-          style={{
-            background: "none",
-            border: "none",
-            color: "#666",
-            cursor: "pointer",
-            fontSize: 18,
-            lineHeight: 1,
-            flexShrink: 0
-          }}
+          className="text-muted shrink-0 cursor-pointer border-none bg-transparent text-[18px] leading-none"
         >
           ×
         </button>
       </div>
 
-      <div style={{ padding: "12px 16px", display: "flex", flexDirection: "column", gap: 14 }}>
+      <div className="flex flex-col gap-[14px] px-4 py-3">
         {/* Ability text */}
         <div>
-          <div
-            style={{
-              fontFamily: "var(--font-jetbrains)",
-              fontSize: 10,
-              color: "#666",
-              marginBottom: 4,
-              textTransform: "uppercase",
-              letterSpacing: "0.08em"
-            }}
-          >
-            Ability
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-garamond)",
-              fontSize: 13,
-              color: "#c8b89a",
-              lineHeight: 1.6,
-              fontStyle: "italic",
-              background: "#14141f",
-              border: "1px solid #2a2a3a",
-              borderRadius: 6,
-              padding: "8px 10px"
-            }}
-          >
+          <div className="text-muted mb-1 font-mono text-[10px] tracking-[0.08em] uppercase">Ability</div>
+          <div className="font-body text-parchment-muted bg-surface border-subtle rounded-[6px] border px-[10px] py-2 text-[13px] leading-[1.6] italic">
             &ldquo;{character.ability}&rdquo;
           </div>
         </div>
@@ -168,27 +87,11 @@ export function CharacterDetail({
         {/* Strength */}
         {character.strength?.composite !== undefined && (
           <div>
-            <div
-              style={{
-                fontFamily: "var(--font-jetbrains)",
-                fontSize: 10,
-                color: "#666",
-                marginBottom: 6,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em"
-              }}
-            >
-              Strength
-            </div>
+            <div className="text-muted mb-[6px] font-mono text-[10px] tracking-[0.08em] uppercase">Strength</div>
             <StrengthBar value={baseStrength} effectiveValue={eff} />
             {modifier !== 0 && (
               <div
-                style={{
-                  fontFamily: "var(--font-jetbrains)",
-                  fontSize: 10,
-                  color: eff < 0 ? "#c0392b" : "#2a7fd4",
-                  marginTop: 4
-                }}
+                className={["mt-1 font-mono text-[10px]", eff < 0 ? "text-blood-light" : "text-good-blue"].join(" ")}
               >
                 Base {baseStrength > 0 ? "+" : ""}
                 {baseStrength} → {modifier > 0 ? "+" : ""}
@@ -200,7 +103,7 @@ export function CharacterDetail({
             {(character.strength.peakPower !== undefined ||
               character.strength.reliability !== undefined ||
               character.strength.vulnerability !== undefined) && (
-              <div style={{ marginTop: 10, display: "flex", flexDirection: "column", gap: 5 }}>
+              <div className="mt-[10px] flex flex-col gap-[5px]">
                 {character.strength.peakPower !== undefined && (
                   <SubDimBar
                     label="Peak Power"
@@ -234,21 +137,9 @@ export function CharacterDetail({
                   />
                 )}
                 {character.strength.scalingBonus !== undefined && character.strength.scalingBonus !== 0 && (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      fontFamily: "var(--font-jetbrains)",
-                      fontSize: 9,
-                      color: "#555"
-                    }}
-                  >
+                  <div className="text-dim flex justify-between font-mono text-[9px]">
                     <span title="Bonus or penalty in larger games">Scaling</span>
-                    <span
-                      style={{
-                        color: character.strength.scalingBonus > 0 ? "#2a7fd4" : "#c0392b"
-                      }}
-                    >
+                    <span className={character.strength.scalingBonus > 0 ? "text-good-blue" : "text-blood-light"}>
                       {character.strength.scalingBonus > 0 ? "+" : ""}
                       {character.strength.scalingBonus} large games
                     </span>
@@ -257,67 +148,36 @@ export function CharacterDetail({
               </div>
             )}
             {reasons.length > 0 && (
-              <div style={{ marginTop: 8, display: "flex", flexDirection: "column", gap: 6 }}>
+              <div className="mt-2 flex flex-col gap-[6px]">
                 {reasons.map((r) => {
                   const char = allCharacters.find((c) => c.id === r.characterId);
-                  const impactColor = r.impact < 0 ? "#c0392b" : "#2a7fd4";
                   return (
                     <div
                       key={r.characterId}
-                      style={{
-                        background: r.impact < 0 ? "#150808" : "#080d15",
-                        border: `1px solid ${r.impact < 0 ? "#3a1a1a" : "#1a2a3a"}`,
-                        borderRadius: 5,
-                        padding: "6px 8px"
-                      }}
+                      className={[
+                        "rounded-[5px] px-2 py-[6px]",
+                        r.impact < 0 ? "border border-[#3a1a1a] bg-[#150808]" : "border border-[#1a2a3a] bg-[#080d15]"
+                      ].join(" ")}
                     >
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          marginBottom: r.description ? 4 : 0
-                        }}
-                      >
+                      <div className={["flex items-center justify-between", r.description ? "mb-1" : ""].join(" ")}>
                         <button
                           onClick={() => onNavigate(r.characterId)}
-                          style={{
-                            background: "none",
-                            border: "none",
-                            color: "#b8965a",
-                            cursor: "pointer",
-                            padding: 0,
-                            fontSize: 11,
-                            fontFamily: "var(--font-cinzel)",
-                            textAlign: "left"
-                          }}
+                          className="text-gold font-display cursor-pointer border-none bg-transparent p-0 text-left text-[11px]"
                         >
                           {char?.name ?? r.characterId}
                         </button>
                         <span
-                          style={{
-                            fontFamily: "var(--font-jetbrains)",
-                            fontSize: 11,
-                            color: impactColor,
-                            flexShrink: 0,
-                            marginLeft: 8
-                          }}
+                          className={[
+                            "ml-2 shrink-0 font-mono text-[11px]",
+                            r.impact < 0 ? "text-blood-light" : "text-good-blue"
+                          ].join(" ")}
                         >
                           {r.impact > 0 ? "+" : ""}
                           {r.impact}
                         </span>
                       </div>
                       {r.description && (
-                        <div
-                          style={{
-                            fontFamily: "var(--font-garamond)",
-                            fontSize: 12,
-                            color: "#888",
-                            lineHeight: 1.45
-                          }}
-                        >
-                          {r.description}
-                        </div>
+                        <div className="font-body text-[12px] leading-[1.45] text-[#888]">{r.description}</div>
                       )}
                     </div>
                   );
@@ -330,105 +190,33 @@ export function CharacterDetail({
         {/* ST Advice */}
         {character.stAdvice && (
           <div>
-            <div
-              style={{
-                fontFamily: "var(--font-jetbrains)",
-                fontSize: 10,
-                color: "#666",
-                marginBottom: 4,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em"
-              }}
-            >
-              ST Advice
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-garamond)",
-                fontSize: 13,
-                color: "#c8b89a",
-                lineHeight: 1.6
-              }}
-            >
-              {character.stAdvice}
-            </div>
+            <div className="text-muted mb-1 font-mono text-[10px] tracking-[0.08em] uppercase">ST Advice</div>
+            <div className="font-body text-parchment-muted text-[13px] leading-[1.6]">{character.stAdvice}</div>
           </div>
         )}
 
         {/* New ST Warning */}
         {character.newStWarning && (
-          <div
-            style={{
-              background: "#1a0a00",
-              border: "1px solid #5a3000",
-              borderRadius: 6,
-              padding: "8px 10px"
-            }}
-          >
-            <div
-              style={{
-                fontFamily: "var(--font-jetbrains)",
-                fontSize: 10,
-                color: "#d4a017",
-                marginBottom: 4,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em"
-              }}
-            >
-              ⚠ New ST Warning
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-garamond)",
-                fontSize: 12,
-                color: "#c8a050",
-                lineHeight: 1.5
-              }}
-            >
-              {character.newStWarning}
-            </div>
+          <div className="rounded-[6px] border border-[#5a3000] bg-[#1a0a00] px-[10px] py-2">
+            <div className="text-amber mb-1 font-mono text-[10px] tracking-[0.08em] uppercase">⚠ New ST Warning</div>
+            <div className="font-body text-[12px] leading-[1.5] text-[#c8a050]">{character.newStWarning}</div>
           </div>
         )}
 
         {/* Official ST Reminder */}
         {(character.firstNightReminder || character.otherNightReminder) && (
           <div>
-            <div
-              style={{
-                fontFamily: "var(--font-jetbrains)",
-                fontSize: 10,
-                color: "#666",
-                marginBottom: 4,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em"
-              }}
-            >
-              Official Reminders
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <div className="text-muted mb-1 font-mono text-[10px] tracking-[0.08em] uppercase">Official Reminders</div>
+            <div className="flex flex-col gap-1">
               {character.firstNightReminder && (
-                <div
-                  style={{
-                    fontFamily: "var(--font-garamond)",
-                    fontSize: 12,
-                    color: "#888",
-                    lineHeight: 1.4
-                  }}
-                >
-                  <span style={{ color: "#555" }}>1st: </span>
+                <div className="font-body text-[12px] leading-[1.4] text-[#888]">
+                  <span className="text-dim">1st: </span>
                   {character.firstNightReminder}
                 </div>
               )}
               {character.otherNightReminder && (
-                <div
-                  style={{
-                    fontFamily: "var(--font-garamond)",
-                    fontSize: 12,
-                    color: "#888",
-                    lineHeight: 1.4
-                  }}
-                >
-                  <span style={{ color: "#555" }}>Other: </span>
+                <div className="font-body text-[12px] leading-[1.4] text-[#888]">
+                  <span className="text-dim">Other: </span>
                   {character.otherNightReminder}
                 </div>
               )}
@@ -439,53 +227,20 @@ export function CharacterDetail({
         {/* Counters on this script */}
         {countersOnScript.length > 0 && (
           <div>
-            <div
-              style={{
-                fontFamily: "var(--font-jetbrains)",
-                fontSize: 10,
-                color: "#c0392b",
-                marginBottom: 6,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em"
-              }}
-            >
+            <div className="text-blood-light mb-[6px] font-mono text-[10px] tracking-[0.08em] uppercase">
               ⚔ Counters on this script
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <div className="flex flex-col gap-[6px]">
               {countersOnScript.map((counter) => (
-                <div
-                  key={counter.id}
-                  style={{
-                    background: "#1a0808",
-                    border: "1px solid #4a1a1a",
-                    borderRadius: 6,
-                    padding: "6px 10px"
-                  }}
-                >
+                <div key={counter.id} className="rounded-[6px] border border-[#4a1a1a] bg-[#1a0808] px-[10px] py-[6px]">
                   <button
                     onClick={() => onNavigate(counter.id)}
-                    style={{
-                      background: "none",
-                      border: "none",
-                      color: "#d5825b",
-                      cursor: "pointer",
-                      padding: 0,
-                      fontFamily: "var(--font-cinzel)",
-                      fontSize: 12,
-                      marginBottom: 2
-                    }}
+                    className="text-minion font-display mb-0.5 cursor-pointer border-none bg-transparent p-0 text-[12px]"
                   >
                     {counter.name}
                   </button>
                   {character.counterDetail[counter.id] && (
-                    <div
-                      style={{
-                        fontFamily: "var(--font-garamond)",
-                        fontSize: 12,
-                        color: "#888",
-                        lineHeight: 1.4
-                      }}
-                    >
+                    <div className="font-body text-[12px] leading-[1.4] text-[#888]">
                       {character.counterDetail[counter.id]}
                     </div>
                   )}
@@ -498,45 +253,18 @@ export function CharacterDetail({
         {/* Bluff advice */}
         {character.bluffAdvice && (
           <div>
-            <div
-              style={{
-                fontFamily: "var(--font-jetbrains)",
-                fontSize: 10,
-                color: "#666",
-                marginBottom: 4,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em"
-              }}
-            >
-              Bluff Advice
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-garamond)",
-                fontSize: 13,
-                color: "#c8b89a",
-                lineHeight: 1.5
-              }}
-            >
-              {character.bluffAdvice}
-            </div>
+            <div className="text-muted mb-1 font-mono text-[10px] tracking-[0.08em] uppercase">Bluff Advice</div>
+            <div className="font-body text-parchment-muted text-[13px] leading-[1.5]">{character.bluffAdvice}</div>
           </div>
         )}
 
         {/* Add/Remove button */}
         <button
           onClick={() => onToggle(character.id)}
-          style={{
-            background: isSelected ? "#8b1a1a" : "#1a3a6a",
-            border: "none",
-            borderRadius: 6,
-            padding: "10px",
-            color: "#e8dcc8",
-            cursor: "pointer",
-            fontFamily: "var(--font-cinzel)",
-            fontSize: 12,
-            letterSpacing: "0.05em"
-          }}
+          className={[
+            "text-parchment font-display cursor-pointer rounded-[6px] border-none p-[10px] text-[12px] tracking-[0.05em]",
+            isSelected ? "bg-blood" : "bg-[#1a3a6a]"
+          ].join(" ")}
         >
           {isSelected ? "Remove from Script" : "Add to Script"}
         </button>

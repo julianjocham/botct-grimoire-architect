@@ -44,65 +44,38 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
 
   if (gameIds.length === 0) {
     return (
-      <div
-        style={{
-          color: "#333",
-          fontFamily: "var(--font-garamond)",
-          fontSize: 13,
-          textAlign: "center",
-          padding: "40px 16px"
-        }}
-      >
+      <div className="font-body px-4 py-10 text-center text-[13px] text-[#333]">
         Select characters to see live analysis.
       </div>
     );
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+    <div className="flex flex-col gap-4">
       {/* Strength */}
       <div>
-        <div
-          style={{
-            fontFamily: "var(--font-cinzel)",
-            fontSize: 10,
-            color: "#b8965a",
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            marginBottom: 10
-          }}
-        >
-          Team Strength
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <div className="font-display text-gold mb-[10px] text-[10px] tracking-[0.08em] uppercase">Team Strength</div>
+        <div className="flex flex-col gap-2">
           {[
             { label: "Good", value: good, color: "#2a7fd4" },
             { label: "Evil", value: evil, color: "#c0392b" }
           ].map(({ label, value, color }) => (
             <div key={label}>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-                <span
-                  style={{
-                    fontFamily: "var(--font-jetbrains)",
-                    fontSize: 9,
-                    color,
-                    textTransform: "uppercase"
-                  }}
-                >
+              <div className="mb-[3px] flex justify-between">
+                <span className="font-mono text-[9px] uppercase" style={{ color }}>
                   {label}
                 </span>
-                <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 10, color }}>
+                <span className="font-mono text-[10px]" style={{ color }}>
                   {value > 0 ? "+" : ""}
                   {value}
                 </span>
               </div>
-              <div style={{ height: 6, background: "#1a1a2a", borderRadius: 3, overflow: "hidden" }}>
+              <div className="h-[6px] overflow-hidden rounded-[3px] bg-[#1a1a2a]">
                 <div
+                  className="h-full rounded-[3px]"
                   style={{
-                    height: "100%",
                     width: `${(Math.abs(value) / maxAbs) * 100}%`,
-                    background: color,
-                    borderRadius: 3
+                    background: color
                   }}
                 />
               </div>
@@ -114,48 +87,26 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
       {/* Game feel */}
       {gameIds.length >= 3 && (
         <div>
-          <div
-            style={{
-              fontFamily: "var(--font-cinzel)",
-              fontSize: 10,
-              color: "#b8965a",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              marginBottom: 10
-            }}
-          >
-            Game Feel
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+          <div className="font-display text-gold mb-[10px] text-[10px] tracking-[0.08em] uppercase">Game Feel</div>
+          <div className="flex flex-col gap-[7px]">
             {FEEL_BARS.map(({ key, label, levels }) => {
               const val = analysis.scriptFeel[key] as string;
               const idx = levels.indexOf(val);
               const color = FEEL_COLOR[val] ?? "#b8965a";
               return (
                 <div key={key}>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-jetbrains)",
-                        fontSize: 9,
-                        color: "#555",
-                        textTransform: "uppercase"
-                      }}
-                    >
-                      {label}
+                  <div className="mb-[2px] flex justify-between">
+                    <span className="text-dim font-mono text-[9px] uppercase">{label}</span>
+                    <span className="font-display text-[9px]" style={{ color }}>
+                      {val}
                     </span>
-                    <span style={{ fontFamily: "var(--font-cinzel)", fontSize: 9, color }}>{val}</span>
                   </div>
-                  <div style={{ display: "flex", gap: 2 }}>
+                  <div className="flex gap-[2px]">
                     {levels.map((_, i) => (
                       <div
                         key={i}
-                        style={{
-                          flex: 1,
-                          height: 5,
-                          borderRadius: 2,
-                          background: i <= idx ? color : "#2a2a3a"
-                        }}
+                        className="h-[5px] flex-1 rounded-[2px]"
+                        style={{ background: i <= idx ? color : "#2a2a3a" }}
                       />
                     ))}
                   </div>
@@ -169,19 +120,10 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
       {/* Interactions */}
       {keyHints.length > 0 && (
         <div>
-          <div
-            style={{
-              fontFamily: "var(--font-cinzel)",
-              fontSize: 10,
-              color: "#b8965a",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              marginBottom: 8
-            }}
-          >
+          <div className="font-display text-gold mb-2 text-[10px] tracking-[0.08em] uppercase">
             Interactions ({keyHints.length})
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <div className="flex flex-col gap-[6px]">
             {keyHints.map((hint, i) => {
               const isJinx = hint.category === "jinx";
               const involvedChars = hint.involvedCharacters
@@ -192,75 +134,29 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
               return (
                 <div
                   key={i}
+                  className={`rounded-[6px] px-[10px] py-2 ${isJinx ? "border-dashed" : "border-solid"}`}
                   style={{
                     border: `1px solid ${borderColor}`,
-                    borderStyle: isJinx ? "dashed" : "solid",
-                    background: bgColor,
-                    borderRadius: 6,
-                    padding: "8px 10px"
+                    background: bgColor
                   }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 5,
-                      marginBottom: 4,
-                      flexWrap: "wrap"
-                    }}
-                  >
+                  <div className="mb-1 flex flex-wrap items-center gap-[5px]">
                     {isJinx && (
-                      <span
-                        style={{
-                          fontFamily: "var(--font-cinzel)",
-                          fontSize: 8,
-                          color: "#b8965a",
-                          background: "#2a1f00",
-                          border: "1px solid #7a6200",
-                          borderRadius: 3,
-                          padding: "1px 4px",
-                          flexShrink: 0
-                        }}
-                      >
+                      <span className="font-display text-gold shrink-0 rounded-[3px] border border-[#7a6200] bg-[#2a1f00] px-1 py-[1px] text-[8px]">
                         ⚖ Jinx
                       </span>
                     )}
                     {involvedChars.map((c) => (
                       <span
                         key={c.id}
-                        style={{
-                          fontFamily: "var(--font-cinzel)",
-                          fontSize: 10,
-                          color: "#b8965a",
-                          background: "#2a2a3a",
-                          borderRadius: 3,
-                          padding: "1px 5px"
-                        }}
+                        className="font-display text-gold bg-subtle rounded-[3px] px-[5px] py-[1px] text-[10px]"
                       >
                         {c.name}
                       </span>
                     ))}
                   </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-cinzel)",
-                      fontSize: 11,
-                      color: "#e8dcc8",
-                      marginBottom: 3
-                    }}
-                  >
-                    {hint.title}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-garamond)",
-                      fontSize: 12,
-                      color: "#c8b89a",
-                      lineHeight: 1.5
-                    }}
-                  >
-                    {hint.description}
-                  </div>
+                  <div className="font-display text-parchment mb-[3px] text-[11px]">{hint.title}</div>
+                  <div className="font-body text-parchment-muted text-[12px] leading-[1.5]">{hint.description}</div>
                 </div>
               );
             })}
@@ -271,32 +167,16 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
       {/* Composition issues */}
       {analysis.compositionWarnings.length > 0 && (
         <div>
-          <div
-            style={{
-              fontFamily: "var(--font-cinzel)",
-              fontSize: 10,
-              color: "#b8965a",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              marginBottom: 8
-            }}
-          >
-            Issues
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+          <div className="font-display text-gold mb-2 text-[10px] tracking-[0.08em] uppercase">Issues</div>
+          <div className="flex flex-col gap-[5px]">
             {analysis.compositionWarnings.map((w, i) => (
               <div
                 key={i}
+                className="font-body text-parchment-muted rounded-[5px] px-2 py-[6px] text-[12px] leading-[1.5]"
                 style={{
                   background:
                     w.severity === "critical" ? "#1a0808" : w.severity === "important" ? "#1a1400" : "#0a1408",
-                  border: `1px solid ${w.severity === "critical" ? "#8b1a1a" : w.severity === "important" ? "#7a5a00" : "#1a4a2e"}`,
-                  borderRadius: 5,
-                  padding: "6px 8px",
-                  fontFamily: "var(--font-garamond)",
-                  fontSize: 12,
-                  color: "#c8b89a",
-                  lineHeight: 1.5
+                  border: `1px solid ${w.severity === "critical" ? "#8b1a1a" : w.severity === "important" ? "#7a5a00" : "#1a4a2e"}`
                 }}
               >
                 {w.severity === "critical" ? "⚠" : w.severity === "important" ? "⚡" : "💡"} {w.message}
@@ -309,19 +189,8 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
       {/* Character strength list */}
       {gameIds.length > 0 && (
         <div>
-          <div
-            style={{
-              fontFamily: "var(--font-cinzel)",
-              fontSize: 10,
-              color: "#b8965a",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              marginBottom: 8
-            }}
-          >
-            Character Strengths
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          <div className="font-display text-gold mb-2 text-[10px] tracking-[0.08em] uppercase">Character Strengths</div>
+          <div className="flex flex-col gap-1">
             {gameIds
               .map((id) => {
                 const char = allCharacters.find((c) => c.id === id);
@@ -338,60 +207,29 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
                 const s = eff.effectiveStrength;
                 const barColor = s > 30 ? "#2a7fd4" : s > 0 ? "#5b9bd5" : s > -30 ? "#c0392b" : "#8b1a1a";
                 return (
-                  <div key={char.id} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <div key={char.id} className="flex items-center gap-[6px]">
                     <div
-                      style={{
-                        fontFamily: "var(--font-cinzel)",
-                        fontSize: 10,
-                        color: col.text,
-                        minWidth: 90,
-                        flexShrink: 0,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap"
-                      }}
+                      className="font-display shrink-0 overflow-hidden text-[10px] text-ellipsis whitespace-nowrap"
+                      style={{ color: col.text, minWidth: 90 }}
                     >
                       {char.name}
                     </div>
-                    <div
-                      style={{
-                        flex: 1,
-                        height: 4,
-                        background: "#1a1a2a",
-                        borderRadius: 2,
-                        overflow: "hidden"
-                      }}
-                    >
+                    <div className="h-1 flex-1 overflow-hidden rounded-[2px] bg-[#1a1a2a]">
                       <div
+                        className="h-full rounded-[2px]"
                         style={{
-                          height: "100%",
                           width: `${(Math.abs(s) / 100) * 100}%`,
-                          background: barColor,
-                          borderRadius: 2
+                          background: barColor
                         }}
                       />
                     </div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-jetbrains)",
-                        fontSize: 9,
-                        color: barColor,
-                        minWidth: 28,
-                        textAlign: "right",
-                        flexShrink: 0
-                      }}
-                    >
+                    <div className="shrink-0 text-right font-mono text-[9px]" style={{ color: barColor, minWidth: 28 }}>
                       {s > 0 ? "+" : ""}
                       {s}
                     </div>
                     {eff.modifier !== 0 && (
                       <div
-                        style={{
-                          fontFamily: "var(--font-jetbrains)",
-                          fontSize: 8,
-                          color: eff.modifier > 0 ? "#2a7fd4" : "#c0392b",
-                          flexShrink: 0
-                        }}
+                        className={`shrink-0 font-mono text-[8px] ${eff.modifier > 0 ? "text-good-blue" : "text-blood-light"}`}
                       >
                         ({eff.modifier > 0 ? "+" : ""}
                         {eff.modifier})
@@ -448,51 +286,24 @@ export function GameSetupStep({
     .map(([, mod]) => mod.label);
 
   return (
-    <div
-      style={{
-        maxWidth: 1300,
-        margin: "0 auto",
-        padding: "28px 24px",
-        display: "grid",
-        gridTemplateColumns: "1fr 300px",
-        gap: 20,
-        alignItems: "start"
-      }}
-    >
+    <div className="mx-auto grid max-w-[1300px] grid-cols-[1fr_300px] items-start gap-5 px-6 py-7">
       {/* ── Left: selection ── */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+      <div className="flex flex-col gap-6">
         {/* Header */}
-        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
+        <div className="flex items-start justify-between">
           <div>
-            <h2
-              style={{
-                fontFamily: "var(--font-cinzel)",
-                fontSize: 22,
-                color: "#e8dcc8",
-                margin: "0 0 6px",
-                letterSpacing: "0.04em"
-              }}
-            >
+            <h2 className="font-display text-parchment m-0 mb-[6px] text-[22px] tracking-[0.04em]">
               Step 2 — Set Up Your Game
             </h2>
-            <div style={{ fontFamily: "var(--font-garamond)", fontSize: 13, color: "#555" }}>
-              Script: <span style={{ color: "#b8965a" }}>{EDITIONS[scriptSource ?? "custom"]}</span>
+            <div className="font-body text-dim text-[13px]">
+              Script: <span className="text-gold">{EDITIONS[scriptSource ?? "custom"]}</span>
               {" · "}
               {scriptIds.length} characters available
             </div>
           </div>
           <button
             onClick={onBack}
-            style={{
-              background: "none",
-              border: "1px solid #2a2a3a",
-              borderRadius: 5,
-              padding: "6px 14px",
-              color: "#666",
-              cursor: "pointer",
-              fontFamily: "var(--font-garamond)",
-              fontSize: 13
-            }}
+            className="border-subtle text-muted font-body cursor-pointer rounded-[5px] border bg-transparent px-[14px] py-[6px] text-[13px]"
           >
             ← Change Script
           </button>
@@ -500,19 +311,10 @@ export function GameSetupStep({
 
         {/* Player count */}
         <div>
-          <div
-            style={{
-              fontFamily: "var(--font-cinzel)",
-              fontSize: 11,
-              color: "#b8965a",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              marginBottom: 10
-            }}
-          >
+          <div className="font-display text-gold mb-[10px] text-[11px] tracking-[0.08em] uppercase">
             How many players?
           </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+          <div className="flex flex-wrap gap-[6px]">
             {Array.from({ length: 16 }, (_, i) => i + 5).map((n) => {
               const active = playerCount === n;
               const isTraveler = n > 15;
@@ -520,30 +322,21 @@ export function GameSetupStep({
                 <button
                   key={n}
                   onClick={() => onSetPlayerCount(active ? null : n)}
-                  style={{
-                    background: active ? "#8b1a1a" : "#14141f",
-                    border: `2px solid ${active ? "#8b1a1a" : isTraveler ? "#2a2a2a" : "#2a2a3a"}`,
-                    borderRadius: 7,
-                    padding: isTraveler ? "5px 10px" : "8px 14px",
-                    color: active ? "#e8dcc8" : isTraveler ? "#555" : "#888",
-                    cursor: "pointer",
-                    fontFamily: "var(--font-jetbrains)",
-                    fontSize: isTraveler ? 11 : 14,
-                    fontWeight: active ? 700 : 400,
-                    transition: "all 0.1s ease"
-                  }}
+                  className={[
+                    "cursor-pointer rounded-[7px] border-2 font-mono transition-all duration-100",
+                    isTraveler ? "px-[10px] py-[5px]" : "px-[14px] py-2",
+                    isTraveler ? "text-[11px]" : "text-[14px]",
+                    active
+                      ? "bg-blood border-blood text-parchment font-bold"
+                      : isTraveler
+                        ? "bg-surface text-dim border-[#2a2a2a]"
+                        : "bg-surface border-subtle text-[#888]"
+                  ].join(" ")}
                   title={isTraveler ? `${n} players (${n - 15} traveler${n - 15 > 1 ? "s" : ""})` : `${n} players`}
                 >
                   {n}
                   {isTraveler && (
-                    <span
-                      style={{
-                        fontSize: 8,
-                        color: active ? "#e8dcc8" : "#444",
-                        display: "block",
-                        lineHeight: 1
-                      }}
-                    >
+                    <span className={`block text-[8px] leading-[1] ${active ? "text-parchment" : "text-dimmer"}`}>
                       +{n - 15}T
                     </span>
                   )}
@@ -552,14 +345,7 @@ export function GameSetupStep({
             })}
           </div>
           {neededTravelers > 0 && playerCount && (
-            <div
-              style={{
-                fontFamily: "var(--font-garamond)",
-                fontSize: 12,
-                color: "#555",
-                marginTop: 8
-              }}
-            >
+            <div className="font-body text-dim mt-2 text-[12px]">
               Travelers fill the extra {neededTravelers} slot{neededTravelers > 1 ? "s" : ""} — they are not from your
               script.
             </div>
@@ -570,40 +356,14 @@ export function GameSetupStep({
         {playerCount && req && (
           <>
             {/* Distribution */}
-            <div
-              style={{
-                background: "var(--bg-surface)",
-                border: "1px solid #2a2a3a",
-                borderRadius: 10,
-                padding: "14px 16px"
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginBottom: 12
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: "var(--font-cinzel)",
-                    fontSize: 12,
-                    color: "#b8965a",
-                    letterSpacing: "0.06em",
-                    textTransform: "uppercase"
-                  }}
-                >
+            <div className="bg-surface border-subtle rounded-[10px] border px-4 py-[14px]">
+              <div className="mb-3 flex items-center justify-between">
+                <div className="font-display text-gold text-[12px] tracking-[0.06em] uppercase">
                   {playerCount}-Player Distribution
                 </div>
-                {isComplete && (
-                  <div style={{ fontFamily: "var(--font-cinzel)", fontSize: 11, color: "#2d6a4f" }}>
-                    ✓ Roster Complete
-                  </div>
-                )}
+                {isComplete && <div className="font-display text-tip text-[11px]">✓ Roster Complete</div>}
               </div>
-              <div style={{ display: "flex", gap: 8 }}>
+              <div className="flex gap-2">
                 {TEAM_ORDER.map((team) => {
                   const needed = req[team];
                   const have = gameCounts[team];
@@ -612,97 +372,35 @@ export function GameSetupStep({
                   return (
                     <div
                       key={team}
-                      style={{
-                        flex: 1,
-                        background: "#0a0a14",
-                        border: `2px solid ${done ? c.border : "#2a2a3a"}`,
-                        borderRadius: 8,
-                        padding: "10px 6px",
-                        textAlign: "center",
-                        transition: "border-color 0.2s"
-                      }}
+                      className="flex-1 rounded-[8px] border-2 bg-[#0a0a14] px-[6px] py-[10px] text-center transition-[border-color] duration-200"
+                      style={{ borderColor: done ? c.border : "#2a2a3a" }}
                     >
-                      <div
-                        style={{
-                          fontFamily: "var(--font-jetbrains)",
-                          fontSize: 22,
-                          color: done ? c.text : "#333",
-                          lineHeight: 1
-                        }}
-                      >
+                      <div className="font-mono text-[22px] leading-[1]" style={{ color: done ? c.text : "#333" }}>
                         {have}
                       </div>
-                      <div
-                        style={{
-                          fontFamily: "var(--font-jetbrains)",
-                          fontSize: 10,
-                          color: "#333",
-                          margin: "2px 0"
-                        }}
-                      >
-                        / {needed}
-                      </div>
-                      <div
-                        style={{
-                          fontFamily: "var(--font-garamond)",
-                          fontSize: 11,
-                          color: "#555",
-                          textTransform: "capitalize"
-                        }}
-                      >
-                        {team}
-                      </div>
+                      <div className="my-[2px] font-mono text-[10px] text-[#333]">/ {needed}</div>
+                      <div className="font-body text-dim text-[11px] capitalize">{team}</div>
                     </div>
                   );
                 })}
                 {neededTravelers > 0 && (
                   <div
-                    style={{
-                      flex: 1,
-                      background: "#0a0a14",
-                      border: `2px solid ${travelersComplete ? "#4a3a20" : "#2a2a3a"}`,
-                      borderRadius: 8,
-                      padding: "10px 6px",
-                      textAlign: "center",
-                      transition: "border-color 0.2s"
-                    }}
+                    className={`flex-1 rounded-[8px] border-2 bg-[#0a0a14] px-[6px] py-[10px] text-center transition-[border-color] duration-200 ${travelersComplete ? "border-[#4a3a20]" : "border-subtle"}`}
                   >
                     <div
-                      style={{
-                        fontFamily: "var(--font-jetbrains)",
-                        fontSize: 22,
-                        color: travelersComplete ? "#b8965a" : "#333",
-                        lineHeight: 1
-                      }}
+                      className={`font-mono text-[22px] leading-[1] ${travelersComplete ? "text-gold" : "text-[#333]"}`}
                     >
                       {selectedTravelerIds.length}
                     </div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-jetbrains)",
-                        fontSize: 10,
-                        color: "#333",
-                        margin: "2px 0"
-                      }}
-                    >
-                      / {neededTravelers}
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-garamond)",
-                        fontSize: 11,
-                        color: "#555"
-                      }}
-                    >
-                      Travelers
-                    </div>
+                    <div className="my-[2px] font-mono text-[10px] text-[#333]">/ {neededTravelers}</div>
+                    <div className="font-body text-dim text-[11px]">Travelers</div>
                   </div>
                 )}
               </div>
               {activeModifiers.length > 0 && (
-                <div style={{ marginTop: 10, display: "flex", flexDirection: "column", gap: 3 }}>
+                <div className="mt-[10px] flex flex-col gap-[3px]">
                   {activeModifiers.map((note, i) => (
-                    <div key={i} style={{ fontFamily: "var(--font-garamond)", fontSize: 12, color: "#d5825b" }}>
+                    <div key={i} className="font-body text-minion text-[12px]">
                       ⚙ {note}
                     </div>
                   ))}
@@ -711,16 +409,8 @@ export function GameSetupStep({
             </div>
 
             {/* Character selection */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <div
-                style={{
-                  fontFamily: "var(--font-cinzel)",
-                  fontSize: 11,
-                  color: "#b8965a",
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase"
-                }}
-              >
+            <div className="flex flex-col gap-4">
+              <div className="font-display text-gold text-[11px] tracking-[0.08em] uppercase">
                 Choose Characters for This Game
               </div>
 
@@ -734,45 +424,25 @@ export function GameSetupStep({
 
                 return (
                   <div key={team}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-                      <div
-                        style={{
-                          fontFamily: "var(--font-cinzel)",
-                          fontSize: 12,
-                          color: c.text,
-                          letterSpacing: "0.06em",
-                          textTransform: "uppercase"
-                        }}
-                      >
+                    <div className="mb-2 flex items-center gap-[10px]">
+                      <div className="font-display text-[12px] tracking-[0.06em] uppercase" style={{ color: c.text }}>
                         {TEAM_LABEL[team]}
                       </div>
                       <div
+                        className="rounded-[10px] bg-[#0a0a14] px-[10px] py-[2px] font-mono text-[11px]"
                         style={{
-                          fontFamily: "var(--font-jetbrains)",
-                          fontSize: 11,
                           color: isFull ? c.text : "#555",
-                          background: "#0a0a14",
-                          border: `1px solid ${isFull ? c.border : "#2a2a3a"}`,
-                          borderRadius: 10,
-                          padding: "2px 10px"
+                          border: `1px solid ${isFull ? c.border : "#2a2a3a"}`
                         }}
                       >
                         {have} / {needed}
                       </div>
                       {needed === 0 && (
-                        <div
-                          style={{
-                            fontFamily: "var(--font-garamond)",
-                            fontSize: 11,
-                            color: "#444"
-                          }}
-                        >
-                          (none needed at this count)
-                        </div>
+                        <div className="font-body text-dimmer text-[11px]">(none needed at this count)</div>
                       )}
                     </div>
 
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    <div className="flex flex-wrap gap-[6px]">
                       {chars.map((char) => {
                         const inGame = gameIds.includes(char.id);
                         const blocked = !inGame && isFull;
@@ -790,61 +460,32 @@ export function GameSetupStep({
                         return (
                           <div
                             key={char.id}
+                            className="flex overflow-hidden rounded-[7px] transition-all duration-100"
                             style={{
-                              display: "flex",
                               border: `1px solid ${inGame ? c.border : synergiesInGame.length > 0 ? "#2a4a20" : "#2a2a3a"}`,
-                              borderRadius: 7,
-                              overflow: "hidden",
-                              opacity: blocked ? 0.3 : 1,
-                              transition: "all 0.1s ease"
+                              opacity: blocked ? 0.3 : 1
                             }}
                           >
                             <button
                               onClick={() => onDetail(char.id)}
+                              className="font-display flex cursor-pointer items-center gap-[5px] border-none px-[10px] py-[6px] text-[12px]"
                               style={{
                                 background: inGame ? c.bg : synergiesInGame.length > 0 ? "#0d1a0d" : "#14141f",
-                                border: "none",
                                 borderRight: `1px solid ${inGame ? c.border : "#2a2a3a"}`,
-                                padding: "6px 10px",
-                                color: inGame ? c.text : "#666",
-                                cursor: "pointer",
-                                fontFamily: "var(--font-cinzel)",
-                                fontSize: 12,
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 5
+                                color: inGame ? c.text : "#666"
                               }}
                             >
                               {char.name}
                               {synergiesInGame.length > 0 && !inGame && (
                                 <span
                                   title={synergySummary}
-                                  style={{
-                                    fontFamily: "var(--font-jetbrains)",
-                                    fontSize: 8,
-                                    color: "#4a9a4a",
-                                    background: "#0d1a0d",
-                                    border: "1px solid #2a4a20",
-                                    borderRadius: 3,
-                                    padding: "0 3px",
-                                    cursor: "help"
-                                  }}
+                                  className="cursor-help rounded-[3px] border border-[#2a4a20] bg-[#0d1a0d] px-[3px] font-mono text-[8px] text-[#4a9a4a]"
                                 >
                                   ✦{synergiesInGame.length}
                                 </span>
                               )}
                               {countersInGame > 0 && (
-                                <span
-                                  style={{
-                                    fontFamily: "var(--font-jetbrains)",
-                                    fontSize: 8,
-                                    color: "#b8965a",
-                                    background: "#2a1a00",
-                                    border: "1px solid #7a5a00",
-                                    borderRadius: 3,
-                                    padding: "0 3px"
-                                  }}
-                                >
+                                <span className="text-gold rounded-[3px] border border-[#7a5a00] bg-[#2a1a00] px-[3px] font-mono text-[8px]">
                                   ⚔{countersInGame}
                                 </span>
                               )}
@@ -854,13 +495,11 @@ export function GameSetupStep({
                                 if (!blocked) onToggleGameChar(char.id);
                               }}
                               disabled={blocked}
+                              className="border-none px-[10px] py-[6px] text-[13px]"
                               style={{
                                 background: inGame ? c.bg : "#14141f",
-                                border: "none",
-                                padding: "6px 10px",
                                 color: inGame ? c.text : "#555",
-                                cursor: blocked ? "default" : "pointer",
-                                fontSize: 13
+                                cursor: blocked ? "default" : "pointer"
                               }}
                             >
                               {inGame ? "−" : "+"}
@@ -876,64 +515,30 @@ export function GameSetupStep({
 
             {/* Traveler picker — only when 16+ players and edition has travelers */}
             {neededTravelers > 0 && editionTravelers.length > 0 && (
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-[10px]">
+                  <div className="font-display text-gold text-[11px] tracking-[0.08em] uppercase">Travelers</div>
                   <div
-                    style={{
-                      fontFamily: "var(--font-cinzel)",
-                      fontSize: 11,
-                      color: "#b8965a",
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase"
-                    }}
-                  >
-                    Travelers
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-jetbrains)",
-                      fontSize: 11,
-                      color: travelersComplete ? "#b8965a" : "#555",
-                      background: "#0a0a14",
-                      border: `1px solid ${travelersComplete ? "#4a3a20" : "#2a2a3a"}`,
-                      borderRadius: 10,
-                      padding: "2px 10px"
-                    }}
+                    className={`rounded-[10px] bg-[#0a0a14] px-[10px] py-[2px] font-mono text-[11px] ${travelersComplete ? "text-gold border border-[#4a3a20]" : "text-dim border-subtle border"}`}
                   >
                     {selectedTravelerIds.length} / {neededTravelers}
                   </div>
-                  <div style={{ fontFamily: "var(--font-garamond)", fontSize: 11, color: "#444" }}>
+                  <div className="font-body text-dimmer text-[11px]">
                     (choose {neededTravelers} traveler{neededTravelers !== 1 ? "s" : ""})
                   </div>
                 </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                <div className="flex flex-wrap gap-[6px]">
                   {editionTravelers.map((traveler) => {
                     const inGame = gameIds.includes(traveler.id);
                     const blocked = !inGame && travelersComplete;
                     return (
                       <div
                         key={traveler.id}
-                        style={{
-                          display: "flex",
-                          border: `1px solid ${inGame ? "#4a3a20" : "#2a2a3a"}`,
-                          borderRadius: 7,
-                          overflow: "hidden",
-                          opacity: blocked ? 0.3 : 1,
-                          transition: "all 0.1s ease"
-                        }}
+                        className={`flex overflow-hidden rounded-[7px] transition-all duration-100 ${inGame ? "border border-[#4a3a20]" : "border-subtle border"} ${blocked ? "opacity-30" : "opacity-100"}`}
                       >
                         <button
                           onClick={() => onDetail(traveler.id)}
-                          style={{
-                            background: inGame ? "#1a1500" : "#14141f",
-                            border: "none",
-                            borderRight: `1px solid ${inGame ? "#4a3a20" : "#2a2a3a"}`,
-                            padding: "6px 10px",
-                            color: inGame ? "#b8965a" : "#666",
-                            cursor: "pointer",
-                            fontFamily: "var(--font-cinzel)",
-                            fontSize: 12
-                          }}
+                          className={`font-display cursor-pointer border-none px-[10px] py-[6px] text-[12px] ${inGame ? "text-gold border-r border-r-[#4a3a20] bg-[#1a1500]" : "bg-surface text-muted border-r-subtle border-r"}`}
                         >
                           {traveler.name}
                         </button>
@@ -942,14 +547,7 @@ export function GameSetupStep({
                             if (!blocked) onToggleGameChar(traveler.id);
                           }}
                           disabled={blocked}
-                          style={{
-                            background: inGame ? "#1a1500" : "#14141f",
-                            border: "none",
-                            padding: "6px 10px",
-                            color: inGame ? "#b8965a" : "#555",
-                            cursor: blocked ? "default" : "pointer",
-                            fontSize: 13
-                          }}
+                          className={`border-none px-[10px] py-[6px] text-[13px] ${inGame ? "text-gold bg-[#1a1500]" : "bg-surface text-dim"} ${blocked ? "cursor-default" : "cursor-pointer"}`}
                         >
                           {inGame ? "−" : "+"}
                         </button>
@@ -961,21 +559,11 @@ export function GameSetupStep({
             )}
 
             {/* Continue */}
-            <div style={{ display: "flex", justifyContent: "flex-end", paddingTop: 8 }}>
+            <div className="flex justify-end pt-2">
               <button
                 onClick={onContinue}
                 disabled={!isComplete}
-                style={{
-                  background: isComplete ? "#8b1a1a" : "#1a1a1a",
-                  border: "none",
-                  borderRadius: 8,
-                  padding: "12px 28px",
-                  color: isComplete ? "#e8dcc8" : "#333",
-                  cursor: isComplete ? "pointer" : "default",
-                  fontFamily: "var(--font-cinzel)",
-                  fontSize: 13,
-                  letterSpacing: "0.06em"
-                }}
+                className={`font-display rounded-[8px] border-none px-7 py-3 text-[13px] tracking-[0.06em] ${isComplete ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#333]"}`}
               >
                 {isComplete
                   ? "View Dashboard →"
@@ -988,45 +576,15 @@ export function GameSetupStep({
         )}
 
         {!playerCount && (
-          <div
-            style={{
-              color: "#444",
-              fontFamily: "var(--font-garamond)",
-              fontSize: 14,
-              textAlign: "center",
-              padding: "30px 0"
-            }}
-          >
+          <div className="text-dimmer font-body py-[30px] text-center text-[14px]">
             Choose a player count above to begin selecting characters.
           </div>
         )}
       </div>
 
       {/* ── Right: live analysis sidebar ── */}
-      <div
-        style={{
-          background: "var(--bg-surface)",
-          border: "1px solid #2a2a3a",
-          borderRadius: 10,
-          padding: "14px 14px",
-          position: "sticky",
-          top: 16,
-          maxHeight: "calc(100vh - 100px)",
-          overflowY: "auto"
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-cinzel)",
-            fontSize: 10,
-            color: "#b8965a",
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            marginBottom: 12
-          }}
-        >
-          Live Analysis
-        </div>
+      <div className="bg-surface border-subtle sticky top-4 max-h-[calc(100vh-100px)] overflow-y-auto rounded-[10px] border p-[14px]">
+        <div className="font-display text-gold mb-3 text-[10px] tracking-[0.08em] uppercase">Live Analysis</div>
         <AnalysisSidebar gameIds={gameIds} allCharacters={allCharacters} />
       </div>
     </div>
