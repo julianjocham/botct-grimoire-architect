@@ -1,10 +1,10 @@
 {
   "counts": {
-    "5":  { "townsfolk": 3, "outsider": 0, "minion": 1, "demon": 1, "traveler": 0 },
-    "6":  { "townsfolk": 3, "outsider": 1, "minion": 1, "demon": 1, "traveler": 0 },
-    "7":  { "townsfolk": 5, "outsider": 0, "minion": 1, "demon": 1, "traveler": 0 },
-    "8":  { "townsfolk": 5, "outsider": 1, "minion": 1, "demon": 1, "traveler": 0 },
-    "9":  { "townsfolk": 5, "outsider": 2, "minion": 1, "demon": 1, "traveler": 0 },
+    "5": { "townsfolk": 3, "outsider": 0, "minion": 1, "demon": 1, "traveler": 0 },
+    "6": { "townsfolk": 3, "outsider": 1, "minion": 1, "demon": 1, "traveler": 0 },
+    "7": { "townsfolk": 5, "outsider": 0, "minion": 1, "demon": 1, "traveler": 0 },
+    "8": { "townsfolk": 5, "outsider": 1, "minion": 1, "demon": 1, "traveler": 0 },
+    "9": { "townsfolk": 5, "outsider": 2, "minion": 1, "demon": 1, "traveler": 0 },
     "10": { "townsfolk": 7, "outsider": 0, "minion": 2, "demon": 1, "traveler": 0 },
     "11": { "townsfolk": 7, "outsider": 1, "minion": 2, "demon": 1, "traveler": 0 },
     "12": { "townsfolk": 7, "outsider": 2, "minion": 2, "demon": 1, "traveler": 0 },
@@ -19,16 +19,19 @@
   },
   "notes": {
     "setupModifiers": {
-      "baron":        { "outsider": 2,  "townsfolk": -2, "description": "+2 Outsiders, −2 Townsfolk" },
-      "godfather":    { "outsider": 1,  "description": "+1 or −1 Outsider (ST choice at setup)" },
-      "vigormortis":  { "outsider": -1, "description": "−1 Outsider" },
-      "fanggu":       { "outsider": 1,  "description": "+1 Outsider" },
-      "balloonist":   { "outsider": 1,  "description": "+1 Outsider" },
-      "bountyhunter": { "townsfolk": -1, "description": "1 Townsfolk becomes evil (is registered as Townsfolk but is evil)" },
-      "lilmonsta":    { "minion": 1,    "description": "+1 Minion" },
-      "legion":       { "description": "Most players are Legion — ignores normal distribution" },
-      "atheist":      { "description": "No evil characters in play" },
-      "marionette":   { "description": "One good neighbour of Demon thinks they are good but is a Minion" }
+      "baron": { "outsider": 2, "townsfolk": -2, "description": "+2 Outsiders, −2 Townsfolk" },
+      "godfather": { "outsider": 1, "description": "+1 or −1 Outsider (ST choice at setup)" },
+      "vigormortis": { "outsider": -1, "description": "−1 Outsider" },
+      "fanggu": { "outsider": 1, "description": "+1 Outsider" },
+      "balloonist": { "outsider": 1, "description": "+1 Outsider" },
+      "bountyhunter": {
+        "townsfolk": -1,
+        "description": "1 Townsfolk becomes evil (is registered as Townsfolk but is evil)"
+      },
+      "lilmonsta": { "minion": 1, "description": "+1 Minion" },
+      "legion": { "description": "Most players are Legion — ignores normal distribution" },
+      "atheist": { "description": "No evil characters in play" },
+      "marionette": { "description": "One good neighbour of Demon thinks they are good but is a Minion" }
     },
     "travelers": "Players beyond 15 are Travelers. Travelers are not part of the script — they join at any time and use shared traveler tokens. Each traveler adds 1 to the total player count without changing the core role distribution.",
     "scriptRequirements": {
