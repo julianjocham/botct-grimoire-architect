@@ -1,4 +1,4 @@
-import { AbilityCategory } from "@/lib/types";
+import { AbilityCategory, FeelBarConfig } from "@/lib/types";
 
 export const FEEL_COLOR: Record<string, string> = {
   Blind: "#c0392b",
@@ -18,11 +18,7 @@ export const FEEL_COLOR: Record<string, string> = {
   Exhausting: "#c0392b"
 };
 
-export const FEEL_BARS: Array<{
-  key: "infoLevel" | "lethalityLevel" | "chaosLevel" | "stWorkload";
-  label: string;
-  levels: string[];
-}> = [
+export const FEEL_BARS: FeelBarConfig[] = [
   { key: "infoLevel", label: "Info", levels: ["Blind", "Low", "Moderate", "High", "Flooded"] },
   {
     key: "lethalityLevel",

@@ -71,16 +71,6 @@ export interface ScriptHealthBarProps {
   analysis: ScriptAnalysis;
 }
 
-export interface CharacterPoolProps {
-  pool: Character[];
-  allCharacters: Character[];
-  selectedIds: string[];
-  searchQuery: string;
-  onSearch: (q: string) => void;
-  onToggle: (id: string) => void;
-  onDetail: (id: string) => void;
-}
-
 export interface ScriptStepProps {
   scriptSource: EditionKey | null;
   scriptIds: string[];
@@ -107,15 +97,9 @@ export interface InteractionFeedProps {
   onDetail: (id: string) => void;
 }
 
-export interface GamePanelProps {
-  playerCount: number | null;
-  onSetPlayerCount: (count: number | null) => void;
-  gameCharacterIds: string[];
-  selectedIds: string[];
+export interface AnalysisSidebarProps {
+  gameIds: string[];
   allCharacters: Character[];
-  onToggleGameCharacter: (id: string) => void;
-  onClearGame: () => void;
-  onDetail: (id: string) => void;
 }
 
 export interface CompositionPanelProps {

@@ -159,6 +159,13 @@ export interface CompositionWarning {
   severity: "critical" | "important" | "tip";
 }
 
+// One entry in the FEEL_BARS display config
+export interface FeelBarConfig {
+  key: "infoLevel" | "lethalityLevel" | "chaosLevel" | "stWorkload";
+  label: string;
+  levels: string[];
+}
+
 // Script feel descriptors
 export interface ScriptFeel {
   infoLevel: "Blind" | "Low" | "Moderate" | "High" | "Flooded";
