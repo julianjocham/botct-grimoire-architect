@@ -92,8 +92,8 @@ function createInteraction(source: Character, target: Character, rule: CategoryR
     b: target.id,
     type: rule.type,
     severity: rule.severity,
-    title: rule.title.replace("{source}", source.name).replace("{target}", target.name),
-    description: rule.description.replace("{source}", source.name).replace("{target}", target.name),
+    title: rule.title.replaceAll("{source}", source.name).replaceAll("{target}", target.name),
+    description: rule.description.replaceAll("{source}", source.name).replaceAll("{target}", target.name),
     strengthImpact: rule.strengthImpact,
     category: rule.category
   };
