@@ -16,7 +16,7 @@
       "spy": "Spy can register as the Townsfolk shown, effectively 'confirming' the Spy as a good player.",
       "drunk": "If the Washerwoman IS the Drunk, all info is false with no second data point to detect it."
     },
-    "stAdvice": "Strong first-day info. Confirm a Townsfolk to anchor the good team's trust network. If Poisoner is on script, this is a high-value night-1 poison target — prepare false info before waking any other roles.",
+    "stAdvice": "First night only: Show the Townsfolk character token. Point to both the TOWNSFOLK and WRONG players.",
     "newStWarning": "Remember to choose the 'wrong' player as the pointer — the Washerwoman points to two players, one of which IS the character, but the other is just a decoy."
   },
   "librarian": {
@@ -36,7 +36,7 @@
       "spy": "Spy can register as the Outsider shown.",
       "recluse": "Recluse can register as an Outsider, making Librarian appear to 'confirm' the Recluse."
     },
-    "stAdvice": "Slightly weaker than Washerwoman — confirming an Outsider is less immediately useful than confirming a Townsfolk. But helps verify Outsider count, which is relevant when Baron might be in play. If no Outsiders are in play, tell them 0 are in play."
+    "stAdvice": "First night only: Show the Outsider character token. Point to both the OUTSIDER and WRONG players."
   },
   "investigator": {
     "stComplexity": 2,
@@ -55,7 +55,7 @@
       "spy": "Spy can register as any Minion to the Investigator.",
       "poisoner": "If poisoned night 1, you fabricate which two players to show and which Minion type."
     },
-    "stAdvice": "Points at evil! Stronger than Washerwoman/Librarian because it narrows evil players. High priority poison target for evil. The Recluse interaction is a classic trap — consider making Recluse the 'Minion' shown to the Investigator for maximum chaos."
+    "stAdvice": "First night only: Show the Minion character token. Point to both the MINION and WRONG players."
   },
   "chef": {
     "stComplexity": 2,
@@ -74,7 +74,7 @@
       "recluse": "Recluse can register as evil, adding a false pair to the Chef count.",
       "poisoner": "If poisoned night 1, you choose the number to show. '0' when there are evil neighbors is a big lie."
     },
-    "stAdvice": "Chef '0' is devastating for evil — means no evil neighbors at all, immediately narrows seating. Chef '1' is standard. Chef '2' is rare and powerful. Scales well with more players. Count Spy and Recluse carefully before deciding what number to show."
+    "stAdvice": "First night only: Give a finger signal."
   },
   "empath": {
     "stComplexity": 3,
@@ -94,7 +94,7 @@
       "recluse": "Recluse can register as evil, giving a '1' even when both real neighbors are good.",
       "nodashii": "If Empath neighbors No Dashii's Townsfolk zone, they may be permanently poisoned."
     },
-    "stAdvice": "One of the strongest recurring info roles. If alive late game with trustworthy data, can mathematically identify the demon. Evil MUST disrupt this — Poisoner and Spy are essential counters. If Empath gets '0' on final 3, good knows who the demon is."
+    "stAdvice": "First night only: Give a finger signal."
   },
   "fortuneteller": {
     "stComplexity": 3,
@@ -113,7 +113,7 @@
       "poisoner": "If poisoned, you choose whether to show Yes or No regardless of truth.",
       "spy": "Spy can register as the Demon to Fortune Teller if you choose."
     },
-    "stAdvice": "The red herring mechanic is key — choose one good player who always triggers a false 'Yes'. Decide this during setup, not per night. If Fortune Teller checks the same pair repeatedly they can confirm or eliminate suspects. Very strong late game.",
+    "stAdvice": "First night only: The Fortune Teller chooses 2 players. Nod if either is the Demon (or the RED HERRING).",
     "newStWarning": "Place the 'Red Herring' reminder token before the game starts. This player always gives a 'Yes' result to the Fortune Teller, even if they are clearly good."
   },
   "undertaker": {
@@ -132,7 +132,7 @@
       "spy": "If Spy is executed, you may show any character token — perfect for supporting evil bluffs.",
       "recluse": "If Recluse is executed, you may show a Minion or Demon token."
     },
-    "stAdvice": "Only fires when someone is executed, so no info on nights without executions. Very powerful for confirming or denying claims retroactively. Evil should avoid executing their own if Undertaker is alive. Remember to place the 'Executed' reminder token during the day."
+    "stAdvice": "If a player was executed today, show their character token."
   },
   "monk": {
     "stComplexity": 3,
@@ -151,7 +151,7 @@
       "assassin": "Assassin kills through ALL protection. Monk cannot save the target.",
       "po": "Po triple-kill can overwhelm single-target protection."
     },
-    "stAdvice": "Monk cannot protect themselves. If the demon attacks a Monk-protected player, nobody dies — a strong tell for good. Remove the 'Protected' reminder before waking the next night; add it after the Monk's new choice.",
+    "stAdvice": "The Monk chooses a player.",
     "newStWarning": "If nobody dies and no one has protection abilities on the script besides Monk, the town will correctly assume Monk protected someone. Consider whether you want this to be obvious."
   },
   "ravenkeeper": {
@@ -170,7 +170,7 @@
       "poisoner": "If poisoned when killed at night, Ravenkeeper gets false info. Evil can time poison around the kill.",
       "spy": "Spy shows as any character to Ravenkeeper — powerful misdirection opportunity."
     },
-    "stAdvice": "Only activates on night death, not execution. Demon may avoid killing Ravenkeeper — creates a 'protection through deterrence' effect. If Ravenkeeper is known, demon picks other targets. Wake the Ravenkeeper immediately after they die, before continuing the night order.",
+    "stAdvice": "If the Ravenkeeper died tonight, the Ravenkeeper chooses a player. Show that player's character token.",
     "newStWarning": "Ravenkeeper chooses AFTER dying — wake them as soon as the demon kill resolves. They point to any player, and you show that player's actual character token (unless the Ravenkeeper is drunk/poisoned)."
   },
   "virgin": {
@@ -260,7 +260,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "Butler chooses a 'master' each night — they may only vote if that master votes first. Mildly hinders good. If Butler picks an evil player as master, evil controls a good vote. Wake the Butler each night to choose their master; place the 'Master' token."
+    "stAdvice": "First night only: The Butler chooses a player."
   },
   "drunk": {
     "stComplexity": 4,
@@ -324,7 +324,7 @@
     "counterDetail": {
       "courtier": "Courtier can drunk the Poisoner for 3 nights, completely removing all poison from the game temporarily."
     },
-    "stAdvice": "The backbone of evil's misinformation. Choose your poison target BEFORE waking any other characters each night. If poisoning an info role, have false info ready before waking them — never improvise. Poisoning the Empath every night (predictable but effective) vs spreading poison around (chaotic but less reliable) is a key strategic choice."
+    "stAdvice": "First night only: The Poisoner chooses a player."
   },
   "spy": {
     "stComplexity": 4,
@@ -342,7 +342,7 @@
       "poppygrower": "If Poppy Grower is alive, Minions and Demons don't know each other — the Spy still sees the Grimoire but there is no evil team coordination to leverage.",
       "magician": "Magician makes the Demon think a Minion is the Demon and vice versa, partially confusing Spy's intel."
     },
-    "stAdvice": "Sees the ENTIRE Grimoire every night — knows every character, who's poisoned, who's drunk, what info was given. Also registers as good to info roles. Show the open Grimoire to the Spy and give them as long as they need. The single strongest Minion in Trouble Brewing.",
+    "stAdvice": "First night only: Show the Grimoire for as long as the Spy needs.",
     "bluffAdvice": "Can claim any Townsfolk or Outsider role. Best bluffs: Empath, Washerwoman, or Investigator — roles that give first-night info the Spy actually has from seeing the Grimoire."
   },
   "scarletwoman": {
@@ -358,7 +358,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "If the Imp dies with 5+ alive players, Scarlet Woman becomes the new Imp — wake them that night and show them 'You are' and the Imp token. This means good must either execute the Imp with fewer than 5 alive, or execute both the Imp AND Scarlet Woman. Track player count carefully.",
+    "stAdvice": "If the Scarlet Woman became the Demon today, show them the YOU ARE token, then the Demon token.",
     "bluffAdvice": "Can claim to be any Townsfolk. Since Scarlet Woman has no active ability, claiming a passive role like Soldier or a role that already 'fired' like Washerwoman works well."
   },
   "baron": {
@@ -394,7 +394,7 @@
       "soldier": "Soldier survives Imp attack — nobody dies that night.",
       "slayer": "Slayer can kill Imp during the day, bypassing the night entirely."
     },
-    "stAdvice": "Standard demon — kills one player per night. Special: Imp can kill themselves to pass demon to a Minion (starpass). If Imp kills themselves, immediately replace a Minion's token with a new Imp token and wake them. With Scarlet Woman, creates enormous resilience for evil.",
+    "stAdvice": "The Imp chooses a player. If the Imp chose themselves: Replace 1 alive Minion token with a spare Imp token. Put the old Imp to sleep. Wake the new Imp. Show the YOU ARE token, then show the Imp token.",
     "newStWarning": "Remember that the Imp does NOT kill on the first night in most games — the night begins with no Imp action. The Imp only acts 'other nights' (note firstNight: 0 in data)."
   },
   "grandmother": {
@@ -413,7 +413,7 @@
       "pukka": "Pukka kills the grandchild on night N+1 (delayed kill), which also kills the Grandmother on that same night.",
       "godfather": "Godfather can kill the grandchild as an extra kill, triggering Grandmother's death."
     },
-    "stAdvice": "On first night, show the Grandmother their grandchild's character token and point to the grandchild player. If the demon kills the grandchild, Grandmother dies that same night. Creates a 'linked fate' — demon killing the grandchild kills two players. Track who the grandchild is carefully."
+    "stAdvice": "First night: Point to the grandchild player & show their character token. Other nights: If the grandchild was killed by the Demon, the Grandmother dies too."
   },
   "sailor": {
     "stComplexity": 4,
@@ -433,7 +433,7 @@
       "vigormortis": "If Vigormortis kills a Minion who neighbors the Sailor, the Sailor becomes permanently poisoned — their protection is gone forever.",
       "courtier": "Courtier can drunk the Sailor for 3 nights, removing their protection entirely."
     },
-    "stAdvice": "Sailor cannot die while sober, but MUST make someone drunk each night (possibly themselves). If Sailor picks an evil player, usually make the Sailor drunk (and vulnerable). If Sailor picks a Townsfolk, usually make that Townsfolk drunk. This is your discretion — use it to balance the game.",
+    "stAdvice": "First night only: The Sailor chooses a living player.",
     "newStWarning": "Sailor 'can't die' — but this is conditional on being sober. Track drunk status carefully. If Sailor is the drunk one, they CAN die from the demon attack that night."
   },
   "chambermaid": {
@@ -452,7 +452,7 @@
       "lunatic": "Lunatic wakes and performs fake demon actions. Whether Lunatic counts as 'waking for their ability' is your call.",
       "poisoner": "Poisoned Chambermaid gets a false count — you choose the number shown."
     },
-    "stAdvice": "Chambermaid chooses 2 players (not themselves) each night. You show how many of those 2 woke for their ability tonight. Count carefully: 'woke for ability' means night-action characters, not characters who were simply woken for info. Demon waking does NOT count for Chambermaid."
+    "stAdvice": "First night only: The Chambermaid chooses 2 living players. Give a finger signal."
   },
   "exorcist": {
     "stComplexity": 3,
@@ -470,7 +470,7 @@
       "poisoner": "Poisoned Exorcist's choice has no effect — demon still wakes and kills.",
       "pukka": "Pukka poisons on night N, kills on N+1. Even if Exorcist stops Pukka, the previous poison victim still dies."
     },
-    "stAdvice": "Exorcist chooses a different player each night (cannot repeat the previous night). If they choose the demon: wake the demon, show them the Exorcist token, point to the Exorcist, then put the demon back to sleep — they do NOT kill tonight. Extremely powerful when correct. If Exorcist is known publicly, evil will target them immediately."
+    "stAdvice": "The Exorcist chooses a player. Put the Exorcist to sleep. If the Exorcist chose the Demon: Wake the Demon. Show the THIS CHARACTER SELECTED YOU & Exorcist tokens. Point to the Exorcist."
   },
   "innkeeper": {
     "stComplexity": 3,
@@ -488,7 +488,7 @@
       "assassin": "Assassin kills through Innkeeper protection on both protected players.",
       "poisoner": "Poisoned Innkeeper's protection fails on both players."
     },
-    "stAdvice": "Innkeeper protects 2 players but makes 1 of them drunk. Your choice which one is drunk — use this to balance. Protected players cannot die from the demon that night, but still can die from the Assassin. Remove protection and drunk markers at dawn, then re-apply after Innkeeper's new choice.",
+    "stAdvice": "The Innkeeper chooses 2 players.",
     "newStWarning": "You choose which of the 2 protected players is drunk — this is a meaningful decision. Usually make the more powerful info role drunk to balance."
   },
   "gambler": {
@@ -507,7 +507,7 @@
       "poisoner": "Poisoned Gambler: a correct guess might still kill them (you choose), or a wrong guess might not kill them. Either outcome is false.",
       "pukka": "Pukka's delayed poison means Gambler might die the night after being poisoned, even on a correct guess."
     },
-    "stAdvice": "Gambler guesses a player + character. If wrong, they die. If correct, they survive. If poisoned, the result is false — a wrong guess might not kill them, or a correct guess might kill them (your call). The survive-on-correct-guess is confirmed public info — very powerful deduction."
+    "stAdvice": "The Gambler chooses a player & a character."
   },
   "gossip": {
     "stComplexity": 3,
@@ -524,7 +524,7 @@
     "counterDetail": {
       "poisoner": "Poisoned Gossip: even if their statement is true, no one dies — and the town doesn't know if it was true or the Gossip was poisoned."
     },
-    "stAdvice": "Gossip makes a PUBLIC statement each day. If it was TRUE, you choose a player to die that night (who isn't already protected from dying). The kill adds to the death count in BMR — which is already high. Track the Gossip's statement and evaluate its truth that night."
+    "stAdvice": "If the Gossip is due to kill a player, they die."
   },
   "courtier": {
     "stComplexity": 3,
@@ -541,7 +541,7 @@
     "counterDetail": {
       "poisoner": "If Courtier is poisoned when they use their ability, it fails — and is wasted."
     },
-    "stAdvice": "Courtier chooses a CHARACTER (not a player) — if that character is in play, they are drunk for 3 nights and 3 days. Track the countdown with 'Drunk 3, 2, 1' reminders. If Courtier drunks the demon, no kills for 3 nights. One-shot, so the timing matters enormously.",
+    "stAdvice": "First night only: The Courtier might choose a character.",
     "newStWarning": "Courtier targets a character on the script sheet, not a player directly. If the chosen character is not in play, nothing happens — Courtier still uses their ability but it has no effect."
   },
   "professor": {
@@ -560,7 +560,7 @@
       "poisoner": "If Professor is poisoned when they use their ability, the resurrection fails and the ability is wasted.",
       "mastermind": "If the demon is executed and Mastermind is alive, the game continues 1 more day — Professor might resurrect someone in that window."
     },
-    "stAdvice": "Once per game, at night, Professor chooses a dead player. If that player was a Townsfolk, they come back to life. Place the 'Alive' reminder on their token. If poisoned, it fails (and is wasted). Place 'No ability' after use. Resurrection is incredibly powerful in BMR where deaths are frequent."
+    "stAdvice": "The Professor might choose a dead player."
   },
   "minstrel": {
     "stComplexity": 2,
@@ -641,7 +641,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "Tinker might die at any time — you decide when. Each 'other night' wake is a check: you decide if Tinker dies. This adds uncertainty to the death count and can create chaos. Use Tinker death strategically — killing Tinker on a night when no one else would die adds a death and confuses the demon's tracking.",
+    "stAdvice": "The Tinker might die.",
     "newStWarning": "You have genuine discretion here. Don't kill Tinker every night or never — use their death to create meaningful narrative moments."
   },
   "moonchild": {
@@ -657,7 +657,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "When Moonchild learns they died (publicly announced), they must publicly choose 1 alive player. That night, if it was a good player, they die. This adds deaths in an already death-heavy edition. The Moonchild's death is public — their target choice is also public, so the town can discuss whether to protect that player."
+    "stAdvice": "If the Moonchild is due to kill a good player, they die."
   },
   "goon": {
     "stComplexity": 3,
@@ -688,7 +688,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "Lunatic thinks they're the demon. On night 1, show them fake 'Minions' and 3 fake bluff characters. Let them perform the demon's action each night, then wake the real demon and show them the Lunatic's 'attacks'. The real demon chooses who actually dies. This is the most ST-demanding character in BMR.",
+    "stAdvice": "First night: If there are 7 or more players, wake the Lunatic: Show the THESE ARE YOUR MINIONS token. Point to any players. Show the THESE CHARACTERS ARE NOT IN PLAY token. Show 3 good character tokens. Put the Lunatic to sleep. Wake the Demon. Show the YOU ARE info token and the Demon token. Show the THIS PLAYER IS info token and the Lunatic token, then point to the Lunatic. Other nights: Do whatever needs to be done to simulate the Demon acting. Put the Lunatic to sleep. Wake the Demon. Show the Lunatic token & point to them, then their target(s).",
     "newStWarning": "You must run the Lunatic's fake demon ability BEFORE waking the real demon. Prepare which players will 'die' for the Lunatic, show the real demon, and only THEN decide who actually dies. With complex demons (Po, Shabaloth), this is especially challenging — plan it before the game."
   },
   "godfather": {
@@ -704,7 +704,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "On first night, show Godfather the Outsider tokens in play. If an Outsider dies during the day, Godfather gets an extra kill that night — choose a player, they die. Also modifies setup: either +1 or -1 Outsider. Place the 'Died today' reminder on any Outsider executed during the day as a trigger reminder.",
+    "stAdvice": "First night: Show the character tokens of all in-play Outsiders. Other nights: If an Outsider died today, the Godfather chooses a player.",
     "bluffAdvice": "Godfather can claim Townsfolk. Since they get first-night Outsider info, they can claim to be an Investigator or Librarian who 'happened to learn about Outsiders'."
   },
   "devilsadvocate": {
@@ -720,7 +720,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "Each night, Devil's Advocate chooses a player (different from last night) who survives execution tomorrow. Place 'Survives execution' on that player. If that player is executed, announce they survive (they are still alive). Evil uses this to protect the demon or to waste execution days. The 'different from last night' rule matters — plan the choice.",
+    "stAdvice": "First night only: The Devil's Advocate chooses a living player.",
     "newStWarning": "The protected player must be different from the previous night. Track which player was chosen last night with the reminder token."
   },
   "assassin": {
@@ -736,7 +736,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "Once per game, Assassin can kill a player at night even if they have protection. Place 'No ability' after use. This is the hard counter to Soldier, Monk protection, Sailor, etc. Evil should save this for a critical target — killing the Soldier or Monk-protected player is usually the best use.",
+    "stAdvice": "The Assassin might choose a player.",
     "bluffAdvice": "Assassin can claim Devil's Advocate (both are BMR Minions) or any Townsfolk."
   },
   "mastermind": {
@@ -765,7 +765,7 @@
     "counterDetail": {
       "exorcist": "If Exorcist chooses Zombuul, no kill that night — powerful counter since Zombuul only kills on no-execution nights."
     },
-    "stAdvice": "Zombuul only kills if NO ONE died during the day. Also: the first time Zombuul dies, they live but register as dead — place 'Dead' token on them but they are still alive. Good may execute the 'dead' Zombuul not realizing they're still active. Track Zombuul's actual alive/dead status carefully.",
+    "stAdvice": "If no one died today, the Zombuul chooses a player.",
     "newStWarning": "When Zombuul 'dies' for the first time, announce the death normally and place a dead token — but in your grimoire, mark them as still alive. Only on their SECOND death are they truly dead."
   },
   "pukka": {
@@ -783,7 +783,7 @@
     "counterDetail": {
       "exorcist": "If Exorcist stops Pukka, the poison target is NOT chosen this night — but last night's poison victim still dies."
     },
-    "stAdvice": "Pukka poisons tonight's target and KILLS last night's target. One-night delay! Place 'Poisoned' on tonight's target and 'Dead' on last night's target at the start of the kill step. The first night, Pukka poisons but no one dies (no previous target). On night 2, the first victim dies.",
+    "stAdvice": "First night: The Pukka chooses a player. Other nights: The Pukka chooses a player. The previously poisoned player dies then becomes healthy.",
     "newStWarning": "Track which player was poisoned the PREVIOUS night — they die tonight. This is the hardest bookkeeping in BMR. Use both reminder tokens ('Poisoned' for current, remove from previous night's victim when they die)."
   },
   "shabaloth": {
@@ -801,7 +801,7 @@
     "counterDetail": {
       "exorcist": "If Exorcist stops Shabaloth, no kills and no resurrection choice that night."
     },
-    "stAdvice": "Shabaloth kills 2 players per night AND may resurrect one previous victim. The resurrection is optional and your call as ST. Track all of Shabaloth's kills. Resurrecting a player is a powerful evil tool — consider resurrecting an evil player who was executed, or a key good player to confuse the town.",
+    "stAdvice": "A previously chosen player might be resurrected. The Shabaloth chooses 2 players.",
     "newStWarning": "Shabaloth kills 2 players per night — in a small game this ends things quickly. Ensure the script has enough protection or the game may be too fast."
   },
   "po": {
@@ -820,7 +820,7 @@
       "exorcist": "Exorcist prevents Po from acting — both the standard kill and the triple kill.",
       "monk": "Monk protection saves one of the triple-kill targets — but the other two still die."
     },
-    "stAdvice": "Po can skip a kill (showing 'no' head signal) to charge up, then kill 3 players the next night. Track the charge state with the '3 attacks' reminder. If Po chose no-one last night, MUST choose 3 tonight. A charged Po in a small game can instantly end it. Good needs protection roles or fast demon-finding to survive.",
+    "stAdvice": "The Po may choose a player OR chooses 3 players if they chose no-one last night.",
     "newStWarning": "If Po passes on Night 3 and triple-kills on Night 4, the game may be effectively over. Ensure there are meaningful good-team tools to find the demon before this happens."
   },
   "clockmaker": {
@@ -839,7 +839,7 @@
       "poisoner": "If poisoned night 1, you show a false step count.",
       "vortox": "Vortox makes all Townsfolk info wrong — Clockmaker gets a false number."
     },
-    "stAdvice": "Show the number of 'steps' (seats) between the Demon and their nearest Minion along the circle. Count around the circle (both directions — use shortest path, or choose which direction if ambiguous). This info narrows seating arrangements but requires good deduction to use fully."
+    "stAdvice": "First night only: Give a finger signal."
   },
   "dreamer": {
     "stComplexity": 2,
@@ -857,7 +857,7 @@
       "vortox": "Vortox makes Dreamer info wrong — both shown characters will be incorrect.",
       "poisoner": "Poisoned Dreamer gets a false pair — neither may be correct, or both may be wrong in various ways."
     },
-    "stAdvice": "Dreamer chooses a player each night and learns 1 good and 1 evil character — one of which is that player's actual character. You choose which order to show them. The false one is your invention. Make both plausible — don't show an obvious mismatch."
+    "stAdvice": "First night only: The Dreamer points to a player. Show 1 good & 1 evil character token, 1 of which is their character."
   },
   "snakecharmer": {
     "stComplexity": 4,
@@ -874,7 +874,7 @@
     "counterDetail": {
       "poisoner": "Poisoned Snake Charmer: if they choose the demon, the swap does NOT happen — even though it looks like it should."
     },
-    "stAdvice": "If Snake Charmer chooses the Demon: swap their character tokens and alignments. Wake BOTH players and show each their new character. The former Demon is now a good Snake Charmer (but is poisoned). The former Snake Charmer is now the evil Demon. This is a massive mid-game shift — plan how to handle it clearly.",
+    "stAdvice": "First night only: The Snake Charmer chooses a player. If they chose the Demon: Show the YOU ARE & Demon tokens. Give a thumbs down. Swap the Snake Charmer & Demon tokens. Put the old Snake Charmer to sleep. Wake the old Demon. Show the YOU ARE and Snake Charmer tokens & give a thumbs up.",
     "newStWarning": "When a swap occurs, both players must be woken separately and told their new role. The new Demon must be shown the Demon token AND the evil sign. The former Demon must be shown 'You are' and the Snake Charmer token. Then add 'Poisoned' to the new Snake Charmer."
   },
   "mathematician": {
@@ -893,7 +893,7 @@
       "vortox": "If Vortox is the demon, all Townsfolk info malfunctions — Mathematician's count may also be wrong, creating a paradox sharp players can exploit.",
       "poisoner": "Poisoned Mathematician gets a false count."
     },
-    "stAdvice": "Show the count of how many players' abilities 'worked abnormally' tonight due to another character's ability. Drunk/poisoned players who got false info count as 'abnormal'. A Mathematician count of '0' is very powerful for good — confirms no poisoning tonight."
+    "stAdvice": "First night only: Give a finger signal."
   },
   "flowergirl": {
     "stComplexity": 2,
@@ -911,7 +911,7 @@
       "vortox": "Vortox makes Flowergirl info wrong — even if demon voted, Flowergirl may be told they didn't.",
       "poisoner": "Poisoned Flowergirl gets a false yes/no."
     },
-    "stAdvice": "Each night, show yes or no for whether the Demon voted that day. Place the appropriate reminder token for the next night's reference. If the demon is dead (replaced by another), track the current demon's voting. Flowergirl starts from Night 2 since Day 1 voting precedes it."
+    "stAdvice": "Either nod or shake your head."
   },
   "towncrier": {
     "stComplexity": 2,
@@ -929,7 +929,7 @@
       "vortox": "Vortox makes Town Crier info wrong.",
       "poisoner": "Poisoned Town Crier gets a false yes/no."
     },
-    "stAdvice": "Each night, show yes or no for whether a Minion nominated that day. Track Minion nominations carefully during the day. Place the appropriate reminder for the next night. In S&V, with Pit-Hag possibly converting players to Minions, 'Minion nominated' might become true unexpectedly."
+    "stAdvice": "Either nod or shake your head."
   },
   "oracle": {
     "stComplexity": 2,
@@ -947,7 +947,7 @@
       "vortox": "Vortox makes Oracle info wrong — dead evil count may be falsified.",
       "poisoner": "Poisoned Oracle gets a false count."
     },
-    "stAdvice": "Show the number of dead players who are evil. Count only the graveyard — alignment of dead players. If Spy is dead, they might register as good. If Recluse is dead, they might register as evil. Count carefully and track alignment shifts from Pit-Hag changes."
+    "stAdvice": "Give a finger signal."
   },
   "savant": {
     "stComplexity": 4,
@@ -984,7 +984,7 @@
       "vortox": "Vortox makes Seamstress info wrong — the alignment answer is false.",
       "poisoner": "Poisoned Seamstress gets a false yes/no."
     },
-    "stAdvice": "Once per game at night, Seamstress chooses 2 players (not themselves). Show yes or no for whether they are the same alignment. This is one-shot alignment info — very powerful if aimed at a suspected demon/minion pair. Place 'No ability' after use."
+    "stAdvice": "First night only: The Seamstress might choose 2 players. Nod or shake your head."
   },
   "philosopher": {
     "stComplexity": 5,
@@ -1002,7 +1002,7 @@
       "poisoner": "Poisoned Philosopher: their chosen ability doesn't work (same as being drunk).",
       "vortox": "If Philosopher gains Empath ability under Vortox, all their info is wrong — dangerous."
     },
-    "stAdvice": "Philosopher chooses a good character and gains that ability. If that character is already in play, that player becomes drunk (place 'Drunk' on them). Swap the out-of-play character token into the grimoire. Track both: the Philosopher's new ability AND any drunk status caused. This is a once-per-game pivot ability — extremely powerful when timed correctly.",
+    "stAdvice": "First night only: The Philosopher might choose a character. If necessary, swap their character token.",
     "newStWarning": "If Philosopher takes Seamstress or another once-per-game ability, track that one-shot use separately. If they take Empath, wake them each subsequent night. The Philosopher still physically looks like the Philosopher to players — they must claim the new ability."
   },
   "artist": {
@@ -1040,7 +1040,7 @@
       "vortox": "Vortox makes Juggler info wrong — correct guesses still show as incorrect.",
       "poisoner": "Poisoned Juggler gets a false count."
     },
-    "stAdvice": "On their first day ONLY, Juggler publicly guesses up to 5 player-character pairs. That night, you show how many were correct. Place 'Correct' tokens during the day as players make guesses (or track privately). A Juggler who guesses 5 and gets '5' correct is extremely powerful confirmation info.",
+    "stAdvice": "Give a finger signal.",
     "newStWarning": "Only the first day — Juggler has no ability after that. Track correct/incorrect guesses carefully during the day phase."
   },
   "sage": {
@@ -1059,7 +1059,7 @@
       "vortox": "Vortox makes Sage info wrong — neither of the two players shown may be the demon.",
       "poisoner": "Poisoned Sage who is killed by the demon gets a false pair."
     },
-    "stAdvice": "If the DEMON kills the Sage, point to 2 players — one is the demon. This only triggers on demon kill, not execution or other night deaths. The Sage learns AFTER dying — wake them during the night order when they are killed. This creates a 'deadly knowledge' dynamic: demon may avoid killing Sage."
+    "stAdvice": "If the Demon killed the Sage, wake the Sage and point to 2 players, 1 of which is the Demon."
   },
   "mutant": {
     "stComplexity": 2,
@@ -1090,7 +1090,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "When Sweetheart dies (by any means), you choose 1 player who is drunk from that point on — for the rest of the game. Place 'Drunk' on them. This is your choice. Usually pick a strong info role to cripple good's information. The drunk player doesn't know they're drunk."
+    "stAdvice": "If the Sweetheart died, a player became drunk immediately. If you haven't done this yet, do so now."
   },
   "barber": {
     "stComplexity": 4,
@@ -1105,7 +1105,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "If Barber dies during the day or night, wake the Demon. Show them the Barber token. The Demon may choose 2 players (not another Demon) whose characters are swapped. Wake each swapped player and show them their new character token. Track all character swaps carefully — this can cause massive confusion.",
+    "stAdvice": "If the Barber died today or tonight, show the Demon the THIS CHARACTER SELECTED YOU & Barber tokens. If the Demon chose 2 players, wake one at a time. Show the YOU ARE token & their new character token.",
     "newStWarning": "If Barber triggers, you must wake the Demon first, let them choose, then separately wake each swapped player. Each player only learns their own new character, not who they were swapped with. Update your grimoire immediately."
   },
   "klutz": {
@@ -1136,7 +1136,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "On night 1, wake Evil Twin and their Good Twin together. Each learns who the other is and what character the other is. If the Good Twin is executed, evil wins immediately. If both live until the end, good cannot win. Evil Twin creates an impossible dilemma: executing anyone might be the Good Twin.",
+    "stAdvice": "First night only: Wake both twins. Allow eye contact. Show the good twin's character token to the Evil Twin & vice versa.",
     "newStWarning": "Wake BOTH twins simultaneously on night 1. Show Evil Twin their own token, then point to the Good Twin. Show the Good Twin their character token, then show them the Evil Twin token and point to the Evil Twin player. They must acknowledge each other."
   },
   "witch": {
@@ -1152,7 +1152,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "Witch chooses a player each night. If that player nominates the following day, they die immediately. Place 'Cursed' token on them. This creates a chilling effect — players don't want to nominate. Witch ability stops when only 3 players are alive. Track the curse each day.",
+    "stAdvice": "First night only: The Witch chooses a player.",
     "newStWarning": "If the cursed player nominates, they die instantly at the moment of nomination — before voting occurs. Announce this clearly: 'You have nominated and you die.'"
   },
   "cerenovus": {
@@ -1168,7 +1168,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "Each night, choose a player and a good character. Wake that player, show them the Cerenovus token, then the chosen character. That player is 'mad' they are that character tomorrow — they must act as if they believe they are that character. If they don't act mad, you may execute them. Explain madness before the game.",
+    "stAdvice": "First night only: The Cerenovus chooses a player & a character. Put the Cerenovus to sleep. Wake the target. Show the THIS CHARACTER SELECTED YOU token, the Cerenovus token, then the madness-character token.",
     "newStWarning": "Madness execution is optional and your call. If you think the player is genuinely trying to act mad but the claim seems implausible, that's okay — they're doing their best. Only execute if they're actively denying the claim in conversations."
   },
   "pithag": {
@@ -1184,7 +1184,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "Each night, Pit-Hag chooses a player and a character NOT already in play. That player becomes that character (if valid). If they create a new Demon, deaths that night are arbitrary — you decide who dies. Wake the changed player and show them their new character token. Track all character changes carefully.",
+    "stAdvice": "The Pit-Hag chooses a player & a character. If they chose a character that is not in play: Put the Pit-Hag to sleep. Wake the target. Show the YOU ARE token & their new character token.",
     "newStWarning": "If Pit-Hag creates a new Demon: (1) the previous demon is no longer the demon, (2) the new demon must be woken and shown their token, (3) you decide who dies that night (not the new demon). This is extremely complex — keep written notes."
   },
   "fanggu": {
@@ -1200,7 +1200,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "Fang Gu kills normally each night. Special: the FIRST Outsider Fang Gu kills can become an evil Fang Gu instead — Fang Gu dies, the Outsider becomes an evil Fang Gu. Wake the new Fang Gu and show them their token and the evil sign. Then wake the old Fang Gu and tell them they died. Track the 'Once' token after this happens.",
+    "stAdvice": "The Fang Gu chooses a player. If they chose an Outsider (once only): Replace the Outsider token with the spare Fang Gu token. Put the Fang Gu to sleep. Wake the target. Show the YOU ARE and Fang Gu tokens & give a thumbs-down.",
     "newStWarning": "The Outsider jump is once per game and only for Fang Gu's own kill. If Fang Gu targets an Outsider, you choose whether the jump occurs (it's mechanically mandatory but you determine if it's their first such kill). The new evil Fang Gu doesn't know they were previously an Outsider."
   },
   "vigormortis": {
@@ -1216,7 +1216,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "Vigormortis kills a player each night. If that player is a Minion: they keep their ability (even dead) AND one of their Townsfolk neighbors becomes permanently poisoned. Track which dead Minions still have abilities and which Townsfolk are permanently poisoned. This stacks — multiple dead Minions can each poison a neighbor.",
+    "stAdvice": "The Vigormortis chooses a player. If that player is a Minion, poison a neighboring Townsfolk.",
     "newStWarning": "When Vigormortis kills a Minion, immediately mark one of their Townsfolk neighbors as 'Poisoned' (your choice of which neighbor). That poisoned player stays poisoned for the rest of the game — it doesn't reset at dawn."
   },
   "nodashii": {
@@ -1232,7 +1232,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "No Dashii kills each night AND permanently poisons its two Townsfolk neighbors. If No Dashii moves seats (normally they don't), update the poisoned neighbors. No Dashii is a 'passive Poisoner' — it doesn't choose targets, it just radiates poison to whoever sits next to it. Seating is critical.",
+    "stAdvice": "The No Dashii chooses a player.",
     "newStWarning": "Identify the No Dashii's two Townsfolk neighbors at the start and place 'Poisoned' on them immediately. If a neighbor dies and is replaced (by Professor resurrection, etc.), determine whether the new neighbor is also poisoned."
   },
   "vortox": {
@@ -1248,7 +1248,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "If Vortox is the demon, ALL Townsfolk abilities yield false information — no exceptions. Additionally, if no one is executed that day, evil wins. Good's key deduction: if ANY Townsfolk info checks out, there's no Vortox. If nothing makes sense, suspect Vortox. Good must execute someone every day to avoid automatic evil win.",
+    "stAdvice": "The Vortox chooses a player.",
     "newStWarning": "Every single Townsfolk info ability gives false info under Vortox. Plan false info for every info role before each night. This is the most demanding demon for the ST — prepare extensively. Outsiders and Minions are NOT affected."
   },
   "bureaucrat": {
@@ -1512,7 +1512,7 @@
       "spy": "Spy can register as good, removing them from the 'guaranteed 1 evil' and making the info unreliable.",
       "recluse": "Recluse can register as evil, artificially satisfying the 'exactly 1 evil' constraint with a false positive."
     },
-    "stAdvice": "Noble guarantees exactly 1 of the 3 shown players is evil — stronger than Investigator since it covers any team. Choose carefully: include known suspects alongside unknowns for maximum deduction value. If Spy or Recluse is in play, this is a prime deception target. High-value night-1 poison target."
+    "stAdvice": "First night only: Point to the 3 players marked KNOW."
   },
   "bountyhunter": {
     "stComplexity": 2,
@@ -1531,7 +1531,7 @@
       "spy": "Spy can register as good, so the Bounty Hunter's known 'evil' player may flip to appear trustworthy.",
       "recluse": "Recluse can register as evil, causing Bounty Hunter to waste their chain on a good player."
     },
-    "stAdvice": "One of the strongest info roles — directly names an evil player from night 1, and chains when that player dies. Make evil kill or frame the Bounty Hunter's known player quickly. Note: one Townsfolk in play is secretly evil from setup; track this carefully in the grimoire.",
+    "stAdvice": "First night: Point to the player marked KNOW. Other nights: If the player marked KNOW died today or tonight, point to the new player marked KNOW.",
     "newStWarning": "The Bounty Hunter setup mechanic makes one Townsfolk evil at the start — you must assign this before the game begins. Don't forget to tell the Bounty Hunter who the evil player is on night 1."
   },
   "pixie": {
@@ -1551,7 +1551,7 @@
       "witch": "Witch can curse the Pixie so that nominating the target character kills the Pixie instead.",
       "vortox": "All Pixie info is wrong — they learn the wrong Townsfolk character to claim madness as."
     },
-    "stAdvice": "Pixie learns a specific in-play Townsfolk and must stay 'mad' (publicly claim to be that character) for the reward. If the Pixie successfully keeps up the act until that Townsfolk is executed, they gain a copy of the ability. Choose a Townsfolk the Pixie can plausibly claim — if it's too powerful, evil will target both."
+    "stAdvice": "First night only: Show the Townsfolk character token marked MAD."
   },
   "general": {
     "stComplexity": 3,
@@ -1570,7 +1570,7 @@
       "drunk": "Drunk General receives inaccurate win-state info, potentially misguiding the entire good team.",
       "vortox": "All General info is wrong, giving systematically reversed game-state readings."
     },
-    "stAdvice": "General's info reflects YOUR subjective view of whether good or evil is currently ahead — be honest but remember it's an ST judgment call. Use 'neither' when the game is genuinely balanced. A poisoned General who 'knows' evil is winning when they're actually losing can completely misdirect good's strategy."
+    "stAdvice": "First night only: Give a thumb signal."
   },
   "preacher": {
     "stComplexity": 3,
@@ -1589,7 +1589,7 @@
       "drunk": "Drunk Preacher's choices have no effect — Minions retain their abilities regardless.",
       "vortox": "All Preacher info (who IS a Minion) is wrong; chosen Minions still retain abilities."
     },
-    "stAdvice": "Preacher can shut down Minion abilities one by one — chosen Minions are told they've been Preached, so they know their ability is disabled. This is powerful against Poisoner, Spy, or Baron; less impactful against passive Minions. Evil should prioritize silencing the Preacher before powerful Minions get targeted."
+    "stAdvice": "First night only: The Preacher chooses a player. If they chose a Minion: Put the Preacher to sleep. Wake the target. Show the THIS CHARACTER SELECTED YOU & Preacher tokens."
   },
   "king": {
     "stComplexity": 2,
@@ -1608,7 +1608,7 @@
       "poisoner": "Poisoned King receives false character info during the dead-outnumber-living phase.",
       "zombuul": "Zombie demon creates many dead players quickly, triggering King info while also disguising demon activity."
     },
-    "stAdvice": "King info only fires when dead outnumber living — meaning it's most relevant in the late game. The Demon always knows who the King is, making the King a priority elimination target. Consider pairing with Choirboy for a strong anti-demon package. Don't reveal King identity early; the Demon will target you.",
+    "stAdvice": "First night: Wake the Demon: Show the THIS PLAYER IS & King tokens, then point to the King. Other nights: If the dead equal or outnumber the living, show the character token of a living player.",
     "newStWarning": "The Demon learns the King's identity at the start of the game — make sure to wake the Demon and show them the King token before the game begins."
   },
   "balloonist": {
@@ -1628,7 +1628,7 @@
       "spy": "Spy can register as any type, causing the Balloonist to 'confirm' a spy as a legitimate Townsfolk.",
       "recluse": "Recluse can register as any type, polluting the Balloonist's type-coverage data."
     },
-    "stAdvice": "Balloonist learns one player of each character type (Townsfolk, Outsider, Minion, Demon) over several nights — one new type per night in order. This is progressive strong info that covers the entire threat landscape. With 5+ types (Traveler), it extends further. In bigger games with more types, this scales very well."
+    "stAdvice": "First night: Point to any player. Other nights: Point to a player with a different character type to the previously shown player."
   },
   "cultleader": {
     "stComplexity": 4,
@@ -1645,7 +1645,7 @@
     "counterDetail": {
       "imp": "Demon can kill the Cult Leader's good neighbors, flipping the Cult Leader evil and dismantling the cult win path."
     },
-    "stAdvice": "Cult Leader passively adopts the alignment of a living neighbor each night — if surrounded by evil, they become evil. The alternate win condition (all good players freely join the cult) is very rare but real. Track which neighbor the Cult Leader aligns with each night. Evil can exploit this by seating evil players adjacent to the Cult Leader.",
+    "stAdvice": "First night only: The Cult Leader might change alignment. If so, show the YOU ARE info token & give a thumb signal.",
     "newStWarning": "The Cult Leader changes alignment each night — you must update their token in the grimoire after every night. If they're evil and die, do NOT announce this; treat them as good until information is public."
   },
   "lycanthrope": {
@@ -1665,7 +1665,7 @@
       "monk": "If the Lycanthrope targets a Monk-protected player, they survive — but the Lycanthrope's restriction (only player who can die) still applies, protecting everyone else that night.",
       "drunk": "Drunk Lycanthrope has no ability: their chosen good player may not die, and the night death restriction is lifted."
     },
-    "stAdvice": "When Lycanthrope kills a good player, that is the ONLY death that night — demon cannot also kill. This makes the Lycanthrope a powerful limiter on night deaths but at the cost of occasionally killing good players. The Lycanthrope must choose carefully: picking evil or neutral targets wastes the kill-limit. Use with Monk for strong protection packages."
+    "stAdvice": "The Lycanthrope chooses a player."
   },
   "amnesiac": {
     "stComplexity": 5,
@@ -1683,7 +1683,7 @@
       "poisoner": "Poisoned Amnesiac's guesses are never correct, or if correct the ability they gain is drunk/poisoned.",
       "vortox": "If Vortox is in play, the Amnesiac's guess is always wrong regardless of how close they are."
     },
-    "stAdvice": "The Amnesiac's ability is entirely ST-defined — you invent it at the start. Choose something interesting but not game-breaking: partial info, a minor protection, or a quirky passive effect. When the Amnesiac guesses correctly, tell them in private and apply the ability immediately. Keep the ability consistent all game.",
+    "stAdvice": "First night only: Do whatever needs to be done to satisfy the Amnesiac's ability.",
     "newStWarning": "You must decide the Amnesiac's ability BEFORE the game starts and stick to it. Write it down. If the Amnesiac guesses correctly, you must immediately and consistently apply the ability — no improvising mid-game."
   },
   "nightwatchman": {
@@ -1702,7 +1702,7 @@
       "poisoner": "If poisoned when the Night Watchman uses their ability, the target doesn't actually learn who the Watchman is.",
       "drunk": "Drunk Night Watchman's target learns false information about who the Watchman is."
     },
-    "stAdvice": "Night Watchman lets a chosen player know exactly who they are — powerful for establishing a trusted pair. Best used on a player the Watchman suspects is a key good role (e.g., Empath, Slayer) to create a verified alliance. Once used, the Watchman is a known-confirmed role, making them an evil target. Time it carefully."
+    "stAdvice": "First night only: The Nightwatchman might choose a player. Put the Nightwatchman to sleep. Wake the target. Show the THIS PLAYER IS & Nightwatchman tokens, then point to the Nightwatchman."
   },
   "engineer": {
     "stComplexity": 3,
@@ -1721,7 +1721,7 @@
       "spy": "Spy can see the Engineer in the grimoire, alerting evil to immediately prioritize killing them before they act.",
       "drunk": "Drunk Engineer believes they changed the lineup but nothing actually changed."
     },
-    "stAdvice": "Engineer is one of the most powerful townsfolk — it can replace ALL Minions or swap the Demon mid-game. If replacing the Demon, the new Demon is told by the ST immediately. If replacing Minions, affected players wake and are told. Best used to remove Poisoner or Spy that has been identified. Evil should kill the Engineer before they can act.",
+    "stAdvice": "First night only: The Engineer might choose Minions or Demons. Put the Engineer to sleep. Wake the target(s) one at a time. Show the YOU ARE info token & their new character token.",
     "newStWarning": "When Engineer swaps characters, you must immediately wake the affected players, show them their new token, and run night actions for the new character that same night. Have replacement tokens ready before the game."
   },
   "fisherman": {
@@ -1758,7 +1758,7 @@
       "poisoner": "Poisoned Huntsman: if they correctly choose the Damsel, she does NOT become a Townsfolk.",
       "drunk": "Drunk Huntsman's choice has no effect — the Damsel remains a Damsel even if correctly targeted."
     },
-    "stAdvice": "Huntsman protects the Damsel by converting them to a Townsfolk if correctly identified at night. This should always be paired with the Damsel on the script. The Huntsman must guess who the Damsel is — consider dropping subtle clues that help good players triangulate the Damsel's identity so the Huntsman can act correctly.",
+    "stAdvice": "First night only: The Huntsman might choose a player. If they chose the Damsel: Put the Huntsman to sleep. Wake the target. Show the YOU ARE info token & their new character token.",
     "newStWarning": "Huntsman and Damsel must be used together — if you put Huntsman in a script, Damsel must also be in play. If the Huntsman correctly chooses the Damsel, immediately wake the Damsel, show them a Townsfolk token, and give them the ability."
   },
   "alchemist": {
@@ -1777,7 +1777,7 @@
       "poisoner": "Poisoned Alchemist's Minion ability doesn't work — or works incorrectly if it produces info.",
       "drunk": "Drunk Alchemist has no ability at all — the Minion power is completely suppressed."
     },
-    "stAdvice": "The Alchemist has a Minion ability but is good-aligned. Choose a not-in-play Minion ability to assign — ideally one that is interesting but not confusing, such as Poisoner (a good Poisoner is very disruptive). The Alchemist gains ST-facing Minion mechanics but works for good. Be explicit with the Alchemist about how their ability functions."
+    "stAdvice": "First night only: Show the YOU ARE info token and a Minion token."
   },
   "farmer": {
     "stComplexity": 2,
@@ -1795,7 +1795,7 @@
       "poisoner": "If poisoned when killed at night, the Farmer does not propagate — no new Farmer is created.",
       "imp": "Imp killing the Farmer at night triggers propagation — a good player becomes a new Farmer, spreading protection."
     },
-    "stAdvice": "When a Farmer dies at night, choose an alive good player to become the new Farmer — ideally one whose original role is less useful at this stage of the game. This creates a chain of potential propagation that evil must manage. Farmer is strongest when evil is killing frequently; less impactful in low-death games."
+    "stAdvice": "If the Farmer died tonight, wake a living good player. Show the YOU ARE info token and a Farmer token."
   },
   "magician": {
     "stComplexity": 2,
@@ -1812,7 +1812,7 @@
     "counterDetail": {
       "spy": "Spy can look at the grimoire and see the Magician token, immediately learning who the Magician is and the actual lineup."
     },
-    "stAdvice": "Magician causes Minions to believe a Townsfolk is the Demon, and the Demon to believe a Townsfolk is a Minion — this disrupts evil team communication and misdirects kill choices. The effect is passive and always-on while the Magician is alive. Best in scripts without Spy. Extremely effective against Scarlet Woman, which activates based on the Demon dying."
+    "stAdvice": "First night only: During Minion Info, point to the Magician and the Demon. During Demon Info, point to the Magician and the Minions."
   },
   "choirboy": {
     "stComplexity": 2,
@@ -1831,7 +1831,7 @@
       "imp": "If Imp kills the King, Choirboy fires — but Imp can starpass to avoid being identified.",
       "vortox": "Choirboy's Demon identification is wrong — points to a good player instead."
     },
-    "stAdvice": "Choirboy is a powerful Demon-detector triggered by the Demon killing the King. Always use with King on the script. Evil must choose between killing the King (triggering Choirboy) or leaving the King alive to generate late-game info. If evil uses a Starpass (Imp killing themselves), Choirboy still fires at the old Imp player.",
+    "stAdvice": "If the Demon killed the King, point to the Demon player.",
     "newStWarning": "Choirboy only fires if the DEMON kills the King — not if a Minion ability kills them. Track the cause of death carefully. If the Demon uses a Starpass into the King, the Choirboy still identifies the Starpass player as the Demon."
   },
   "poppygrower": {
@@ -1850,7 +1850,7 @@
       "imp": "If Imp kills the Poppy Grower, evil immediately learns each other's identities — Demon and all Minions wake.",
       "poisoner": "Poisoned Poppy Grower: the passive effect fails — evil can communicate as if the Poppy Grower isn't alive."
     },
-    "stAdvice": "While the Poppy Grower is alive, the Demon and Minions do NOT know each other — they must operate blindly. This creates enormous coordination problems for evil. Evil will prioritize killing the Poppy Grower as early as possible. When the Poppy Grower dies, immediately wake all evil players and let them see each other's identities.",
+    "stAdvice": "First night: Skip Minion Info and Demon Info. Wake the Demon. Show the THESE CHARACTERS ARE NOT IN PLAY token. Show 3 not-in-play good character tokens. Other nights: If the Poppy Grower died today or tonight, wake all Minions. Show the THIS IS THE DEMON token. Point to the Demon. Put the Minions to sleep. Wake the Demon. Show the THESE ARE YOUR MINIONS token. Point to the Minions.",
     "newStWarning": "On night 1, do NOT wake the Demon to show them the Minion lineup if Poppy Grower is in play — they don't learn this. You must run the night differently. Only after the Poppy Grower dies do you run the standard evil-team-wakes phase."
   },
   "atheist": {
@@ -1903,7 +1903,7 @@
     "counterDetail": {
       "preacher": "Preacher can target a Minion and remove their ability — including the bluff-info gained from Snitch being in play."
     },
-    "stAdvice": "Snitch gives ALL Minions 3 extra not-in-play characters as bluffs at game start — a massive advantage for evil's cover stories. Run the Snitch setup phase carefully: tell each Minion separately. The extra bluffs let evil more convincingly claim to be Townsfolk. In scripts with many info roles, Snitch dramatically reduces good's deductive advantage.",
+    "stAdvice": "First night only: Wake each Minion. Show the THESE CHARACTERS ARE NOT IN PLAY token. Show 3 not-in-play character tokens.",
     "newStWarning": "Remember to wake each Minion separately and show them 3 not-in-play Townsfolk/Outsider tokens as bluffs. This happens on night 1 in addition to the normal Minion wake. With multiple Minions, this extends setup significantly."
   },
   "acrobat": {
@@ -1922,7 +1922,7 @@
       "poisoner": "If either good neighbor is poisoned, the Acrobat may die that night — Poisoner can weaponize this.",
       "pithag": "Pit-Hag can change neighboring players to drunk characters, triggering Acrobat's death."
     },
-    "stAdvice": "Acrobat dies if either living good neighbor is drunk or poisoned — this creates a fragile position in scripts with Poisoner or Philosopher. The Acrobat's death is automatic and silent (ST kills them); good players won't know why the Acrobat died. Strategically, this punishes good for placing Acrobat near drunk/poisoned roles."
+    "stAdvice": "The Acrobat chooses a player."
   },
   "puzzlemaster": {
     "stComplexity": 3,
@@ -1973,7 +1973,7 @@
     "counterDetail": {
       "huntsman": "If Huntsman correctly chooses the Damsel, the Damsel becomes a Townsfolk — nullifying the Minion guessing threat entirely."
     },
-    "stAdvice": "All Minions know the Damsel is in play from the start — they don't know who, but they know the role exists. If any Minion publicly guesses the Damsel correctly (once per Minion), good immediately loses. Good must protect the Damsel's identity at all costs. Use Huntsman on the same script so good has a path to neutralize the threat.",
+    "stAdvice": "First night: During Minion Info, show the Minions the Damsel token. If you haven't done this yet, do so now. If the Damsel was chosen by the Huntsman, show the YOU ARE info token & their new character token. Other nights: If the Damsel was chosen by the Huntsman, show the YOU ARE info token & their new character token.",
     "newStWarning": "Each Minion gets exactly one public guess — if they're wrong, they can't guess again. Make sure Minions understand this rule clearly before the game starts. Track which Minions have already used their guess."
   },
   "golem": {
@@ -2023,7 +2023,7 @@
       "exorcist": "Exorcist can target the Widow each night to suppress their poison — the chosen player is no longer poisoned.",
       "courtier": "Courtier can drunkify the Widow, preventing the poison from being applied or keeping the grimoire-look from producing true info."
     },
-    "stAdvice": "Widow sees the entire grimoire on night 1 — a huge intelligence windfall for evil — then permanently poisons a chosen player. Good players are told the number of in-play Outsiders, partially offsetting evil's advantage. Choose the poison target carefully: the Empath or a recurring info role loses enormous value. Evil should use this knowledge to optimize bluffs and kill order immediately.",
+    "stAdvice": "First night only: Show the Grimoire for as long as the Widow needs. The Widow chooses a player. Put the Widow to sleep. Wake the player marked KNOW & show the Widow token.",
     "bluffAdvice": "Widow can claim to be any Townsfolk whose role the Widow knows from the grimoire. Choosing a confirmed-dead role or a safe Townsfolk bluff is straightforward given the full grimoire view."
   },
   "fearmonger": {
@@ -2042,7 +2042,7 @@
       "exorcist": "Exorcist can disable the Fearmonger's nightly choice, preventing the execution threat from activating.",
       "slayer": "Slayer can eliminate the Fearmonger during the day before the execution threat is realized."
     },
-    "stAdvice": "Fearmonger chooses a player each night; if they are subsequently nominated AND executed that day, the Fearmonger's team wins immediately. Announce publicly each day which player has been chosen (without saying why). Good must choose between executing suspects and risking a Fearmonger win, or avoiding that execution and leaving evil at large. Create tension by choosing high-value good targets.",
+    "stAdvice": "First night: The Fearmonger chooses a player. Announce that the Fearmonger has chosen a player. Other nights: The Fearmonger chooses a player. If the target is different to last night, announce that the Fearmonger has chosen a player.",
     "bluffAdvice": "Fearmonger can bluff as a Townsfolk that makes choices at night — Monk or Innkeeper are natural covers since you 'protect someone each night'."
   },
   "psychopath": {
@@ -2094,7 +2094,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "Mezepheles knows a secret word from night 1 — the first good player to publicly say this word becomes evil immediately. Choose a common conversational word for maximum chaos, or a rare word if you want to slow things down. If a good player becomes evil mid-game, update the grimoire immediately. The new evil player is NOT told who Mezepheles is.",
+    "stAdvice": "First night: Show the secret word. Other nights: If a good player said the secret word, wake the player. Show the YOU ARE info token & give a thumbs-down.",
     "bluffAdvice": "Mezepheles can bluff as any Townsfolk since their ability is entirely secret. Claiming an info role like Fortune Teller or Chambermaid is effective cover.",
     "newStWarning": "You must decide the secret word before night 1 and tell Mezepheles privately. Monitor ALL public conversation for the word — including pre-game chatter. If a good player accidentally says it before the game officially starts, use judgment about whether it counts."
   },
@@ -2114,7 +2114,7 @@
       "investigator": "Investigator might identify the Marionette as a Minion, exposing the infiltration.",
       "empath": "Empath seated next to the Marionette will get a count including them as evil, revealing evil seating."
     },
-    "stAdvice": "Marionette thinks they are a good Townsfolk but is actually a Minion — they are given a fake character token and play with false information. The Demon knows who the Marionette is. The Marionette's fake ability (whatever Townsfolk they think they are) does NOT work. This is devastating if the Marionette is a key role like Empath or Slayer. The Marionette must be seated adjacent to the Demon.",
+    "stAdvice": "First night only: Wake the Demon. Show the THIS PLAYER IS & Marionette tokens. Point to the Marionette.",
     "bluffAdvice": "The Marionette is not bluffing — they genuinely believe they are good. The Demon should leverage this by feeding info to the Marionette that benefits evil.",
     "newStWarning": "The Marionette MUST be seated next to the Demon in the circle. Arrange seating before assigning tokens. Give the Marionette a fake token for a role that seems legitimate but does nothing. Never tell the Marionette they are evil during the game."
   },
@@ -2152,7 +2152,7 @@
       "slayer": "Slayer can kill the babysitting Minion if identified, neutralizing the demon for one cycle.",
       "monk": "Monk protection prevents Lil' Monsta from killing the protected target."
     },
-    "stAdvice": "Lil' Monsta is a shared demon: each night Minions vote on who babysits the token, and that player 'is the Demon'. All Minions know each other. The kill happens automatically — you choose who dies, or use standard demon-kill rules. The babysitter is the one executed if good finds 'the Demon'. Evil must decide strategically who to frame with the token each night.",
+    "stAdvice": "First night: Wake the Minions. They choose a player. Put the Minions to sleep. Wake the target. Show the YOU ARE & Lil' Monsta tokens. Other nights: Wake the Minions. They choose a player. Put the Minions to sleep. Wake the target. Show the YOU ARE & Lil' Monsta tokens. A player might die.",
     "newStWarning": "Lil' Monsta runs differently each night: wake ALL Minions simultaneously, let them point to who babysits, then the majority choice babysits. If tied, you decide. That player then 'is the Demon' for all mechanical purposes. Track who has the token in the grimoire every night."
   },
   "lleech": {
@@ -2173,7 +2173,7 @@
       "exorcist": "Exorcist can suppress the Lleech's kill for one night.",
       "soldier": "Soldier survives Lleech attacks."
     },
-    "stAdvice": "Lleech attaches to a host player on night 1 — that player is poisoned and the Lleech registers as that player for all info purposes (e.g., Empath sees the Lleech as the host's alignment). If the host dies, the Lleech also dies unless they've already killed someone. Keep track of the host token carefully. Good players discovering the 'ghost' host is poisoned is a strong Lleech tell.",
+    "stAdvice": "First night only: The Lleech chooses a player.",
     "newStWarning": "On night 1, the Lleech chooses their host. Update the grimoire to mark the host as poisoned AND as the Lleech's anchor. If the host is executed during the day, the Lleech dies simultaneously — announce both deaths. The Lleech's kill only happens other nights."
   },
   "alhadikhia": {
@@ -2193,7 +2193,7 @@
       "soldier": "Soldier survives Al-Hadikhia's kill attempt.",
       "innkeeper": "Innkeeper protection prevents chosen guests from dying."
     },
-    "stAdvice": "Al-Hadikhia publicly announces 3 players each night — all players see who was chosen. Each chosen player independently decides (secretly, by raised hand) whether to 'cooperate'. Only if ALL 3 raise their hands do all 3 die. This creates psychological pressure and bluffing around cooperation. Evil should choose 3 good players who are likely to cooperate under pressure.",
+    "stAdvice": "The Al-Hadikhia chooses 3 players. In order, wake each target. They nod or shake their head. Put them to sleep before waking the next target.",
     "newStWarning": "Al-Hadikhia's kill requires unanimous cooperation from all 3 chosen players. Run this phase simultaneously: have all 3 players put their hand under the table or behind their back, then reveal simultaneously. If even one player doesn't raise their hand, nobody dies. Announce this clearly before the game."
   },
   "legion": {
@@ -2213,7 +2213,7 @@
       "exorcist": "Exorcist can suppress Legion's kill for one night.",
       "monk": "Monk protection prevents a target from dying from Legion."
     },
-    "stAdvice": "Legion replaces most of the player roster — most players ARE Legion and are evil. Good players are vastly outnumbered. Legion registers as good AND as Townsfolk, making detection nearly impossible. Executions fail if only evil voted — since most players are evil, executions will often fail. This is a total script-breaker that requires a specially designed game.",
+    "stAdvice": "A player might die.",
     "newStWarning": "Legion is not compatible with standard scripts — build a Legion-specific setup. Most players receive Townsfolk tokens but are secretly Legion. Run night actions as if they're Townsfolk but give false info. The kill each night is chosen by you, not the players. Make sure all players understand the special Legion rules before starting."
   },
   "leviathan": {
@@ -2232,7 +2232,7 @@
       "mayor": "Mayor's 3-player victory condition lets good win without any executions, bypassing Leviathan entirely.",
       "pacifist": "Pacifist prevents executed good players from dying — if a good player survives execution, Leviathan's counter doesn't advance."
     },
-    "stAdvice": "Leviathan wins if more than 1 good player is executed over the whole game. All players know Leviathan is in play from day 1. No execution happens on day 1. Good must be extremely cautious about who they execute — one wrong execution is allowed, two is game over. Evil should manufacture false info to bait good into executing good players. Leviathan itself does not kill at night.",
+    "stAdvice": "First night: Announce that the Leviathan is in play. Other nights: Change the Leviathan reminder token to the relevant day. You may announce that the Leviathan is in play.",
     "newStWarning": "Announce at the very start: 'Leviathan is in play. If more than 1 good player is executed, evil wins.' Track every execution carefully. The Leviathan does NOT perform a night kill — there are no night deaths from the demon. Good players expect deaths at night; their absence is information."
   },
   "riot": {
@@ -2251,7 +2251,7 @@
       "pacifist": "Pacifist prevents executed good players from dying — reducing the chaos of Riot's chain nominations.",
       "mayor": "Mayor can win with 3 players alive without an execution, bypassing Riot's day-3 forcing mechanic."
     },
-    "stAdvice": "Riot turns executions into chain-reaction deaths: nominees die but immediately nominate someone else. On day 3, nominees MUST nominate. This creates rapid escalating deaths on day 3 — good must identify the Riot player before day 3 or face losing multiple good players in a chain. Evil should use Riot to engineer a day-3 chain that kills the most valuable good roles.",
+    "stAdvice": "Change the Riot reminder token to the relevant day. If it is night 3, you may wake the Minions. Show the YOU ARE & Riot tokens.",
     "newStWarning": "Day 3 with Riot active is chaotic — prepare players that nominees MUST continue nominating. Have a clear procedure for who nominates whom in the chain. Riot itself registers as multiple players (everyone on the evil team), making identification extremely difficult. Consider this an expert-only demon."
   },
   "ojo": {
@@ -2270,7 +2270,7 @@
       "monk": "Monk-protected player survives Ojo's attack.",
       "soldier": "Soldier survives Ojo's attack."
     },
-    "stAdvice": "Ojo selects a character token, not a player. If that character is in play, that player dies. If the character is not in play, you (the ST) choose who dies — giving you flexibility to pick a meaningful target. Evil can use this to eliminate specific roles from the board strategically.",
+    "stAdvice": "The Ojo chooses a character.",
     "newStWarning": "Ojo targets a character type, not a player directly. Make sure players understand they are pointing to a character token from the script, not at a person."
   },
   "alsaahir": {
@@ -2308,7 +2308,7 @@
       "poisoner": "A poisoned High Priestess receives an arbitrary pointer — the ST can point to anyone.",
       "vortox": "Under Vortox, the High Priestess always learns the wrong player."
     },
-    "stAdvice": "Each night, point to the player you genuinely believe the High Priestess would most benefit from talking to — often an unclaimed player, someone acting suspiciously, or a role that would synergise with the HP. This is one of the most ST-judgment-dependent abilities in the game.",
+    "stAdvice": "First night only: Point to a player.",
     "newStWarning": "There is no mechanical restriction on who you can point to — it is purely your judgment as Storyteller. Be consistent and fair. Avoid pointing to the same player every night unless it is genuinely the best advice."
   },
   "shugenja": {
@@ -2328,7 +2328,7 @@
       "spy": "Spy registers as good, so may not count as the 'closest evil' even when seated nearest.",
       "recluse": "Recluse can register as evil, pointing Shugenja toward an innocent player."
     },
-    "stAdvice": "On setup, determine which evil player is closest to the Shugenja going clockwise vs anti-clockwise. Point in the direction of the closest evil player. If two evil players are equidistant on both sides, you may point either direction — pick the one that makes for a better game.",
+    "stAdvice": "First night only: Point clockwise or anticlockwise.",
     "newStWarning": "Count seats, not physical distance. If the Shugenja is in seat 5 of 12, the closest evil clockwise might be seat 7 (2 away) while anti-clockwise might be seat 2 (3 away). Recount carefully — mistakes here are hard to walk back."
   },
   "steward": {
@@ -2348,7 +2348,7 @@
       "spy": "Spy registers as good, so can be shown as the confirmed good player despite being evil.",
       "recluse": "Recluse can register as evil even when pointed to as a good player — but this is rare."
     },
-    "stAdvice": "Simply point to any good-aligned player. This gives good one confirmed safe player from day 1. A strong anchor in early deduction. Avoid pointing to roles that might be swapped (e.g., Pit-Hag targets) if you want the info to stay accurate."
+    "stAdvice": "First night only: Point to the player marked KNOW."
   },
   "villageidiot": {
     "stComplexity": 3,
@@ -2366,7 +2366,7 @@
       "poisoner": "Poisoned Village Idiot receives false alignment info, compounding the uncertainty already created by the drunk extra.",
       "vortox": "Under Vortox, all Village Idiot info is false."
     },
-    "stAdvice": "If multiple Village Idiots are in play (+1 or +2), mark one of the extras as drunk — they receive false alignment info without knowing it. The setup modifier creates deliberate uncertainty about how many are in play, since players see the character list but not which count was used.",
+    "stAdvice": "First night: If there are multiple Village Idiots, mark one as DRUNK. Wake the Village Idiots one at a time to choose a player. Give a thumb signal. Other nights: Wake the Village Idiots one at a time to choose a player. Give a thumb signal.",
     "newStWarning": "Only one extra Village Idiot (beyond the first) is drunk. If you use +2 extras, one of the two extras is drunk. Decide before the game which extra is drunk and mark them with the Drunk reminder. The drunk VI does NOT know they are drunk."
   },
   "knight": {
@@ -2382,7 +2382,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Knight rules for full storyteller guidance."
+    "stAdvice": "First night only: Point to the 2 players marked KNOW."
   },
   "princess": {
     "stComplexity": 3,
@@ -2397,7 +2397,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Princess rules for full storyteller guidance."
+    "stAdvice": "If the Princess nominated the player who was executed today, wake the Demon as normal, but no one dies to the Demon's ability."
   },
   "banshee": {
     "stComplexity": 3,
@@ -2412,7 +2412,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Banshee rules for full storyteller guidance."
+    "stAdvice": "If the Banshee was killed by the Demon tonight, announce that the Banshee has died."
   },
   "hermit": {
     "stComplexity": 3,
@@ -2442,7 +2442,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Ogre rules for full storyteller guidance."
+    "stAdvice": "First night only: The Ogre chooses a player."
   },
   "plaguedoctor": {
     "stComplexity": 3,
@@ -2457,7 +2457,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Plague Doctor rules for full storyteller guidance."
+    "stAdvice": "If the Plague Doctor died, the Storyteller gained a Minion ability. If you haven't done this yet, do so now."
   },
   "hatter": {
     "stComplexity": 3,
@@ -2472,7 +2472,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Hatter rules for full storyteller guidance."
+    "stAdvice": "If the Hatter died, wake the Minions & Demons. Each may choose a new character. If they do, show the YOU ARE token & their new character token."
   },
   "zealot": {
     "stComplexity": 3,
@@ -2502,7 +2502,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Harpy rules for full storyteller guidance."
+    "stAdvice": "First night only: The Harpy chooses 2 players. Put the Harpy to sleep. Wake the 1st target. Show the THIS CHARACTER SELECTED YOU token, the Harpy token, then point to the 2nd target."
   },
   "wizard": {
     "stComplexity": 3,
@@ -2517,7 +2517,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Wizard rules for full storyteller guidance."
+    "stAdvice": "First night only: Do whatever needs to be done to satisfy the Wizard's ability."
   },
   "xaan": {
     "stComplexity": 3,
@@ -2532,7 +2532,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Xaan rules for full storyteller guidance."
+    "stAdvice": "First night: If X is 1, mark the Xaan with the X reminder token. Other nights: Change the Xaan reminder token to the relevant night. If it is night X, mark the Xaan with the X reminder token."
   },
   "wraith": {
     "stComplexity": 3,
@@ -2547,7 +2547,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Wraith rules for full storyteller guidance."
+    "stAdvice": "First night only: Wake the Wraith whenever other evil players wake."
   },
   "summoner": {
     "stComplexity": 3,
@@ -2562,7 +2562,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Summoner rules for full storyteller guidance."
+    "stAdvice": "First night: Show the THESE CHARACTERS ARE NOT IN PLAY token. Show 3 not-in-play good character tokens. Other nights: Change the Summoner reminder token to the relevant night. If it is night 3, the Summoner chooses a player & a Demon character. Put the Summoner to sleep. Wake the target. Show the YOU ARE and Demon tokens & give a thumbs-down."
   },
   "vizier": {
     "stComplexity": 3,
@@ -2577,7 +2577,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Vizier rules for full storyteller guidance."
+    "stAdvice": "First night only: Announce which player is the Vizier."
   },
   "organgrinder": {
     "stComplexity": 3,
@@ -2592,7 +2592,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Organ Grinder rules for full storyteller guidance."
+    "stAdvice": "First night only: The Organ Grinder either nods their head yes to be drunk, or shakes their head no to be sober."
   },
   "boffin": {
     "stComplexity": 3,
@@ -2607,7 +2607,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Boffin rules for full storyteller guidance."
+    "stAdvice": "First night only: Wake the Boffin and the Demon. Show the THIS CHARACTER SELECTED YOU & Boffin tokens, then the not-in-play good character token."
   },
   "yaggababble": {
     "stComplexity": 3,
@@ -2622,7 +2622,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Yaggababble rules for full storyteller guidance."
+    "stAdvice": "First night: Show the Yaggababble their secret phrase. Other nights: For each time the Yaggababble said their phrase today, a player might die."
   },
   "kazali": {
     "stComplexity": 3,
@@ -2637,7 +2637,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Kazali rules for full storyteller guidance."
+    "stAdvice": "First night: The Kazali chooses which players are which Minions. Wake each target. Show the YOU ARE and Minion tokens & give a thumbs down. Other nights: The Kazali chooses a player."
   },
   "lordoftyphon": {
     "stComplexity": 3,
@@ -2652,7 +2652,7 @@
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": "See the official Lord of Typhon rules for full storyteller guidance."
+    "stAdvice": "First night: Wake the Lord of Typhon's neighbors. Show the YOU ARE and Minion tokens & give a thumbs-down. Other nights: The Lord of Typhon chooses a player."
   },
   "cacklejack": {
     "stComplexity": 2,
