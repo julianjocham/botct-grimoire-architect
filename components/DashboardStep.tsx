@@ -10,6 +10,7 @@ import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { calculateStrengthTotals } from "@/lib/strength/calculate";
 import { Panel } from "@/components/ui/Panel";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { CharacterIcon } from "@/components/ui/CharacterIcon";
 
 export function DashboardStep({
   scriptDisplayName,
@@ -112,8 +113,16 @@ export function DashboardStep({
                     key={c.id}
                     onClick={() => onDetail(c.id)}
                     style={{ background: col.bg, borderColor: col.border, color: col.text }}
-                    className="font-display cursor-pointer rounded-[5px] border px-2.5 py-1 text-xs"
+                    className="font-display flex cursor-pointer items-center gap-2 rounded-[5px] border px-2.5 py-1 text-xs"
                   >
+                    <CharacterIcon
+                      characterId={c.id}
+                      edition={c.edition}
+                      team={c.team}
+                      alt={c.name}
+                      variant="token"
+                      className="size-5"
+                    />
                     {c.name}
                   </button>
                 ))}
@@ -129,8 +138,16 @@ export function DashboardStep({
                 <button
                   key={c.id}
                   onClick={() => onDetail(c.id)}
-                  className="text-gold font-display cursor-pointer rounded-[5px] border border-[#4a3a20] bg-[#1a1500] px-2.5 py-1 text-xs"
+                  className="text-gold font-display flex cursor-pointer items-center gap-2 rounded-[5px] border border-[#4a3a20] bg-[#1a1500] px-2.5 py-1 text-xs"
                 >
+                  <CharacterIcon
+                    characterId={c.id}
+                    edition={c.edition}
+                    team={c.team}
+                    alt={c.name}
+                    variant="token"
+                    className="size-5"
+                  />
                   {c.name}
                 </button>
               ))}

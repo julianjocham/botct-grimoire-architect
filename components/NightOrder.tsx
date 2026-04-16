@@ -2,6 +2,7 @@
 
 import { NightOrderProps } from "@/types";
 import { EmptyState } from "./ui/EmptyState";
+import { CharacterIcon } from "./ui/CharacterIcon";
 
 export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
   return (
@@ -36,7 +37,17 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
 
             {/* Content */}
             <div className="min-w-0 flex-1 pb-3">
-              <div className="font-display text-parchment mb-0.75 text-sm">{step.character.name}</div>
+              <div className="font-display text-parchment mb-0.75 flex items-center gap-2.5 text-sm">
+                <CharacterIcon
+                  characterId={step.character.id}
+                  edition={step.character.edition}
+                  team={step.character.team}
+                  alt={step.character.name}
+                  variant="token"
+                  className="size-6"
+                />
+                {step.character.name}
+              </div>
               <div className={`text-sm leading-[1.4] text-[#888] ${step.contextHints.length > 0 ? "mb-1.5" : "mb-0"}`}>
                 {step.reminder}
               </div>

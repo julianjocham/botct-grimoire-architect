@@ -10,6 +10,7 @@ import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { Panel } from "@/components/ui/Panel";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
+import { CharacterIcon } from "@/components/ui/CharacterIcon";
 
 function getAdjustedReq(
   rawReq: { townsfolk: number; outsider: number; minion: number; demon: number },
@@ -150,8 +151,15 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
                     {involvedChars.map((c) => (
                       <span
                         key={c.id}
-                        className="font-display text-gold bg-subtle text-2xs rounded-[3px] px-1.25 py-px"
+                        className="font-display text-gold bg-subtle text-2xs flex items-center gap-0.75 rounded-[3px] px-1.25 py-px"
                       >
+                        <CharacterIcon
+                          characterId={c.id}
+                          edition={c.edition}
+                          team={c.team}
+                          alt={c.name}
+                          className="size-3"
+                        />
                         {c.name}
                       </span>
                     ))}
@@ -208,7 +216,15 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
                 const s = eff.effectiveStrength;
                 const barColor = s > 30 ? "#2a7fd4" : s > 0 ? "#5b9bd5" : s > -30 ? "#c0392b" : "#8b1a1a";
                 return (
-                  <div key={char.id} className="flex items-center gap-1.5">
+                  <div key={char.id} className="flex items-center gap-2">
+                    <CharacterIcon
+                      characterId={char.id}
+                      edition={char.edition}
+                      team={char.team}
+                      alt={char.name}
+                      variant="token"
+                      className="size-5 shrink-0"
+                    />
                     <div className="font-display text-2xs shrink-0 truncate" style={{ color: col.text, minWidth: 90 }}>
                       {char.name}
                     </div>
@@ -530,8 +546,16 @@ export function GameSetupStep({
                       >
                         <button
                           onClick={() => onDetail(traveler.id)}
-                          className={`font-display cursor-pointer border-none px-2.5 py-1.5 text-sm ${inGame ? "text-gold border-r border-r-[#4a3a20] bg-[#1a1500]" : "bg-surface text-muted border-r-subtle border-r"}`}
+                          className={`font-display flex cursor-pointer items-center gap-2 border-none px-2.5 py-1.5 text-sm ${inGame ? "text-gold border-r border-r-[#4a3a20] bg-[#1a1500]" : "bg-surface text-muted border-r-subtle border-r"}`}
                         >
+                          <CharacterIcon
+                            characterId={traveler.id}
+                            edition={traveler.edition}
+                            team={traveler.team}
+                            alt={traveler.name}
+                            variant="token"
+                            className="size-5"
+                          />
                           {traveler.name}
                         </button>
                         <button

@@ -8,6 +8,7 @@ import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { getSupportedPlayerCounts } from "@/lib/analysis/playerCounts";
 import { Panel } from "./ui/Panel";
 import premadeScriptsData from "@/data/premadeScripts.json";
+import { CharacterIcon } from "@/components/ui/CharacterIcon";
 
 function teamCount(chars: Character[], team: string) {
   return chars.filter((c) => c.team === team).length;
@@ -521,12 +522,20 @@ export function ScriptStep({
                             key={char.id}
                             onClick={() => onToggleScriptChar(char.id)}
                             title={`Remove ${char.name} from script`}
-                            className="font-display cursor-pointer rounded-sm bg-[#1a1a2a] px-2 py-0.75 text-xs"
+                            className="font-display flex cursor-pointer items-center gap-1.5 rounded-sm bg-[#1a1a2a] px-2 py-0.75 text-xs"
                             style={{
                               border: `1px solid ${c.border}`,
                               color: c.text
                             }}
                           >
+                            <CharacterIcon
+                              characterId={char.id}
+                              edition={char.edition}
+                              team={char.team}
+                              alt={char.name}
+                              variant="token"
+                              className="size-4"
+                            />
                             {char.name} ×
                           </button>
                         ))}

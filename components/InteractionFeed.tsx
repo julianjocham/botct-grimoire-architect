@@ -4,6 +4,7 @@ import { Character, InteractionFeedProps } from "@/types";
 import { JINX_STYLE, SEVERITY_STYLES } from "@/constants/character";
 import { EmptyState } from "./ui/EmptyState";
 import { Badge } from "@/components/ui/Badge";
+import { CharacterIcon } from "./ui/CharacterIcon";
 
 export function InteractionFeed({ hints, characters, onDetail }: InteractionFeedProps) {
   if (hints.length === 0) {
@@ -40,8 +41,15 @@ export function InteractionFeed({ hints, characters, onDetail }: InteractionFeed
                     <button
                       key={c.id}
                       onClick={() => onDetail(c.id)}
-                      className="bg-subtle text-gold font-display cursor-pointer rounded-sm border-none px-1.5 py-0.5 text-xs"
+                      className="bg-subtle text-gold font-display flex cursor-pointer items-center gap-1 rounded-sm border-none px-1.5 py-0.5 text-xs"
                     >
+                      <CharacterIcon
+                        characterId={c.id}
+                        edition={c.edition}
+                        team={c.team}
+                        alt={c.name}
+                        className="size-3"
+                      />
                       {c.name}
                     </button>
                   ))}

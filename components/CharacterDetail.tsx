@@ -5,6 +5,7 @@ import { SubDimBar } from "./common/SubDimBar";
 import { COMPLEXITY_LABEL } from "@/constants/character";
 import { StrengthBar } from "@/components/common/StrengthBar";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { CharacterIcon } from "@/components/ui/CharacterIcon";
 
 export function CharacterDetail({
   character,
@@ -27,11 +28,21 @@ export function CharacterDetail({
     <div className="border-subtle fixed inset-y-0 right-0 z-100 flex w-85 flex-col overflow-y-auto border border-r-0 bg-[#0f0f1a]">
       {/* Header */}
       <div className="border-subtle flex items-start justify-between gap-2.5 border-b px-4 py-3.5">
-        <div>
-          <div className="font-display text-parchment mb-0.5 text-lg">{character.name}</div>
-          <div className="font-body text-muted text-sm capitalize">
-            {character.team} · {character.edition?.toUpperCase() || "Experimental"} · ST Complexity:{" "}
-            {COMPLEXITY_LABEL[character.stComplexity ?? 2]}
+        <div className="flex items-start gap-3">
+          <CharacterIcon
+            characterId={character.id}
+            edition={character.edition}
+            team={character.team}
+            alt={character.name}
+            variant="token"
+            className="size-14 shrink-0"
+          />
+          <div>
+            <div className="font-display text-parchment mb-0.5 text-lg">{character.name}</div>
+            <div className="font-body text-muted text-sm capitalize">
+              {character.team} · {character.edition?.toUpperCase() || "Experimental"} · ST Complexity:{" "}
+              {COMPLEXITY_LABEL[character.stComplexity ?? 2]}
+            </div>
           </div>
         </div>
         <button
@@ -210,8 +221,16 @@ export function CharacterDetail({
                 <div key={counter.id} className="rounded-md border border-[#4a1a1a] bg-[#1a0808] px-2.5 py-1.5">
                   <button
                     onClick={() => onNavigate(counter.id)}
-                    className="text-minion font-display mb-0.5 cursor-pointer border-none bg-transparent p-0 text-sm"
+                    className="text-minion font-display mb-0.5 flex cursor-pointer items-center gap-2 border-none bg-transparent p-0 text-sm"
                   >
+                    <CharacterIcon
+                      characterId={counter.id}
+                      edition={counter.edition}
+                      team={counter.team}
+                      alt={counter.name}
+                      variant="token"
+                      className="size-5"
+                    />
                     {counter.name}
                   </button>
                   {character.counterDetail[counter.id] && (

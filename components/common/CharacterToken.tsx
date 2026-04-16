@@ -2,7 +2,8 @@
 
 import { CharacterTokenProps } from "@/types";
 import { StrengthBar } from "./StrengthBar";
-import { TEAM_COLORS, TEAM_ICON } from "@/constants/team";
+import { TEAM_COLORS } from "@/constants/team";
+import { CharacterIcon } from "@/components/ui/CharacterIcon";
 
 const COMPLEXITY_DOTS = (n: number) =>
   Array.from({ length: 5 }, (_, i) => (
@@ -40,8 +41,15 @@ export function CharacterToken({
     >
       <div className="flex items-center justify-between gap-2">
         {/* Left: icon + name + complexity */}
-        <div className="flex min-w-0 items-center gap-2">
-          <span className={compact ? "text-sm" : "text-md"}>{TEAM_ICON[character.team] ?? "?"}</span>
+        <div className="flex min-w-0 items-center gap-2.5">
+          <CharacterIcon
+            characterId={character.id}
+            edition={character.edition}
+            team={character.team}
+            alt={character.name}
+            variant="token"
+            className={compact ? "size-7 shrink-0" : "size-8 shrink-0"}
+          />
           <div className="min-w-0">
             <div
               className={["font-display truncate", compact ? "text-xs" : "text-sm"].join(" ")}
