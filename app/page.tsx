@@ -3,11 +3,11 @@
 import { useReducer, useMemo } from "react";
 import { GrimoireState, GrimoireAction } from "@/lib/types";
 import { allCharacters, allInteractions, getEditionPool, getEditionTravelers } from "@/lib/data";
-import { calculateEffectiveStrength } from "@/lib/engine";
 import { CharacterDetail } from "@/components/CharacterDetail";
 import { ScriptStep } from "@/components/ScriptStep";
 import { GameSetupStep } from "@/components/GameSetupStep";
 import { DashboardStep } from "@/components/DashboardStep";
+import {calculateEffectiveStrength} from "@/lib/strength/calculate";
 
 const initialState: GrimoireState = {
   step: "script",

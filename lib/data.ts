@@ -3,7 +3,7 @@ import enrichmentData from "@/data/enrichment.json";
 import jinxesData from "@/data/jinxes.json";
 import editionsData from "@/data/editions.json";
 import categoryRulesData from "@/data/categoryRules.json";
-import { generateCategoryInteractions } from "./engine";
+import { generateCategoryInteractions } from "./analysis/interactions";
 import type { Character, Interaction, RawCharacter, CharacterEnrichment, EditionConfig, CategoryRule } from "./types";
 
 const enrichment = enrichmentData as Record<string, CharacterEnrichment>;

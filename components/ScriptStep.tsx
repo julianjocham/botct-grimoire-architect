@@ -2,10 +2,11 @@
 
 import { Character } from "@/lib/types";
 import { CharacterToken } from "./CharacterToken";
-import { calculateEffectiveStrength, getSupportedPlayerCounts } from "@/lib/engine";
 import { ScriptStepProps } from "@/components/types";
 import { EDITIONS } from "@/constants/info";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
+import {calculateEffectiveStrength} from "@/lib/strength/calculate";
+import {getSupportedPlayerCounts} from "@/lib/analysis/playerCounts";
 
 function teamCount(chars: Character[], team: string) {
   return chars.filter((c) => c.team === team).length;
