@@ -15,11 +15,13 @@ export interface EditionConfig {
 
 export type AppStep = "script" | "setup" | "dashboard";
 export type EditionKey = "tb" | "bmr" | "snv" | "custom";
+export type ScriptType = "full" | "teensyville";
 
 export interface GrimoireState {
   step: AppStep;
 
-  // Step 1 – the script pool (all characters that could appear)
+  // Step 1 – script type and pool
+  scriptType: ScriptType;
   scriptSource: EditionKey | null;
   scriptIds: string[];
 
@@ -34,6 +36,8 @@ export interface GrimoireState {
 }
 
 export type GrimoireAction =
+  | { type: "SET_SCRIPT_TYPE"; scriptType: ScriptType }
+  | { type: "CLEAR_SCRIPT_SOURCE" }
   | { type: "SELECT_EDITION"; edition: Exclude<EditionKey, "custom">; ids: string[] }
   | { type: "SELECT_CUSTOM" }
   | { type: "TOGGLE_SCRIPT_CHAR"; id: string }
@@ -60,12 +64,15 @@ export interface FeelBarConfig {
 // ─── Step component props ─────────────────────────────────────────────────────
 
 export interface ScriptStepProps {
+  scriptType: ScriptType;
   scriptSource: EditionKey | null;
   scriptIds: string[];
   allCharacters: Character[];
   editionPools: { tb: Character[]; bmr: Character[]; snv: Character[] };
   searchQuery: string;
-  onSelectEdition: (ed: string, ids: string[]) => void;
+  onSetScriptType: (type: ScriptType) => void;
+  onClearScriptSource: () => void;
+  onSelectEdition: (ed: Exclude<EditionKey, "custom">, ids: string[]) => void;
   onSelectCustom: () => void;
   onToggleScriptChar: (id: string) => void;
   onContinue: () => void;
@@ -74,6 +81,7 @@ export interface ScriptStepProps {
 }
 
 export interface GameSetupStepProps {
+  scriptType: ScriptType;
   scriptSource: EditionKey | null;
   scriptIds: string[];
   playerCount: number | null;

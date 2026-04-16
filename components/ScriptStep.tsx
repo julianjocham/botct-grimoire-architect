@@ -1,6 +1,6 @@
 "use client";
 
-import { Character, ScriptStepProps } from "@/types";
+import { Character, ScriptStepProps, ScriptType } from "@/types";
 import { CharacterToken } from "./common/CharacterToken";
 import { EDITIONS } from "@/constants/info";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
@@ -12,8 +12,16 @@ function teamCount(chars: Character[], team: string) {
   return chars.filter((c) => c.team === team).length;
 }
 
-function scriptIsValid(scriptIds: string[], allCharacters: Character[]) {
+function scriptIsValid(scriptIds: string[], allCharacters: Character[], scriptType: ScriptType) {
   const chars = allCharacters.filter((c) => scriptIds.includes(c.id));
+  if (scriptType === "teensyville") {
+    return (
+      chars.filter((c) => c.team === "demon").length >= 1 &&
+      chars.filter((c) => c.team === "townsfolk").length >= 5 &&
+      chars.filter((c) => c.team === "outsider").length >= 1 &&
+      chars.filter((c) => c.team === "minion").length >= 1
+    );
+  }
   return (
     chars.filter((c) => c.team === "demon").length >= 1 &&
     chars.filter((c) => c.team === "townsfolk").length >= 9 &&
@@ -22,11 +30,14 @@ function scriptIsValid(scriptIds: string[], allCharacters: Character[]) {
 }
 
 export function ScriptStep({
+  scriptType,
   scriptSource,
   scriptIds,
   allCharacters,
   editionPools,
   searchQuery,
+  onSetScriptType,
+  onClearScriptSource,
   onSelectEdition,
   onSelectCustom,
   onToggleScriptChar,
@@ -35,6 +46,7 @@ export function ScriptStep({
   onDetail
 }: ScriptStepProps) {
   const isCustom = scriptSource === "custom";
+  const isTeensyville = scriptType === "teensyville";
 
   // Script character counts for custom builder
   const scriptChars = allCharacters.filter((c) => scriptIds.includes(c.id));
@@ -45,16 +57,13 @@ export function ScriptStep({
     demon: teamCount(scriptChars, "demon")
   };
   const hasBaron = scriptIds.includes("baron");
-  // Baron shifts 2 TF to OS, so targets adjust accordingly
-  const TARGETS = {
-    townsfolk: hasBaron ? 11 : 13,
-    outsider: hasBaron ? 6 : 4,
-    minion: 4,
-    demon: 1
-  };
-  const tfMin = hasBaron ? 7 : 9; // minimum TF needed for a 7-player game
+  const TARGETS = isTeensyville
+    ? { townsfolk: 5, outsider: 1, minion: 1, demon: 1 }
+    : { townsfolk: hasBaron ? 11 : 13, outsider: hasBaron ? 6 : 4, minion: 4, demon: 1 };
+  // minimum TF needed to play the smallest supported game
+  const tfMin = isTeensyville ? 5 : hasBaron ? 7 : 9;
 
-  const valid = isCustom ? scriptIsValid(scriptIds, allCharacters) : scriptSource !== null;
+  const valid = isCustom ? scriptIsValid(scriptIds, allCharacters, scriptType) : scriptSource !== null;
 
   // Custom builder: filtered pool
   const filteredPool = isCustom
@@ -78,8 +87,28 @@ export function ScriptStep({
         </p>
       </div>
 
-      {/* Edition cards */}
+      {/* Game type toggle */}
       {!isCustom && (
+        <div className="flex gap-0 self-start rounded-lg border border-[#2a2a3a] bg-[#0a0a14] p-1">
+          {(["full", "teensyville"] as const).map((type) => {
+            const active = scriptType === type;
+            return (
+              <button
+                key={type}
+                onClick={() => onSetScriptType(type)}
+                className={`font-display cursor-pointer rounded-md border-none px-4 py-1.5 text-xs tracking-[0.05em] transition-all duration-150 ${
+                  active ? "bg-blood text-parchment" : "bg-transparent text-[#555] hover:text-[#888]"
+                }`}
+              >
+                {type === "full" ? "Full Script" : "Teensyville"}
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Edition cards — full scripts only */}
+      {!isCustom && !isTeensyville && (
         <>
           <div className="grid grid-cols-3 gap-4">
             {EDITIONS.map((ed) => {
@@ -183,6 +212,38 @@ export function ScriptStep({
         </>
       )}
 
+      {/* Teensyville landing */}
+      {!isCustom && isTeensyville && (
+        <>
+          {/* Premade scripts placeholder */}
+          <div>
+            <div className="font-display text-gold mb-3 text-sm tracking-[0.06em] uppercase">
+              Premade Teensyville Scripts
+            </div>
+            <div className="bg-surface border-subtle flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-6 py-10 text-center">
+              <div className="font-body text-muted text-base">No premade scripts yet.</div>
+              <div className="font-body text-dim text-sm">Build a custom script below to get started.</div>
+            </div>
+          </div>
+
+          {/* Custom option */}
+          <div className="bg-surface border-subtle flex items-center justify-between gap-4 rounded-xl border-2 border-dashed px-6 py-5">
+            <div>
+              <div className="font-display text-gold text-md mb-1">Custom Teensyville Script</div>
+              <div className="font-body text-dim text-base leading-normal">
+                Build a small script for 5–6 players. You need at least 5 Townsfolk, 1 Outsider, 1 Minion, and 1 Demon.
+              </div>
+            </div>
+            <button
+              onClick={onSelectCustom}
+              className="bg-surface border-gold text-gold font-display shrink-0 cursor-pointer rounded-md border px-4.5 py-2 text-xs tracking-[0.05em] whitespace-nowrap"
+            >
+              Build Custom →
+            </button>
+          </div>
+        </>
+      )}
+
       {/* Custom script builder */}
       {isCustom && (
         <div className="grid min-h-150 grid-cols-[300px_1fr] gap-4">
@@ -232,10 +293,9 @@ export function ScriptStep({
             {/* Back button */}
             <button
               onClick={() =>
-                onSelectEdition(
-                  "tb",
-                  editionPools.tb.map((c) => c.id)
-                )
+                isTeensyville
+                  ? onClearScriptSource()
+                  : onSelectEdition("tb", editionPools.tb.map((c) => c.id))
               }
               className="border-subtle text-muted font-body cursor-pointer self-start rounded-[5px] border bg-transparent px-3 py-1.25 text-base"
             >
@@ -274,13 +334,18 @@ export function ScriptStep({
                 {counts.townsfolk < tfMin && (
                   <div className="font-body text-amber text-sm">
                     ⚡ Add more Townsfolk —{" "}
-                    {hasBaron
-                      ? "7 minimum with Baron in play (Baron replaces 2 TF with Outsiders)."
-                      : "9 minimum to support a 7-player game, 12 for a full script (9 + 3 bluffs)."}
+                    {isTeensyville
+                      ? "5 minimum for a Teensyville script."
+                      : hasBaron
+                        ? "7 minimum with Baron in play (Baron replaces 2 TF with Outsiders)."
+                        : "9 minimum to support a 7-player game, 12 for a full script (9 + 3 bluffs)."}
                   </div>
                 )}
                 {counts.minion === 0 && <div className="font-body text-amber text-sm">⚡ Add at least 1 Minion.</div>}
-                {hasBaron && counts.townsfolk >= tfMin && (
+                {isTeensyville && counts.outsider === 0 && (
+                  <div className="font-body text-amber text-sm">⚡ Add at least 1 Outsider for Teensyville.</div>
+                )}
+                {!isTeensyville && hasBaron && counts.townsfolk >= tfMin && (
                   <div className="font-body text-outsider text-sm">
                     ⚙ Baron shifts 2 Townsfolk slots to Outsiders in every game — target 11 TF and 6 OS for full
                     coverage.
@@ -288,15 +353,17 @@ export function ScriptStep({
                 )}
                 {counts.demon > 1 && (
                   <div className="font-body text-muted text-sm">
-                    💡 Multiple demons ({counts.demon}) — each game uses exactly 1. More options is fine.
+                    Multiple demons ({counts.demon}) — each game uses exactly 1. More options is fine.
                   </div>
                 )}
                 {valid && (
                   <div className="font-body text-tip text-sm">
                     ✓ Script is playable.
-                    {counts.townsfolk < TARGETS.townsfolk
-                      ? ` Add ${TARGETS.townsfolk - counts.townsfolk} more Townsfolk for full player range.`
-                      : " Ready for all player counts."}
+                    {isTeensyville
+                      ? " Ready for 5–6 player games."
+                      : counts.townsfolk < TARGETS.townsfolk
+                        ? ` Add ${TARGETS.townsfolk - counts.townsfolk} more Townsfolk for full player range.`
+                        : " Ready for all player counts."}
                   </div>
                 )}
               </div>
@@ -308,7 +375,7 @@ export function ScriptStep({
                     Supported Player Counts
                   </div>
                   <div className="flex flex-wrap gap-1">
-                    {getSupportedPlayerCounts(scriptIds, allCharacters).map((entry) => (
+                    {getSupportedPlayerCounts(scriptIds, allCharacters, scriptType).map((entry) => (
                       <div
                         key={entry.playerCount}
                         title={

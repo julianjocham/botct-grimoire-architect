@@ -59,7 +59,7 @@ export function DashboardStep({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <div className="font-display text-parchment text-xl tracking-[0.04em]">
-            {EDITIONS[scriptSource ?? "custom"]}
+            {EDITIONS.find((ed) => ed.key === scriptSource)?.name ?? "Custom Script"}
           </div>
           <div className="font-body text-muted mt-0.5 text-base">
             {playerCount} players · {coreGameIds.length} characters
@@ -273,7 +273,7 @@ export function DashboardStep({
       <div className="print-only hidden">
         <div className="p-8 font-[Georgia,serif] text-black">
           <h1 className="mb-1 border-b-2 border-black pb-2 text-[24px]">
-            Blood on the Clocktower — {EDITIONS[scriptSource ?? "custom"]}
+            Blood on the Clocktower — {EDITIONS.find((ed) => ed.key === scriptSource)?.name ?? "Custom Script"}
           </h1>
           <p className="text-muted mb-6 text-sm">
             {playerCount} players · {new Date().toLocaleDateString()}

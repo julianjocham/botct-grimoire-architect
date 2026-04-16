@@ -11,6 +11,7 @@ import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 
 const initialState: GrimoireState = {
   step: "script",
+  scriptType: "full",
   scriptSource: null,
   scriptIds: [],
   playerCount: null,
@@ -22,6 +23,17 @@ const initialState: GrimoireState = {
 
 function reducer(state: GrimoireState, action: GrimoireAction): GrimoireState {
   switch (action.type) {
+    case "SET_SCRIPT_TYPE":
+      return {
+        ...state,
+        scriptType: action.scriptType,
+        scriptSource: null,
+        scriptIds: [],
+        gameIds: [],
+        playerCount: null
+      };
+    case "CLEAR_SCRIPT_SOURCE":
+      return { ...state, scriptSource: null, scriptIds: [], gameIds: [], playerCount: null };
     case "SELECT_EDITION":
       return {
         ...state,
@@ -82,7 +94,7 @@ function reducer(state: GrimoireState, action: GrimoireAction): GrimoireState {
 
 export default function Home() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { step, scriptSource, scriptIds, playerCount, gameIds, nightPhase, searchQuery, detailCharacterId } = state;
+  const { step, scriptType, scriptSource, scriptIds, playerCount, gameIds, nightPhase, searchQuery, detailCharacterId } = state;
 
   // Step 1 custom: context is the script being built.
   // Steps 2 + 3: context is the in-game characters — counters, interactions, and
@@ -163,11 +175,14 @@ export default function Home() {
       <div className="flex-1">
         {step === "script" && (
           <ScriptStep
+            scriptType={scriptType}
             scriptSource={scriptSource}
             scriptIds={scriptIds}
             allCharacters={allCharacters}
             editionPools={editionPools}
             searchQuery={searchQuery}
+            onSetScriptType={(type) => dispatch({ type: "SET_SCRIPT_TYPE", scriptType: type })}
+            onClearScriptSource={() => dispatch({ type: "CLEAR_SCRIPT_SOURCE" })}
             onSelectEdition={(ed, ids) => dispatch({ type: "SELECT_EDITION", edition: ed, ids })}
             onSelectCustom={() => dispatch({ type: "SELECT_CUSTOM" })}
             onToggleScriptChar={(id) => dispatch({ type: "TOGGLE_SCRIPT_CHAR", id })}
@@ -179,6 +194,7 @@ export default function Home() {
 
         {step === "setup" && (
           <GameSetupStep
+            scriptType={scriptType}
             scriptSource={scriptSource}
             scriptIds={scriptIds}
             playerCount={playerCount}

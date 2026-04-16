@@ -1,11 +1,15 @@
 import { filterByTeam } from "../utils/filters";
 import playerCountsData from "@/data/playerCounts.json";
-import { Character, PlayerCountEntry } from "@/types";
+import { Character, PlayerCountEntry, ScriptType } from "@/types";
 
 /**
  * Get supported player counts for a script
  */
-export function getSupportedPlayerCounts(selectedIds: string[], characters: Character[]): PlayerCountEntry[] {
+export function getSupportedPlayerCounts(
+  selectedIds: string[],
+  characters: Character[],
+  scriptType: ScriptType = "full"
+): PlayerCountEntry[] {
   const selected = characters.filter((c) => selectedIds.includes(c.id));
 
   const tfCount = filterByTeam(selected, "townsfolk").length;
@@ -22,11 +26,13 @@ export function getSupportedPlayerCounts(selectedIds: string[], characters: Char
 
   const results: PlayerCountEntry[] = [];
 
-  for (let pc = 5; pc <= 15; pc++) {
+  const maxPc = scriptType === "teensyville" ? 6 : 15;
+
+  for (let pc = 5; pc <= maxPc; pc++) {
     const req = counts[String(pc)];
 
-    // Script needs req.townsfolk in-play TF + 3 unused TF for demon bluffs
-    const needTF = req.townsfolk + 3;
+    // Teensyville scripts don't require the 3 extra bluff TF slots
+    const needTF = scriptType === "teensyville" ? req.townsfolk : req.townsfolk + 3;
     const needOS = req.outsider;
     const needMn = req.minion;
 

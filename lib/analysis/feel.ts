@@ -1,5 +1,5 @@
 import { filterByTags } from "../utils/filters";
-import { Character, ScriptFeel } from "@/types";
+import { Character, CharacterTag, ScriptFeel } from "@/types";
 
 /**
  * Calculate information level (info-producing good roles)
@@ -35,7 +35,7 @@ function calculateLethalityLevel(selected: Character[]): ScriptFeel["lethalityLe
  * Calculate chaos level (character swaps, alignment changes, madness)
  */
 function calculateChaosLevel(selected: Character[]): ScriptFeel["chaosLevel"] {
-  const chaosTags = ["character-change", "alignment-change", "madness"] as const;
+  const chaosTags = ["character-change", "alignment-change", "madness"] as CharacterTag[];
   const chaosRoles = filterByTags(selected, chaosTags).length;
 
   if (chaosRoles >= 4) return "Pandemonium";

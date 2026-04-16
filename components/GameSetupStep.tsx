@@ -249,6 +249,7 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export function GameSetupStep({
+  scriptType,
   scriptSource,
   scriptIds,
   playerCount,
@@ -297,7 +298,7 @@ export function GameSetupStep({
               Step 2 — Set Up Your Game
             </h2>
             <div className="font-body text-dim text-base">
-              Script: <span className="text-gold">{EDITIONS[scriptSource ?? "custom"]}</span>
+              Script: <span className="text-gold">{EDITIONS.find((ed) => ed.key === scriptSource)?.name ?? "Custom"}</span>
               {" · "}
               {scriptIds.length} characters available
             </div>
@@ -311,7 +312,10 @@ export function GameSetupStep({
         <div>
           <SectionLabel className="mb-2.5">How many players?</SectionLabel>
           <div className="flex flex-wrap gap-1.5">
-            {Array.from({ length: 16 }, (_, i) => i + 5).map((n) => {
+            {Array.from(
+              { length: scriptType === "teensyville" ? 2 : 16 },
+              (_, i) => i + 5
+            ).map((n) => {
               const active = playerCount === n;
               const isTraveler = n > 15;
               return (
