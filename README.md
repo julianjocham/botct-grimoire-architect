@@ -26,11 +26,13 @@ Grimoire Architect is a 3-step wizard that guides you from script selection thro
 Select a pre-built script or create a custom one from the full character pool.
 
 **Pre-Built Options:**
+
 - **3 Official Edition Scripts** — Trouble Brewing (Beginner), Bad Moon Rising (Intermediate), and Sects & Violets (Advanced), each with difficulty badges and play style descriptions
 - **17 Community-Designed Premade Scripts** — hand-crafted scripts for quick setup, available in both full and Teensyville variants
 - **Carousel / Experimental Characters** — optional pool of community-created and experimental characters to mix in
 
 **Custom Script Builder:**
+
 - Mix and match characters from all editions and the carousel
 - Live composition dashboard shows Townsfolk, Outsiders, Minions, Demon counts
 - Validates against team size requirements (supports 5–20 players)
@@ -64,12 +66,14 @@ Configure which characters appear in tonight's specific game.
 View and manage everything needed to run the game.
 
 **At-a-Glance Metrics:**
+
 - **Team Strength Bars** — Composite Good vs. Evil power, plus individual character strength indicators
 - **Game Feel Profile** — Visual progress for Info Level, Lethality, Chaos, and ST Load
 - **Night Complexity Badge** — Difficulty rating (Beginner/Intermediate/Advanced/Expert) with step counts
 - **Health Dashboard** — Team strength, warning count, and category coverage grid on one screen
 
 **Night Order:**
+
 - **First Night sequence** — Exact action order with official reminder text for each character
 - **Other Nights sequence** — Order for subsequent nights
 - **Interaction Hints** — Context callouts showing which characters interact during each step
@@ -77,6 +81,7 @@ View and manage everything needed to run the game.
 - Numbered steps with character tokens for quick visual reference
 
 **Interaction Analysis Feed:**
+
 - All character pairings sorted by severity:
   - **⚠ Critical** — Broken combos or impossible situations
   - **⚡ Important** — Powerful synergies or dangerous power spikes
@@ -85,12 +90,14 @@ View and manage everything needed to run the game.
 - Color-coded by severity with character chips for quick scanning
 
 **Roster Display:**
+
 - Characters listed by team (Good/Evil/Traveler)
 - Visual team separation with color coding
 - Role adjustment indicators for setup-modifiers
 - Quick-reference character strength values
 
 **Printable Script:**
+
 - Print-friendly layout (Ctrl+P / Cmd+P) with:
   - Script title, player count, and generation date
   - Two-column night order (First Night and Other Nights side-by-side)
@@ -111,6 +118,7 @@ View and manage everything needed to run the game.
 - **11 Loric** — Extended character pool
 
 Each character includes:
+
 - Full ability text and complexity rating
 - Base strength value (−100 to +100)
 - Strength modifiers based on script composition
@@ -126,12 +134,12 @@ Each character includes:
 
 How the game will play, updated live as you build the roster:
 
-| Dimension | Spectrum | What It Means |
-|-----------|----------|---------------|
-| **Info Level** | Blind → Low → Moderate → High → Flooded | How much deductive information Good team gets from their roles |
-| **Lethality** | Gentle → Standard → Deadly → Massacre | How many players Evil kills per night on average |
-| **Chaos** | Orderly → Moderate → Chaotic → Pandemonium | How unpredictable and hard to read the game feels |
-| **ST Load** | Light → Moderate → Heavy → Exhausting | How many night actions the Storyteller must manage |
+| Dimension      | Spectrum                                   | What It Means                                                  |
+| -------------- | ------------------------------------------ | -------------------------------------------------------------- |
+| **Info Level** | Blind → Low → Moderate → High → Flooded    | How much deductive information Good team gets from their roles |
+| **Lethality**  | Gentle → Standard → Deadly → Massacre      | How many players Evil kills per night on average               |
+| **Chaos**      | Orderly → Moderate → Chaotic → Pandemonium | How unpredictable and hard to read the game feels              |
+| **ST Load**    | Light → Moderate → Heavy → Exhausting      | How many night actions the Storyteller must manage             |
 
 ### Strength System
 
@@ -145,16 +153,19 @@ How the game will play, updated live as you build the roster:
 Real-time warnings and recommendations:
 
 **Critical Issues** ⚠
+
 - Missing demon or townsfolk team
 - Impossible character assembly for selected player count
 
 **Important Warnings** ⚡
+
 - Too few townsfolk, outsiders, or minions for balance
 - Information density (too much or too little deductive power)
 - Missing key ability types (no protection roles, no disruption)
 - Setup modifier conflicts or excess
 
 **Tips & Suggestions** 💡
+
 - Category gaps — characters recommended to fill missing ability archetypes
 - No day abilities (consider adding discussion-phase powers)
 - Misinformation coverage (social deception roles)
@@ -182,6 +193,7 @@ Visual checklist of 13 ability archetypes:
 ### Jinx System
 
 **131 official Djinn Jinxes** codified:
+
 - Cross-character rules and restrictions (e.g., "If Marionette is alive, add Atheist to seating...")
 - Automatic detection and flagging during roster assembly
 - Displayed in interaction feed with official rule text
@@ -201,12 +213,14 @@ All character pairings in your game analyzed and sorted by impact:
 ## Warnings & Recommendations
 
 **Smart Composition Validator:**
+
 - Flags issues as you build the roster (real-time feedback)
 - Severity-based prioritization (critical → important → tip)
 - Specific recommendations for which characters to add to fix gaps
 - Explains why each warning matters for game experience
 
 **Example Warnings:**
+
 - "No protection roles — Good team has no way to save players from Evil kills"
 - "Information is flooded — Good team will know too much and game will feel easy"
 - "Setup modifier conflict — Baron + Godfather can't both shift slots in the same game"
@@ -241,4 +255,4 @@ This project is licensed under the **MIT License** — you're free to use, modif
 
 **Icons**: Character icons are dynamically loaded from [https://script.bloodontheclocktower.com/src/assets/icons](https://script.bloodontheclocktower.com/src/assets/icons) at runtime. This approach respects The Pandemonium Institute's copyright and follows their [community-created content policy](https://bloodontheclocktower.com/pages/community-created-content-policy). No icon files are bundled with this project.
 
-This is a community-created tool for *Blood on the Clocktower*, an intellectual property of The Pandemonium Institute. It is not affiliated with or endorsed by TPI.
+This is a community-created tool for _Blood on the Clocktower_, an intellectual property of The Pandemonium Institute. It is not affiliated with or endorsed by TPI.

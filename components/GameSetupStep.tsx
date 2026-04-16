@@ -301,9 +301,9 @@ export function GameSetupStep({
     .map(([, mod]) => mod.label);
 
   return (
-    <div className="mx-auto grid max-w-325 grid-cols-[1fr_300px] items-start gap-5 px-6 py-7">
+    <div className="mx-auto grid max-w-325 grid-cols-[1fr_320px] items-start gap-6 px-6 py-8">
       {/* ── Left: selection ── */}
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-7">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div>
@@ -320,6 +320,23 @@ export function GameSetupStep({
             ← Change Script
           </Button>
         </div>
+
+        {/* Top controls bar */}
+        {playerCount && (
+          <div className="flex justify-end pt-1">
+            <button
+              onClick={onContinue}
+              disabled={!isComplete}
+              className={`font-display rounded-lg border-none px-7 py-3 text-base tracking-[0.06em] ${isComplete ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#333]"}`}
+            >
+              {isComplete
+                ? "View Dashboard →"
+                : coreComplete && neededTravelers > 0
+                  ? `Select ${neededTravelers - selectedTravelerIds.length} more traveler${neededTravelers - selectedTravelerIds.length !== 1 ? "s" : ""}…`
+                  : `Select ${totalNeeded - coreGameIds.length} more character${totalNeeded - coreGameIds.length !== 1 ? "s" : ""}…`}
+            </button>
+          </div>
+        )}
 
         {/* Player count */}
         <div>
@@ -366,14 +383,14 @@ export function GameSetupStep({
         {playerCount && req && (
           <>
             {/* Distribution */}
-            <Panel>
-              <div className="mb-3 flex items-center justify-between">
-                <div className="font-display text-gold text-sm tracking-[0.06em] uppercase">
-                  {playerCount}-Player Distribution
+            <Panel className="flex-shrink-0">
+              <div className="mb-2 flex items-center justify-between">
+                <div className="font-display text-gold text-2xs tracking-[0.06em] uppercase">
+                  {playerCount}p Distribution
                 </div>
-                {isComplete && <div className="font-display text-tip text-xs">✓ Roster Complete</div>}
+                {isComplete && <div className="font-display text-tip text-2xs">✓ Complete</div>}
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-1.5">
                 {TEAM_ORDER.map((team) => {
                   const needed = req[team];
                   const have = gameCounts[team];
@@ -382,35 +399,35 @@ export function GameSetupStep({
                   return (
                     <div
                       key={team}
-                      className="flex-1 rounded-lg border-2 bg-[#0a0a14] px-1.5 py-2.5 text-center transition-[border-color] duration-200"
+                      className="flex-1 rounded-lg border-2 bg-[#0a0a14] px-1 py-1.5 text-center transition-[border-color] duration-200"
                       style={{ borderColor: done ? c.border : "#2a2a3a" }}
                     >
-                      <div className="font-mono text-[22px] leading-none" style={{ color: done ? c.text : "#333" }}>
+                      <div className="font-mono text-lg leading-none" style={{ color: done ? c.text : "#333" }}>
                         {have}
                       </div>
-                      <div className="text-2xs my-0.5 font-mono text-[#333]">/ {needed}</div>
-                      <div className="font-body text-dim text-xs capitalize">{team}</div>
+                      <div className="text-3xs my-0.5 font-mono text-[#333]">/ {needed}</div>
+                      <div className="font-body text-dim text-3xs capitalize">{team}</div>
                     </div>
                   );
                 })}
                 {neededTravelers > 0 && (
                   <div
-                    className={`flex-1 rounded-lg border-2 bg-[#0a0a14] px-1.5 py-2.5 text-center transition-[border-color] duration-200 ${travelersComplete ? "border-[#4a3a20]" : "border-subtle"}`}
+                    className={`flex-1 rounded-lg border-2 bg-[#0a0a14] px-1 py-1.5 text-center transition-[border-color] duration-200 ${travelersComplete ? "border-[#4a3a20]" : "border-subtle"}`}
                   >
                     <div
-                      className={`font-mono text-[22px] leading-none ${travelersComplete ? "text-gold" : "text-[#333]"}`}
+                      className={`font-mono text-lg leading-none ${travelersComplete ? "text-gold" : "text-[#333]"}`}
                     >
                       {selectedTravelerIds.length}
                     </div>
-                    <div className="text-2xs my-0.5 font-mono text-[#333]">/ {neededTravelers}</div>
-                    <div className="font-body text-dim text-xs">Travelers</div>
+                    <div className="text-3xs my-0.5 font-mono text-[#333]">/ {neededTravelers}</div>
+                    <div className="font-body text-dim text-3xs">Travelers</div>
                   </div>
                 )}
               </div>
               {activeModifiers.length > 0 && (
-                <div className="mt-2.5 flex flex-col gap-0.75">
+                <div className="mt-1.5 flex flex-col gap-0.5">
                   {activeModifiers.map((note, i) => (
-                    <div key={i} className="font-body text-minion text-sm">
+                    <div key={i} className="font-body text-minion text-2xs">
                       ⚙ {note}
                     </div>
                   ))}
@@ -419,27 +436,26 @@ export function GameSetupStep({
             </Panel>
 
             {/* Character selection */}
-            <div className="flex flex-col gap-4">
-              <div className="font-display text-gold text-xs tracking-[0.08em] uppercase">
-                Choose Characters for This Game
-              </div>
+            <div className="flex flex-col gap-3">
+              <div className="font-display text-gold text-2xs tracking-[0.08em] uppercase">Choose Characters</div>
 
               {TEAM_ORDER.map((team) => {
-                const chars = scriptChars.filter((c) => c.team === team);
+                let chars = scriptChars.filter((c) => c.team === team);
                 const needed = req[team];
                 const have = gameCounts[team];
                 const isFull = have >= needed;
                 const c = TEAM_COLORS[team];
                 if (chars.length === 0) return null;
+                chars = chars.sort((a, b) => a.name.localeCompare(b.name));
 
                 return (
                   <div key={team}>
-                    <div className="mb-2 flex items-center gap-2.5">
-                      <div className="font-display text-sm tracking-[0.06em] uppercase" style={{ color: c.text }}>
+                    <div className="mb-1.5 flex items-center gap-2">
+                      <div className="font-display text-xs tracking-[0.06em] uppercase" style={{ color: c.text }}>
                         {TEAM_LABEL[team]}
                       </div>
                       <div
-                        className="rounded-[10px] bg-[#0a0a14] px-2.5 py-0.5 font-mono text-xs"
+                        className="text-2xs rounded-[8px] bg-[#0a0a14] px-1.5 py-0.25 font-mono"
                         style={{
                           color: isFull ? c.text : "#555",
                           border: `1px solid ${isFull ? c.border : "#2a2a3a"}`
@@ -447,67 +463,89 @@ export function GameSetupStep({
                       >
                         {have} / {needed}
                       </div>
-                      {needed === 0 && <div className="font-body text-dimmer text-xs">(none needed at this count)</div>}
+                      {needed === 0 && <div className="font-body text-dimmer text-2xs">(not needed)</div>}
                     </div>
 
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-2.5">
                       {chars.map((char) => {
                         const inGame = gameIds.includes(char.id);
                         const blocked = !inGame && isFull;
-                        // Counter badge: how many of this char's counters are in the game
                         const countersInGame = (char.counters ?? []).filter((id) => gameIds.includes(id)).length;
-                        // Synergy badge: how many synergies this char has with already-selected game chars
                         const synergiesInGame = allInteractions.filter(
                           (i: Interaction) =>
                             i.type === "synergy" &&
                             ((i.a === char.id && gameIds.includes(i.b)) || (i.b === char.id && gameIds.includes(i.a)))
                         );
-                        const synergySummary =
-                          synergiesInGame.length > 0 ? synergiesInGame.map((i: Interaction) => i.title).join("\n") : "";
+                        const eff = calculateEffectiveStrength(char.id, gameIds, allCharacters);
+                        const s = eff.effectiveStrength;
+                        const barColor = s > 30 ? "#2a7fd4" : s > 0 ? "#5b9bd5" : s > -30 ? "#c0392b" : "#8b1a1a";
 
                         return (
                           <div
                             key={char.id}
-                            className="flex overflow-hidden rounded-[7px] transition-all duration-100"
+                            className="flex overflow-hidden rounded-[8px] border-2 transition-all duration-100"
                             style={{
-                              border: `1px solid ${inGame ? c.border : synergiesInGame.length > 0 ? "#2a4a20" : "#2a2a3a"}`,
-                              opacity: blocked ? 0.3 : 1
+                              border: `2px solid ${inGame ? c.border : synergiesInGame.length > 0 ? "#2a4a20" : "#2a2a3a"}`,
+                              opacity: blocked ? 0.3 : 1,
+                              minWidth: "240px"
                             }}
                           >
-                            <button
-                              onClick={() => onDetail(char.id)}
-                              className="font-display flex cursor-pointer items-center gap-1.25 border-none px-2.5 py-1.5 text-sm"
+                            <div
+                              className="flex flex-1 gap-2 border-none px-2.5 py-2"
                               style={{
-                                background: inGame ? c.bg : synergiesInGame.length > 0 ? "#0d1a0d" : "#14141f",
-                                borderRight: `1px solid ${inGame ? c.border : "#2a2a3a"}`,
-                                color: inGame ? c.text : "#666"
+                                background: inGame ? c.bg : synergiesInGame.length > 0 ? "#0d1a0d" : "#14141f"
                               }}
                             >
-                              {char.name}
-                              {synergiesInGame.length > 0 && !inGame && (
-                                <span
-                                  title={synergySummary}
-                                  className="text-3xs cursor-help rounded-[3px] border border-[#2a4a20] bg-[#0d1a0d] px-0.75 font-mono text-[#4a9a4a]"
-                                >
-                                  ✦{synergiesInGame.length}
-                                </span>
-                              )}
-                              {countersInGame > 0 && (
-                                <span className="text-gold text-3xs rounded-[3px] border border-[#7a5a00] bg-[#2a1a00] px-0.75 font-mono">
-                                  ⚔{countersInGame}
-                                </span>
-                              )}
-                            </button>
+                              <CharacterIcon
+                                characterId={char.id}
+                                edition={char.edition}
+                                team={char.team}
+                                alt={char.name}
+                                variant="token"
+                                className="size-12 shrink-0"
+                              />
+                              <button
+                                onClick={() => onDetail(char.id)}
+                                className="font-display flex flex-1 cursor-pointer flex-col gap-1.5 border-none p-0 text-sm"
+                                style={{
+                                  background: "transparent",
+                                  color: inGame ? c.text : "#666"
+                                }}
+                              >
+                                <span className="font-display text-base leading-tight font-bold">{char.name}</span>
+                                <div className="h-1 w-full overflow-hidden rounded-xs bg-[#0a0a14]">
+                                  <div
+                                    className="h-full rounded-xs"
+                                    style={{
+                                      width: `${(Math.abs(s) / 100) * 100}%`,
+                                      background: barColor
+                                    }}
+                                  />
+                                </div>
+                                <div className="text-2xs flex gap-1">
+                                  <span style={{ color: barColor }} className="font-mono">
+                                    {s > 0 ? "+" : ""}
+                                    {s}
+                                  </span>
+                                  {countersInGame > 0 && <span>⚔{countersInGame}</span>}
+                                  {synergiesInGame.length > 0 && !inGame && <span>✦{synergiesInGame.length}</span>}
+                                </div>
+                              </button>
+                            </div>
                             <button
                               onClick={() => {
                                 if (!blocked) onToggleGameChar(char.id);
                               }}
                               disabled={blocked}
-                              className="border-none px-2.5 py-1.5 text-base"
+                              className="font-display border-none px-4 py-3 text-3xl font-bold"
                               style={{
-                                background: inGame ? c.bg : "#14141f",
-                                color: inGame ? c.text : "#555",
-                                cursor: blocked ? "default" : "pointer"
+                                background: inGame ? c.bg : synergiesInGame.length > 0 ? "#0d1a0d" : "#14141f",
+                                color: inGame ? c.text : synergiesInGame.length > 0 ? "#4a9a4a" : "#888",
+                                cursor: blocked ? "default" : "pointer",
+                                minWidth: "60px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center"
                               }}
                             >
                               {inGame ? "−" : "+"}
@@ -523,30 +561,30 @@ export function GameSetupStep({
 
             {/* Traveler picker — only when 16+ players and edition has travelers */}
             {neededTravelers > 0 && editionTravelers.length > 0 && (
-              <div className="flex flex-col gap-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="font-display text-gold text-xs tracking-[0.08em] uppercase">Travelers</div>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <div className="font-display text-gold text-2xs tracking-[0.08em] uppercase">Travelers</div>
                   <div
-                    className={`rounded-[10px] bg-[#0a0a14] px-2.5 py-0.5 font-mono text-xs ${travelersComplete ? "text-gold border border-[#4a3a20]" : "text-dim border-subtle border"}`}
+                    className={`text-2xs rounded-[8px] bg-[#0a0a14] px-1.5 py-0.25 font-mono ${travelersComplete ? "text-gold border border-[#4a3a20]" : "text-dim border-subtle border"}`}
                   >
                     {selectedTravelerIds.length} / {neededTravelers}
                   </div>
-                  <div className="font-body text-dimmer text-xs">
-                    (choose {neededTravelers} traveler{neededTravelers !== 1 ? "s" : ""})
-                  </div>
                 </div>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2.5">
                   {editionTravelers.map((traveler) => {
                     const inGame = gameIds.includes(traveler.id);
                     const blocked = !inGame && travelersComplete;
                     return (
                       <div
                         key={traveler.id}
-                        className={`flex overflow-hidden rounded-[7px] transition-all duration-100 ${inGame ? "border border-[#4a3a20]" : "border-subtle border"} ${blocked ? "opacity-30" : "opacity-100"}`}
+                        className={`flex overflow-hidden rounded-[8px] border-2 transition-all duration-100 ${inGame ? "border-[#4a3a20]" : "border-subtle"} ${blocked ? "opacity-30" : "opacity-100"}`}
+                        style={{ minWidth: "240px" }}
                       >
-                        <button
-                          onClick={() => onDetail(traveler.id)}
-                          className={`font-display flex cursor-pointer items-center gap-2 border-none px-2.5 py-1.5 text-sm ${inGame ? "text-gold border-r border-r-[#4a3a20] bg-[#1a1500]" : "bg-surface text-muted border-r-subtle border-r"}`}
+                        <div
+                          className="flex flex-1 gap-2 border-none px-2.5 py-2"
+                          style={{
+                            background: inGame ? "#1a1500" : "#14141f"
+                          }}
                         >
                           <CharacterIcon
                             characterId={traveler.id}
@@ -554,16 +592,34 @@ export function GameSetupStep({
                             team={traveler.team}
                             alt={traveler.name}
                             variant="token"
-                            className="size-5"
+                            className="size-12 shrink-0"
                           />
-                          {traveler.name}
-                        </button>
+                          <button
+                            onClick={() => onDetail(traveler.id)}
+                            className="font-display flex flex-1 cursor-pointer flex-col border-none p-0 text-sm"
+                            style={{
+                              background: "transparent",
+                              color: inGame ? "#d4a832" : "#666"
+                            }}
+                          >
+                            <span className="font-display text-base font-bold">{traveler.name}</span>
+                          </button>
+                        </div>
                         <button
                           onClick={() => {
                             if (!blocked) onToggleGameChar(traveler.id);
                           }}
                           disabled={blocked}
-                          className={`border-none px-2.5 py-1.5 text-base ${inGame ? "text-gold bg-[#1a1500]" : "bg-surface text-dim"} ${blocked ? "cursor-default" : "cursor-pointer"}`}
+                          className="font-display border-none px-4 py-3 text-3xl font-bold"
+                          style={{
+                            background: inGame ? "#1a1500" : "#14141f",
+                            color: inGame ? "#d4a832" : "#888",
+                            cursor: blocked ? "default" : "pointer",
+                            minWidth: "60px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center"
+                          }}
                         >
                           {inGame ? "−" : "+"}
                         </button>
@@ -573,21 +629,6 @@ export function GameSetupStep({
                 </div>
               </div>
             )}
-
-            {/* Continue */}
-            <div className="flex justify-end pt-2">
-              <button
-                onClick={onContinue}
-                disabled={!isComplete}
-                className={`font-display rounded-lg border-none px-7 py-3 text-base tracking-[0.06em] ${isComplete ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#333]"}`}
-              >
-                {isComplete
-                  ? "View Dashboard →"
-                  : coreComplete && neededTravelers > 0
-                    ? `Select ${neededTravelers - selectedTravelerIds.length} more traveler${neededTravelers - selectedTravelerIds.length !== 1 ? "s" : ""}…`
-                    : `Select ${totalNeeded - coreGameIds.length} more character${totalNeeded - coreGameIds.length !== 1 ? "s" : ""}…`}
-              </button>
-            </div>
           </>
         )}
 
@@ -599,8 +640,8 @@ export function GameSetupStep({
       </div>
 
       {/* ── Right: live analysis sidebar ── */}
-      <div className="bg-surface border-subtle sticky top-4 max-h-[calc(100vh-100px)] overflow-y-auto rounded-[10px] border p-3.5">
-        <SectionLabel className="mb-3">Live Analysis</SectionLabel>
+      <div className="bg-surface border-subtle sticky top-4 max-h-[calc(100vh-100px)] overflow-y-auto rounded-[10px] border p-4">
+        <SectionLabel className="mb-4">Live Analysis</SectionLabel>
         <AnalysisSidebar gameIds={gameIds} allCharacters={allCharacters} />
       </div>
     </div>

@@ -5,7 +5,6 @@ import { CharacterToken } from "./common/CharacterToken";
 import { EDITIONS } from "@/constants/info";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
-import { getSupportedPlayerCounts } from "@/lib/analysis/playerCounts";
 import { Panel } from "./ui/Panel";
 import premadeScriptsData from "@/data/premadeScripts.json";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
@@ -141,11 +140,9 @@ export function ScriptStep({
     : [];
 
   return (
-    <div className="mx-auto flex max-w-300 flex-col gap-8 px-6 py-8">
+    <div className="mx-auto flex max-w-300 flex-col gap-9 px-6 py-8">
       <div>
-        <h2 className="font-display text-parchment m-0 mb-1.5 text-2xl tracking-[0.04em]">
-          Step 1 — Choose Your Script
-        </h2>
+        <h2 className="font-display text-parchment m-0 mb-2 text-2xl tracking-[0.04em]">Step 1 — Choose Your Script</h2>
         <p className="font-body text-dim text-md m-0">
           A script is the set of characters available to appear in your game. Choose a pre-made script or build your
           own.
@@ -346,51 +343,9 @@ export function ScriptStep({
 
       {/* Custom script builder */}
       {isCustom && (
-        <div className="grid min-h-150 grid-cols-[300px_1fr] gap-4">
-          {/* Left: character pool */}
-          <div className="bg-surface border-subtle flex flex-col overflow-hidden rounded-[10px] border">
-            <div className="border-subtle border-b px-3 py-2.5">
-              <input
-                type="text"
-                placeholder="Search characters..."
-                value={searchQuery}
-                onChange={(e) => onSearch(e.target.value)}
-                className="bg-background text-parchment font-body box-border w-full rounded-md border border-[#3a3a4a] px-2.5 py-1.5 text-base outline-none"
-              />
-            </div>
-            <div className="flex flex-1 flex-col gap-2.5 overflow-y-auto px-2.5 py-2">
-              {TEAM_ORDER.map((team) => {
-                const chars = filteredPool.filter((c) => c.team === team);
-                if (chars.length === 0) return null;
-                return (
-                  <div key={team}>
-                    <div className="font-display text-gold border-subtle text-2xs mb-1.25 border-b pb-0.75 tracking-widest uppercase">
-                      {TEAM_LABEL[team]} ({chars.length})
-                    </div>
-                    <div className="flex flex-col gap-0.75">
-                      {chars.map((c) => {
-                        const eff = calculateEffectiveStrength(c.id, scriptIds, allCharacters);
-                        return (
-                          <CharacterToken
-                            key={c.id}
-                            character={c}
-                            selected={scriptIds.includes(c.id)}
-                            onToggle={onToggleScriptChar}
-                            onDetail={onDetail}
-                            effectiveStrength={eff.effectiveStrength}
-                          />
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Right: script summary */}
-          <div className="flex flex-col gap-3.5">
-            {/* Back button */}
+        <div className="flex flex-col gap-4">
+          {/* Top controls */}
+          <div className="flex items-center justify-between gap-4">
             <button
               onClick={() =>
                 isTeensyville
@@ -400,163 +355,153 @@ export function ScriptStep({
                       editionPools.tb.map((c) => c.id)
                     )
               }
-              className="border-subtle text-muted font-body cursor-pointer self-start rounded-[5px] border bg-transparent px-3 py-1.25 text-base"
+              className="border-subtle text-muted font-body cursor-pointer rounded-[5px] border bg-transparent px-3 py-1.25 text-base"
             >
               ← Back to Script Selection
             </button>
+            <button
+              onClick={onContinue}
+              disabled={!valid}
+              className={`font-display rounded-lg border-none px-7 py-3 text-base tracking-[0.06em] ${
+                valid ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#333]"
+              }`}
+            >
+              Set Up Game →
+            </button>
+          </div>
 
-            {/* Count dashboard */}
-            <Panel title={`Your Script — ${scriptIds.length} characters`}>
-              <div className="flex gap-2.5">
-                {TEAM_ORDER.map((team) => {
-                  const have = counts[team];
-                  const need = TARGETS[team];
-                  const ok = have >= need;
-                  const c = TEAM_COLORS[team];
-                  return (
-                    <div
-                      key={team}
-                      className="flex-1 rounded-[7px] bg-[#0a0a14] px-1 py-2 text-center"
-                      style={{ border: `1px solid ${ok ? c.border : "#2a2a3a"}` }}
-                    >
-                      <div className="font-mono text-xl" style={{ color: ok ? c.text : "#444" }}>
-                        {have}
-                      </div>
-                      <div className="text-dimmer text-3xs font-mono">/ {need}</div>
-                      <div className="font-body text-dim text-2xs mt-0.75 capitalize">{team}</div>
-                    </div>
-                  );
-                })}
+          {/* Main grid */}
+          <div className="grid min-h-150 grid-cols-[1fr_280px] gap-4">
+            {/* Left: character pool */}
+            <div className="bg-surface border-subtle flex flex-col overflow-hidden rounded-[10px] border">
+              <div className="border-subtle border-b px-3 py-2.5">
+                <input
+                  type="text"
+                  placeholder="Search characters..."
+                  value={searchQuery}
+                  onChange={(e) => onSearch(e.target.value)}
+                  className="bg-background text-parchment font-body box-border w-full rounded-md border border-[#3a3a4a] px-2.5 py-1.5 text-base outline-none"
+                />
               </div>
-
-              {/* Hint messages */}
-              <div className="mt-3 flex flex-col gap-1">
-                {counts.demon === 0 && (
-                  <div className="font-body text-blood-light text-sm">⚠ You need at least 1 Demon.</div>
-                )}
-                {counts.townsfolk < tfMin && (
-                  <div className="font-body text-amber text-sm">
-                    ⚡ Add more Townsfolk —{" "}
-                    {isTeensyville
-                      ? "5 minimum for a Teensyville script."
-                      : hasBaron
-                        ? "7 minimum with Baron in play (Baron replaces 2 TF with Outsiders)."
-                        : "9 minimum to support a 7-player game, 12 for a full script (9 + 3 bluffs)."}
-                  </div>
-                )}
-                {counts.minion === 0 && <div className="font-body text-amber text-sm">⚡ Add at least 1 Minion.</div>}
-                {isTeensyville && counts.outsider === 0 && (
-                  <div className="font-body text-amber text-sm">⚡ Add at least 1 Outsider for Teensyville.</div>
-                )}
-                {!isTeensyville && hasBaron && counts.townsfolk >= tfMin && (
-                  <div className="font-body text-outsider text-sm">
-                    ⚙ Baron shifts 2 Townsfolk slots to Outsiders in every game — target 11 TF and 6 OS for full
-                    coverage.
-                  </div>
-                )}
-                {counts.demon > 1 && (
-                  <div className="font-body text-muted text-sm">
-                    Multiple demons ({counts.demon}) — each game uses exactly 1. More options is fine.
-                  </div>
-                )}
-                {valid && (
-                  <div className="font-body text-tip text-sm">
-                    ✓ Script is playable.
-                    {isTeensyville
-                      ? " Ready for 5–6 player games."
-                      : counts.townsfolk < TARGETS.townsfolk
-                        ? ` Add ${TARGETS.townsfolk - counts.townsfolk} more Townsfolk for full player range.`
-                        : " Ready for all player counts."}
-                  </div>
-                )}
-              </div>
-
-              {/* Player count support grid */}
-              {scriptIds.length > 0 && (
-                <div className="mt-3.5">
-                  <div className="font-display text-dim text-3xs mb-1.5 tracking-[0.08em] uppercase">
-                    Supported Player Counts
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    {getSupportedPlayerCounts(scriptIds, allCharacters, scriptType).map((entry) => (
-                      <div
-                        key={entry.playerCount}
-                        title={
-                          entry.supported
-                            ? `${entry.playerCount}p: ${entry.required.townsfolk}TF ${entry.required.outsider}OS ${entry.required.minion}Mn ${entry.required.demon}Dm`
-                            : `${entry.playerCount}p: not enough characters`
-                        }
-                        className={`text-2xs flex h-5.5 w-6.5 items-center justify-center rounded-sm font-mono ${
-                          entry.supported
-                            ? "border border-[#2d6a4f] bg-[#0d1a0d] text-[#4a9a6a]"
-                            : "border border-[#222] bg-[#0a0a14] text-[#333]"
-                        }`}
-                      >
-                        {entry.playerCount}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </Panel>
-
-            {/* Script character list */}
-            {scriptIds.length > 0 && (
-              <Panel className="flex-1 overflow-y-auto">
-                <div className="font-display text-gold mb-3 text-sm tracking-[0.06em] uppercase">Script Contents</div>
+              <div className="flex flex-1 flex-col gap-3 overflow-y-auto px-3 py-2.5">
                 {TEAM_ORDER.map((team) => {
-                  const chars = scriptChars.filter((c) => c.team === team);
+                  let chars = filteredPool.filter((c) => c.team === team);
                   if (chars.length === 0) return null;
-                  const c = TEAM_COLORS[team];
+                  chars = chars.sort((a, b) => a.name.localeCompare(b.name));
                   return (
-                    <div key={team} className="mb-3">
-                      <div
-                        className="font-display text-2xs mb-1.25 tracking-[0.08em] uppercase"
-                        style={{ color: c.text }}
-                      >
+                    <div key={team}>
+                      <div className="font-display text-gold border-subtle text-2xs mb-1.5 border-b pb-1 tracking-widest uppercase">
                         {TEAM_LABEL[team]} ({chars.length})
                       </div>
-                      <div className="flex flex-wrap gap-1">
-                        {chars.map((char) => (
-                          <button
-                            key={char.id}
-                            onClick={() => onToggleScriptChar(char.id)}
-                            title={`Remove ${char.name} from script`}
-                            className="font-display flex cursor-pointer items-center gap-1.5 rounded-sm bg-[#1a1a2a] px-2 py-0.75 text-xs"
-                            style={{
-                              border: `1px solid ${c.border}`,
-                              color: c.text
-                            }}
-                          >
-                            <CharacterIcon
-                              characterId={char.id}
-                              edition={char.edition}
-                              team={char.team}
-                              alt={char.name}
-                              variant="token"
-                              className="size-4"
+                      <div className="grid grid-cols-3 gap-1.5">
+                        {chars.map((c) => {
+                          const eff = calculateEffectiveStrength(c.id, scriptIds, allCharacters);
+                          return (
+                            <CharacterToken
+                              key={c.id}
+                              character={c}
+                              selected={scriptIds.includes(c.id)}
+                              onToggle={onToggleScriptChar}
+                              onDetail={onDetail}
+                              effectiveStrength={eff.effectiveStrength}
                             />
-                            {char.name} ×
-                          </button>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                   );
                 })}
-              </Panel>
-            )}
+              </div>
+            </div>
 
-            {/* Continue */}
-            <div className="flex justify-end">
-              <button
-                onClick={onContinue}
-                disabled={!valid}
-                className={`font-display rounded-lg border-none px-7 py-3 text-base tracking-[0.06em] ${
-                  valid ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#333]"
-                }`}
-              >
-                Set Up Game →
-              </button>
+            {/* Right: script summary */}
+            <div className="flex flex-col gap-2.5 overflow-y-auto">
+              {/* Count dashboard */}
+              <Panel title={`Your Script — ${scriptIds.length}`} className="flex-shrink-0">
+                <div className="flex gap-1.5">
+                  {TEAM_ORDER.map((team) => {
+                    const have = counts[team];
+                    const need = TARGETS[team];
+                    const ok = have >= need;
+                    const c = TEAM_COLORS[team];
+                    return (
+                      <div
+                        key={team}
+                        className="flex-1 rounded-[5px] bg-[#0a0a14] px-0.75 py-1.5 text-center"
+                        style={{ border: `1px solid ${ok ? c.border : "#2a2a3a"}` }}
+                      >
+                        <div className="font-mono text-base leading-none" style={{ color: ok ? c.text : "#444" }}>
+                          {have}
+                        </div>
+                        <div className="text-dimmer text-3xs font-mono leading-none">/ {need}</div>
+                        <div className="font-body text-dim text-3xs mt-0.5 capitalize">{team}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Hint messages — condensed */}
+                <div className="text-2xs mt-2 flex flex-col gap-0.5">
+                  {counts.demon === 0 && <div className="font-body text-blood-light">⚠ Need Demon</div>}
+                  {counts.townsfolk < tfMin && (
+                    <div className="font-body text-amber">⚡ Add {tfMin - counts.townsfolk}+ Townsfolk</div>
+                  )}
+                  {counts.minion === 0 && <div className="font-body text-amber">⚡ Need Minion</div>}
+                  {isTeensyville && counts.outsider === 0 && (
+                    <div className="font-body text-amber">⚡ Need Outsider</div>
+                  )}
+                  {!isTeensyville && hasBaron && counts.townsfolk >= tfMin && (
+                    <div className="font-body text-outsider">⚙ Baron active</div>
+                  )}
+                  {valid && <div className="font-body text-tip">✓ Valid script</div>}
+                </div>
+              </Panel>
+
+              {/* Script character list — compact */}
+              {scriptIds.length > 0 && (
+                <Panel className="min-h-0 flex-1 overflow-y-auto">
+                  <div className="font-display text-gold text-2xs mb-2 tracking-[0.06em] uppercase">Contents</div>
+                  {TEAM_ORDER.map((team) => {
+                    const chars = scriptChars.filter((c) => c.team === team);
+                    if (chars.length === 0) return null;
+                    const c = TEAM_COLORS[team];
+                    return (
+                      <div key={team} className="mb-2">
+                        <div
+                          className="font-display text-3xs mb-0.75 tracking-[0.08em] uppercase"
+                          style={{ color: c.text }}
+                        >
+                          {TEAM_LABEL[team]} ({chars.length})
+                        </div>
+                        <div className="flex flex-wrap gap-0.75">
+                          {chars.map((char) => (
+                            <button
+                              key={char.id}
+                              onClick={() => onToggleScriptChar(char.id)}
+                              title={`Remove ${char.name}`}
+                              className="font-display text-2xs flex cursor-pointer items-center gap-0.75 rounded-xs bg-[#1a1a2a] px-1.5 py-0.5"
+                              style={{
+                                border: `1px solid ${c.border}`,
+                                color: c.text
+                              }}
+                            >
+                              <CharacterIcon
+                                characterId={char.id}
+                                edition={char.edition}
+                                team={char.team}
+                                alt={char.name}
+                                variant="token"
+                                className="size-3"
+                              />
+                              <span className="line-clamp-1">{char.name}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </Panel>
+              )}
             </div>
           </div>
         </div>
