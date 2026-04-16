@@ -2,7 +2,9 @@
   "washerwoman": {
     "stComplexity": 2,
     "abilityCategory": "info-start",
-    "tags": ["info-first-night"],
+    "tags": [
+      "info-first-night"
+    ],
     "strength": {
       "composite": 25,
       "peakPower": 10,
@@ -10,7 +12,13 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "If poisoned night 1, you choose which 2 players to show and which Townsfolk token — the info is fabricated but looks real.",
       "spy": "Spy can register as the Townsfolk shown, effectively 'confirming' the Spy as a good player.",
@@ -22,7 +30,9 @@
   "librarian": {
     "stComplexity": 2,
     "abilityCategory": "info-start",
-    "tags": ["info-first-night"],
+    "tags": [
+      "info-first-night"
+    ],
     "strength": {
       "composite": 20,
       "peakPower": 8,
@@ -30,7 +40,13 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "Same as Washerwoman — one-shot info, if poisoned it's wasted with no way to verify.",
       "spy": "Spy can register as the Outsider shown.",
@@ -41,7 +57,9 @@
   "investigator": {
     "stComplexity": 2,
     "abilityCategory": "info-start",
-    "tags": ["info-first-night"],
+    "tags": [
+      "info-first-night"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 12,
@@ -49,7 +67,13 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
     "counterDetail": {
       "recluse": "Recluse can register as the Minion shown — making Investigator 'confirm' a good player as evil. Devastating misdirection.",
       "spy": "Spy can register as any Minion to the Investigator.",
@@ -60,7 +84,9 @@
   "chef": {
     "stComplexity": 2,
     "abilityCategory": "info-start",
-    "tags": ["info-first-night"],
+    "tags": [
+      "info-first-night"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 12,
@@ -68,7 +94,13 @@
       "vulnerability": 0.3,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
     "counterDetail": {
       "spy": "Spy registers as good or evil at your discretion — can inflate or deflate the Chef number.",
       "recluse": "Recluse can register as evil, adding a false pair to the Chef count.",
@@ -79,7 +111,9 @@
   "empath": {
     "stComplexity": 3,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": 50,
       "peakPower": 18,
@@ -87,7 +121,14 @@
       "vulnerability": 0.4,
       "scalingBonus": 3
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "nodashii", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "nodashii",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "Must poison Empath every night to suppress recurring info — ties up the Poisoner permanently.",
       "spy": "Spy registers as good to Empath, hiding an evil neighbor. Very strong counter.",
@@ -99,7 +140,9 @@
   "fortuneteller": {
     "stComplexity": 3,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": 45,
       "peakPower": 16,
@@ -107,7 +150,13 @@
       "vulnerability": 0.4,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
     "counterDetail": {
       "recluse": "ST can make Recluse the red herring — Fortune Teller always gets 'Yes' when checking Recluse.",
       "poisoner": "If poisoned, you choose whether to show Yes or No regardless of truth.",
@@ -119,7 +168,10 @@
   "undertaker": {
     "stComplexity": 2,
     "abilityCategory": "info-conditional",
-    "tags": ["info-recurring", "info-conditional"],
+    "tags": [
+      "info-recurring",
+      "info-conditional"
+    ],
     "strength": {
       "composite": 40,
       "peakPower": 14,
@@ -127,7 +179,13 @@
       "vulnerability": 0.25,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
     "counterDetail": {
       "spy": "If Spy is executed, you may show any character token — perfect for supporting evil bluffs.",
       "recluse": "If Recluse is executed, you may show a Minion or Demon token."
@@ -137,7 +195,9 @@
   "monk": {
     "stComplexity": 3,
     "abilityCategory": "protection",
-    "tags": ["protection"],
+    "tags": [
+      "protection"
+    ],
     "strength": {
       "composite": 40,
       "peakPower": 15,
@@ -145,7 +205,13 @@
       "vulnerability": 0.25,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "assassin", "gossip", "po"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "assassin",
+      "gossip",
+      "po"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Monk's protection fails silently — protected player dies and Monk doesn't know.",
       "assassin": "Assassin kills through ALL protection. Monk cannot save the target.",
@@ -157,7 +223,9 @@
   "ravenkeeper": {
     "stComplexity": 2,
     "abilityCategory": "info-on-death",
-    "tags": ["info-on-death"],
+    "tags": [
+      "info-on-death"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 10,
@@ -165,7 +233,12 @@
       "vulnerability": 0.4,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "spy", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "If poisoned when killed at night, Ravenkeeper gets false info. Evil can time poison around the kill.",
       "spy": "Spy shows as any character to Ravenkeeper — powerful misdirection opportunity."
@@ -176,7 +249,10 @@
   "virgin": {
     "stComplexity": 2,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability", "once-per-game"],
+    "tags": [
+      "day-ability",
+      "once-per-game"
+    ],
     "strength": {
       "composite": 20,
       "peakPower": 20,
@@ -184,7 +260,10 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk"],
+    "counters": [
+      "poisoner",
+      "drunk"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Virgin's ability doesn't trigger — Townsfolk nominator doesn't die, which looks identical to an evil player nominating.",
       "drunk": "If Virgin is the Drunk, no trigger occurs even from Townsfolk nominators."
@@ -195,7 +274,11 @@
   "slayer": {
     "stComplexity": 1,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability", "once-per-game", "lethal-good"],
+    "tags": [
+      "day-ability",
+      "once-per-game",
+      "lethal-good"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 20,
@@ -203,7 +286,10 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk"],
+    "counters": [
+      "poisoner",
+      "drunk"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Slayer's shot does nothing — identical to choosing a non-demon. No way to tell if ability failed or target was wrong.",
       "drunk": "Drunk Slayer's shot never works."
@@ -213,7 +299,9 @@
   "soldier": {
     "stComplexity": 1,
     "abilityCategory": "protection",
-    "tags": ["protection"],
+    "tags": [
+      "protection"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 8,
@@ -221,7 +309,13 @@
       "vulnerability": 0.1,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "assassin", "gossip", "po"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "assassin",
+      "gossip",
+      "po"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Soldier dies to demon attack — their death proves a Poisoner is active.",
       "assassin": "Assassin kills through Soldier protection. This is the iconic interaction for this pair.",
@@ -232,7 +326,10 @@
   "mayor": {
     "stComplexity": 2,
     "abilityCategory": "protection",
-    "tags": ["protection", "once-per-game"],
+    "tags": [
+      "protection",
+      "once-per-game"
+    ],
     "strength": {
       "composite": 25,
       "peakPower": 18,
@@ -240,7 +337,11 @@
       "vulnerability": 0.2,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "assassin"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "assassin"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Mayor can die at night. Also, the 'no-execution win' condition doesn't work while poisoned.",
       "assassin": "Assassin can kill Mayor even when they would redirect the death."
@@ -250,7 +351,9 @@
   "butler": {
     "stComplexity": 2,
     "abilityCategory": "restriction",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": -10,
       "peakPower": 0,
@@ -265,11 +368,13 @@
   "drunk": {
     "stComplexity": 4,
     "abilityCategory": "restriction",
-    "tags": ["setup-modifier"],
+    "tags": [
+      "setup-modifier"
+    ],
     "strength": {
       "composite": -30,
       "peakPower": 0,
-      "reliability": 0.0,
+      "reliability": 0,
       "vulnerability": 0.5,
       "scalingBonus": 0
     },
@@ -281,7 +386,9 @@
   "recluse": {
     "stComplexity": 2,
     "abilityCategory": "info-disruption",
-    "tags": ["info-disruption"],
+    "tags": [
+      "info-disruption"
+    ],
     "strength": {
       "composite": -15,
       "peakPower": 10,
@@ -296,7 +403,9 @@
   "saint": {
     "stComplexity": 1,
     "abilityCategory": "execution-trap",
-    "tags": ["execution-trap"],
+    "tags": [
+      "execution-trap"
+    ],
     "strength": {
       "composite": -35,
       "peakPower": 0,
@@ -312,7 +421,9 @@
   "poisoner": {
     "stComplexity": 4,
     "abilityCategory": "info-disruption",
-    "tags": ["poison-drunk"],
+    "tags": [
+      "poison-drunk"
+    ],
     "strength": {
       "composite": -55,
       "peakPower": -18,
@@ -320,7 +431,10 @@
       "vulnerability": 0.3,
       "scalingBonus": -3
     },
-    "counters": ["courtier", "monk"],
+    "counters": [
+      "courtier",
+      "monk"
+    ],
     "counterDetail": {
       "courtier": "Courtier can drunk the Poisoner for 3 nights, completely removing all poison from the game temporarily."
     },
@@ -329,7 +443,9 @@
   "spy": {
     "stComplexity": 4,
     "abilityCategory": "info-disruption",
-    "tags": ["info-disruption"],
+    "tags": [
+      "info-disruption"
+    ],
     "strength": {
       "composite": -60,
       "peakPower": -15,
@@ -337,7 +453,10 @@
       "vulnerability": 0.2,
       "scalingBonus": -2
     },
-    "counters": ["poppygrower", "magician"],
+    "counters": [
+      "poppygrower",
+      "magician"
+    ],
     "counterDetail": {
       "poppygrower": "If Poppy Grower is alive, Minions and Demons don't know each other — the Spy still sees the Grimoire but there is no evil team coordination to leverage.",
       "magician": "Magician makes the Demon think a Minion is the Demon and vice versa, partially confusing Spy's intel."
@@ -348,7 +467,9 @@
   "scarletwoman": {
     "stComplexity": 3,
     "abilityCategory": "demon-resilience",
-    "tags": ["demon-resilience"],
+    "tags": [
+      "demon-resilience"
+    ],
     "strength": {
       "composite": -45,
       "peakPower": -10,
@@ -364,7 +485,9 @@
   "baron": {
     "stComplexity": 1,
     "abilityCategory": "setup-modifier",
-    "tags": ["setup-modifier"],
+    "tags": [
+      "setup-modifier"
+    ],
     "strength": {
       "composite": -35,
       "peakPower": -8,
@@ -380,7 +503,10 @@
   "imp": {
     "stComplexity": 3,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "demon-resilience"],
+    "tags": [
+      "lethal-evil",
+      "demon-resilience"
+    ],
     "strength": {
       "composite": -65,
       "peakPower": -20,
@@ -388,7 +514,13 @@
       "vulnerability": 0.5,
       "scalingBonus": -3
     },
-    "counters": ["monk", "soldier", "slayer", "exorcist", "tea_lady"],
+    "counters": [
+      "monk",
+      "soldier",
+      "slayer",
+      "exorcist",
+      "tea_lady"
+    ],
     "counterDetail": {
       "monk": "Monk-protected player survives Imp attack — nobody dies that night.",
       "soldier": "Soldier survives Imp attack — nobody dies that night.",
@@ -400,7 +532,9 @@
   "grandmother": {
     "stComplexity": 3,
     "abilityCategory": "info-start",
-    "tags": ["info-first-night"],
+    "tags": [
+      "info-first-night"
+    ],
     "strength": {
       "composite": 20,
       "peakPower": 10,
@@ -408,7 +542,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "pukka", "godfather"],
+    "counters": [
+      "poisoner",
+      "pukka",
+      "godfather"
+    ],
     "counterDetail": {
       "pukka": "Pukka kills the grandchild on night N+1 (delayed kill), which also kills the Grandmother on that same night.",
       "godfather": "Godfather can kill the grandchild as an extra kill, triggering Grandmother's death."
@@ -418,7 +556,10 @@
   "sailor": {
     "stComplexity": 4,
     "abilityCategory": "protection",
-    "tags": ["protection", "poison-drunk"],
+    "tags": [
+      "protection",
+      "poison-drunk"
+    ],
     "strength": {
       "composite": 45,
       "peakPower": 18,
@@ -426,7 +567,13 @@
       "vulnerability": 0.1,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "assassin", "pukka", "vigormortis", "courtier"],
+    "counters": [
+      "poisoner",
+      "assassin",
+      "pukka",
+      "vigormortis",
+      "courtier"
+    ],
     "counterDetail": {
       "assassin": "Assassin kills through Sailor's protection — the 'unkillable' dies. One of the most dramatic moments.",
       "pukka": "Pukka poisons tonight and kills tomorrow. A Sailor poisoned by Pukka can die the NEXT night even if they chose differently. Very confusing — track carefully.",
@@ -439,7 +586,9 @@
   "chambermaid": {
     "stComplexity": 3,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": 40,
       "peakPower": 16,
@@ -447,7 +596,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "pukka", "lunatic"],
+    "counters": [
+      "poisoner",
+      "pukka",
+      "lunatic"
+    ],
     "counterDetail": {
       "lunatic": "Lunatic wakes and performs fake demon actions. Whether Lunatic counts as 'waking for their ability' is your call.",
       "poisoner": "Poisoned Chambermaid gets a false count — you choose the number shown."
@@ -457,7 +610,9 @@
   "exorcist": {
     "stComplexity": 3,
     "abilityCategory": "protection",
-    "tags": ["protection"],
+    "tags": [
+      "protection"
+    ],
     "strength": {
       "composite": 55,
       "peakPower": 20,
@@ -465,7 +620,10 @@
       "vulnerability": 0.3,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "pukka"],
+    "counters": [
+      "poisoner",
+      "pukka"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Exorcist's choice has no effect — demon still wakes and kills.",
       "pukka": "Pukka poisons on night N, kills on N+1. Even if Exorcist stops Pukka, the previous poison victim still dies."
@@ -475,7 +633,10 @@
   "innkeeper": {
     "stComplexity": 3,
     "abilityCategory": "protection",
-    "tags": ["protection", "poison-drunk"],
+    "tags": [
+      "protection",
+      "poison-drunk"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 15,
@@ -483,7 +644,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "assassin", "pukka"],
+    "counters": [
+      "poisoner",
+      "assassin",
+      "pukka"
+    ],
     "counterDetail": {
       "assassin": "Assassin kills through Innkeeper protection on both protected players.",
       "poisoner": "Poisoned Innkeeper's protection fails on both players."
@@ -494,7 +659,10 @@
   "gambler": {
     "stComplexity": 2,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring", "lethal-good"],
+    "tags": [
+      "info-recurring",
+      "lethal-good"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 12,
@@ -502,7 +670,10 @@
       "vulnerability": 0.5,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "pukka"],
+    "counters": [
+      "poisoner",
+      "pukka"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Gambler: a correct guess might still kill them (you choose), or a wrong guess might not kill them. Either outcome is false.",
       "pukka": "Pukka's delayed poison means Gambler might die the night after being poisoned, even on a correct guess."
@@ -512,7 +683,10 @@
   "gossip": {
     "stComplexity": 3,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability", "lethal-good"],
+    "tags": [
+      "day-ability",
+      "lethal-good"
+    ],
     "strength": {
       "composite": 20,
       "peakPower": 16,
@@ -520,7 +694,10 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "pukka"],
+    "counters": [
+      "poisoner",
+      "pukka"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Gossip: even if their statement is true, no one dies — and the town doesn't know if it was true or the Gossip was poisoned."
     },
@@ -529,7 +706,10 @@
   "courtier": {
     "stComplexity": 3,
     "abilityCategory": "once-per-game",
-    "tags": ["once-per-game", "poison-drunk"],
+    "tags": [
+      "once-per-game",
+      "poison-drunk"
+    ],
     "strength": {
       "composite": 50,
       "peakPower": 18,
@@ -537,7 +717,10 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "pukka"],
+    "counters": [
+      "poisoner",
+      "pukka"
+    ],
     "counterDetail": {
       "poisoner": "If Courtier is poisoned when they use their ability, it fails — and is wasted."
     },
@@ -547,7 +730,9 @@
   "professor": {
     "stComplexity": 3,
     "abilityCategory": "once-per-game",
-    "tags": ["once-per-game"],
+    "tags": [
+      "once-per-game"
+    ],
     "strength": {
       "composite": 45,
       "peakPower": 20,
@@ -555,7 +740,11 @@
       "vulnerability": 0.4,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "pukka", "mastermind"],
+    "counters": [
+      "poisoner",
+      "pukka",
+      "mastermind"
+    ],
     "counterDetail": {
       "poisoner": "If Professor is poisoned when they use their ability, the resurrection fails and the ability is wasted.",
       "mastermind": "If the demon is executed and Mastermind is alive, the game continues 1 more day — Professor might resurrect someone in that window."
@@ -565,7 +754,9 @@
   "minstrel": {
     "stComplexity": 2,
     "abilityCategory": "protection",
-    "tags": ["execution-modifier"],
+    "tags": [
+      "execution-modifier"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 18,
@@ -581,7 +772,9 @@
   "tealady": {
     "stComplexity": 2,
     "abilityCategory": "protection",
-    "tags": ["protection"],
+    "tags": [
+      "protection"
+    ],
     "strength": {
       "composite": 40,
       "peakPower": 14,
@@ -589,7 +782,12 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "pukka", "assassin", "vigormortis"],
+    "counters": [
+      "poisoner",
+      "pukka",
+      "assassin",
+      "vigormortis"
+    ],
     "counterDetail": {
       "assassin": "Assassin kills through Tea Lady protection.",
       "vigormortis": "If Vigormortis kills a Minion neighbor of Tea Lady, Tea Lady becomes permanently poisoned — her protection drops forever.",
@@ -600,11 +798,16 @@
   "pacifist": {
     "stComplexity": 2,
     "abilityCategory": "protection",
-    "tags": ["execution-modifier"],
+    "tags": [
+      "execution-modifier"
+    ],
     "strength": {
       "composite": 25
     },
-    "counters": ["poisoner", "pukka"],
+    "counters": [
+      "poisoner",
+      "pukka"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Pacifist cannot save good players from execution."
     },
@@ -613,7 +816,10 @@
   "fool": {
     "stComplexity": 1,
     "abilityCategory": "protection",
-    "tags": ["protection", "once-per-game"],
+    "tags": [
+      "protection",
+      "once-per-game"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 15,
@@ -621,7 +827,11 @@
       "vulnerability": 0.1,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "pukka", "assassin"],
+    "counters": [
+      "poisoner",
+      "pukka",
+      "assassin"
+    ],
     "counterDetail": {
       "assassin": "Assassin kills through Fool's protection — Fool uses their one protection and still dies.",
       "poisoner": "Poisoned Fool loses their protection — they die the first time they would die."
@@ -631,7 +841,9 @@
   "tinker": {
     "stComplexity": 2,
     "abilityCategory": "death-trigger",
-    "tags": ["lethal-good"],
+    "tags": [
+      "lethal-good"
+    ],
     "strength": {
       "composite": -20,
       "peakPower": 0,
@@ -647,7 +859,10 @@
   "moonchild": {
     "stComplexity": 2,
     "abilityCategory": "death-trigger",
-    "tags": ["lethal-good", "day-ability"],
+    "tags": [
+      "lethal-good",
+      "day-ability"
+    ],
     "strength": {
       "composite": -25,
       "peakPower": 0,
@@ -662,7 +877,10 @@
   "goon": {
     "stComplexity": 3,
     "abilityCategory": "alignment-change",
-    "tags": ["alignment-change", "poison-drunk"],
+    "tags": [
+      "alignment-change",
+      "poison-drunk"
+    ],
     "strength": {
       "composite": -20,
       "peakPower": 8,
@@ -678,7 +896,9 @@
   "lunatic": {
     "stComplexity": 5,
     "abilityCategory": "alignment-change",
-    "tags": ["setup-modifier"],
+    "tags": [
+      "setup-modifier"
+    ],
     "strength": {
       "composite": -15,
       "peakPower": 5,
@@ -694,7 +914,10 @@
   "godfather": {
     "stComplexity": 3,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "setup-modifier"],
+    "tags": [
+      "lethal-evil",
+      "setup-modifier"
+    ],
     "strength": {
       "composite": -45,
       "peakPower": -12,
@@ -710,7 +933,9 @@
   "devilsadvocate": {
     "stComplexity": 3,
     "abilityCategory": "demon-resilience",
-    "tags": ["demon-resilience"],
+    "tags": [
+      "demon-resilience"
+    ],
     "strength": {
       "composite": -40,
       "peakPower": -15,
@@ -726,7 +951,10 @@
   "assassin": {
     "stComplexity": 2,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "once-per-game"],
+    "tags": [
+      "lethal-evil",
+      "once-per-game"
+    ],
     "strength": {
       "composite": -45,
       "peakPower": -20,
@@ -742,7 +970,9 @@
   "mastermind": {
     "stComplexity": 2,
     "abilityCategory": "demon-resilience",
-    "tags": ["execution-modifier"],
+    "tags": [
+      "execution-modifier"
+    ],
     "strength": {
       "composite": -35
     },
@@ -753,7 +983,10 @@
   "zombuul": {
     "stComplexity": 4,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "demon-resilience"],
+    "tags": [
+      "lethal-evil",
+      "demon-resilience"
+    ],
     "strength": {
       "composite": -70,
       "peakPower": -20,
@@ -761,7 +994,9 @@
       "vulnerability": 0.3,
       "scalingBonus": -3
     },
-    "counters": ["exorcist"],
+    "counters": [
+      "exorcist"
+    ],
     "counterDetail": {
       "exorcist": "If Exorcist chooses Zombuul, no kill that night — powerful counter since Zombuul only kills on no-execution nights."
     },
@@ -771,7 +1006,10 @@
   "pukka": {
     "stComplexity": 4,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "poison-drunk"],
+    "tags": [
+      "lethal-evil",
+      "poison-drunk"
+    ],
     "strength": {
       "composite": -65,
       "peakPower": -20,
@@ -779,7 +1017,9 @@
       "vulnerability": 0.4,
       "scalingBonus": -2
     },
-    "counters": ["exorcist"],
+    "counters": [
+      "exorcist"
+    ],
     "counterDetail": {
       "exorcist": "If Exorcist stops Pukka, the poison target is NOT chosen this night — but last night's poison victim still dies."
     },
@@ -789,7 +1029,9 @@
   "shabaloth": {
     "stComplexity": 4,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil"],
+    "tags": [
+      "lethal-evil"
+    ],
     "strength": {
       "composite": -60,
       "peakPower": -18,
@@ -797,7 +1039,9 @@
       "vulnerability": 0.5,
       "scalingBonus": -2
     },
-    "counters": ["exorcist"],
+    "counters": [
+      "exorcist"
+    ],
     "counterDetail": {
       "exorcist": "If Exorcist stops Shabaloth, no kills and no resurrection choice that night."
     },
@@ -807,7 +1051,9 @@
   "po": {
     "stComplexity": 4,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil"],
+    "tags": [
+      "lethal-evil"
+    ],
     "strength": {
       "composite": -70,
       "peakPower": -20,
@@ -815,7 +1061,10 @@
       "vulnerability": 0.4,
       "scalingBonus": -3
     },
-    "counters": ["exorcist", "monk"],
+    "counters": [
+      "exorcist",
+      "monk"
+    ],
     "counterDetail": {
       "exorcist": "Exorcist prevents Po from acting — both the standard kill and the triple kill.",
       "monk": "Monk protection saves one of the triple-kill targets — but the other two still die."
@@ -826,7 +1075,9 @@
   "clockmaker": {
     "stComplexity": 2,
     "abilityCategory": "info-start",
-    "tags": ["info-first-night"],
+    "tags": [
+      "info-first-night"
+    ],
     "strength": {
       "composite": 25,
       "peakPower": 12,
@@ -834,7 +1085,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "If poisoned night 1, you show a false step count.",
       "vortox": "Vortox makes all Townsfolk info wrong — Clockmaker gets a false number."
@@ -844,7 +1099,9 @@
   "dreamer": {
     "stComplexity": 2,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 10,
@@ -852,7 +1109,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Dreamer info wrong — both shown characters will be incorrect.",
       "poisoner": "Poisoned Dreamer gets a false pair — neither may be correct, or both may be wrong in various ways."
@@ -862,7 +1123,10 @@
   "snakecharmer": {
     "stComplexity": 4,
     "abilityCategory": "character-change",
-    "tags": ["character-change", "alignment-change"],
+    "tags": [
+      "character-change",
+      "alignment-change"
+    ],
     "strength": {
       "composite": 45,
       "peakPower": 20,
@@ -870,7 +1134,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Snake Charmer: if they choose the demon, the swap does NOT happen — even though it looks like it should."
     },
@@ -880,7 +1148,9 @@
   "mathematician": {
     "stComplexity": 3,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 14,
@@ -888,7 +1158,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "If Vortox is the demon, all Townsfolk info malfunctions — Mathematician's count may also be wrong, creating a paradox sharp players can exploit.",
       "poisoner": "Poisoned Mathematician gets a false count."
@@ -898,7 +1172,10 @@
   "flowergirl": {
     "stComplexity": 2,
     "abilityCategory": "info-conditional",
-    "tags": ["info-recurring", "info-conditional"],
+    "tags": [
+      "info-recurring",
+      "info-conditional"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 12,
@@ -906,7 +1183,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Flowergirl info wrong — even if demon voted, Flowergirl may be told they didn't.",
       "poisoner": "Poisoned Flowergirl gets a false yes/no."
@@ -916,7 +1197,10 @@
   "towncrier": {
     "stComplexity": 2,
     "abilityCategory": "info-conditional",
-    "tags": ["info-recurring", "info-conditional"],
+    "tags": [
+      "info-recurring",
+      "info-conditional"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 12,
@@ -924,7 +1208,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Town Crier info wrong.",
       "poisoner": "Poisoned Town Crier gets a false yes/no."
@@ -934,7 +1222,9 @@
   "oracle": {
     "stComplexity": 2,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": 40,
       "peakPower": 14,
@@ -942,7 +1232,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Oracle info wrong — dead evil count may be falsified.",
       "poisoner": "Poisoned Oracle gets a false count."
@@ -952,7 +1246,10 @@
   "savant": {
     "stComplexity": 4,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability", "info-recurring"],
+    "tags": [
+      "day-ability",
+      "info-recurring"
+    ],
     "strength": {
       "composite": 25,
       "peakPower": 12,
@@ -960,7 +1257,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Savant: one of their two facts SHOULD be true, but since they're poisoned, both might be false (or both true).",
       "vortox": "Vortox makes Savant info wrong — the 'true' fact is now false, and the 'false' fact might become true."
@@ -971,7 +1272,9 @@
   "seamstress": {
     "stComplexity": 2,
     "abilityCategory": "once-per-game",
-    "tags": ["once-per-game"],
+    "tags": [
+      "once-per-game"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 14,
@@ -979,7 +1282,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Seamstress info wrong — the alignment answer is false.",
       "poisoner": "Poisoned Seamstress gets a false yes/no."
@@ -989,7 +1296,10 @@
   "philosopher": {
     "stComplexity": 5,
     "abilityCategory": "once-per-game",
-    "tags": ["once-per-game", "character-change"],
+    "tags": [
+      "once-per-game",
+      "character-change"
+    ],
     "strength": {
       "composite": 50,
       "peakPower": 20,
@@ -997,7 +1307,11 @@
       "vulnerability": 0.4,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Philosopher: their chosen ability doesn't work (same as being drunk).",
       "vortox": "If Philosopher gains Empath ability under Vortox, all their info is wrong — dangerous."
@@ -1008,7 +1322,10 @@
   "artist": {
     "stComplexity": 3,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability", "once-per-game"],
+    "tags": [
+      "day-ability",
+      "once-per-game"
+    ],
     "strength": {
       "composite": 25,
       "peakPower": 18,
@@ -1016,7 +1333,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Artist info wrong — the yes/no answer is false.",
       "poisoner": "Poisoned Artist gets a false answer."
@@ -1027,7 +1348,10 @@
   "juggler": {
     "stComplexity": 3,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability", "info-first-night"],
+    "tags": [
+      "day-ability",
+      "info-first-night"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 20,
@@ -1035,7 +1359,11 @@
       "vulnerability": 0.4,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Juggler info wrong — correct guesses still show as incorrect.",
       "poisoner": "Poisoned Juggler gets a false count."
@@ -1046,7 +1374,9 @@
   "sage": {
     "stComplexity": 2,
     "abilityCategory": "info-on-death",
-    "tags": ["info-on-death"],
+    "tags": [
+      "info-on-death"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 15,
@@ -1054,7 +1384,11 @@
       "vulnerability": 0.5,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Sage info wrong — neither of the two players shown may be the demon.",
       "poisoner": "Poisoned Sage who is killed by the demon gets a false pair."
@@ -1064,7 +1398,9 @@
   "mutant": {
     "stComplexity": 2,
     "abilityCategory": "restriction",
-    "tags": ["madness"],
+    "tags": [
+      "madness"
+    ],
     "strength": {
       "composite": -20,
       "peakPower": 0,
@@ -1080,7 +1416,9 @@
   "sweetheart": {
     "stComplexity": 2,
     "abilityCategory": "death-trigger",
-    "tags": ["poison-drunk"],
+    "tags": [
+      "poison-drunk"
+    ],
     "strength": {
       "composite": -25,
       "peakPower": 0,
@@ -1095,7 +1433,9 @@
   "barber": {
     "stComplexity": 4,
     "abilityCategory": "character-change",
-    "tags": ["character-change"],
+    "tags": [
+      "character-change"
+    ],
     "strength": {
       "composite": -30,
       "peakPower": 0,
@@ -1111,7 +1451,9 @@
   "klutz": {
     "stComplexity": 2,
     "abilityCategory": "execution-trap",
-    "tags": ["execution-trap"],
+    "tags": [
+      "execution-trap"
+    ],
     "strength": {
       "composite": -20,
       "peakPower": 0,
@@ -1126,7 +1468,10 @@
   "eviltwin": {
     "stComplexity": 3,
     "abilityCategory": "social-evil",
-    "tags": ["info-disruption", "execution-modifier"],
+    "tags": [
+      "info-disruption",
+      "execution-modifier"
+    ],
     "strength": {
       "composite": -55,
       "peakPower": -15,
@@ -1142,7 +1487,9 @@
   "witch": {
     "stComplexity": 3,
     "abilityCategory": "social-evil",
-    "tags": ["lethal-evil"],
+    "tags": [
+      "lethal-evil"
+    ],
     "strength": {
       "composite": -45,
       "peakPower": -18,
@@ -1158,7 +1505,9 @@
   "cerenovus": {
     "stComplexity": 4,
     "abilityCategory": "social-evil",
-    "tags": ["madness"],
+    "tags": [
+      "madness"
+    ],
     "strength": {
       "composite": -40,
       "peakPower": -15,
@@ -1174,7 +1523,10 @@
   "pithag": {
     "stComplexity": 5,
     "abilityCategory": "character-change",
-    "tags": ["character-change", "lethal-evil"],
+    "tags": [
+      "character-change",
+      "lethal-evil"
+    ],
     "strength": {
       "composite": -50,
       "peakPower": -18,
@@ -1190,7 +1542,11 @@
   "fanggu": {
     "stComplexity": 3,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "alignment-change", "setup-modifier"],
+    "tags": [
+      "lethal-evil",
+      "alignment-change",
+      "setup-modifier"
+    ],
     "strength": {
       "composite": -60,
       "peakPower": -18,
@@ -1206,7 +1562,10 @@
   "vigormortis": {
     "stComplexity": 4,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "setup-modifier"],
+    "tags": [
+      "lethal-evil",
+      "setup-modifier"
+    ],
     "strength": {
       "composite": -65,
       "peakPower": -18,
@@ -1222,7 +1581,10 @@
   "nodashii": {
     "stComplexity": 3,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "poison-drunk"],
+    "tags": [
+      "lethal-evil",
+      "poison-drunk"
+    ],
     "strength": {
       "composite": -55,
       "peakPower": -20,
@@ -1238,7 +1600,10 @@
   "vortox": {
     "stComplexity": 4,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "info-disruption"],
+    "tags": [
+      "lethal-evil",
+      "info-disruption"
+    ],
     "strength": {
       "composite": -60,
       "peakPower": -20,
@@ -1250,5 +1615,1011 @@
     "counterDetail": {},
     "stAdvice": "If Vortox is the demon, ALL Townsfolk abilities yield false information — no exceptions. Additionally, if no one is executed that day, evil wins. Good's key deduction: if ANY Townsfolk info checks out, there's no Vortox. If nothing makes sense, suspect Vortox. Good must execute someone every day to avoid automatic evil win.",
     "newStWarning": "Every single Townsfolk info ability gives false info under Vortox. Plan false info for every info role before each night. This is the most demanding demon for the ST — prepare extensively. Outsiders and Minions are NOT affected."
+  },
+  "bureaucrat": {
+    "stComplexity": 2,
+    "abilityCategory": "restriction",
+    "tags": [
+      "day-ability",
+      "restriction"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "thief": {
+    "stComplexity": 2,
+    "abilityCategory": "restriction",
+    "tags": [
+      "day-ability",
+      "restriction"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "gunslinger": {
+    "stComplexity": 3,
+    "abilityCategory": "day-ability",
+    "tags": [
+      "day-ability",
+      "lethal-good"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "scapegoat": {
+    "stComplexity": 2,
+    "abilityCategory": "protection",
+    "tags": [
+      "protection"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "beggar": {
+    "stComplexity": 2,
+    "abilityCategory": "info-conditional",
+    "tags": [
+      "info-conditional"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "apprentice": {
+    "stComplexity": 3,
+    "abilityCategory": "character-change",
+    "tags": [
+      "character-change",
+      "once-per-game"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "matron": {
+    "stComplexity": 2,
+    "abilityCategory": "restriction",
+    "tags": [
+      "day-ability",
+      "restriction"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "judge": {
+    "stComplexity": 3,
+    "abilityCategory": "execution-trap",
+    "tags": [
+      "execution-modifier",
+      "once-per-game",
+      "day-ability"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "bishop": {
+    "stComplexity": 3,
+    "abilityCategory": "restriction",
+    "tags": [
+      "restriction"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "voudon": {
+    "stComplexity": 4,
+    "abilityCategory": "restriction",
+    "tags": [
+      "restriction"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "barista": {
+    "stComplexity": 3,
+    "abilityCategory": "protection",
+    "tags": [
+      "protection"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "harlot": {
+    "stComplexity": 3,
+    "abilityCategory": "info-recurring",
+    "tags": [
+      "info-recurring"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "butcher": {
+    "stComplexity": 2,
+    "abilityCategory": "day-ability",
+    "tags": [
+      "day-ability"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "bonecollector": {
+    "stComplexity": 3,
+    "abilityCategory": "character-change",
+    "tags": [
+      "character-change",
+      "once-per-game"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "deviant": {
+    "stComplexity": 2,
+    "abilityCategory": "restriction",
+    "tags": [
+      "restriction"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "gangster": {
+    "stComplexity": 3,
+    "abilityCategory": "lethal-evil",
+    "tags": [
+      "lethal-evil",
+      "day-ability",
+      "once-per-game"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "noble": {
+    "stComplexity": 2,
+    "abilityCategory": "info-start",
+    "tags": [
+      "info-first-night"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "bountyhunter": {
+    "stComplexity": 3,
+    "abilityCategory": "info-conditional",
+    "tags": [
+      "info-first-night",
+      "info-conditional"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "pixie": {
+    "stComplexity": 3,
+    "abilityCategory": "character-change",
+    "tags": [
+      "character-change",
+      "once-per-game",
+      "madness"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "general": {
+    "stComplexity": 2,
+    "abilityCategory": "info-recurring",
+    "tags": [
+      "info-recurring"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "preacher": {
+    "stComplexity": 3,
+    "abilityCategory": "restriction",
+    "tags": [
+      "restriction",
+      "info-disruption"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "king": {
+    "stComplexity": 3,
+    "abilityCategory": "info-recurring",
+    "tags": [
+      "info-recurring",
+      "info-conditional"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "balloonist": {
+    "stComplexity": 2,
+    "abilityCategory": "info-recurring",
+    "tags": [
+      "info-recurring",
+      "setup-modifier"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "cultleader": {
+    "stComplexity": 4,
+    "abilityCategory": "alignment-change",
+    "tags": [
+      "alignment-change"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "lycanthrope": {
+    "stComplexity": 3,
+    "abilityCategory": "lethal-good",
+    "tags": [
+      "lethal-good",
+      "restriction"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "amnesiac": {
+    "stComplexity": 5,
+    "abilityCategory": "once-per-game",
+    "tags": [
+      "once-per-game",
+      "day-ability"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "nightwatchman": {
+    "stComplexity": 2,
+    "abilityCategory": "once-per-game",
+    "tags": [
+      "once-per-game"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "engineer": {
+    "stComplexity": 4,
+    "abilityCategory": "character-change",
+    "tags": [
+      "character-change",
+      "once-per-game"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "fisherman": {
+    "stComplexity": 1,
+    "abilityCategory": "once-per-game",
+    "tags": [
+      "once-per-game",
+      "day-ability"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "huntsman": {
+    "stComplexity": 3,
+    "abilityCategory": "character-change",
+    "tags": [
+      "character-change",
+      "once-per-game"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "alchemist": {
+    "stComplexity": 4,
+    "abilityCategory": "character-change",
+    "tags": [
+      "character-change"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "farmer": {
+    "stComplexity": 2,
+    "abilityCategory": "death-trigger",
+    "tags": [
+      "death-trigger"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "magician": {
+    "stComplexity": 3,
+    "abilityCategory": "info-disruption",
+    "tags": [
+      "info-disruption"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "choirboy": {
+    "stComplexity": 2,
+    "abilityCategory": "info-conditional",
+    "tags": [
+      "info-conditional",
+      "info-on-death"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "poppygrower": {
+    "stComplexity": 3,
+    "abilityCategory": "restriction",
+    "tags": [
+      "restriction",
+      "info-disruption"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "atheist": {
+    "stComplexity": 5,
+    "abilityCategory": "restriction",
+    "tags": [
+      "restriction"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "cannibal": {
+    "stComplexity": 4,
+    "abilityCategory": "character-change",
+    "tags": [
+      "character-change"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "snitch": {
+    "stComplexity": 2,
+    "abilityCategory": "info-disruption",
+    "tags": [
+      "info-disruption",
+      "setup-modifier"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "acrobat": {
+    "stComplexity": 2,
+    "abilityCategory": "restriction",
+    "tags": [
+      "restriction"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "puzzlemaster": {
+    "stComplexity": 4,
+    "abilityCategory": "info-disruption",
+    "tags": [
+      "info-disruption",
+      "once-per-game"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "heretic": {
+    "stComplexity": 3,
+    "abilityCategory": "restriction",
+    "tags": [
+      "restriction"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "damsel": {
+    "stComplexity": 3,
+    "abilityCategory": "restriction",
+    "tags": [
+      "restriction"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "golem": {
+    "stComplexity": 3,
+    "abilityCategory": "restriction",
+    "tags": [
+      "restriction",
+      "lethal-good",
+      "once-per-game"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "politician": {
+    "stComplexity": 3,
+    "abilityCategory": "alignment-change",
+    "tags": [
+      "alignment-change"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "widow": {
+    "stComplexity": 3,
+    "abilityCategory": "info-disruption",
+    "tags": [
+      "poison-drunk",
+      "info-disruption",
+      "info-first-night"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "fearmonger": {
+    "stComplexity": 3,
+    "abilityCategory": "execution-trap",
+    "tags": [
+      "execution-trap",
+      "day-ability"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "psychopath": {
+    "stComplexity": 3,
+    "abilityCategory": "lethal-evil",
+    "tags": [
+      "lethal-evil",
+      "day-ability"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "goblin": {
+    "stComplexity": 2,
+    "abilityCategory": "execution-trap",
+    "tags": [
+      "execution-trap"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "mezepheles": {
+    "stComplexity": 3,
+    "abilityCategory": "alignment-change",
+    "tags": [
+      "alignment-change"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "marionette": {
+    "stComplexity": 4,
+    "abilityCategory": "info-disruption",
+    "tags": [
+      "info-disruption"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "boomdandy": {
+    "stComplexity": 2,
+    "abilityCategory": "execution-trap",
+    "tags": [
+      "execution-trap",
+      "lethal-evil"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "lilmonsta": {
+    "stComplexity": 4,
+    "abilityCategory": "demon-resilience",
+    "tags": [
+      "demon-resilience",
+      "character-change"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "lleech": {
+    "stComplexity": 3,
+    "abilityCategory": "lethal-evil",
+    "tags": [
+      "poison-drunk",
+      "lethal-evil",
+      "demon-resilience"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "alhadikhia": {
+    "stComplexity": 3,
+    "abilityCategory": "lethal-evil",
+    "tags": [
+      "lethal-evil"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "legion": {
+    "stComplexity": 4,
+    "abilityCategory": "demon-resilience",
+    "tags": [
+      "demon-resilience",
+      "info-disruption"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "leviathan": {
+    "stComplexity": 3,
+    "abilityCategory": "execution-trap",
+    "tags": [
+      "execution-trap"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
+  },
+  "riot": {
+    "stComplexity": 3,
+    "abilityCategory": "execution-trap",
+    "tags": [
+      "execution-trap",
+      "lethal-evil"
+    ],
+    "strength": {
+      "composite": 0,
+      "peakPower": 0,
+      "reliability": 0,
+      "vulnerability": 0,
+      "scalingBonus": 0
+    },
+    "counters": [],
+    "counterDetail": {},
+    "stAdvice": ""
   }
 }

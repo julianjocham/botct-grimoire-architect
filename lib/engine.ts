@@ -12,7 +12,8 @@ import type {
   ScriptRecommendation,
   ScriptAnalysis,
   AbilityCategory,
-  PlayerCountEntry
+  PlayerCountEntry,
+  CategoryRule
 } from "./types";
 import playerCountsData from "@/data/playerCounts.json";
 
@@ -198,6 +199,91 @@ export function calculateEffectiveStrength(
 }
 
 // ─── Interaction Feed ────────────────────────────────────────────────────────
+
+export function generateCategoryInteractions(
+  characters: Character[],
+  rules: CategoryRule[],
+  existingInteractions: Interaction[]
+): Interaction[] {
+  // Build a set of already-defined pairs to avoid duplicates
+  const existingPairs = new Set<string>(
+    existingInteractions.flatMap((ix) => [
+      `${ix.a}:${ix.b}`,
+      `${ix.b}:${ix.a}`,
+    ])
+  );
+
+  const generated: Interaction[] = [];
+
+  for (let i = 0; i < characters.length; i++) {
+    for (let j = i + 1; j < characters.length; j++) {
+      const a = characters[i];
+      const b = characters[j];
+
+      // Skip if a manual interaction already covers this pair
+      if (
+        existingPairs.has(`${a.id}:${b.id}`) ||
+        existingPairs.has(`${b.id}:${a.id}`)
+      ) {
+        continue;
+      }
+
+      for (const rule of rules) {
+        // Check if a→b direction matches
+        const aMatchesSource =
+          (rule.sourceTag && a.tags?.includes(rule.sourceTag)) ||
+          (rule.sourceCategory && a.abilityCategory === rule.sourceCategory);
+        const bMatchesTarget =
+          (rule.targetTag && b.tags?.includes(rule.targetTag)) ||
+          (rule.targetCategory && b.abilityCategory === rule.targetCategory);
+
+        // Check if b→a direction matches
+        const bMatchesSource =
+          (rule.sourceTag && b.tags?.includes(rule.sourceTag)) ||
+          (rule.sourceCategory && b.abilityCategory === rule.sourceCategory);
+        const aMatchesTarget =
+          (rule.targetTag && a.tags?.includes(rule.targetTag)) ||
+          (rule.targetCategory && a.abilityCategory === rule.targetCategory);
+
+        if (aMatchesSource && bMatchesTarget) {
+          generated.push({
+            a: a.id,
+            b: b.id,
+            type: rule.type,
+            severity: rule.severity,
+            title: rule.title
+              .replace("{source}", a.name)
+              .replace("{target}", b.name),
+            description: rule.description
+              .replace("{source}", a.name)
+              .replace("{target}", b.name),
+            strengthImpact: rule.strengthImpact,
+            category: rule.category,
+          });
+          break; // Only one rule per pair per pass
+        } else if (bMatchesSource && aMatchesTarget) {
+          generated.push({
+            a: b.id,
+            b: a.id,
+            type: rule.type,
+            severity: rule.severity,
+            title: rule.title
+              .replace("{source}", b.name)
+              .replace("{target}", a.name),
+            description: rule.description
+              .replace("{source}", b.name)
+              .replace("{target}", a.name),
+            strengthImpact: rule.strengthImpact,
+            category: rule.category,
+          });
+          break;
+        }
+      }
+    }
+  }
+
+  return generated;
+}
 
 export function analyzeInteractions(selectedIds: string[], interactions: Interaction[]): InteractionHint[] {
   const hints: InteractionHint[] = [];

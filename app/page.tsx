@@ -2,7 +2,7 @@
 
 import { useReducer, useMemo } from "react";
 import { GrimoireState, GrimoireAction } from "@/lib/types";
-import { allCharacters, interactions, getEditionPool, getEditionTravelers } from "@/lib/data";
+import { allCharacters, allInteractions, getEditionPool, getEditionTravelers } from "@/lib/data";
 import { calculateEffectiveStrength } from "@/lib/engine";
 import { CharacterDetail } from "@/components/CharacterDetail";
 import { ScriptStep } from "@/components/ScriptStep";
@@ -201,7 +201,7 @@ export default function Home() {
             gameIds={gameIds}
             allCharacters={allCharacters}
             editionTravelers={editionTravelers}
-            interactions={interactions}
+            interactions={allInteractions}
             nightPhase={nightPhase}
             onNightPhaseChange={(p) => dispatch({ type: "SET_NIGHT_PHASE", phase: p })}
             onDetail={(id) => dispatch({ type: "SET_DETAIL", id })}

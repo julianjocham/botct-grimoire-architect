@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { Character, Interaction } from "@/lib/types";
 import { analyzeScript, calculateEffectiveStrength } from "@/lib/engine";
-import { interactions as allInteractions } from "@/lib/data";
+import { allInteractions } from "@/lib/data";
 import { AnalysisSidebarProps, GameSetupStepProps } from "@/components/types";
 import { RAW_COUNTS, SETUP_MODIFIERS, TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { EDITIONS, FEEL_BARS, FEEL_COLOR } from "@/constants/info";

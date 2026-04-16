@@ -1,8 +1,10 @@
 import rawCharacters from "@/data/characters.json";
 import enrichmentData from "@/data/enrichment.json";
-import interactionsData from "@/data/interactions.json";
+import jinxesData from "@/data/jinxes.json";
 import editionsData from "@/data/editions.json";
-import type { Character, Interaction, RawCharacter, CharacterEnrichment, EditionConfig } from "./types";
+import categoryRulesData from "@/data/categoryRules.json";
+import { generateCategoryInteractions } from "./engine";
+import type { Character, Interaction, RawCharacter, CharacterEnrichment, EditionConfig, CategoryRule } from "./types";
 
 const enrichment = enrichmentData as Record<string, CharacterEnrichment>;
 
@@ -33,7 +35,13 @@ export const allTravelers: Character[] = (rawCharacters as RawCharacter[])
   .filter((c) => c.team === "traveler")
   .map(mergeCharacter);
 
-export const interactions: Interaction[] = interactionsData as Interaction[];
+export const categoryRules: CategoryRule[] = categoryRulesData.rules as CategoryRule[];
+
+// All interactions: official jinxes (pair-specific game rules) + category-generated interactions
+export const allInteractions: Interaction[] = [
+  ...(jinxesData as Interaction[]),
+  ...generateCategoryInteractions(allCharacters, categoryRules, jinxesData as Interaction[]),
+];
 
 export const editions = editionsData as Record<string, EditionConfig>;
 

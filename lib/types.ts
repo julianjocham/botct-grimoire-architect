@@ -93,12 +93,27 @@ export type CharacterTag =
   | "once-per-game"
   | "day-ability";
 
-// Pairwise interaction from interactions.json
+// Pairwise interaction (jinxes from jinxes.json; all others generated from categoryRules.json)
 export interface Interaction {
   a: string;
   b: string;
   type: "counter" | "synergy" | "dramatic" | "puzzle" | "jinx";
   severity: "critical" | "important" | "tip";
+  title: string;
+  description: string;
+  strengthImpact: number;
+  category: InteractionCategory;
+}
+
+// Rule for auto-generating category-based interactions
+export interface CategoryRule {
+  id: string;
+  sourceTag?: CharacterTag;
+  sourceCategory?: AbilityCategory;
+  targetTag?: CharacterTag;
+  targetCategory?: AbilityCategory;
+  type: Interaction["type"];
+  severity: Interaction["severity"];
   title: string;
   description: string;
   strengthImpact: number;
@@ -125,6 +140,8 @@ export type InteractionCategory =
   | "jinx"
   | "night-complexity"
   | "info-disruption"
+  | "info-on-death"
+  | "lethal-evil"
   | "new-st-warning";
 
 // Edition config from editions.json
