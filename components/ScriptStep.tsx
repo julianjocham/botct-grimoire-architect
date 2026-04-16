@@ -1,12 +1,13 @@
 "use client";
 
-import { Character, ScriptStepProps, ScriptType } from "@/types";
+import { Character, PremadeScript, ScriptStepProps, ScriptType } from "@/types";
 import { CharacterToken } from "./common/CharacterToken";
 import { EDITIONS } from "@/constants/info";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { getSupportedPlayerCounts } from "@/lib/analysis/playerCounts";
 import { Panel } from "./ui/Panel";
+import premadeScriptsData from "@/data/premadeScripts.json";
 
 function teamCount(chars: Character[], team: string) {
   return chars.filter((c) => c.team === team).length;
@@ -29,9 +30,68 @@ function scriptIsValid(scriptIds: string[], allCharacters: Character[], scriptTy
   );
 }
 
+const premadeScripts = premadeScriptsData as PremadeScript[];
+
+function PremadeScriptCard({
+  script,
+  allCharacters,
+  isSelected,
+  onSelect
+}: {
+  script: PremadeScript;
+  allCharacters: Character[];
+  isSelected: boolean;
+  onSelect: () => void;
+}) {
+  const chars = allCharacters.filter((c) => script.characters.includes(c.id));
+  const counts = {
+    townsfolk: chars.filter((c) => c.team === "townsfolk").length,
+    outsider: chars.filter((c) => c.team === "outsider").length,
+    minion: chars.filter((c) => c.team === "minion").length,
+    demon: chars.filter((c) => c.team === "demon").length
+  };
+
+  return (
+    <div
+      onClick={onSelect}
+      className={`cursor-pointer rounded-xl border-2 p-[16px_18px] transition-all duration-150 ease-[ease] ${
+        isSelected ? "border-blood bg-[#1a0f0f]" : "bg-surface border-subtle"
+      }`}
+    >
+      <div className={`font-display mb-2.5 text-base tracking-[0.04em] ${isSelected ? "text-parchment" : "text-gold"}`}>
+        {script.name}
+      </div>
+      <div className="mb-3 grid grid-cols-2 gap-x-3 gap-y-1">
+        {TEAM_ORDER.map((team) => {
+          const n = counts[team as keyof typeof counts];
+          if (!n) return null;
+          const c = TEAM_COLORS[team];
+          return (
+            <div key={team} className="font-mono text-xs" style={{ color: c.text }}>
+              {n} {TEAM_LABEL[team]}
+            </div>
+          );
+        })}
+      </div>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect();
+        }}
+        className={`font-display w-full cursor-pointer rounded-md border-none py-1.5 text-xs tracking-[0.05em] transition-all duration-150 ease-[ease] ${
+          isSelected ? "bg-blood text-parchment" : "bg-subtle text-[#888]"
+        }`}
+      >
+        {isSelected ? "✓ Selected" : "Select Script"}
+      </button>
+    </div>
+  );
+}
+
 export function ScriptStep({
   scriptType,
   scriptSource,
+  premadeScriptId,
   scriptIds,
   allCharacters,
   editionPools,
@@ -39,6 +99,7 @@ export function ScriptStep({
   onSetScriptType,
   onClearScriptSource,
   onSelectEdition,
+  onSelectPremade,
   onSelectCustom,
   onToggleScriptChar,
   onContinue,
@@ -47,6 +108,9 @@ export function ScriptStep({
 }: ScriptStepProps) {
   const isCustom = scriptSource === "custom";
   const isTeensyville = scriptType === "teensyville";
+
+  const teensyvilleScripts = premadeScripts.filter((s) => s.type === "teensyville");
+  const fullPremadeScripts = premadeScripts.filter((s) => s.type === "full");
 
   // Script character counts for custom builder
   const scriptChars = allCharacters.filter((c) => scriptIds.includes(c.id));
@@ -97,7 +161,7 @@ export function ScriptStep({
                 key={type}
                 onClick={() => onSetScriptType(type)}
                 className={`font-display cursor-pointer rounded-md border-none px-4 py-1.5 text-xs tracking-[0.05em] transition-all duration-150 ${
-                  active ? "bg-blood text-parchment" : "bg-transparent text-[#555] hover:text-[#888]"
+                  active ? "bg-blood text-parchment" : "text-dim bg-transparent hover:text-[#888]"
                 }`}
               >
                 {type === "full" ? "Full Script" : "Teensyville"}
@@ -198,6 +262,22 @@ export function ScriptStep({
             </button>
           </div>
 
+          {/* Community full scripts */}
+          <div>
+            <div className="font-display text-gold mb-3 text-sm tracking-[0.06em] uppercase">Community Scripts</div>
+            <div className="grid grid-cols-4 gap-3">
+              {fullPremadeScripts.map((script) => (
+                <PremadeScriptCard
+                  key={script.id}
+                  script={script}
+                  allCharacters={allCharacters}
+                  isSelected={scriptSource === "premade" && premadeScriptId === script.id}
+                  onSelect={() => onSelectPremade(script.id, script.characters)}
+                />
+              ))}
+            </div>
+          </div>
+
           {/* Continue button for edition selection */}
           {scriptSource && (
             <div className="flex justify-end">
@@ -215,16 +295,35 @@ export function ScriptStep({
       {/* Teensyville landing */}
       {!isCustom && isTeensyville && (
         <>
-          {/* Premade scripts placeholder */}
+          {/* Premade scripts */}
           <div>
             <div className="font-display text-gold mb-3 text-sm tracking-[0.06em] uppercase">
-              Premade Teensyville Scripts
+              Community Teensyville Scripts
             </div>
-            <div className="bg-surface border-subtle flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-6 py-10 text-center">
-              <div className="font-body text-muted text-base">No premade scripts yet.</div>
-              <div className="font-body text-dim text-sm">Build a custom script below to get started.</div>
+            <div className="grid grid-cols-3 gap-4">
+              {teensyvilleScripts.map((script) => (
+                <PremadeScriptCard
+                  key={script.id}
+                  script={script}
+                  allCharacters={allCharacters}
+                  isSelected={scriptSource === "premade" && premadeScriptId === script.id}
+                  onSelect={() => onSelectPremade(script.id, script.characters)}
+                />
+              ))}
             </div>
           </div>
+
+          {/* Continue button for premade selection */}
+          {scriptSource === "premade" && (
+            <div className="flex justify-end">
+              <button
+                onClick={onContinue}
+                className="bg-blood text-parchment font-display cursor-pointer rounded-lg border-none px-7 py-3 text-base tracking-[0.06em]"
+              >
+                Set Up Game →
+              </button>
+            </div>
+          )}
 
           {/* Custom option */}
           <div className="bg-surface border-subtle flex items-center justify-between gap-4 rounded-xl border-2 border-dashed px-6 py-5">
@@ -295,7 +394,10 @@ export function ScriptStep({
               onClick={() =>
                 isTeensyville
                   ? onClearScriptSource()
-                  : onSelectEdition("tb", editionPools.tb.map((c) => c.id))
+                  : onSelectEdition(
+                      "tb",
+                      editionPools.tb.map((c) => c.id)
+                    )
               }
               className="border-subtle text-muted font-body cursor-pointer self-start rounded-[5px] border bg-transparent px-3 py-1.25 text-base"
             >

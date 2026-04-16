@@ -44,10 +44,7 @@ export function CharacterToken({
           <span className={compact ? "text-sm" : "text-md"}>{TEAM_ICON[character.team] ?? "?"}</span>
           <div className="min-w-0">
             <div
-              className={[
-                "font-display truncate",
-                compact ? "text-xs" : "text-sm"
-              ].join(" ")}
+              className={["font-display truncate", compact ? "text-xs" : "text-sm"].join(" ")}
               style={{ color: colors.text }}
             >
               {character.name}

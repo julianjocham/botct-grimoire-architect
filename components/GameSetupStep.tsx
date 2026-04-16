@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { Character, Interaction, GameSetupStepProps, AnalysisSidebarProps } from "@/types";
 import { allInteractions } from "@/lib/data";
 import { RAW_COUNTS, SETUP_MODIFIERS, TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
-import { EDITIONS, FEEL_BARS, FEEL_COLOR } from "@/constants/info";
+import { FEEL_BARS, FEEL_COLOR } from "@/constants/info";
 import { analyzeScript } from "@/lib/engine";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { Panel } from "@/components/ui/Panel";
@@ -209,10 +209,7 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
                 const barColor = s > 30 ? "#2a7fd4" : s > 0 ? "#5b9bd5" : s > -30 ? "#c0392b" : "#8b1a1a";
                 return (
                   <div key={char.id} className="flex items-center gap-1.5">
-                    <div
-                      className="font-display text-2xs shrink-0 truncate"
-                      style={{ color: col.text, minWidth: 90 }}
-                    >
+                    <div className="font-display text-2xs shrink-0 truncate" style={{ color: col.text, minWidth: 90 }}>
                       {char.name}
                     </div>
                     <div className="h-1 flex-1 overflow-hidden rounded-xs bg-[#1a1a2a]">
@@ -250,7 +247,7 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
 
 export function GameSetupStep({
   scriptType,
-  scriptSource,
+  scriptDisplayName,
   scriptIds,
   playerCount,
   gameIds,
@@ -298,7 +295,7 @@ export function GameSetupStep({
               Step 2 — Set Up Your Game
             </h2>
             <div className="font-body text-dim text-base">
-              Script: <span className="text-gold">{EDITIONS.find((ed) => ed.key === scriptSource)?.name ?? "Custom"}</span>
+              Script: <span className="text-gold">{scriptDisplayName}</span>
               {" · "}
               {scriptIds.length} characters available
             </div>
@@ -312,10 +309,7 @@ export function GameSetupStep({
         <div>
           <SectionLabel className="mb-2.5">How many players?</SectionLabel>
           <div className="flex flex-wrap gap-1.5">
-            {Array.from(
-              { length: scriptType === "teensyville" ? 2 : 16 },
-              (_, i) => i + 5
-            ).map((n) => {
+            {Array.from({ length: scriptType === "teensyville" ? 2 : 16 }, (_, i) => i + 5).map((n) => {
               const active = playerCount === n;
               const isTraveler = n > 15;
               return (

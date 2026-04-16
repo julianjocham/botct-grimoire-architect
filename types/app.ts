@@ -14,8 +14,15 @@ export interface EditionConfig {
 // ─── App / wizard state ───────────────────────────────────────────────────────
 
 export type AppStep = "script" | "setup" | "dashboard";
-export type EditionKey = "tb" | "bmr" | "snv" | "custom";
+export type EditionKey = "tb" | "bmr" | "snv" | "custom" | "premade";
 export type ScriptType = "full" | "teensyville";
+
+export interface PremadeScript {
+  id: string;
+  name: string;
+  type: ScriptType;
+  characters: string[];
+}
 
 export interface GrimoireState {
   step: AppStep;
@@ -23,6 +30,7 @@ export interface GrimoireState {
   // Step 1 – script type and pool
   scriptType: ScriptType;
   scriptSource: EditionKey | null;
+  premadeScriptId: string | null;
   scriptIds: string[];
 
   // Step 2 – the in-play game characters
@@ -38,7 +46,8 @@ export interface GrimoireState {
 export type GrimoireAction =
   | { type: "SET_SCRIPT_TYPE"; scriptType: ScriptType }
   | { type: "CLEAR_SCRIPT_SOURCE" }
-  | { type: "SELECT_EDITION"; edition: Exclude<EditionKey, "custom">; ids: string[] }
+  | { type: "SELECT_EDITION"; edition: Exclude<EditionKey, "custom" | "premade">; ids: string[] }
+  | { type: "SELECT_PREMADE"; id: string; ids: string[] }
   | { type: "SELECT_CUSTOM" }
   | { type: "TOGGLE_SCRIPT_CHAR"; id: string }
   | { type: "GO_TO_SETUP" }
@@ -66,13 +75,15 @@ export interface FeelBarConfig {
 export interface ScriptStepProps {
   scriptType: ScriptType;
   scriptSource: EditionKey | null;
+  premadeScriptId: string | null;
   scriptIds: string[];
   allCharacters: Character[];
   editionPools: { tb: Character[]; bmr: Character[]; snv: Character[] };
   searchQuery: string;
   onSetScriptType: (type: ScriptType) => void;
   onClearScriptSource: () => void;
-  onSelectEdition: (ed: Exclude<EditionKey, "custom">, ids: string[]) => void;
+  onSelectEdition: (ed: Exclude<EditionKey, "custom" | "premade">, ids: string[]) => void;
+  onSelectPremade: (id: string, ids: string[]) => void;
   onSelectCustom: () => void;
   onToggleScriptChar: (id: string) => void;
   onContinue: () => void;
@@ -83,6 +94,7 @@ export interface ScriptStepProps {
 export interface GameSetupStepProps {
   scriptType: ScriptType;
   scriptSource: EditionKey | null;
+  scriptDisplayName: string;
   scriptIds: string[];
   playerCount: number | null;
   gameIds: string[];
@@ -102,6 +114,7 @@ export interface AnalysisSidebarProps {
 
 export interface DashboardStepProps {
   scriptSource: EditionKey | null;
+  scriptDisplayName: string;
   scriptIds: string[];
   playerCount: number;
   gameIds: string[];

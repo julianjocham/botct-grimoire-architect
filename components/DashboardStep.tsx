@@ -5,14 +5,14 @@ import { DashboardStepProps } from "@/types";
 import { analyzeScript } from "@/lib/engine";
 import { NightOrder } from "./NightOrder";
 import { InteractionFeed } from "./InteractionFeed";
-import { EDITIONS, FEEL_BARS, FEEL_COLOR } from "@/constants/info";
+import { FEEL_BARS, FEEL_COLOR } from "@/constants/info";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { calculateStrengthTotals } from "@/lib/strength/calculate";
 import { Panel } from "@/components/ui/Panel";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export function DashboardStep({
-  scriptSource,
+  scriptDisplayName,
   playerCount,
   gameIds,
   allCharacters,
@@ -58,9 +58,7 @@ export function DashboardStep({
       {/* Top bar */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <div className="font-display text-parchment text-xl tracking-[0.04em]">
-            {EDITIONS.find((ed) => ed.key === scriptSource)?.name ?? "Custom Script"}
-          </div>
+          <div className="font-display text-parchment text-xl tracking-[0.04em]">{scriptDisplayName}</div>
           <div className="font-body text-muted mt-0.5 text-base">
             {playerCount} players · {coreGameIds.length} characters
             {selectedTravelers.length > 0
@@ -163,7 +161,6 @@ export function DashboardStep({
         <div className="flex flex-col gap-3.5">
           {/* Team strength */}
           <Panel title="Team Strength">
-
             <div className="flex flex-col gap-2.5">
               {/* Good */}
               <div>
@@ -273,7 +270,7 @@ export function DashboardStep({
       <div className="print-only hidden">
         <div className="p-8 font-[Georgia,serif] text-black">
           <h1 className="mb-1 border-b-2 border-black pb-2 text-[24px]">
-            Blood on the Clocktower — {EDITIONS.find((ed) => ed.key === scriptSource)?.name ?? "Custom Script"}
+            Blood on the Clocktower — {scriptDisplayName}
           </h1>
           <p className="text-muted mb-6 text-sm">
             {playerCount} players · {new Date().toLocaleDateString()}

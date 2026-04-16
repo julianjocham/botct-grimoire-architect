@@ -921,7 +921,7 @@
     "otherNightReminder": "",
     "reminders": [],
     "setup": false,
-    "ability": "If you are \u201Cmad\u201D about being an Outsider, you might be executed."
+    "ability": "If you are \u201cmad\u201d about being an Outsider, you might be executed."
   },
   {
     "id": "sweetheart",
@@ -999,7 +999,7 @@
     "otherNightReminder": "The Cerenovus points to a player, then to a character on their sheet. Wake that player. Show the 'This character selected you' card, then the Cerenovus token. Show the selected character token. If the player is not mad about being that character tomorrow, they can be executed.",
     "reminders": ["Mad"],
     "setup": false,
-    "ability": "Each night, choose a player & a good character: they are \u201Cmad\u201D they are this character tomorrow, or might be executed."
+    "ability": "Each night, choose a player & a good character: they are \u201cmad\u201d they are this character tomorrow, or might be executed."
   },
   {
     "id": "pithag",
@@ -1680,5 +1680,83 @@
     "reminders": [],
     "setup": false,
     "ability": "Once per day, you may choose to kill an alive neighbour, if your other alive neighbour agrees."
+  },
+  {
+    "id": "ojo",
+    "name": "Ojo",
+    "edition": "",
+    "team": "demon",
+    "firstNight": 0,
+    "firstNightReminder": "",
+    "otherNight": 25,
+    "otherNightReminder": "The Ojo points to a character token. If that character is in play, that player dies. If not in play, the Storyteller chooses who dies.",
+    "reminders": ["Dead"],
+    "setup": false,
+    "ability": "Each night*, choose a character: they die. If they are not in play, the Storyteller chooses who dies."
+  },
+  {
+    "id": "alsaahir",
+    "name": "Alsaahir",
+    "edition": "",
+    "team": "townsfolk",
+    "firstNight": 0,
+    "firstNightReminder": "",
+    "otherNight": 0,
+    "otherNightReminder": "",
+    "reminders": [],
+    "setup": false,
+    "ability": "Each day, if you publicly guess which players are Minion(s) and which are Demon(s), good wins."
+  },
+  {
+    "id": "highpriestess",
+    "name": "High Priestess",
+    "edition": "",
+    "team": "townsfolk",
+    "firstNight": 48,
+    "firstNightReminder": "Point to a player that the Storyteller believes the High Priestess should talk to most.",
+    "otherNight": 63,
+    "otherNightReminder": "Point to a player that the Storyteller believes the High Priestess should talk to most.",
+    "reminders": [],
+    "setup": false,
+    "ability": "Each night, learn which player the Storyteller believes you should talk to most."
+  },
+  {
+    "id": "shugenja",
+    "name": "Shugenja",
+    "edition": "",
+    "team": "townsfolk",
+    "firstNight": 50,
+    "firstNightReminder": "If the closest evil player is clockwise from the Shugenja, point clockwise. If anti-clockwise, point anti-clockwise. If equidistant, point in an arbitrary direction.",
+    "otherNight": 0,
+    "otherNightReminder": "",
+    "reminders": ["Clockwise", "Anti-clockwise"],
+    "setup": false,
+    "ability": "You start knowing if your closest evil player is clockwise or anti-clockwise. If equidistant, this info is arbitrary."
+  },
+  {
+    "id": "steward",
+    "name": "Steward",
+    "edition": "",
+    "team": "townsfolk",
+    "firstNight": 51,
+    "firstNightReminder": "Point to a good player.",
+    "otherNight": 0,
+    "otherNightReminder": "",
+    "reminders": [],
+    "setup": false,
+    "ability": "You start knowing 1 good player."
+  },
+  {
+    "id": "villageidiot",
+    "name": "Village Idiot",
+    "edition": "",
+    "team": "outsider",
+    "firstNight": 12,
+    "firstNightReminder": "Show the head signal (nod yes, shake no) for whether this player is good.",
+    "otherNight": 22,
+    "otherNightReminder": "The Village Idiot points to a player. Show the head signal (nod yes, shake no) for whether that player is good.",
+    "reminders": ["Drunk"],
+    "setup": true,
+    "ability": "Each night, choose a player: you learn their alignment. [+0 to +2 Village Idiots. 1 of the extras is drunk]"
   }
 ]

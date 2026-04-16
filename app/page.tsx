@@ -3,6 +3,8 @@
 import { useReducer, useMemo } from "react";
 import { GrimoireState, GrimoireAction } from "@/types";
 import { allCharacters, allInteractions, getEditionPool, getEditionTravelers } from "@/lib/data";
+import premadeScriptsData from "@/data/premadeScripts.json";
+import { EDITIONS } from "@/constants/info";
 import { CharacterDetail } from "@/components/CharacterDetail";
 import { ScriptStep } from "@/components/ScriptStep";
 import { GameSetupStep } from "@/components/GameSetupStep";
@@ -13,6 +15,7 @@ const initialState: GrimoireState = {
   step: "script",
   scriptType: "full",
   scriptSource: null,
+  premadeScriptId: null,
   scriptIds: [],
   playerCount: null,
   gameIds: [],
@@ -28,16 +31,29 @@ function reducer(state: GrimoireState, action: GrimoireAction): GrimoireState {
         ...state,
         scriptType: action.scriptType,
         scriptSource: null,
+        premadeScriptId: null,
         scriptIds: [],
         gameIds: [],
         playerCount: null
       };
     case "CLEAR_SCRIPT_SOURCE":
-      return { ...state, scriptSource: null, scriptIds: [], gameIds: [], playerCount: null };
+      return { ...state, scriptSource: null, premadeScriptId: null, scriptIds: [], gameIds: [], playerCount: null };
+    case "SELECT_PREMADE":
+      return {
+        ...state,
+        scriptSource: "premade",
+        premadeScriptId: action.id,
+        scriptIds: action.ids,
+        gameIds: [],
+        playerCount: null,
+        searchQuery: "",
+        detailCharacterId: null
+      };
     case "SELECT_EDITION":
       return {
         ...state,
         scriptSource: action.edition,
+        premadeScriptId: null,
         scriptIds: action.ids,
         gameIds: [],
         playerCount: null,
@@ -48,6 +64,7 @@ function reducer(state: GrimoireState, action: GrimoireAction): GrimoireState {
       return {
         ...state,
         scriptSource: "custom",
+        premadeScriptId: null,
         scriptIds: [],
         gameIds: [],
         playerCount: null,
@@ -94,7 +111,18 @@ function reducer(state: GrimoireState, action: GrimoireAction): GrimoireState {
 
 export default function Home() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { step, scriptType, scriptSource, scriptIds, playerCount, gameIds, nightPhase, searchQuery, detailCharacterId } = state;
+  const {
+    step,
+    scriptType,
+    scriptSource,
+    premadeScriptId,
+    scriptIds,
+    playerCount,
+    gameIds,
+    nightPhase,
+    searchQuery,
+    detailCharacterId
+  } = state;
 
   // Step 1 custom: context is the script being built.
   // Steps 2 + 3: context is the in-game characters — counters, interactions, and
@@ -111,11 +139,20 @@ export default function Home() {
     []
   );
 
-  // Travelers available for the current script source
-  const editionTravelers = useMemo(
-    () => (scriptSource && scriptSource !== "custom" ? getEditionTravelers(scriptSource) : []),
-    [scriptSource]
-  );
+  // Travelers available for the current script source (only for official editions)
+  const editionTravelers = useMemo(() => {
+    if (!scriptSource || scriptSource === "custom" || scriptSource === "premade") return [];
+    return getEditionTravelers(scriptSource);
+  }, [scriptSource]);
+
+  const scriptDisplayName = useMemo(() => {
+    if (!scriptSource) return "";
+    if (scriptSource === "custom") return "Custom Script";
+    if (scriptSource === "premade") {
+      return premadeScriptsData.find((s) => s.id === premadeScriptId)?.name ?? "Community Script";
+    }
+    return EDITIONS.find((ed) => ed.key === scriptSource)?.name ?? "Unknown Script";
+  }, [scriptSource, premadeScriptId]);
 
   // CharacterDetail lookup includes travelers so traveler detail panels work
   const allCharactersWithTravelers = useMemo(() => [...allCharacters, ...editionTravelers], [editionTravelers]);
@@ -177,6 +214,7 @@ export default function Home() {
           <ScriptStep
             scriptType={scriptType}
             scriptSource={scriptSource}
+            premadeScriptId={premadeScriptId}
             scriptIds={scriptIds}
             allCharacters={allCharacters}
             editionPools={editionPools}
@@ -184,6 +222,7 @@ export default function Home() {
             onSetScriptType={(type) => dispatch({ type: "SET_SCRIPT_TYPE", scriptType: type })}
             onClearScriptSource={() => dispatch({ type: "CLEAR_SCRIPT_SOURCE" })}
             onSelectEdition={(ed, ids) => dispatch({ type: "SELECT_EDITION", edition: ed, ids })}
+            onSelectPremade={(id, ids) => dispatch({ type: "SELECT_PREMADE", id, ids })}
             onSelectCustom={() => dispatch({ type: "SELECT_CUSTOM" })}
             onToggleScriptChar={(id) => dispatch({ type: "TOGGLE_SCRIPT_CHAR", id })}
             onContinue={() => dispatch({ type: "GO_TO_SETUP" })}
@@ -196,6 +235,7 @@ export default function Home() {
           <GameSetupStep
             scriptType={scriptType}
             scriptSource={scriptSource}
+            scriptDisplayName={scriptDisplayName}
             scriptIds={scriptIds}
             playerCount={playerCount}
             gameIds={gameIds}
@@ -212,6 +252,7 @@ export default function Home() {
         {step === "dashboard" && (
           <DashboardStep
             scriptSource={scriptSource}
+            scriptDisplayName={scriptDisplayName}
             scriptIds={scriptIds}
             playerCount={playerCount!}
             gameIds={gameIds}
