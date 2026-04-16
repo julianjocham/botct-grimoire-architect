@@ -6,7 +6,7 @@ import { EDITIONS } from "@/constants/info";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { getSupportedPlayerCounts } from "@/lib/analysis/playerCounts";
-import { SectionLabel } from "./ui/SectionLabel";
+import { Panel } from "./ui/Panel";
 
 function teamCount(chars: Character[], team: string) {
   return chars.filter((c) => c.team === team).length;
@@ -243,8 +243,7 @@ export function ScriptStep({
             </button>
 
             {/* Count dashboard */}
-            <div className="bg-surface border-subtle rounded-[10px] border px-4 py-3.5">
-              <SectionLabel className="mb-3">Your Script — {scriptIds.length} characters</SectionLabel>
+            <Panel title={`Your Script — ${scriptIds.length} characters`}>
               <div className="flex gap-2.5">
                 {TEAM_ORDER.map((team) => {
                   const have = counts[team];
@@ -329,11 +328,11 @@ export function ScriptStep({
                   </div>
                 </div>
               )}
-            </div>
+            </Panel>
 
             {/* Script character list */}
             {scriptIds.length > 0 && (
-              <div className="bg-surface border-subtle flex-1 overflow-y-auto rounded-[10px] border px-4 py-3.5">
+              <Panel className="flex-1 overflow-y-auto">
                 <div className="font-display text-gold mb-3 text-sm tracking-[0.06em] uppercase">Script Contents</div>
                 {TEAM_ORDER.map((team) => {
                   const chars = scriptChars.filter((c) => c.team === team);
@@ -366,7 +365,7 @@ export function ScriptStep({
                     </div>
                   );
                 })}
-              </div>
+              </Panel>
             )}
 
             {/* Continue */}

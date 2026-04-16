@@ -8,6 +8,7 @@ import { InteractionFeed } from "./InteractionFeed";
 import { EDITIONS, FEEL_BARS, FEEL_COLOR } from "@/constants/info";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { calculateStrengthTotals } from "@/lib/strength/calculate";
+import { Panel } from "@/components/ui/Panel";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export function DashboardStep({
@@ -91,7 +92,7 @@ export function DashboardStep({
       </div>
 
       {/* In-play character strip */}
-      <div className="bg-surface border-subtle rounded-[10px] border px-4 py-3">
+      <Panel className="py-3">
         <div className="font-display text-dim text-2xs mb-2.5 tracking-widest uppercase">
           In Play — {gameIds.length} Characters
         </div>
@@ -138,31 +139,30 @@ export function DashboardStep({
             </div>
           )}
         </div>
-      </div>
+      </Panel>
 
       {/* Main 3-column grid */}
       <div className="grid grid-cols-[1fr_1fr_300px] gap-4">
         {/* Night Order */}
-        <div className="bg-surface border-subtle flex flex-col rounded-[10px] border px-4 py-3.5">
+        <Panel className="flex flex-col">
           <SectionLabel className="mb-2.5">Night Order</SectionLabel>
           <div className="max-h-120 flex-1 overflow-y-auto">
             <NightOrder steps={nightSteps} phase={nightPhase} onPhaseChange={onNightPhaseChange} />
           </div>
-        </div>
+        </Panel>
 
         {/* Interactions */}
-        <div className="bg-surface border-subtle flex flex-col rounded-[10px] border px-4 py-3.5">
+        <Panel className="flex flex-col">
           <SectionLabel className="mb-2.5">Interactions ({analysis.interactionHints.length})</SectionLabel>
           <div className="max-h-120 flex-1 overflow-y-auto">
             <InteractionFeed hints={analysis.interactionHints} characters={allCharacters} onDetail={onDetail} />
           </div>
-        </div>
+        </Panel>
 
         {/* Right column: Strength + Feel + Issues */}
         <div className="flex flex-col gap-3.5">
           {/* Team strength */}
-          <div className="bg-surface border-subtle rounded-[10px] border px-4 py-3.5">
-            <SectionLabel className="mb-3">Team Strength</SectionLabel>
+          <Panel title="Team Strength">
 
             <div className="flex flex-col gap-2.5">
               {/* Good */}
@@ -202,11 +202,10 @@ export function DashboardStep({
                     : "Roughly balanced"}
               </div>
             </div>
-          </div>
+          </Panel>
 
           {/* Script feel */}
-          <div className="bg-surface border-subtle rounded-[10px] border px-4 py-3.5">
-            <SectionLabel className="mb-3">Game Feel</SectionLabel>
+          <Panel title="Game Feel">
             <div className="flex flex-col gap-2">
               {FEEL_BARS.map(({ key, label, levels }) => {
                 const val = analysis.scriptFeel[key] as string;
@@ -238,11 +237,11 @@ export function DashboardStep({
               {" · "}
               {analysis.nightOrder.first.length}↓ {analysis.nightOrder.other.length}↻
             </div>
-          </div>
+          </Panel>
 
           {/* Issues */}
           {(analysis.compositionWarnings.length > 0 || criticals.length > 0) && (
-            <div className="bg-surface border-subtle rounded-[10px] border px-4 py-3.5">
+            <Panel>
               <SectionLabel className="mb-2.5">Issues</SectionLabel>
               <div className="flex flex-col gap-1.5">
                 {analysis.compositionWarnings.map((w, i) => (
@@ -265,7 +264,7 @@ export function DashboardStep({
                   </div>
                 )}
               </div>
-            </div>
+            </Panel>
           )}
         </div>
       </div>

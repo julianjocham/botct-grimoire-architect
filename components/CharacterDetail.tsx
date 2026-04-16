@@ -4,6 +4,7 @@ import { Character, CharacterDetailProps } from "@/types";
 import { SubDimBar } from "./common/SubDimBar";
 import { COMPLEXITY_LABEL } from "@/constants/character";
 import { StrengthBar } from "@/components/common/StrengthBar";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export function CharacterDetail({
   character,
@@ -44,7 +45,7 @@ export function CharacterDetail({
       <div className="flex flex-col gap-3.5 px-4 py-3">
         {/* Ability text */}
         <div>
-          <div className="text-muted text-2xs mb-1 font-mono tracking-[0.08em] uppercase">Ability</div>
+          <SectionLabel color="muted" mono className="mb-1">Ability</SectionLabel>
           <div className="font-body text-parchment-muted bg-surface border-subtle rounded-md border px-2.5 py-2 text-base leading-[1.6] italic">
             &ldquo;{character.ability}&rdquo;
           </div>
@@ -53,7 +54,7 @@ export function CharacterDetail({
         {/* Strength */}
         {character.strength?.composite !== undefined && (
           <div>
-            <div className="text-muted text-2xs mb-1.5 font-mono tracking-[0.08em] uppercase">Strength</div>
+            <SectionLabel color="muted" mono className="mb-1.5">Strength</SectionLabel>
             <StrengthBar value={baseStrength} effectiveValue={eff} />
             {modifier !== 0 && (
               <div className={["text-2xs mt-1 font-mono", eff < 0 ? "text-blood-light" : "text-good-blue"].join(" ")}>
@@ -154,7 +155,7 @@ export function CharacterDetail({
         {/* ST Advice */}
         {character.stAdvice && (
           <div>
-            <div className="text-muted text-2xs mb-1 font-mono tracking-[0.08em] uppercase">ST Advice</div>
+            <SectionLabel color="muted" mono className="mb-1">ST Advice</SectionLabel>
             <div className="font-body text-parchment-muted text-base leading-[1.6]">{character.stAdvice}</div>
           </div>
         )}
@@ -162,7 +163,7 @@ export function CharacterDetail({
         {/* New ST Warning */}
         {character.newStWarning && (
           <div className="rounded-md border border-[#5a3000] bg-[#1a0a00] px-2.5 py-2">
-            <div className="text-amber text-2xs mb-1 font-mono tracking-[0.08em] uppercase">⚠ New ST Warning</div>
+            <SectionLabel color="amber" mono className="mb-1">⚠ New ST Warning</SectionLabel>
             <div className="font-body text-sm leading-normal text-[#c8a050]">{character.newStWarning}</div>
           </div>
         )}
@@ -170,7 +171,7 @@ export function CharacterDetail({
         {/* Official ST Reminder */}
         {(character.firstNightReminder || character.otherNightReminder) && (
           <div>
-            <div className="text-muted text-2xs mb-1 font-mono tracking-[0.08em] uppercase">Official Reminders</div>
+            <SectionLabel color="muted" mono className="mb-1">Official Reminders</SectionLabel>
             <div className="flex flex-col gap-1">
               {character.firstNightReminder && (
                 <div className="font-body text-sm leading-[1.4] text-[#888]">
@@ -191,9 +192,7 @@ export function CharacterDetail({
         {/* Counters on this script */}
         {countersOnScript.length > 0 && (
           <div>
-            <div className="text-blood-light text-2xs mb-1.5 font-mono tracking-[0.08em] uppercase">
-              ⚔ Counters on this script
-            </div>
+            <SectionLabel color="blood" mono className="mb-1.5">⚔ Counters on this script</SectionLabel>
             <div className="flex flex-col gap-1.5">
               {countersOnScript.map((counter) => (
                 <div key={counter.id} className="rounded-md border border-[#4a1a1a] bg-[#1a0808] px-2.5 py-1.5">
@@ -217,7 +216,7 @@ export function CharacterDetail({
         {/* Bluff advice */}
         {character.bluffAdvice && (
           <div>
-            <div className="text-muted text-2xs mb-1 font-mono tracking-[0.08em] uppercase">Bluff Advice</div>
+            <SectionLabel color="muted" mono className="mb-1">Bluff Advice</SectionLabel>
             <div className="font-body text-parchment-muted text-base leading-normal">{character.bluffAdvice}</div>
           </div>
         )}

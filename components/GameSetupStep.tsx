@@ -7,6 +7,7 @@ import { RAW_COUNTS, SETUP_MODIFIERS, TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from
 import { EDITIONS, FEEL_BARS, FEEL_COLOR } from "@/constants/info";
 import { analyzeScript } from "@/lib/engine";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
+import { Panel } from "@/components/ui/Panel";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 
@@ -351,7 +352,7 @@ export function GameSetupStep({
         {playerCount && req && (
           <>
             {/* Distribution */}
-            <div className="bg-surface border-subtle rounded-[10px] border px-4 py-3.5">
+            <Panel>
               <div className="mb-3 flex items-center justify-between">
                 <div className="font-display text-gold text-sm tracking-[0.06em] uppercase">
                   {playerCount}-Player Distribution
@@ -401,7 +402,7 @@ export function GameSetupStep({
                   ))}
                 </div>
               )}
-            </div>
+            </Panel>
 
             {/* Character selection */}
             <div className="flex flex-col gap-4">
