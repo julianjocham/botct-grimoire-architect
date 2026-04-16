@@ -82,3 +82,13 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+---
+
+## Licensing & Attribution
+
+This project is licensed under the **MIT License** — you're free to use, modify, and distribute this software with no copyright restrictions.
+
+**Icons**: Character icons are dynamically loaded from [https://script.bloodontheclocktower.com/src/assets/icons](https://script.bloodontheclocktower.com/src/assets/icons) at runtime. This approach respects The Pandemonium Institute's copyright and follows their [community-created content policy](https://bloodontheclocktower.com/pages/community-created-content-policy). No icon files are bundled with this project.
+
+This is a community-created tool for *Blood on the Clocktower*, an intellectual property of The Pandemonium Institute. It is not affiliated with or endorsed by TPI.
