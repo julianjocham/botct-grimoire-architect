@@ -1,4 +1,4 @@
-import { AbilityCategory, FeelBarConfig } from "@/lib/types";
+import { AbilityCategory, FeelBarConfig } from "@/types";
 
 export const FEEL_COLOR: Record<string, string> = {
   Blind: "#c0392b",

@@ -1,6 +1,6 @@
 "use client";
 
-import { NightOrderProps } from "@/components/types";
+import { NightOrderProps } from "@/types";
 
 export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
   return (

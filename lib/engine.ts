@@ -1,4 +1,3 @@
-import type { Character, Interaction, ScriptAnalysis } from "./types";
 import { generateNightOrder } from "./analysis/nightOrder";
 import { calculateStrengthTotals } from "./strength/calculate";
 import { analyzeInteractions } from "./analysis/interactions";
@@ -7,7 +6,8 @@ import { calculateScriptFeel } from "./analysis/feel";
 import { calculateNightComplexity } from "./analysis/complexity";
 import { getCategoryCoverage } from "./analysis/coverage";
 import { getRecommendations } from "./analysis/recommendations";
-import { getSupportedPlayerCounts } from "./analysis/playerCounts";
+import { Character, Interaction, ScriptAnalysis } from "@/types";
+import { getSupportedPlayerCounts } from "@/lib/analysis/playerCounts";
 
 /**
  * Perform complete script analysis across all dimensions

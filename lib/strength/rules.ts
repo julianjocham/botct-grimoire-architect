@@ -1,5 +1,5 @@
-import type { Character, AbilityCategory, CharacterTag } from "../types";
 import { matchesCriteria, type MatchCriteria } from "../utils/matchers";
+import { AbilityCategory, Character, CharacterTag } from "@/types";
 
 /**
  * Rule that adjusts a character's effective strength based on ability types
@@ -95,11 +95,7 @@ export const STRENGTH_MODIFIER_RULES: StrengthModifierRule[] = [
 /**
  * Convert rule criteria into matcher criteria
  */
-function ruleCriteriaToMatcher(
-  categories?: AbilityCategory[],
-  tags?: CharacterTag[],
-  teams?: string[]
-): MatchCriteria {
+function ruleCriteriaToMatcher(categories?: AbilityCategory[], tags?: CharacterTag[], teams?: string[]): MatchCriteria {
   return { categories, tags, teams };
 }
 
@@ -107,11 +103,7 @@ function ruleCriteriaToMatcher(
  * Check if a character matches target criteria of a rule
  */
 export function matchesRuleTarget(character: Character, rule: StrengthModifierRule): boolean {
-  const criteria = ruleCriteriaToMatcher(
-    rule.targetCategories,
-    rule.targetTags,
-    rule.targetTeams
-  );
+  const criteria = ruleCriteriaToMatcher(rule.targetCategories, rule.targetTags, rule.targetTeams);
   return matchesCriteria(character, criteria);
 }
 
@@ -119,10 +111,6 @@ export function matchesRuleTarget(character: Character, rule: StrengthModifierRu
  * Check if a character matches trigger criteria of a rule
  */
 export function matchesRuleTrigger(character: Character, rule: StrengthModifierRule): boolean {
-  const criteria = ruleCriteriaToMatcher(
-    rule.triggerCategories,
-    rule.triggerTags,
-    rule.triggerTeams
-  );
+  const criteria = ruleCriteriaToMatcher(rule.triggerCategories, rule.triggerTags, rule.triggerTeams);
   return matchesCriteria(character, criteria);
 }

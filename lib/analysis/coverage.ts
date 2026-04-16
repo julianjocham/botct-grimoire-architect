@@ -1,5 +1,5 @@
-import type { Character, AbilityCategory, CategoryCoverage } from "../types";
 import { filterGoodTeam, filterEvilTeam, getNames } from "../utils/filters";
+import { AbilityCategory, CategoryCoverage, Character } from "@/types";
 
 const GOOD_CATEGORIES: AbilityCategory[] = [
   "info-start",
@@ -31,9 +31,7 @@ export function getCategoryCoverage(selectedIds: string[], characters: Character
 
   // Check good team coverage
   for (const cat of GOOD_CATEGORIES) {
-    const chars = filterGoodTeam(
-      selected.filter((c) => c.abilityCategory === cat)
-    );
+    const chars = filterGoodTeam(selected.filter((c) => c.abilityCategory === cat));
     if (chars.length > 0) {
       goodCoverage[cat] = getNames(chars);
     }
@@ -41,9 +39,7 @@ export function getCategoryCoverage(selectedIds: string[], characters: Character
 
   // Check evil team coverage
   for (const cat of EVIL_CATEGORIES) {
-    const chars = filterEvilTeam(
-      selected.filter((c) => c.abilityCategory === cat)
-    );
+    const chars = filterEvilTeam(selected.filter((c) => c.abilityCategory === cat));
     if (chars.length > 0) {
       evilCoverage[cat] = getNames(chars);
     }

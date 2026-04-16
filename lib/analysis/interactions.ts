@@ -1,4 +1,4 @@
-import type { Character, Interaction, InteractionHint, CategoryRule } from "../types";
+import { CategoryRule, Character, Interaction, InteractionHint } from "@/types";
 
 /**
  * Analyze which interactions are relevant for the selected characters
@@ -32,9 +32,7 @@ export function generateCategoryInteractions(
   existingInteractions: Interaction[]
 ): Interaction[] {
   // Build a set of already-defined pairs to avoid duplicates
-  const existingPairs = new Set<string>(
-    existingInteractions.flatMap((ix) => [`${ix.a}:${ix.b}`, `${ix.b}:${ix.a}`])
-  );
+  const existingPairs = new Set<string>(existingInteractions.flatMap((ix) => [`${ix.a}:${ix.b}`, `${ix.b}:${ix.a}`]));
 
   const generated: Interaction[] = [];
 
@@ -58,14 +56,10 @@ export function generateCategoryInteractions(
         const aMatchesTarget = matchesCharacterToRule(a, rule, "target");
 
         if (aMatchesSource && bMatchesTarget) {
-          generated.push(
-            createInteraction(a, b, rule)
-          );
+          generated.push(createInteraction(a, b, rule));
           break; // Only one rule per pair per pass
         } else if (bMatchesSource && aMatchesTarget) {
-          generated.push(
-            createInteraction(b, a, rule)
-          );
+          generated.push(createInteraction(b, a, rule));
           break;
         }
       }
@@ -78,11 +72,7 @@ export function generateCategoryInteractions(
 /**
  * Check if a character matches a rule's source or target
  */
-function matchesCharacterToRule(
-  character: Character,
-  rule: CategoryRule,
-  direction: "source" | "target"
-): boolean {
+function matchesCharacterToRule(character: Character, rule: CategoryRule, direction: "source" | "target"): boolean {
   const tagField = direction === "source" ? "sourceTag" : "targetTag";
   const categoryField = direction === "source" ? "sourceCategory" : "targetCategory";
 
@@ -91,7 +81,6 @@ function matchesCharacterToRule(
 
   if (tag && !character.tags?.includes(tag)) return false;
   return !(category && character.abilityCategory !== category);
-
 }
 
 /**

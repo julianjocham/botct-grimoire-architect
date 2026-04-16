@@ -1,5 +1,5 @@
-import type { Character, AbilityCategory, ScriptRecommendation } from "../types";
 import { getCategoryCoverage } from "./coverage";
+import { AbilityCategory, Character, ScriptRecommendation } from "@/types";
 
 const GOOD_CATEGORY_LABELS: Partial<Record<AbilityCategory, string>> = {
   "info-start": "first-night info",
@@ -20,22 +20,14 @@ const EVIL_CATEGORY_LABELS: Partial<Record<AbilityCategory, string>> = {
   "character-change": "character-swap chaos"
 };
 
-const GOOD_CATEGORIES: AbilityCategory[] = [
-  "info-start",
-  "info-recurring",
-  "protection",
-  "day-ability"
-];
+const GOOD_CATEGORIES: AbilityCategory[] = ["info-start", "info-recurring", "protection", "day-ability"];
 
 const EVIL_CATEGORIES: AbilityCategory[] = ["info-disruption", "demon-resilience"];
 
 /**
  * Get script recommendations for filling gaps
  */
-export function getRecommendations(
-  selectedIds: string[],
-  characters: Character[]
-): ScriptRecommendation[] {
+export function getRecommendations(selectedIds: string[], characters: Character[]): ScriptRecommendation[] {
   const coverage = getCategoryCoverage(selectedIds, characters);
   const recommendations: ScriptRecommendation[] = [];
   const selected = characters.filter((c) => selectedIds.includes(c.id));
@@ -70,10 +62,7 @@ export function getRecommendations(
     if (!coverage.evil[cat] && hasGoodInfo) {
       const candidates = characters
         .filter(
-          (c) =>
-            c.abilityCategory === cat &&
-            (c.team === "minion" || c.team === "demon") &&
-            !selectedIds.includes(c.id)
+          (c) => c.abilityCategory === cat && (c.team === "minion" || c.team === "demon") && !selectedIds.includes(c.id)
         )
         .slice(0, 3);
 

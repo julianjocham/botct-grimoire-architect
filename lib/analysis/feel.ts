@@ -1,5 +1,5 @@
-import type { Character, ScriptFeel } from "../types";
 import { filterByTags } from "../utils/filters";
+import { Character, ScriptFeel } from "@/types";
 
 /**
  * Calculate information level (info-producing good roles)
@@ -22,8 +22,7 @@ function calculateInfoLevel(selected: Character[]): ScriptFeel["infoLevel"] {
  */
 function calculateLethalityLevel(selected: Character[]): ScriptFeel["lethalityLevel"] {
   const killSources = selected.filter(
-    (c) =>
-      c.team === "demon" || c.tags?.includes("lethal-evil") || c.tags?.includes("lethal-good")
+    (c) => c.team === "demon" || c.tags?.includes("lethal-evil") || c.tags?.includes("lethal-good")
   ).length;
 
   if (killSources >= 5) return "Massacre";

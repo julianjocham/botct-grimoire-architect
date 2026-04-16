@@ -1,14 +1,11 @@
-import type { Character, PlayerCountEntry } from "../types";
 import { filterByTeam } from "../utils/filters";
 import playerCountsData from "@/data/playerCounts.json";
+import { Character, PlayerCountEntry } from "@/types";
 
 /**
  * Get supported player counts for a script
  */
-export function getSupportedPlayerCounts(
-  selectedIds: string[],
-  characters: Character[]
-): PlayerCountEntry[] {
+export function getSupportedPlayerCounts(selectedIds: string[], characters: Character[]): PlayerCountEntry[] {
   const selected = characters.filter((c) => selectedIds.includes(c.id));
 
   const tfCount = filterByTeam(selected, "townsfolk").length;

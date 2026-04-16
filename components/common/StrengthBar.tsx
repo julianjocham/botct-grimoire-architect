@@ -1,6 +1,6 @@
 "use client";
 
-import { StrengthBarProps } from "@/components/types";
+import { StrengthBarProps } from "@/types";
 
 function getBarColor(value: number): string {
   if (value >= 40) return "#2a7fd4";

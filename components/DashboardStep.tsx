@@ -1,13 +1,13 @@
 "use client";
 
 import { useMemo } from "react";
+import { DashboardStepProps } from "@/types";
 import { analyzeScript } from "@/lib/engine";
 import { NightOrder } from "./NightOrder";
 import { InteractionFeed } from "./InteractionFeed";
-import { DashboardStepProps } from "@/components/types";
 import { EDITIONS, FEEL_BARS, FEEL_COLOR } from "@/constants/info";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
-import {calculateStrengthTotals} from "@/lib/strength/calculate";
+import { calculateStrengthTotals } from "@/lib/strength/calculate";
 
 export function DashboardStep({
   scriptSource,

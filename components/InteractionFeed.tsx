@@ -1,7 +1,6 @@
 "use client";
 
-import { Character } from "@/lib/types";
-import { InteractionFeedProps } from "@/components/types";
+import { Character, InteractionFeedProps } from "@/types";
 import { JINX_STYLE, SEVERITY_STYLES } from "@/constants/character";
 
 export function InteractionFeed({ hints, characters, onDetail }: InteractionFeedProps) {

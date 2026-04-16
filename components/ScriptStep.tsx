@@ -1,12 +1,11 @@
 "use client";
 
-import { Character } from "@/lib/types";
-import { CharacterToken } from "./CharacterToken";
-import { ScriptStepProps } from "@/components/types";
+import { Character, ScriptStepProps } from "@/types";
+import { CharacterToken } from "./common/CharacterToken";
 import { EDITIONS } from "@/constants/info";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
-import {calculateEffectiveStrength} from "@/lib/strength/calculate";
-import {getSupportedPlayerCounts} from "@/lib/analysis/playerCounts";
+import { calculateEffectiveStrength } from "@/lib/strength/calculate";
+import { getSupportedPlayerCounts } from "@/lib/analysis/playerCounts";
 
 function teamCount(chars: Character[], team: string) {
   return chars.filter((c) => c.team === team).length;

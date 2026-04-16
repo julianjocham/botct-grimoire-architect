@@ -1,45 +1,16 @@
 "use client";
 
-import { ScriptHealthBarProps } from "@/components/types";
+import { ScriptHealthBarProps } from "@/types";
+import { FeelBar } from "./common/FeelBar";
 import {
   CAT_SHORT,
   CHAOS_LEVEL,
   EVIL_CATEGORIES,
-  FEEL_COLOR,
   GOOD_CATEGORIES,
   INFO_LEVEL,
   LETHAL_LEVEL,
   ST_LEVEL
 } from "@/constants/info";
-
-function FeelBar({
-  label,
-  value,
-  levelMap,
-  maxBars = 4
-}: {
-  label: string;
-  value: string;
-  levelMap: Record<string, number>;
-  maxBars?: number;
-}) {
-  const color = FEEL_COLOR[value] ?? "#b8965a";
-  const filled = levelMap[value] ?? 0;
-
-  return (
-    <div className="flex flex-col items-center gap-[3px]">
-      <span className="text-muted font-mono text-[9px] tracking-[0.08em] whitespace-nowrap uppercase">{label}</span>
-      <div className="flex gap-[2px]">
-        {Array.from({ length: maxBars }, (_, i) => (
-          <div key={i} className="h-2 w-2 rounded-[1px]" style={{ background: i <= filled ? color : "#2a2a3a" }} />
-        ))}
-      </div>
-      <span className="font-display text-[9px] whitespace-nowrap" style={{ color }}>
-        {value}
-      </span>
-    </div>
-  );
-}
 
 export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
   const { scriptFeel, nightComplexity, interactionHints, compositionWarnings, goodStrengthTotal, evilStrengthTotal } =

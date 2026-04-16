@@ -1,4 +1,4 @@
-import type { Character, AbilityCategory, CharacterTag } from "../types";
+import { AbilityCategory, Character, CharacterTag } from "@/types";
 
 /**
  * Criteria for matching characters by tags, categories, or teams
@@ -16,7 +16,6 @@ export function matchesCriteria(character: Character, criteria: MatchCriteria): 
   if (criteria.categories && !criteria.categories.includes(character.abilityCategory)) return false;
   if (criteria.tags && !criteria.tags.some((t) => character.tags?.includes(t))) return false;
   return !(criteria.teams && !criteria.teams.includes(character.team));
-
 }
 
 /**

@@ -1,5 +1,5 @@
-import type { Character, EffectiveStrength } from "../types";
 import { STRENGTH_MODIFIER_RULES, matchesRuleTarget, matchesRuleTrigger } from "./rules";
+import { Character, EffectiveStrength } from "@/types";
 
 /**
  * Calculate a character's effective strength based on the selection

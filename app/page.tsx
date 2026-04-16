@@ -1,13 +1,13 @@
 "use client";
 
 import { useReducer, useMemo } from "react";
-import { GrimoireState, GrimoireAction } from "@/lib/types";
+import { GrimoireState, GrimoireAction } from "@/types";
 import { allCharacters, allInteractions, getEditionPool, getEditionTravelers } from "@/lib/data";
 import { CharacterDetail } from "@/components/CharacterDetail";
 import { ScriptStep } from "@/components/ScriptStep";
 import { GameSetupStep } from "@/components/GameSetupStep";
 import { DashboardStep } from "@/components/DashboardStep";
-import {calculateEffectiveStrength} from "@/lib/strength/calculate";
+import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 
 const initialState: GrimoireState = {
   step: "script",

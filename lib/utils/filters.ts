@@ -1,5 +1,5 @@
-import type { Character, AbilityCategory, CharacterTag } from "../types";
 import { hasAnyTag, hasCategory, isTeam, isGood, isEvil } from "./matchers";
+import { AbilityCategory, Character, CharacterTag } from "@/types";
 
 /**
  * Filter characters by team

@@ -1,4 +1,4 @@
-import type { Character, Interaction, NightStep } from "../types";
+import { Character, Interaction, NightStep } from "@/types";
 
 /**
  * Get context hints for a character during night phase

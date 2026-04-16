@@ -1,14 +1,10 @@
-import type { Character, CompositionWarning } from "../types";
 import { filterByTeam, filterByTags } from "../utils/filters";
+import { Character, CompositionWarning } from "@/types";
 
 /**
  * Create a composition warning
  */
-function createWarning(
-  type: string,
-  message: string,
-  severity: "critical" | "important" | "tip"
-): CompositionWarning {
+function createWarning(type: string, message: string, severity: "critical" | "important" | "tip"): CompositionWarning {
   return { type, message, severity };
 }
 
@@ -50,13 +46,7 @@ function checkScriptRequirements(selected: Character[]): CompositionWarning[] {
     );
 
   if (demons.length === 0)
-    warnings.push(
-      createWarning(
-        "no-demon",
-        "No Demon on the script. You need at least one.",
-        "critical"
-      )
-    );
+    warnings.push(createWarning("no-demon", "No Demon on the script. You need at least one.", "critical"));
 
   return warnings;
 }
@@ -83,34 +73,20 @@ function checkGameBalance(selected: Character[]): CompositionWarning[] {
 
   const infoFirstNight = filterByTags(selected, ["info-first-night"]);
   if (infoRecurring.length === 0 && infoFirstNight.length < 2)
-    warnings.push(
-      createWarning(
-        "low-info",
-        "Very low information. Good team is flying blind.",
-        "important"
-      )
-    );
+    warnings.push(createWarning("low-info", "Very low information. Good team is flying blind.", "important"));
 
   // Protection
   const protection = filterByTags(filterByTeam(selected, "townsfolk"), ["protection"]);
   if (protection.length === 0)
     warnings.push(
-      createWarning(
-        "no-protection",
-        "No protection roles. Demon kills will be unimpeded every night.",
-        "tip"
-      )
+      createWarning("no-protection", "No protection roles. Demon kills will be unimpeded every night.", "tip")
     );
 
   // Misinformation
   const misinformation = filterByTags(selected, ["info-disruption", "poison-drunk"]);
   if (misinformation.length === 0 && infoRecurring.length >= 2)
     warnings.push(
-      createWarning(
-        "no-misinformation",
-        "Good has strong info but evil has no misinformation tools.",
-        "important"
-      )
+      createWarning("no-misinformation", "Good has strong info but evil has no misinformation tools.", "important")
     );
 
   // Setup modifiers
@@ -127,13 +103,7 @@ function checkGameBalance(selected: Character[]): CompositionWarning[] {
   // Day abilities
   const dayAbilities = filterByTags(filterByTeam(selected, "townsfolk"), ["day-ability"]);
   if (dayAbilities.length === 0)
-    warnings.push(
-      createWarning(
-        "no-day-abilities",
-        "No day-ability Townsfolk. Daytime play is purely social.",
-        "tip"
-      )
-    );
+    warnings.push(createWarning("no-day-abilities", "No day-ability Townsfolk. Daytime play is purely social.", "tip"));
 
   return warnings;
 }

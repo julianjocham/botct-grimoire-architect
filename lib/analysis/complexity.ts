@@ -1,12 +1,9 @@
-import type { Character, NightComplexityReport } from "../types";
+import { Character, NightComplexityReport } from "@/types";
 
 /**
  * Calculate night complexity report
  */
-export function calculateNightComplexity(
-  selectedIds: string[],
-  characters: Character[]
-): NightComplexityReport {
+export function calculateNightComplexity(selectedIds: string[], characters: Character[]): NightComplexityReport {
   const selected = characters.filter((c) => selectedIds.includes(c.id));
 
   const firstNightSteps = selected.filter((c) => c.firstNight > 0).length;

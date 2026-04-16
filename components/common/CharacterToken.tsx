@@ -1,7 +1,7 @@
 "use client";
 
+import { CharacterTokenProps } from "@/types";
 import { StrengthBar } from "./StrengthBar";
-import { CharacterTokenProps } from "@/components/types";
 import { TEAM_COLORS, TEAM_ICON } from "@/constants/team";
 
 const COMPLEXITY_DOTS = (n: number) =>
