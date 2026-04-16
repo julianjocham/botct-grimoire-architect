@@ -1,24 +1,5 @@
 import type { Metadata } from "next";
-import { Cinzel, EB_Garamond, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-
-const cinzel = Cinzel({
-  variable: "--font-cinzel",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"]
-});
-
-const garamond = EB_Garamond({
-  variable: "--font-garamond",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"]
-});
-
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  weight: ["400", "500"]
-});
 
 export const metadata: Metadata = {
   title: "Grimoire Architect — Blood on the Clocktower",
@@ -31,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cinzel.variable} ${garamond.variable} ${jetbrains.variable} h-full`}>
+    <html lang="en" className="h-full">
       <body className="bg-background text-foreground flex min-h-full flex-col">{children}</body>
     </html>
   );

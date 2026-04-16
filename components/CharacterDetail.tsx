@@ -23,29 +23,29 @@ export function CharacterDetail({
     .filter((c) => c && selectedIds.includes(c.id)) as Character[];
 
   return (
-    <div className="border-subtle fixed top-0 right-0 bottom-0 z-[100] flex w-[340px] flex-col overflow-y-auto border border-r-0 bg-[#0f0f1a]">
+    <div className="border-subtle fixed top-0 right-0 bottom-0 z-100 flex w-85 flex-col overflow-y-auto border border-r-0 bg-[#0f0f1a]">
       {/* Header */}
-      <div className="border-subtle flex items-start justify-between gap-[10px] border-b px-4 py-[14px]">
+      <div className="border-subtle flex items-start justify-between gap-2.5 border-b px-4 py-3.5">
         <div>
-          <div className="font-display text-parchment mb-0.5 text-[15px]">{character.name}</div>
-          <div className="font-body text-muted text-[12px] capitalize">
+          <div className="font-display text-parchment mb-0.5 text-lg">{character.name}</div>
+          <div className="font-body text-muted text-sm capitalize">
             {character.team} · {character.edition?.toUpperCase() || "Experimental"} · ST Complexity:{" "}
             {COMPLEXITY_LABEL[character.stComplexity ?? 2]}
           </div>
         </div>
         <button
           onClick={onClose}
-          className="text-muted shrink-0 cursor-pointer border-none bg-transparent text-[18px] leading-none"
+          className="text-muted shrink-0 cursor-pointer border-none bg-transparent text-xl leading-none"
         >
           ×
         </button>
       </div>
 
-      <div className="flex flex-col gap-[14px] px-4 py-3">
+      <div className="flex flex-col gap-3.5 px-4 py-3">
         {/* Ability text */}
         <div>
-          <div className="text-muted mb-1 font-mono text-[10px] tracking-[0.08em] uppercase">Ability</div>
-          <div className="font-body text-parchment-muted bg-surface border-subtle rounded-[6px] border px-[10px] py-2 text-[13px] leading-[1.6] italic">
+          <div className="text-muted text-2xs mb-1 font-mono tracking-[0.08em] uppercase">Ability</div>
+          <div className="font-body text-parchment-muted bg-surface border-subtle rounded-md border px-2.5 py-2 text-base leading-[1.6] italic">
             &ldquo;{character.ability}&rdquo;
           </div>
         </div>
@@ -53,12 +53,10 @@ export function CharacterDetail({
         {/* Strength */}
         {character.strength?.composite !== undefined && (
           <div>
-            <div className="text-muted mb-[6px] font-mono text-[10px] tracking-[0.08em] uppercase">Strength</div>
+            <div className="text-muted text-2xs mb-1.5 font-mono tracking-[0.08em] uppercase">Strength</div>
             <StrengthBar value={baseStrength} effectiveValue={eff} />
             {modifier !== 0 && (
-              <div
-                className={["mt-1 font-mono text-[10px]", eff < 0 ? "text-blood-light" : "text-good-blue"].join(" ")}
-              >
+              <div className={["text-2xs mt-1 font-mono", eff < 0 ? "text-blood-light" : "text-good-blue"].join(" ")}>
                 Base {baseStrength > 0 ? "+" : ""}
                 {baseStrength} → {modifier > 0 ? "+" : ""}
                 {modifier} (context) → {eff > 0 ? "+" : ""}
@@ -69,7 +67,7 @@ export function CharacterDetail({
             {(character.strength.peakPower !== undefined ||
               character.strength.reliability !== undefined ||
               character.strength.vulnerability !== undefined) && (
-              <div className="mt-[10px] flex flex-col gap-[5px]">
+              <div className="mt-2.5 flex flex-col gap-1.25">
                 {character.strength.peakPower !== undefined && (
                   <SubDimBar
                     label="Peak Power"
@@ -103,7 +101,7 @@ export function CharacterDetail({
                   />
                 )}
                 {character.strength.scalingBonus !== undefined && character.strength.scalingBonus !== 0 && (
-                  <div className="text-dim flex justify-between font-mono text-[9px]">
+                  <div className="text-dim text-3xs flex justify-between font-mono">
                     <span title="Bonus or penalty in larger games">Scaling</span>
                     <span className={character.strength.scalingBonus > 0 ? "text-good-blue" : "text-blood-light"}>
                       {character.strength.scalingBonus > 0 ? "+" : ""}
@@ -114,27 +112,27 @@ export function CharacterDetail({
               </div>
             )}
             {reasons.length > 0 && (
-              <div className="mt-2 flex flex-col gap-[6px]">
+              <div className="mt-2 flex flex-col gap-1.5">
                 {reasons.map((r) => {
                   const char = allCharacters.find((c) => c.id === r.characterId);
                   return (
                     <div
                       key={r.characterId}
                       className={[
-                        "rounded-[5px] px-2 py-[6px]",
+                        "rounded-[5px] px-2 py-1.5",
                         r.impact < 0 ? "border border-[#3a1a1a] bg-[#150808]" : "border border-[#1a2a3a] bg-[#080d15]"
                       ].join(" ")}
                     >
                       <div className={["flex items-center justify-between", r.description ? "mb-1" : ""].join(" ")}>
                         <button
                           onClick={() => onNavigate(r.characterId)}
-                          className="text-gold font-display cursor-pointer border-none bg-transparent p-0 text-left text-[11px]"
+                          className="text-gold font-display cursor-pointer border-none bg-transparent p-0 text-left text-xs"
                         >
                           {char?.name ?? r.characterId}
                         </button>
                         <span
                           className={[
-                            "ml-2 shrink-0 font-mono text-[11px]",
+                            "ml-2 shrink-0 font-mono text-xs",
                             r.impact < 0 ? "text-blood-light" : "text-good-blue"
                           ].join(" ")}
                         >
@@ -143,7 +141,7 @@ export function CharacterDetail({
                         </span>
                       </div>
                       {r.description && (
-                        <div className="font-body text-[12px] leading-[1.45] text-[#888]">{r.description}</div>
+                        <div className="font-body text-sm leading-[1.45] text-[#888]">{r.description}</div>
                       )}
                     </div>
                   );
@@ -156,32 +154,32 @@ export function CharacterDetail({
         {/* ST Advice */}
         {character.stAdvice && (
           <div>
-            <div className="text-muted mb-1 font-mono text-[10px] tracking-[0.08em] uppercase">ST Advice</div>
-            <div className="font-body text-parchment-muted text-[13px] leading-[1.6]">{character.stAdvice}</div>
+            <div className="text-muted text-2xs mb-1 font-mono tracking-[0.08em] uppercase">ST Advice</div>
+            <div className="font-body text-parchment-muted text-base leading-[1.6]">{character.stAdvice}</div>
           </div>
         )}
 
         {/* New ST Warning */}
         {character.newStWarning && (
-          <div className="rounded-[6px] border border-[#5a3000] bg-[#1a0a00] px-[10px] py-2">
-            <div className="text-amber mb-1 font-mono text-[10px] tracking-[0.08em] uppercase">⚠ New ST Warning</div>
-            <div className="font-body text-[12px] leading-[1.5] text-[#c8a050]">{character.newStWarning}</div>
+          <div className="rounded-md border border-[#5a3000] bg-[#1a0a00] px-2.5 py-2">
+            <div className="text-amber text-2xs mb-1 font-mono tracking-[0.08em] uppercase">⚠ New ST Warning</div>
+            <div className="font-body text-sm leading-normal text-[#c8a050]">{character.newStWarning}</div>
           </div>
         )}
 
         {/* Official ST Reminder */}
         {(character.firstNightReminder || character.otherNightReminder) && (
           <div>
-            <div className="text-muted mb-1 font-mono text-[10px] tracking-[0.08em] uppercase">Official Reminders</div>
+            <div className="text-muted text-2xs mb-1 font-mono tracking-[0.08em] uppercase">Official Reminders</div>
             <div className="flex flex-col gap-1">
               {character.firstNightReminder && (
-                <div className="font-body text-[12px] leading-[1.4] text-[#888]">
+                <div className="font-body text-sm leading-[1.4] text-[#888]">
                   <span className="text-dim">1st: </span>
                   {character.firstNightReminder}
                 </div>
               )}
               {character.otherNightReminder && (
-                <div className="font-body text-[12px] leading-[1.4] text-[#888]">
+                <div className="font-body text-sm leading-[1.4] text-[#888]">
                   <span className="text-dim">Other: </span>
                   {character.otherNightReminder}
                 </div>
@@ -193,20 +191,20 @@ export function CharacterDetail({
         {/* Counters on this script */}
         {countersOnScript.length > 0 && (
           <div>
-            <div className="text-blood-light mb-[6px] font-mono text-[10px] tracking-[0.08em] uppercase">
+            <div className="text-blood-light text-2xs mb-1.5 font-mono tracking-[0.08em] uppercase">
               ⚔ Counters on this script
             </div>
-            <div className="flex flex-col gap-[6px]">
+            <div className="flex flex-col gap-1.5">
               {countersOnScript.map((counter) => (
-                <div key={counter.id} className="rounded-[6px] border border-[#4a1a1a] bg-[#1a0808] px-[10px] py-[6px]">
+                <div key={counter.id} className="rounded-md border border-[#4a1a1a] bg-[#1a0808] px-2.5 py-1.5">
                   <button
                     onClick={() => onNavigate(counter.id)}
-                    className="text-minion font-display mb-0.5 cursor-pointer border-none bg-transparent p-0 text-[12px]"
+                    className="text-minion font-display mb-0.5 cursor-pointer border-none bg-transparent p-0 text-sm"
                   >
                     {counter.name}
                   </button>
                   {character.counterDetail[counter.id] && (
-                    <div className="font-body text-[12px] leading-[1.4] text-[#888]">
+                    <div className="font-body text-sm leading-[1.4] text-[#888]">
                       {character.counterDetail[counter.id]}
                     </div>
                   )}
@@ -219,8 +217,8 @@ export function CharacterDetail({
         {/* Bluff advice */}
         {character.bluffAdvice && (
           <div>
-            <div className="text-muted mb-1 font-mono text-[10px] tracking-[0.08em] uppercase">Bluff Advice</div>
-            <div className="font-body text-parchment-muted text-[13px] leading-[1.5]">{character.bluffAdvice}</div>
+            <div className="text-muted text-2xs mb-1 font-mono tracking-[0.08em] uppercase">Bluff Advice</div>
+            <div className="font-body text-parchment-muted text-base leading-normal">{character.bluffAdvice}</div>
           </div>
         )}
 
@@ -228,7 +226,7 @@ export function CharacterDetail({
         <button
           onClick={() => onToggle(character.id)}
           className={[
-            "text-parchment font-display cursor-pointer rounded-[6px] border-none p-[10px] text-[12px] tracking-[0.05em]",
+            "text-parchment font-display cursor-pointer rounded-md border-none p-2.5 text-sm tracking-[0.05em]",
             isSelected ? "bg-blood" : "bg-[#1a3a6a]"
           ].join(" ")}
         >

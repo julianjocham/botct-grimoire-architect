@@ -21,7 +21,7 @@ export function StrengthBar({ value, showNumber = true, effectiveValue, small = 
       {/* Negative side */}
       <div className={`flex flex-1 justify-end ${small ? "h-1" : "h-1.5"}`}>
         <div
-          className="h-full rounded-l-[2px] transition-[width] duration-200 ease-in-out"
+          className="h-full rounded-l-xs transition-[width] duration-200 ease-in-out"
           style={{
             width: !isPositive ? barWidth : "0%",
             background: color
@@ -35,7 +35,7 @@ export function StrengthBar({ value, showNumber = true, effectiveValue, small = 
       {/* Positive side */}
       <div className={`flex-1 ${small ? "h-1" : "h-1.5"}`}>
         <div
-          className="h-full rounded-r-[2px] transition-[width] duration-200 ease-in-out"
+          className="h-full rounded-r-xs transition-[width] duration-200 ease-in-out"
           style={{
             width: isPositive ? barWidth : "0%",
             background: color
@@ -44,7 +44,7 @@ export function StrengthBar({ value, showNumber = true, effectiveValue, small = 
       </div>
 
       {showNumber && (
-        <span className={`min-w-8 text-right font-mono ${small ? "text-[10px]" : "text-[11px]"}`} style={{ color }}>
+        <span className={`min-w-8 text-right font-mono ${small ? "text-2xs" : "text-xs"}`} style={{ color }}>
           {displayValue > 0 ? "+" : ""}
           {displayValue}
         </span>

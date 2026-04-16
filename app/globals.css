@@ -45,27 +45,46 @@
   --color-demon: #d55b5b;
   /* Good-side blue */
   --color-good-blue: #2a7fd4;
-  /* Fonts — map Next.js font variables to Tailwind utilities */
-  --font-display: var(--font-cinzel);
-  --font-body: var(--font-garamond);
-  --font-mono: var(--font-jetbrains);
+  /* System fonts — no external dependencies */
+  --font-display: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  /* Font size scale — semantic tokens replacing arbitrary text-[Xpx] */
+  --text-3xs: 0.5625rem; /* 9px — tiny labels, badges */
+  --text-2xs: 0.625rem; /* 10px — small labels */
+  --text-xs: 0.6875rem; /* 11px — secondary labels, chips */
+  --text-sm: 0.75rem; /* 12px — secondary text */
+  --text-base: 0.8125rem; /* 13px — primary body */
+  --text-md: 0.875rem; /* 14px — comfortable body */
+  --text-lg: 1rem; /* 16px — section titles */
+  --text-xl: 1.125rem; /* 18px — modal headings */
+  --text-2xl: 1.375rem; /* 22px — page headings */
 }
 
 body {
   background: var(--bg-base);
   color: var(--parchment);
-  font-family: "EB Garamond", Georgia, serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
 }
 
 h1,
 h2,
 h3,
 .font-display {
-  font-family: "Cinzel", "Times New Roman", serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  font-weight: 600;
 }
 
 .font-mono {
-  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
 /* Scrollbar styling */

@@ -17,14 +17,14 @@ export function FeelBar({
   const filled = levelMap[value] ?? 0;
 
   return (
-    <div className="flex flex-col items-center gap-[3px]">
-      <span className="text-muted font-mono text-[9px] tracking-[0.08em] whitespace-nowrap uppercase">{label}</span>
-      <div className="flex gap-[2px]">
+    <div className="flex flex-col items-center gap-0.75">
+      <span className="text-muted text-3xs font-mono tracking-[0.08em] whitespace-nowrap uppercase">{label}</span>
+      <div className="flex gap-0.5">
         {Array.from({ length: maxBars }, (_, i) => (
           <div key={i} className="h-2 w-2 rounded-[1px]" style={{ background: i <= filled ? color : "#2a2a3a" }} />
         ))}
       </div>
-      <span className="font-display text-[9px] whitespace-nowrap" style={{ color }}>
+      <span className="font-display text-3xs whitespace-nowrap" style={{ color }}>
         {value}
       </span>
     </div>

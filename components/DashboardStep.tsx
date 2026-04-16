@@ -8,6 +8,7 @@ import { InteractionFeed } from "./InteractionFeed";
 import { EDITIONS, FEEL_BARS, FEEL_COLOR } from "@/constants/info";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { calculateStrengthTotals } from "@/lib/strength/calculate";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export function DashboardStep({
   scriptSource,
@@ -52,14 +53,14 @@ export function DashboardStep({
   }
 
   return (
-    <div className="mx-auto flex max-w-[1300px] flex-col gap-5 px-6 pt-6 pb-12">
+    <div className="mx-auto flex max-w-325 flex-col gap-5 px-6 pt-6 pb-12">
       {/* Top bar */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <div className="font-display text-parchment text-[20px] tracking-[0.04em]">
+          <div className="font-display text-parchment text-xl tracking-[0.04em]">
             {EDITIONS[scriptSource ?? "custom"]}
           </div>
-          <div className="font-body text-muted mt-0.5 text-[13px]">
+          <div className="font-body text-muted mt-0.5 text-base">
             {playerCount} players · {coreGameIds.length} characters
             {selectedTravelers.length > 0
               ? ` + ${selectedTravelers.length} traveler${selectedTravelers.length > 1 ? "s" : ""}`
@@ -70,19 +71,19 @@ export function DashboardStep({
         <div className="flex gap-2">
           <button
             onClick={onBackToSetup}
-            className="border-subtle text-muted font-body cursor-pointer rounded-[6px] border bg-transparent px-4 py-[7px] text-[13px]"
+            className="border-subtle text-muted font-body cursor-pointer rounded-md border bg-transparent px-4 py-1.75 text-base"
           >
             ← Adjust Roster
           </button>
           <button
             onClick={handlePrint}
-            className="border-tip font-display cursor-pointer rounded-[6px] border bg-[#1a3a1a] px-4 py-[7px] text-[11px] tracking-[0.05em] text-[#4a9a6a]"
+            className="border-tip font-display cursor-pointer rounded-md border bg-[#1a3a1a] px-4 py-1.75 text-xs tracking-[0.05em] text-[#4a9a6a]"
           >
             Print Script
           </button>
           <button
             onClick={onReset}
-            className="text-blood font-body cursor-pointer rounded-[6px] border border-[#3a1a1a] bg-transparent px-4 py-[7px] text-[13px]"
+            className="text-blood font-body cursor-pointer rounded-md border border-[#3a1a1a] bg-transparent px-4 py-1.75 text-base"
           >
             New Game
           </button>
@@ -91,10 +92,10 @@ export function DashboardStep({
 
       {/* In-play character strip */}
       <div className="bg-surface border-subtle rounded-[10px] border px-4 py-3">
-        <div className="font-display text-dim mb-[10px] text-[10px] tracking-[0.1em] uppercase">
+        <div className="font-display text-dim text-2xs mb-2.5 tracking-widest uppercase">
           In Play — {gameIds.length} Characters
         </div>
-        <div className="flex flex-col gap-[10px]">
+        <div className="flex flex-col gap-2.5">
           {TEAM_ORDER.map((team) => {
             const chars = gameChars.filter((c) => c.team === team);
             if (chars.length === 0) return null;
@@ -103,7 +104,7 @@ export function DashboardStep({
               <div key={team} className="flex flex-wrap items-center gap-2">
                 <div
                   style={{ color: col.text }}
-                  className="font-display min-w-16 shrink-0 text-[9px] tracking-[0.1em] uppercase"
+                  className="font-display text-3xs min-w-16 shrink-0 tracking-widest uppercase"
                 >
                   {TEAM_LABEL[team]}
                 </div>
@@ -112,7 +113,7 @@ export function DashboardStep({
                     key={c.id}
                     onClick={() => onDetail(c.id)}
                     style={{ background: col.bg, borderColor: col.border, color: col.text }}
-                    className="font-display cursor-pointer rounded-[5px] border px-[10px] py-1 text-[11px]"
+                    className="font-display cursor-pointer rounded-[5px] border px-2.5 py-1 text-xs"
                   >
                     {c.name}
                   </button>
@@ -122,14 +123,14 @@ export function DashboardStep({
           })}
           {selectedTravelers.length > 0 && (
             <div className="flex flex-wrap items-center gap-2">
-              <div className="font-display text-gold min-w-16 shrink-0 text-[9px] tracking-[0.1em] uppercase">
+              <div className="font-display text-gold text-3xs min-w-16 shrink-0 tracking-widest uppercase">
                 Travelers
               </div>
               {selectedTravelers.map((c) => (
                 <button
                   key={c.id}
                   onClick={() => onDetail(c.id)}
-                  className="text-gold font-display cursor-pointer rounded-[5px] border border-[#4a3a20] bg-[#1a1500] px-[10px] py-1 text-[11px]"
+                  className="text-gold font-display cursor-pointer rounded-[5px] border border-[#4a3a20] bg-[#1a1500] px-2.5 py-1 text-xs"
                 >
                   {c.name}
                 </button>
@@ -142,60 +143,58 @@ export function DashboardStep({
       {/* Main 3-column grid */}
       <div className="grid grid-cols-[1fr_1fr_300px] gap-4">
         {/* Night Order */}
-        <div className="bg-surface border-subtle flex flex-col rounded-[10px] border px-4 py-[14px]">
-          <div className="font-display text-gold mb-[10px] text-[11px] tracking-[0.08em] uppercase">Night Order</div>
-          <div className="max-h-[480px] flex-1 overflow-y-auto">
+        <div className="bg-surface border-subtle flex flex-col rounded-[10px] border px-4 py-3.5">
+          <SectionLabel className="mb-2.5">Night Order</SectionLabel>
+          <div className="max-h-120 flex-1 overflow-y-auto">
             <NightOrder steps={nightSteps} phase={nightPhase} onPhaseChange={onNightPhaseChange} />
           </div>
         </div>
 
         {/* Interactions */}
-        <div className="bg-surface border-subtle flex flex-col rounded-[10px] border px-4 py-[14px]">
-          <div className="font-display text-gold mb-[10px] text-[11px] tracking-[0.08em] uppercase">
-            Interactions ({analysis.interactionHints.length})
-          </div>
-          <div className="max-h-[480px] flex-1 overflow-y-auto">
+        <div className="bg-surface border-subtle flex flex-col rounded-[10px] border px-4 py-3.5">
+          <SectionLabel className="mb-2.5">Interactions ({analysis.interactionHints.length})</SectionLabel>
+          <div className="max-h-120 flex-1 overflow-y-auto">
             <InteractionFeed hints={analysis.interactionHints} characters={allCharacters} onDetail={onDetail} />
           </div>
         </div>
 
         {/* Right column: Strength + Feel + Issues */}
-        <div className="flex flex-col gap-[14px]">
+        <div className="flex flex-col gap-3.5">
           {/* Team strength */}
-          <div className="bg-surface border-subtle rounded-[10px] border px-4 py-[14px]">
-            <div className="font-display text-gold mb-3 text-[11px] tracking-[0.08em] uppercase">Team Strength</div>
+          <div className="bg-surface border-subtle rounded-[10px] border px-4 py-3.5">
+            <SectionLabel className="mb-3">Team Strength</SectionLabel>
 
-            <div className="flex flex-col gap-[10px]">
+            <div className="flex flex-col gap-2.5">
               {/* Good */}
               <div>
                 <div className="mb-1 flex justify-between">
-                  <span className="text-townsfolk font-mono text-[10px] uppercase">Good</span>
-                  <span className="text-townsfolk font-mono text-[11px]">
+                  <span className="text-townsfolk text-2xs font-mono uppercase">Good</span>
+                  <span className="text-townsfolk font-mono text-xs">
                     {goodTotal > 0 ? "+" : ""}
                     {goodTotal}
                   </span>
                 </div>
-                <div className="bg-surface h-2 overflow-hidden rounded-[4px]">
+                <div className="bg-surface h-2 overflow-hidden rounded-sm">
                   <div
                     style={{ width: `${goodPct}%` }}
-                    className="bg-good-blue h-full rounded-[4px] transition-[width] duration-300"
+                    className="bg-good-blue h-full rounded-sm transition-[width] duration-300"
                   />
                 </div>
               </div>
               {/* Evil */}
               <div>
                 <div className="mb-1 flex justify-between">
-                  <span className="text-demon font-mono text-[10px] uppercase">Evil</span>
-                  <span className="text-demon font-mono text-[11px]">{evilTotal}</span>
+                  <span className="text-demon text-2xs font-mono uppercase">Evil</span>
+                  <span className="text-demon font-mono text-xs">{evilTotal}</span>
                 </div>
-                <div className="bg-surface h-2 overflow-hidden rounded-[4px]">
+                <div className="bg-surface h-2 overflow-hidden rounded-sm">
                   <div
                     style={{ width: `${evilPct}%` }}
-                    className="bg-blood-light h-full rounded-[4px] transition-[width] duration-300"
+                    className="bg-blood-light h-full rounded-sm transition-[width] duration-300"
                   />
                 </div>
               </div>
-              <div className="font-body text-dim mt-0.5 text-center text-[11px]">
+              <div className="font-body text-dim mt-0.5 text-center text-xs">
                 {goodTotal > Math.abs(evilTotal) * 1.2
                   ? "Good has a strong advantage"
                   : Math.abs(evilTotal) > goodTotal * 1.2
@@ -206,8 +205,8 @@ export function DashboardStep({
           </div>
 
           {/* Script feel */}
-          <div className="bg-surface border-subtle rounded-[10px] border px-4 py-[14px]">
-            <div className="font-display text-gold mb-3 text-[11px] tracking-[0.08em] uppercase">Game Feel</div>
+          <div className="bg-surface border-subtle rounded-[10px] border px-4 py-3.5">
+            <SectionLabel className="mb-3">Game Feel</SectionLabel>
             <div className="flex flex-col gap-2">
               {FEEL_BARS.map(({ key, label, levels }) => {
                 const val = analysis.scriptFeel[key] as string;
@@ -215,9 +214,9 @@ export function DashboardStep({
                 const color = FEEL_COLOR[val] ?? "#b8965a";
                 return (
                   <div key={key}>
-                    <div className="mb-[3px] flex justify-between">
-                      <span className="text-dim font-mono text-[9px] tracking-[0.06em] uppercase">{label}</span>
-                      <span style={{ color }} className="font-display text-[9px]">
+                    <div className="mb-0.75 flex justify-between">
+                      <span className="text-dim text-3xs font-mono tracking-[0.06em] uppercase">{label}</span>
+                      <span style={{ color }} className="font-display text-3xs">
                         {val}
                       </span>
                     </div>
@@ -226,7 +225,7 @@ export function DashboardStep({
                         <div
                           key={i}
                           style={{ background: i <= idx ? color : undefined }}
-                          className={`h-[6px] flex-1 rounded-[2px]${i <= idx ? "" : "bg-subtle"}`}
+                          className={`h-1.5 flex-1 rounded-[2px]${i <= idx ? "" : "bg-subtle"}`}
                         />
                       ))}
                     </div>
@@ -234,7 +233,7 @@ export function DashboardStep({
                 );
               })}
             </div>
-            <div className="text-dimmer mt-[10px] text-center font-mono text-[9px]">
+            <div className="text-dimmer text-3xs mt-2.5 text-center font-mono">
               Night: {analysis.nightComplexity.complexityRating}
               {" · "}
               {analysis.nightOrder.first.length}↓ {analysis.nightOrder.other.length}↻
@@ -243,13 +242,13 @@ export function DashboardStep({
 
           {/* Issues */}
           {(analysis.compositionWarnings.length > 0 || criticals.length > 0) && (
-            <div className="bg-surface border-subtle rounded-[10px] border px-4 py-[14px]">
-              <div className="font-display text-gold mb-[10px] text-[11px] tracking-[0.08em] uppercase">Issues</div>
-              <div className="flex flex-col gap-[6px]">
+            <div className="bg-surface border-subtle rounded-[10px] border px-4 py-3.5">
+              <SectionLabel className="mb-2.5">Issues</SectionLabel>
+              <div className="flex flex-col gap-1.5">
                 {analysis.compositionWarnings.map((w, i) => (
                   <div
                     key={i}
-                    className={`font-body text-parchment-muted rounded-[5px] border px-[9px] py-[6px] text-[12px] leading-[1.5] ${
+                    className={`font-body text-parchment-muted rounded-[5px] border px-2.25 py-1.5 text-sm leading-normal ${
                       w.severity === "critical"
                         ? "border-blood bg-[#1a0808]"
                         : w.severity === "important"
@@ -261,7 +260,7 @@ export function DashboardStep({
                   </div>
                 ))}
                 {jinxes.length > 0 && (
-                  <div className="font-body text-gold rounded-[5px] border border-dashed border-[#7a6200] bg-[#1a1500] px-[9px] py-[6px] text-[12px]">
+                  <div className="font-body text-gold rounded-[5px] border border-dashed border-[#7a6200] bg-[#1a1500] px-2.25 py-1.5 text-sm">
                     ⚖ {jinxes.length} Djinn Jinx{jinxes.length > 1 ? "es" : ""} — see Interactions tab
                   </div>
                 )}
@@ -277,7 +276,7 @@ export function DashboardStep({
           <h1 className="mb-1 border-b-2 border-black pb-2 text-[24px]">
             Blood on the Clocktower — {EDITIONS[scriptSource ?? "custom"]}
           </h1>
-          <p className="mb-6 text-[12px] text-[#666]">
+          <p className="text-muted mb-6 text-sm">
             {playerCount} players · {new Date().toLocaleDateString()}
           </p>
 
@@ -285,24 +284,24 @@ export function DashboardStep({
           <h2 className="mb-3 border-b border-[#ccc] pb-1 text-[16px]">Night Order</h2>
           <div className="mb-6 grid grid-cols-2 gap-x-6">
             <div>
-              <h3 className="mb-2 text-[13px] text-[#333]">First Night</h3>
+              <h3 className="mb-2 text-base text-[#333]">First Night</h3>
               {analysis.nightOrder.first.map((s, i) => (
-                <div key={s.character.id} className="mb-1 text-[11px]">
+                <div key={s.character.id} className="mb-1 text-xs">
                   <strong>
                     {i + 1}. {s.character.name}
                   </strong>
-                  {s.reminder && <div className="ml-3 text-[10px] text-[#666]">{s.reminder}</div>}
+                  {s.reminder && <div className="text-2xs text-muted ml-3">{s.reminder}</div>}
                 </div>
               ))}
             </div>
             <div>
-              <h3 className="mb-2 text-[13px] text-[#333]">Other Nights</h3>
+              <h3 className="mb-2 text-base text-[#333]">Other Nights</h3>
               {analysis.nightOrder.other.map((s, i) => (
-                <div key={s.character.id} className="mb-1 text-[11px]">
+                <div key={s.character.id} className="mb-1 text-xs">
                   <strong>
                     {i + 1}. {s.character.name}
                   </strong>
-                  {s.reminder && <div className="ml-3 text-[10px] text-[#666]">{s.reminder}</div>}
+                  {s.reminder && <div className="text-2xs text-muted ml-3">{s.reminder}</div>}
                 </div>
               ))}
             </div>
@@ -317,20 +316,20 @@ export function DashboardStep({
             if (chars.length === 0) return null;
             return (
               <div key={team} className="mb-5">
-                <h3 className="mb-[10px] border-b border-[#eee] pb-1 text-[14px] tracking-[0.08em] uppercase">
+                <h3 className="text-md mb-2.5 border-b border-[#eee] pb-1 tracking-[0.08em] uppercase">
                   {TEAM_LABEL[team]} ({chars.length})
                 </h3>
                 {chars
                   .sort((a, b) => a.name.localeCompare(b.name))
                   .map((c) => (
-                    <div key={c.id} className="mb-[10px] [page-break-inside:avoid]">
-                      <strong className="text-[13px]">{c.name}</strong>
-                      <div className="text-dimmer mt-0.5 text-[11px] leading-[1.5]">{c.ability}</div>
+                    <div key={c.id} className="mb-2.5 [page-break-inside:avoid]">
+                      <strong className="text-base">{c.name}</strong>
+                      <div className="text-dimmer mt-0.5 text-xs leading-normal">{c.ability}</div>
                       {c.firstNightReminder && (
-                        <div className="mt-0.5 text-[10px] text-[#888]">1st Night: {c.firstNightReminder}</div>
+                        <div className="text-2xs mt-0.5 text-[#888]">1st Night: {c.firstNightReminder}</div>
                       )}
                       {c.otherNightReminder && (
-                        <div className="text-[10px] text-[#888]">Other Nights: {c.otherNightReminder}</div>
+                        <div className="text-2xs text-[#888]">Other Nights: {c.otherNightReminder}</div>
                       )}
                     </div>
                   ))}
@@ -345,7 +344,7 @@ export function DashboardStep({
                 Key Interactions
               </h2>
               {criticals.concat(important).map((h, i) => (
-                <div key={i} className="mb-[10px] text-[11px]">
+                <div key={i} className="mb-2.5 text-xs">
                   <strong>{h.title}</strong>
                   <div className="text-dim mt-0.5">{h.description}</div>
                 </div>

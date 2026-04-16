@@ -21,14 +21,14 @@ export function SubDimBar({
   return (
     <div title={tooltip}>
       <div className="mb-0.5 flex justify-between">
-        <span className="text-dim font-mono text-[9px] tracking-[0.05em] uppercase">{label}</span>
-        <span className="font-mono text-[9px]" style={{ color }}>
+        <span className="text-dim text-3xs font-mono tracking-[0.05em] uppercase">{label}</span>
+        <span className="text-3xs font-mono" style={{ color }}>
           {value}
           {suffix}
         </span>
       </div>
-      <div className="h-[3px] overflow-hidden rounded-[2px] bg-[#1a1a2a]">
-        <div className="h-full rounded-[2px]" style={{ width: `${pct}%`, background: color }} />
+      <div className="h-0.75 overflow-hidden rounded-xs bg-[#1a1a2a]">
+        <div className="h-full rounded-xs" style={{ width: `${pct}%`, background: color }} />
       </div>
     </div>
   );

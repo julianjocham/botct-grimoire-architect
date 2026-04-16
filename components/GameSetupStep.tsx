@@ -7,6 +7,8 @@ import { RAW_COUNTS, SETUP_MODIFIERS, TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from
 import { EDITIONS, FEEL_BARS, FEEL_COLOR } from "@/constants/info";
 import { analyzeScript } from "@/lib/engine";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
+import { SectionLabel } from "@/components/ui/SectionLabel";
+import { Button } from "@/components/ui/Button";
 
 function getAdjustedReq(
   rawReq: { townsfolk: number; outsider: number; minion: number; demon: number },
@@ -44,7 +46,7 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
 
   if (gameIds.length === 0) {
     return (
-      <div className="font-body px-4 py-10 text-center text-[13px] text-[#333]">
+      <div className="font-body px-4 py-10 text-center text-base text-[#333]">
         Select characters to see live analysis.
       </div>
     );
@@ -54,23 +56,23 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
     <div className="flex flex-col gap-4">
       {/* Strength */}
       <div>
-        <div className="font-display text-gold mb-[10px] text-[10px] tracking-[0.08em] uppercase">Team Strength</div>
+        <SectionLabel className="mb-2.5">Team Strength</SectionLabel>
         <div className="flex flex-col gap-2">
           {[
             { label: "Good", value: good, color: "#2a7fd4" },
             { label: "Evil", value: evil, color: "#c0392b" }
           ].map(({ label, value, color }) => (
             <div key={label}>
-              <div className="mb-[3px] flex justify-between">
-                <span className="font-mono text-[9px] uppercase" style={{ color }}>
+              <div className="mb-0.75 flex justify-between">
+                <span className="text-3xs font-mono uppercase" style={{ color }}>
                   {label}
                 </span>
-                <span className="font-mono text-[10px]" style={{ color }}>
+                <span className="text-2xs font-mono" style={{ color }}>
                   {value > 0 ? "+" : ""}
                   {value}
                 </span>
               </div>
-              <div className="h-[6px] overflow-hidden rounded-[3px] bg-[#1a1a2a]">
+              <div className="h-1.5 overflow-hidden rounded-[3px] bg-[#1a1a2a]">
                 <div
                   className="h-full rounded-[3px]"
                   style={{
@@ -87,25 +89,25 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
       {/* Game feel */}
       {gameIds.length >= 3 && (
         <div>
-          <div className="font-display text-gold mb-[10px] text-[10px] tracking-[0.08em] uppercase">Game Feel</div>
-          <div className="flex flex-col gap-[7px]">
+          <SectionLabel className="mb-2.5">Game Feel</SectionLabel>
+          <div className="flex flex-col gap-1.75">
             {FEEL_BARS.map(({ key, label, levels }) => {
               const val = analysis.scriptFeel[key] as string;
               const idx = levels.indexOf(val);
               const color = FEEL_COLOR[val] ?? "#b8965a";
               return (
                 <div key={key}>
-                  <div className="mb-[2px] flex justify-between">
-                    <span className="text-dim font-mono text-[9px] uppercase">{label}</span>
-                    <span className="font-display text-[9px]" style={{ color }}>
+                  <div className="mb-0.5 flex justify-between">
+                    <span className="text-dim text-3xs font-mono uppercase">{label}</span>
+                    <span className="font-display text-3xs" style={{ color }}>
                       {val}
                     </span>
                   </div>
-                  <div className="flex gap-[2px]">
+                  <div className="flex gap-0.5">
                     {levels.map((_, i) => (
                       <div
                         key={i}
-                        className="h-[5px] flex-1 rounded-[2px]"
+                        className="h-1.25 flex-1 rounded-xs"
                         style={{ background: i <= idx ? color : "#2a2a3a" }}
                       />
                     ))}
@@ -120,10 +122,8 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
       {/* Interactions */}
       {keyHints.length > 0 && (
         <div>
-          <div className="font-display text-gold mb-2 text-[10px] tracking-[0.08em] uppercase">
-            Interactions ({keyHints.length})
-          </div>
-          <div className="flex flex-col gap-[6px]">
+          <SectionLabel className="mb-2">Interactions ({keyHints.length})</SectionLabel>
+          <div className="flex flex-col gap-1.5">
             {keyHints.map((hint, i) => {
               const isJinx = hint.category === "jinx";
               const involvedChars = hint.involvedCharacters
@@ -134,29 +134,29 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
               return (
                 <div
                   key={i}
-                  className={`rounded-[6px] px-[10px] py-2 ${isJinx ? "border-dashed" : "border-solid"}`}
+                  className={`rounded-md px-2.5 py-2 ${isJinx ? "border-dashed" : "border-solid"}`}
                   style={{
                     border: `1px solid ${borderColor}`,
                     background: bgColor
                   }}
                 >
-                  <div className="mb-1 flex flex-wrap items-center gap-[5px]">
+                  <div className="mb-1 flex flex-wrap items-center gap-1.25">
                     {isJinx && (
-                      <span className="font-display text-gold shrink-0 rounded-[3px] border border-[#7a6200] bg-[#2a1f00] px-1 py-[1px] text-[8px]">
+                      <span className="font-display text-gold text-3xs shrink-0 rounded-[3px] border border-[#7a6200] bg-[#2a1f00] px-1 py-px">
                         ⚖ Jinx
                       </span>
                     )}
                     {involvedChars.map((c) => (
                       <span
                         key={c.id}
-                        className="font-display text-gold bg-subtle rounded-[3px] px-[5px] py-[1px] text-[10px]"
+                        className="font-display text-gold bg-subtle text-2xs rounded-[3px] px-1.25 py-px"
                       >
                         {c.name}
                       </span>
                     ))}
                   </div>
-                  <div className="font-display text-parchment mb-[3px] text-[11px]">{hint.title}</div>
-                  <div className="font-body text-parchment-muted text-[12px] leading-[1.5]">{hint.description}</div>
+                  <div className="font-display text-parchment mb-0.75 text-xs">{hint.title}</div>
+                  <div className="font-body text-parchment-muted text-sm leading-normal">{hint.description}</div>
                 </div>
               );
             })}
@@ -167,12 +167,12 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
       {/* Composition issues */}
       {analysis.compositionWarnings.length > 0 && (
         <div>
-          <div className="font-display text-gold mb-2 text-[10px] tracking-[0.08em] uppercase">Issues</div>
-          <div className="flex flex-col gap-[5px]">
+          <SectionLabel className="mb-2">Issues</SectionLabel>
+          <div className="flex flex-col gap-1.25">
             {analysis.compositionWarnings.map((w, i) => (
               <div
                 key={i}
-                className="font-body text-parchment-muted rounded-[5px] px-2 py-[6px] text-[12px] leading-[1.5]"
+                className="font-body text-parchment-muted rounded-[5px] px-2 py-1.5 text-sm leading-normal"
                 style={{
                   background:
                     w.severity === "critical" ? "#1a0808" : w.severity === "important" ? "#1a1400" : "#0a1408",
@@ -189,7 +189,7 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
       {/* Character strength list */}
       {gameIds.length > 0 && (
         <div>
-          <div className="font-display text-gold mb-2 text-[10px] tracking-[0.08em] uppercase">Character Strengths</div>
+          <SectionLabel className="mb-2">Character Strengths</SectionLabel>
           <div className="flex flex-col gap-1">
             {gameIds
               .map((id) => {
@@ -207,29 +207,29 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
                 const s = eff.effectiveStrength;
                 const barColor = s > 30 ? "#2a7fd4" : s > 0 ? "#5b9bd5" : s > -30 ? "#c0392b" : "#8b1a1a";
                 return (
-                  <div key={char.id} className="flex items-center gap-[6px]">
+                  <div key={char.id} className="flex items-center gap-1.5">
                     <div
-                      className="font-display shrink-0 overflow-hidden text-[10px] text-ellipsis whitespace-nowrap"
+                      className="font-display text-2xs shrink-0 overflow-hidden text-ellipsis whitespace-nowrap"
                       style={{ color: col.text, minWidth: 90 }}
                     >
                       {char.name}
                     </div>
-                    <div className="h-1 flex-1 overflow-hidden rounded-[2px] bg-[#1a1a2a]">
+                    <div className="h-1 flex-1 overflow-hidden rounded-xs bg-[#1a1a2a]">
                       <div
-                        className="h-full rounded-[2px]"
+                        className="h-full rounded-xs"
                         style={{
                           width: `${(Math.abs(s) / 100) * 100}%`,
                           background: barColor
                         }}
                       />
                     </div>
-                    <div className="shrink-0 text-right font-mono text-[9px]" style={{ color: barColor, minWidth: 28 }}>
+                    <div className="text-3xs shrink-0 text-right font-mono" style={{ color: barColor, minWidth: 28 }}>
                       {s > 0 ? "+" : ""}
                       {s}
                     </div>
                     {eff.modifier !== 0 && (
                       <div
-                        className={`shrink-0 font-mono text-[8px] ${eff.modifier > 0 ? "text-good-blue" : "text-blood-light"}`}
+                        className={`text-3xs shrink-0 font-mono ${eff.modifier > 0 ? "text-good-blue" : "text-blood-light"}`}
                       >
                         ({eff.modifier > 0 ? "+" : ""}
                         {eff.modifier})
@@ -286,35 +286,30 @@ export function GameSetupStep({
     .map(([, mod]) => mod.label);
 
   return (
-    <div className="mx-auto grid max-w-[1300px] grid-cols-[1fr_300px] items-start gap-5 px-6 py-7">
+    <div className="mx-auto grid max-w-325 grid-cols-[1fr_300px] items-start gap-5 px-6 py-7">
       {/* ── Left: selection ── */}
       <div className="flex flex-col gap-6">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div>
-            <h2 className="font-display text-parchment m-0 mb-[6px] text-[22px] tracking-[0.04em]">
+            <h2 className="font-display text-parchment m-0 mb-1.5 text-[22px] tracking-[0.04em]">
               Step 2 — Set Up Your Game
             </h2>
-            <div className="font-body text-dim text-[13px]">
+            <div className="font-body text-dim text-base">
               Script: <span className="text-gold">{EDITIONS[scriptSource ?? "custom"]}</span>
               {" · "}
               {scriptIds.length} characters available
             </div>
           </div>
-          <button
-            onClick={onBack}
-            className="border-subtle text-muted font-body cursor-pointer rounded-[5px] border bg-transparent px-[14px] py-[6px] text-[13px]"
-          >
+          <Button variant="ghost" onClick={onBack}>
             ← Change Script
-          </button>
+          </Button>
         </div>
 
         {/* Player count */}
         <div>
-          <div className="font-display text-gold mb-[10px] text-[11px] tracking-[0.08em] uppercase">
-            How many players?
-          </div>
-          <div className="flex flex-wrap gap-[6px]">
+          <SectionLabel className="mb-2.5">How many players?</SectionLabel>
+          <div className="flex flex-wrap gap-1.5">
             {Array.from({ length: 16 }, (_, i) => i + 5).map((n) => {
               const active = playerCount === n;
               const isTraveler = n > 15;
@@ -324,8 +319,8 @@ export function GameSetupStep({
                   onClick={() => onSetPlayerCount(active ? null : n)}
                   className={[
                     "cursor-pointer rounded-[7px] border-2 font-mono transition-all duration-100",
-                    isTraveler ? "px-[10px] py-[5px]" : "px-[14px] py-2",
-                    isTraveler ? "text-[11px]" : "text-[14px]",
+                    isTraveler ? "px-2.5 py-1.25" : "px-3.5 py-2",
+                    isTraveler ? "text-xs" : "text-md",
                     active
                       ? "bg-blood border-blood text-parchment font-bold"
                       : isTraveler
@@ -336,7 +331,7 @@ export function GameSetupStep({
                 >
                   {n}
                   {isTraveler && (
-                    <span className={`block text-[8px] leading-[1] ${active ? "text-parchment" : "text-dimmer"}`}>
+                    <span className={`text-3xs block leading-none ${active ? "text-parchment" : "text-dimmer"}`}>
                       +{n - 15}T
                     </span>
                   )}
@@ -345,7 +340,7 @@ export function GameSetupStep({
             })}
           </div>
           {neededTravelers > 0 && playerCount && (
-            <div className="font-body text-dim mt-2 text-[12px]">
+            <div className="font-body text-dim mt-2 text-sm">
               Travelers fill the extra {neededTravelers} slot{neededTravelers > 1 ? "s" : ""} — they are not from your
               script.
             </div>
@@ -356,12 +351,12 @@ export function GameSetupStep({
         {playerCount && req && (
           <>
             {/* Distribution */}
-            <div className="bg-surface border-subtle rounded-[10px] border px-4 py-[14px]">
+            <div className="bg-surface border-subtle rounded-[10px] border px-4 py-3.5">
               <div className="mb-3 flex items-center justify-between">
-                <div className="font-display text-gold text-[12px] tracking-[0.06em] uppercase">
+                <div className="font-display text-gold text-sm tracking-[0.06em] uppercase">
                   {playerCount}-Player Distribution
                 </div>
-                {isComplete && <div className="font-display text-tip text-[11px]">✓ Roster Complete</div>}
+                {isComplete && <div className="font-display text-tip text-xs">✓ Roster Complete</div>}
               </div>
               <div className="flex gap-2">
                 {TEAM_ORDER.map((team) => {
@@ -372,35 +367,35 @@ export function GameSetupStep({
                   return (
                     <div
                       key={team}
-                      className="flex-1 rounded-[8px] border-2 bg-[#0a0a14] px-[6px] py-[10px] text-center transition-[border-color] duration-200"
+                      className="flex-1 rounded-lg border-2 bg-[#0a0a14] px-1.5 py-2.5 text-center transition-[border-color] duration-200"
                       style={{ borderColor: done ? c.border : "#2a2a3a" }}
                     >
-                      <div className="font-mono text-[22px] leading-[1]" style={{ color: done ? c.text : "#333" }}>
+                      <div className="font-mono text-[22px] leading-none" style={{ color: done ? c.text : "#333" }}>
                         {have}
                       </div>
-                      <div className="my-[2px] font-mono text-[10px] text-[#333]">/ {needed}</div>
-                      <div className="font-body text-dim text-[11px] capitalize">{team}</div>
+                      <div className="text-2xs my-0.5 font-mono text-[#333]">/ {needed}</div>
+                      <div className="font-body text-dim text-xs capitalize">{team}</div>
                     </div>
                   );
                 })}
                 {neededTravelers > 0 && (
                   <div
-                    className={`flex-1 rounded-[8px] border-2 bg-[#0a0a14] px-[6px] py-[10px] text-center transition-[border-color] duration-200 ${travelersComplete ? "border-[#4a3a20]" : "border-subtle"}`}
+                    className={`flex-1 rounded-lg border-2 bg-[#0a0a14] px-1.5 py-2.5 text-center transition-[border-color] duration-200 ${travelersComplete ? "border-[#4a3a20]" : "border-subtle"}`}
                   >
                     <div
-                      className={`font-mono text-[22px] leading-[1] ${travelersComplete ? "text-gold" : "text-[#333]"}`}
+                      className={`font-mono text-[22px] leading-none ${travelersComplete ? "text-gold" : "text-[#333]"}`}
                     >
                       {selectedTravelerIds.length}
                     </div>
-                    <div className="my-[2px] font-mono text-[10px] text-[#333]">/ {neededTravelers}</div>
-                    <div className="font-body text-dim text-[11px]">Travelers</div>
+                    <div className="text-2xs my-0.5 font-mono text-[#333]">/ {neededTravelers}</div>
+                    <div className="font-body text-dim text-xs">Travelers</div>
                   </div>
                 )}
               </div>
               {activeModifiers.length > 0 && (
-                <div className="mt-[10px] flex flex-col gap-[3px]">
+                <div className="mt-2.5 flex flex-col gap-0.75">
                   {activeModifiers.map((note, i) => (
-                    <div key={i} className="font-body text-minion text-[12px]">
+                    <div key={i} className="font-body text-minion text-sm">
                       ⚙ {note}
                     </div>
                   ))}
@@ -410,7 +405,7 @@ export function GameSetupStep({
 
             {/* Character selection */}
             <div className="flex flex-col gap-4">
-              <div className="font-display text-gold text-[11px] tracking-[0.08em] uppercase">
+              <div className="font-display text-gold text-xs tracking-[0.08em] uppercase">
                 Choose Characters for This Game
               </div>
 
@@ -424,12 +419,12 @@ export function GameSetupStep({
 
                 return (
                   <div key={team}>
-                    <div className="mb-2 flex items-center gap-[10px]">
-                      <div className="font-display text-[12px] tracking-[0.06em] uppercase" style={{ color: c.text }}>
+                    <div className="mb-2 flex items-center gap-2.5">
+                      <div className="font-display text-sm tracking-[0.06em] uppercase" style={{ color: c.text }}>
                         {TEAM_LABEL[team]}
                       </div>
                       <div
-                        className="rounded-[10px] bg-[#0a0a14] px-[10px] py-[2px] font-mono text-[11px]"
+                        className="rounded-[10px] bg-[#0a0a14] px-2.5 py-0.5 font-mono text-xs"
                         style={{
                           color: isFull ? c.text : "#555",
                           border: `1px solid ${isFull ? c.border : "#2a2a3a"}`
@@ -437,12 +432,10 @@ export function GameSetupStep({
                       >
                         {have} / {needed}
                       </div>
-                      {needed === 0 && (
-                        <div className="font-body text-dimmer text-[11px]">(none needed at this count)</div>
-                      )}
+                      {needed === 0 && <div className="font-body text-dimmer text-xs">(none needed at this count)</div>}
                     </div>
 
-                    <div className="flex flex-wrap gap-[6px]">
+                    <div className="flex flex-wrap gap-1.5">
                       {chars.map((char) => {
                         const inGame = gameIds.includes(char.id);
                         const blocked = !inGame && isFull;
@@ -468,7 +461,7 @@ export function GameSetupStep({
                           >
                             <button
                               onClick={() => onDetail(char.id)}
-                              className="font-display flex cursor-pointer items-center gap-[5px] border-none px-[10px] py-[6px] text-[12px]"
+                              className="font-display flex cursor-pointer items-center gap-1.25 border-none px-2.5 py-1.5 text-sm"
                               style={{
                                 background: inGame ? c.bg : synergiesInGame.length > 0 ? "#0d1a0d" : "#14141f",
                                 borderRight: `1px solid ${inGame ? c.border : "#2a2a3a"}`,
@@ -479,13 +472,13 @@ export function GameSetupStep({
                               {synergiesInGame.length > 0 && !inGame && (
                                 <span
                                   title={synergySummary}
-                                  className="cursor-help rounded-[3px] border border-[#2a4a20] bg-[#0d1a0d] px-[3px] font-mono text-[8px] text-[#4a9a4a]"
+                                  className="text-3xs cursor-help rounded-[3px] border border-[#2a4a20] bg-[#0d1a0d] px-0.75 font-mono text-[#4a9a4a]"
                                 >
                                   ✦{synergiesInGame.length}
                                 </span>
                               )}
                               {countersInGame > 0 && (
-                                <span className="text-gold rounded-[3px] border border-[#7a5a00] bg-[#2a1a00] px-[3px] font-mono text-[8px]">
+                                <span className="text-gold text-3xs rounded-[3px] border border-[#7a5a00] bg-[#2a1a00] px-0.75 font-mono">
                                   ⚔{countersInGame}
                                 </span>
                               )}
@@ -495,7 +488,7 @@ export function GameSetupStep({
                                 if (!blocked) onToggleGameChar(char.id);
                               }}
                               disabled={blocked}
-                              className="border-none px-[10px] py-[6px] text-[13px]"
+                              className="border-none px-2.5 py-1.5 text-base"
                               style={{
                                 background: inGame ? c.bg : "#14141f",
                                 color: inGame ? c.text : "#555",
@@ -516,18 +509,18 @@ export function GameSetupStep({
             {/* Traveler picker — only when 16+ players and edition has travelers */}
             {neededTravelers > 0 && editionTravelers.length > 0 && (
               <div className="flex flex-col gap-3">
-                <div className="flex items-center gap-[10px]">
-                  <div className="font-display text-gold text-[11px] tracking-[0.08em] uppercase">Travelers</div>
+                <div className="flex items-center gap-2.5">
+                  <div className="font-display text-gold text-xs tracking-[0.08em] uppercase">Travelers</div>
                   <div
-                    className={`rounded-[10px] bg-[#0a0a14] px-[10px] py-[2px] font-mono text-[11px] ${travelersComplete ? "text-gold border border-[#4a3a20]" : "text-dim border-subtle border"}`}
+                    className={`rounded-[10px] bg-[#0a0a14] px-2.5 py-0.5 font-mono text-xs ${travelersComplete ? "text-gold border border-[#4a3a20]" : "text-dim border-subtle border"}`}
                   >
                     {selectedTravelerIds.length} / {neededTravelers}
                   </div>
-                  <div className="font-body text-dimmer text-[11px]">
+                  <div className="font-body text-dimmer text-xs">
                     (choose {neededTravelers} traveler{neededTravelers !== 1 ? "s" : ""})
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-[6px]">
+                <div className="flex flex-wrap gap-1.5">
                   {editionTravelers.map((traveler) => {
                     const inGame = gameIds.includes(traveler.id);
                     const blocked = !inGame && travelersComplete;
@@ -538,7 +531,7 @@ export function GameSetupStep({
                       >
                         <button
                           onClick={() => onDetail(traveler.id)}
-                          className={`font-display cursor-pointer border-none px-[10px] py-[6px] text-[12px] ${inGame ? "text-gold border-r border-r-[#4a3a20] bg-[#1a1500]" : "bg-surface text-muted border-r-subtle border-r"}`}
+                          className={`font-display cursor-pointer border-none px-2.5 py-1.5 text-sm ${inGame ? "text-gold border-r border-r-[#4a3a20] bg-[#1a1500]" : "bg-surface text-muted border-r-subtle border-r"}`}
                         >
                           {traveler.name}
                         </button>
@@ -547,7 +540,7 @@ export function GameSetupStep({
                             if (!blocked) onToggleGameChar(traveler.id);
                           }}
                           disabled={blocked}
-                          className={`border-none px-[10px] py-[6px] text-[13px] ${inGame ? "text-gold bg-[#1a1500]" : "bg-surface text-dim"} ${blocked ? "cursor-default" : "cursor-pointer"}`}
+                          className={`border-none px-2.5 py-1.5 text-base ${inGame ? "text-gold bg-[#1a1500]" : "bg-surface text-dim"} ${blocked ? "cursor-default" : "cursor-pointer"}`}
                         >
                           {inGame ? "−" : "+"}
                         </button>
@@ -563,7 +556,7 @@ export function GameSetupStep({
               <button
                 onClick={onContinue}
                 disabled={!isComplete}
-                className={`font-display rounded-[8px] border-none px-7 py-3 text-[13px] tracking-[0.06em] ${isComplete ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#333]"}`}
+                className={`font-display rounded-lg border-none px-7 py-3 text-base tracking-[0.06em] ${isComplete ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#333]"}`}
               >
                 {isComplete
                   ? "View Dashboard →"
@@ -576,15 +569,15 @@ export function GameSetupStep({
         )}
 
         {!playerCount && (
-          <div className="text-dimmer font-body py-[30px] text-center text-[14px]">
+          <div className="text-dimmer font-body text-md py-7.5 text-center">
             Choose a player count above to begin selecting characters.
           </div>
         )}
       </div>
 
       {/* ── Right: live analysis sidebar ── */}
-      <div className="bg-surface border-subtle sticky top-4 max-h-[calc(100vh-100px)] overflow-y-auto rounded-[10px] border p-[14px]">
-        <div className="font-display text-gold mb-3 text-[10px] tracking-[0.08em] uppercase">Live Analysis</div>
+      <div className="bg-surface border-subtle sticky top-4 max-h-[calc(100vh-100px)] overflow-y-auto rounded-[10px] border p-3.5">
+        <SectionLabel className="mb-3">Live Analysis</SectionLabel>
         <AnalysisSidebar gameIds={gameIds} allCharacters={allCharacters} />
       </div>
     </div>

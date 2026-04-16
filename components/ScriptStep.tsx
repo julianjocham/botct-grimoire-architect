@@ -6,6 +6,7 @@ import { EDITIONS } from "@/constants/info";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { getSupportedPlayerCounts } from "@/lib/analysis/playerCounts";
+import { SectionLabel } from "./ui/SectionLabel";
 
 function teamCount(chars: Character[], team: string) {
   return chars.filter((c) => c.team === team).length;
@@ -66,12 +67,12 @@ export function ScriptStep({
     : [];
 
   return (
-    <div className="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 py-8">
+    <div className="mx-auto flex max-w-300 flex-col gap-8 px-6 py-8">
       <div>
-        <h2 className="font-display text-parchment m-0 mb-[6px] text-[22px] tracking-[0.04em]">
+        <h2 className="font-display text-parchment m-0 mb-1.5 text-2xl tracking-[0.04em]">
           Step 1 — Choose Your Script
         </h2>
-        <p className="font-body text-dim m-0 text-[14px]">
+        <p className="font-body text-dim text-md m-0">
           A script is the set of characters available to appear in your game. Choose a pre-made script or build your
           own.
         </p>
@@ -93,20 +94,20 @@ export function ScriptStep({
                       pool.map((c) => c.id)
                     )
                   }
-                  className={`cursor-pointer rounded-[12px] border-2 p-[20px_22px] transition-all duration-[150ms] ease-[ease] ${
+                  className={`cursor-pointer rounded-xl border-2 p-[20px_22px] transition-all duration-150 ease-[ease] ${
                     isSelected ? "border-blood bg-[#1a0f0f]" : "bg-surface border-subtle"
                   }`}
                 >
-                  <div className="mb-[10px] flex items-start justify-between">
+                  <div className="mb-2.5 flex items-start justify-between">
                     <div
-                      className={`font-display text-[15px] tracking-[0.04em] ${
+                      className={`font-display text-lg tracking-[0.04em] ${
                         isSelected ? "text-parchment" : "text-gold"
                       }`}
                     >
                       {ed.name}
                     </div>
                     <span
-                      className="font-body shrink-0 rounded-[3px] px-[7px] py-[2px] text-[10px]"
+                      className="font-body text-2xs shrink-0 rounded-[3px] px-1.75 py-0.5"
                       style={{
                         color: ed.diffColor,
                         border: `1px solid ${ed.diffColor}44`
@@ -116,7 +117,7 @@ export function ScriptStep({
                     </span>
                   </div>
 
-                  <div className="font-body text-muted mb-4 min-h-[40px] text-[13px] leading-[1.5]">{ed.tagline}</div>
+                  <div className="font-body text-muted mb-4 min-h-10 text-base leading-normal">{ed.tagline}</div>
 
                   {/* Character count grid */}
                   <div className="mb-4 grid grid-cols-2 gap-x-3 gap-y-1">
@@ -125,7 +126,7 @@ export function ScriptStep({
                       if (n === 0) return null;
                       const c = TEAM_COLORS[team];
                       return (
-                        <div key={team} className="font-mono text-[11px]" style={{ color: c.text }}>
+                        <div key={team} className="font-mono text-xs" style={{ color: c.text }}>
                           {n} {TEAM_LABEL[team]}
                         </div>
                       );
@@ -140,7 +141,7 @@ export function ScriptStep({
                         pool.map((c) => c.id)
                       );
                     }}
-                    className={`font-display w-full cursor-pointer rounded-[6px] border-none py-2 text-[11px] tracking-[0.05em] transition-all duration-[150ms] ease-[ease] ${
+                    className={`font-display w-full cursor-pointer rounded-md border-none py-2 text-xs tracking-[0.05em] transition-all duration-150 ease-[ease] ${
                       isSelected ? "bg-blood text-parchment" : "bg-subtle text-[#888]"
                     }`}
                   >
@@ -152,17 +153,17 @@ export function ScriptStep({
           </div>
 
           {/* Custom option */}
-          <div className="bg-surface border-subtle flex items-center justify-between gap-4 rounded-[12px] border-2 border-dashed px-6 py-5">
+          <div className="bg-surface border-subtle flex items-center justify-between gap-4 rounded-xl border-2 border-dashed px-6 py-5">
             <div>
-              <div className="font-display text-gold mb-1 text-[14px]">Custom Script</div>
-              <div className="font-body text-dim text-[13px] leading-[1.5]">
+              <div className="font-display text-gold text-md mb-1">Custom Script</div>
+              <div className="font-body text-dim text-base leading-normal">
                 Mix characters from all editions. Aim for 13+ Townsfolk, 4 Outsiders, 4 Minions, and at least 1 Demon to
                 support all player counts.
               </div>
             </div>
             <button
               onClick={onSelectCustom}
-              className="bg-surface border-gold text-gold font-display shrink-0 cursor-pointer rounded-[6px] border px-[18px] py-2 text-[11px] tracking-[0.05em] whitespace-nowrap"
+              className="bg-surface border-gold text-gold font-display shrink-0 cursor-pointer rounded-md border px-4.5 py-2 text-xs tracking-[0.05em] whitespace-nowrap"
             >
               Build Custom →
             </button>
@@ -173,7 +174,7 @@ export function ScriptStep({
             <div className="flex justify-end">
               <button
                 onClick={onContinue}
-                className="bg-blood text-parchment font-display cursor-pointer rounded-[8px] border-none px-7 py-3 text-[13px] tracking-[0.06em]"
+                className="bg-blood text-parchment font-display cursor-pointer rounded-lg border-none px-7 py-3 text-base tracking-[0.06em]"
               >
                 Set Up Game →
               </button>
@@ -184,28 +185,28 @@ export function ScriptStep({
 
       {/* Custom script builder */}
       {isCustom && (
-        <div className="grid min-h-[600px] grid-cols-[300px_1fr] gap-4">
+        <div className="grid min-h-150 grid-cols-[300px_1fr] gap-4">
           {/* Left: character pool */}
           <div className="bg-surface border-subtle flex flex-col overflow-hidden rounded-[10px] border">
-            <div className="border-subtle border-b px-3 py-[10px]">
+            <div className="border-subtle border-b px-3 py-2.5">
               <input
                 type="text"
                 placeholder="Search characters..."
                 value={searchQuery}
                 onChange={(e) => onSearch(e.target.value)}
-                className="bg-background text-parchment font-body box-border w-full rounded-[6px] border border-[#3a3a4a] px-[10px] py-[6px] text-[13px] outline-none"
+                className="bg-background text-parchment font-body box-border w-full rounded-md border border-[#3a3a4a] px-2.5 py-1.5 text-base outline-none"
               />
             </div>
-            <div className="flex flex-1 flex-col gap-[10px] overflow-y-auto px-[10px] py-2">
+            <div className="flex flex-1 flex-col gap-2.5 overflow-y-auto px-2.5 py-2">
               {TEAM_ORDER.map((team) => {
                 const chars = filteredPool.filter((c) => c.team === team);
                 if (chars.length === 0) return null;
                 return (
                   <div key={team}>
-                    <div className="font-display text-gold border-subtle mb-[5px] border-b pb-[3px] text-[10px] tracking-[0.1em] uppercase">
+                    <div className="font-display text-gold border-subtle text-2xs mb-1.25 border-b pb-0.75 tracking-widest uppercase">
                       {TEAM_LABEL[team]} ({chars.length})
                     </div>
-                    <div className="flex flex-col gap-[3px]">
+                    <div className="flex flex-col gap-0.75">
                       {chars.map((c) => {
                         const eff = calculateEffectiveStrength(c.id, scriptIds, allCharacters);
                         return (
@@ -227,7 +228,7 @@ export function ScriptStep({
           </div>
 
           {/* Right: script summary */}
-          <div className="flex flex-col gap-[14px]">
+          <div className="flex flex-col gap-3.5">
             {/* Back button */}
             <button
               onClick={() =>
@@ -236,17 +237,15 @@ export function ScriptStep({
                   editionPools.tb.map((c) => c.id)
                 )
               }
-              className="border-subtle text-muted font-body cursor-pointer self-start rounded-[5px] border bg-transparent px-3 py-[5px] text-[13px]"
+              className="border-subtle text-muted font-body cursor-pointer self-start rounded-[5px] border bg-transparent px-3 py-1.25 text-base"
             >
               ← Back to Script Selection
             </button>
 
             {/* Count dashboard */}
-            <div className="bg-surface border-subtle rounded-[10px] border px-4 py-[14px]">
-              <div className="font-display text-gold mb-3 text-[12px] tracking-[0.06em] uppercase">
-                Your Script — {scriptIds.length} characters
-              </div>
-              <div className="flex gap-[10px]">
+            <div className="bg-surface border-subtle rounded-[10px] border px-4 py-3.5">
+              <SectionLabel className="mb-3">Your Script — {scriptIds.length} characters</SectionLabel>
+              <div className="flex gap-2.5">
                 {TEAM_ORDER.map((team) => {
                   const have = counts[team];
                   const need = TARGETS[team];
@@ -258,11 +257,11 @@ export function ScriptStep({
                       className="flex-1 rounded-[7px] bg-[#0a0a14] px-1 py-2 text-center"
                       style={{ border: `1px solid ${ok ? c.border : "#2a2a3a"}` }}
                     >
-                      <div className="font-mono text-[20px]" style={{ color: ok ? c.text : "#444" }}>
+                      <div className="font-mono text-xl" style={{ color: ok ? c.text : "#444" }}>
                         {have}
                       </div>
-                      <div className="text-dimmer font-mono text-[8px]">/ {need}</div>
-                      <div className="font-body text-dim mt-[3px] text-[10px] capitalize">{team}</div>
+                      <div className="text-dimmer text-3xs font-mono">/ {need}</div>
+                      <div className="font-body text-dim text-2xs mt-0.75 capitalize">{team}</div>
                     </div>
                   );
                 })}
@@ -271,32 +270,30 @@ export function ScriptStep({
               {/* Hint messages */}
               <div className="mt-3 flex flex-col gap-1">
                 {counts.demon === 0 && (
-                  <div className="font-body text-blood-light text-[12px]">⚠ You need at least 1 Demon.</div>
+                  <div className="font-body text-blood-light text-sm">⚠ You need at least 1 Demon.</div>
                 )}
                 {counts.townsfolk < tfMin && (
-                  <div className="font-body text-amber text-[12px]">
+                  <div className="font-body text-amber text-sm">
                     ⚡ Add more Townsfolk —{" "}
                     {hasBaron
                       ? "7 minimum with Baron in play (Baron replaces 2 TF with Outsiders)."
                       : "9 minimum to support a 7-player game, 12 for a full script (9 + 3 bluffs)."}
                   </div>
                 )}
-                {counts.minion === 0 && (
-                  <div className="font-body text-amber text-[12px]">⚡ Add at least 1 Minion.</div>
-                )}
+                {counts.minion === 0 && <div className="font-body text-amber text-sm">⚡ Add at least 1 Minion.</div>}
                 {hasBaron && counts.townsfolk >= tfMin && (
-                  <div className="font-body text-outsider text-[12px]">
+                  <div className="font-body text-outsider text-sm">
                     ⚙ Baron shifts 2 Townsfolk slots to Outsiders in every game — target 11 TF and 6 OS for full
                     coverage.
                   </div>
                 )}
                 {counts.demon > 1 && (
-                  <div className="font-body text-muted text-[12px]">
+                  <div className="font-body text-muted text-sm">
                     💡 Multiple demons ({counts.demon}) — each game uses exactly 1. More options is fine.
                   </div>
                 )}
                 {valid && (
-                  <div className="font-body text-tip text-[12px]">
+                  <div className="font-body text-tip text-sm">
                     ✓ Script is playable.
                     {counts.townsfolk < TARGETS.townsfolk
                       ? ` Add ${TARGETS.townsfolk - counts.townsfolk} more Townsfolk for full player range.`
@@ -307,8 +304,8 @@ export function ScriptStep({
 
               {/* Player count support grid */}
               {scriptIds.length > 0 && (
-                <div className="mt-[14px]">
-                  <div className="font-display text-dim mb-[6px] text-[9px] tracking-[0.08em] uppercase">
+                <div className="mt-3.5">
+                  <div className="font-display text-dim text-3xs mb-1.5 tracking-[0.08em] uppercase">
                     Supported Player Counts
                   </div>
                   <div className="flex flex-wrap gap-1">
@@ -320,7 +317,7 @@ export function ScriptStep({
                             ? `${entry.playerCount}p: ${entry.required.townsfolk}TF ${entry.required.outsider}OS ${entry.required.minion}Mn ${entry.required.demon}Dm`
                             : `${entry.playerCount}p: not enough characters`
                         }
-                        className={`flex h-[22px] w-[26px] items-center justify-center rounded-[4px] font-mono text-[10px] ${
+                        className={`text-2xs flex h-5.5 w-6.5 items-center justify-center rounded-sm font-mono ${
                           entry.supported
                             ? "border border-[#2d6a4f] bg-[#0d1a0d] text-[#4a9a6a]"
                             : "border border-[#222] bg-[#0a0a14] text-[#333]"
@@ -336,10 +333,8 @@ export function ScriptStep({
 
             {/* Script character list */}
             {scriptIds.length > 0 && (
-              <div className="bg-surface border-subtle flex-1 overflow-y-auto rounded-[10px] border px-4 py-[14px]">
-                <div className="font-display text-gold mb-3 text-[12px] tracking-[0.06em] uppercase">
-                  Script Contents
-                </div>
+              <div className="bg-surface border-subtle flex-1 overflow-y-auto rounded-[10px] border px-4 py-3.5">
+                <div className="font-display text-gold mb-3 text-sm tracking-[0.06em] uppercase">Script Contents</div>
                 {TEAM_ORDER.map((team) => {
                   const chars = scriptChars.filter((c) => c.team === team);
                   if (chars.length === 0) return null;
@@ -347,7 +342,7 @@ export function ScriptStep({
                   return (
                     <div key={team} className="mb-3">
                       <div
-                        className="font-display mb-[5px] text-[10px] tracking-[0.08em] uppercase"
+                        className="font-display text-2xs mb-1.25 tracking-[0.08em] uppercase"
                         style={{ color: c.text }}
                       >
                         {TEAM_LABEL[team]} ({chars.length})
@@ -358,7 +353,7 @@ export function ScriptStep({
                             key={char.id}
                             onClick={() => onToggleScriptChar(char.id)}
                             title={`Remove ${char.name} from script`}
-                            className="font-display cursor-pointer rounded-[4px] bg-[#1a1a2a] px-2 py-[3px] text-[11px]"
+                            className="font-display cursor-pointer rounded-sm bg-[#1a1a2a] px-2 py-0.75 text-xs"
                             style={{
                               border: `1px solid ${c.border}`,
                               color: c.text
@@ -379,7 +374,7 @@ export function ScriptStep({
               <button
                 onClick={onContinue}
                 disabled={!valid}
-                className={`font-display rounded-[8px] border-none px-7 py-3 text-[13px] tracking-[0.06em] ${
+                className={`font-display rounded-lg border-none px-7 py-3 text-base tracking-[0.06em] ${
                   valid ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#333]"
                 }`}
               >
