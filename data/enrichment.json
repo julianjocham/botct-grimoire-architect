@@ -2,7 +2,9 @@
   "washerwoman": {
     "stComplexity": 2,
     "abilityCategory": "info-start",
-    "tags": ["info-first-night"],
+    "tags": [
+      "info-first-night"
+    ],
     "strength": {
       "composite": 25,
       "peakPower": 10,
@@ -10,7 +12,13 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "If poisoned night 1, you choose which 2 players to show and which Townsfolk token — the info is fabricated but looks real.",
       "spy": "Spy can register as the Townsfolk shown, effectively 'confirming' the Spy as a good player.",
@@ -22,7 +30,9 @@
   "librarian": {
     "stComplexity": 2,
     "abilityCategory": "info-start",
-    "tags": ["info-first-night"],
+    "tags": [
+      "info-first-night"
+    ],
     "strength": {
       "composite": 20,
       "peakPower": 8,
@@ -30,7 +40,13 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "Same as Washerwoman — one-shot info, if poisoned it's wasted with no way to verify.",
       "spy": "Spy can register as the Outsider shown.",
@@ -41,7 +57,9 @@
   "investigator": {
     "stComplexity": 2,
     "abilityCategory": "info-start",
-    "tags": ["info-first-night"],
+    "tags": [
+      "info-first-night"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 12,
@@ -49,7 +67,13 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
     "counterDetail": {
       "recluse": "Recluse can register as the Minion shown — making Investigator 'confirm' a good player as evil. Devastating misdirection.",
       "spy": "Spy can register as any Minion to the Investigator.",
@@ -60,7 +84,9 @@
   "chef": {
     "stComplexity": 2,
     "abilityCategory": "info-start",
-    "tags": ["info-first-night"],
+    "tags": [
+      "info-first-night"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 12,
@@ -68,7 +94,13 @@
       "vulnerability": 0.3,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
     "counterDetail": {
       "spy": "Spy registers as good or evil at your discretion — can inflate or deflate the Chef number.",
       "recluse": "Recluse can register as evil, adding a false pair to the Chef count.",
@@ -79,7 +111,9 @@
   "empath": {
     "stComplexity": 3,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": 50,
       "peakPower": 18,
@@ -87,7 +121,14 @@
       "vulnerability": 0.4,
       "scalingBonus": 3
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "nodashii", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "nodashii",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "Must poison Empath every night to suppress recurring info — ties up the Poisoner permanently.",
       "spy": "Spy registers as good to Empath, hiding an evil neighbor. Very strong counter.",
@@ -99,7 +140,9 @@
   "fortuneteller": {
     "stComplexity": 3,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": 45,
       "peakPower": 16,
@@ -107,7 +150,13 @@
       "vulnerability": 0.4,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
     "counterDetail": {
       "recluse": "ST can make Recluse the red herring — Fortune Teller always gets 'Yes' when checking Recluse.",
       "poisoner": "If poisoned, you choose whether to show Yes or No regardless of truth.",
@@ -119,7 +168,10 @@
   "undertaker": {
     "stComplexity": 2,
     "abilityCategory": "info-conditional",
-    "tags": ["info-recurring", "info-conditional"],
+    "tags": [
+      "info-recurring",
+      "info-conditional"
+    ],
     "strength": {
       "composite": 40,
       "peakPower": 14,
@@ -127,7 +179,13 @@
       "vulnerability": 0.25,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "spy", "recluse", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
     "counterDetail": {
       "spy": "If Spy is executed, you may show any character token — perfect for supporting evil bluffs.",
       "recluse": "If Recluse is executed, you may show a Minion or Demon token."
@@ -137,7 +195,9 @@
   "monk": {
     "stComplexity": 3,
     "abilityCategory": "protection",
-    "tags": ["protection"],
+    "tags": [
+      "protection"
+    ],
     "strength": {
       "composite": 40,
       "peakPower": 15,
@@ -145,7 +205,13 @@
       "vulnerability": 0.25,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "assassin", "gossip", "po"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "assassin",
+      "gossip",
+      "po"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Monk's protection fails silently — protected player dies and Monk doesn't know.",
       "assassin": "Assassin kills through ALL protection. Monk cannot save the target.",
@@ -157,7 +223,9 @@
   "ravenkeeper": {
     "stComplexity": 2,
     "abilityCategory": "info-on-death",
-    "tags": ["info-on-death"],
+    "tags": [
+      "info-on-death"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 10,
@@ -165,7 +233,12 @@
       "vulnerability": 0.4,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "spy", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "If poisoned when killed at night, Ravenkeeper gets false info. Evil can time poison around the kill.",
       "spy": "Spy shows as any character to Ravenkeeper — powerful misdirection opportunity."
@@ -176,7 +249,10 @@
   "virgin": {
     "stComplexity": 2,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability", "once-per-game"],
+    "tags": [
+      "day-ability",
+      "once-per-game"
+    ],
     "strength": {
       "composite": 20,
       "peakPower": 20,
@@ -184,7 +260,10 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk"],
+    "counters": [
+      "poisoner",
+      "drunk"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Virgin's ability doesn't trigger — Townsfolk nominator doesn't die, which looks identical to an evil player nominating.",
       "drunk": "If Virgin is the Drunk, no trigger occurs even from Townsfolk nominators."
@@ -195,7 +274,11 @@
   "slayer": {
     "stComplexity": 1,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability", "once-per-game", "lethal-good"],
+    "tags": [
+      "day-ability",
+      "once-per-game",
+      "lethal-good"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 20,
@@ -203,7 +286,10 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk"],
+    "counters": [
+      "poisoner",
+      "drunk"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Slayer's shot does nothing — identical to choosing a non-demon. No way to tell if ability failed or target was wrong.",
       "drunk": "Drunk Slayer's shot never works."
@@ -213,7 +299,9 @@
   "soldier": {
     "stComplexity": 1,
     "abilityCategory": "protection",
-    "tags": ["protection"],
+    "tags": [
+      "protection"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 8,
@@ -221,7 +309,13 @@
       "vulnerability": 0.1,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "assassin", "gossip", "po"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "assassin",
+      "gossip",
+      "po"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Soldier dies to demon attack — their death proves a Poisoner is active.",
       "assassin": "Assassin kills through Soldier protection. This is the iconic interaction for this pair.",
@@ -232,7 +326,10 @@
   "mayor": {
     "stComplexity": 2,
     "abilityCategory": "protection",
-    "tags": ["protection", "once-per-game"],
+    "tags": [
+      "protection",
+      "once-per-game"
+    ],
     "strength": {
       "composite": 25,
       "peakPower": 18,
@@ -240,7 +337,11 @@
       "vulnerability": 0.2,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "assassin"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "assassin"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Mayor can die at night. Also, the 'no-execution win' condition doesn't work while poisoned.",
       "assassin": "Assassin can kill Mayor even when they would redirect the death."
@@ -250,7 +351,9 @@
   "butler": {
     "stComplexity": 2,
     "abilityCategory": "restriction",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": -10,
       "peakPower": 0,
@@ -265,7 +368,9 @@
   "drunk": {
     "stComplexity": 4,
     "abilityCategory": "restriction",
-    "tags": ["setup-modifier"],
+    "tags": [
+      "setup-modifier"
+    ],
     "strength": {
       "composite": -30,
       "peakPower": 0,
@@ -281,7 +386,9 @@
   "recluse": {
     "stComplexity": 2,
     "abilityCategory": "info-disruption",
-    "tags": ["info-disruption"],
+    "tags": [
+      "info-disruption"
+    ],
     "strength": {
       "composite": -15,
       "peakPower": 10,
@@ -296,7 +403,9 @@
   "saint": {
     "stComplexity": 1,
     "abilityCategory": "execution-trap",
-    "tags": ["execution-trap"],
+    "tags": [
+      "execution-trap"
+    ],
     "strength": {
       "composite": -35,
       "peakPower": 0,
@@ -312,7 +421,9 @@
   "poisoner": {
     "stComplexity": 4,
     "abilityCategory": "info-disruption",
-    "tags": ["poison-drunk"],
+    "tags": [
+      "poison-drunk"
+    ],
     "strength": {
       "composite": -55,
       "peakPower": -18,
@@ -320,7 +431,10 @@
       "vulnerability": 0.3,
       "scalingBonus": -3
     },
-    "counters": ["courtier", "monk"],
+    "counters": [
+      "courtier",
+      "monk"
+    ],
     "counterDetail": {
       "courtier": "Courtier can drunk the Poisoner for 3 nights, completely removing all poison from the game temporarily."
     },
@@ -329,7 +443,9 @@
   "spy": {
     "stComplexity": 4,
     "abilityCategory": "info-disruption",
-    "tags": ["info-disruption"],
+    "tags": [
+      "info-disruption"
+    ],
     "strength": {
       "composite": -60,
       "peakPower": -15,
@@ -337,7 +453,10 @@
       "vulnerability": 0.2,
       "scalingBonus": -2
     },
-    "counters": ["poppygrower", "magician"],
+    "counters": [
+      "poppygrower",
+      "magician"
+    ],
     "counterDetail": {
       "poppygrower": "If Poppy Grower is alive, Minions and Demons don't know each other — the Spy still sees the Grimoire but there is no evil team coordination to leverage.",
       "magician": "Magician makes the Demon think a Minion is the Demon and vice versa, partially confusing Spy's intel."
@@ -348,7 +467,9 @@
   "scarletwoman": {
     "stComplexity": 3,
     "abilityCategory": "demon-resilience",
-    "tags": ["demon-resilience"],
+    "tags": [
+      "demon-resilience"
+    ],
     "strength": {
       "composite": -45,
       "peakPower": -10,
@@ -364,7 +485,9 @@
   "baron": {
     "stComplexity": 1,
     "abilityCategory": "setup-modifier",
-    "tags": ["setup-modifier"],
+    "tags": [
+      "setup-modifier"
+    ],
     "strength": {
       "composite": -35,
       "peakPower": -8,
@@ -380,7 +503,10 @@
   "imp": {
     "stComplexity": 3,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "demon-resilience"],
+    "tags": [
+      "lethal-evil",
+      "demon-resilience"
+    ],
     "strength": {
       "composite": -65,
       "peakPower": -20,
@@ -388,7 +514,13 @@
       "vulnerability": 0.5,
       "scalingBonus": -3
     },
-    "counters": ["monk", "soldier", "slayer", "exorcist", "tea_lady"],
+    "counters": [
+      "monk",
+      "soldier",
+      "slayer",
+      "exorcist",
+      "tea_lady"
+    ],
     "counterDetail": {
       "monk": "Monk-protected player survives Imp attack — nobody dies that night.",
       "soldier": "Soldier survives Imp attack — nobody dies that night.",
@@ -400,7 +532,9 @@
   "grandmother": {
     "stComplexity": 3,
     "abilityCategory": "info-start",
-    "tags": ["info-first-night"],
+    "tags": [
+      "info-first-night"
+    ],
     "strength": {
       "composite": 20,
       "peakPower": 10,
@@ -408,7 +542,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "pukka", "godfather"],
+    "counters": [
+      "poisoner",
+      "pukka",
+      "godfather"
+    ],
     "counterDetail": {
       "pukka": "Pukka kills the grandchild on night N+1 (delayed kill), which also kills the Grandmother on that same night.",
       "godfather": "Godfather can kill the grandchild as an extra kill, triggering Grandmother's death."
@@ -418,7 +556,10 @@
   "sailor": {
     "stComplexity": 4,
     "abilityCategory": "protection",
-    "tags": ["protection", "poison-drunk"],
+    "tags": [
+      "protection",
+      "poison-drunk"
+    ],
     "strength": {
       "composite": 45,
       "peakPower": 18,
@@ -426,7 +567,13 @@
       "vulnerability": 0.1,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "assassin", "pukka", "vigormortis", "courtier"],
+    "counters": [
+      "poisoner",
+      "assassin",
+      "pukka",
+      "vigormortis",
+      "courtier"
+    ],
     "counterDetail": {
       "assassin": "Assassin kills through Sailor's protection — the 'unkillable' dies. One of the most dramatic moments.",
       "pukka": "Pukka poisons tonight and kills tomorrow. A Sailor poisoned by Pukka can die the NEXT night even if they chose differently. Very confusing — track carefully.",
@@ -439,7 +586,9 @@
   "chambermaid": {
     "stComplexity": 3,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": 40,
       "peakPower": 16,
@@ -447,7 +596,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "pukka", "lunatic"],
+    "counters": [
+      "poisoner",
+      "pukka",
+      "lunatic"
+    ],
     "counterDetail": {
       "lunatic": "Lunatic wakes and performs fake demon actions. Whether Lunatic counts as 'waking for their ability' is your call.",
       "poisoner": "Poisoned Chambermaid gets a false count — you choose the number shown."
@@ -457,7 +610,9 @@
   "exorcist": {
     "stComplexity": 3,
     "abilityCategory": "protection",
-    "tags": ["protection"],
+    "tags": [
+      "protection"
+    ],
     "strength": {
       "composite": 55,
       "peakPower": 20,
@@ -465,7 +620,10 @@
       "vulnerability": 0.3,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "pukka"],
+    "counters": [
+      "poisoner",
+      "pukka"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Exorcist's choice has no effect — demon still wakes and kills.",
       "pukka": "Pukka poisons on night N, kills on N+1. Even if Exorcist stops Pukka, the previous poison victim still dies."
@@ -475,7 +633,10 @@
   "innkeeper": {
     "stComplexity": 3,
     "abilityCategory": "protection",
-    "tags": ["protection", "poison-drunk"],
+    "tags": [
+      "protection",
+      "poison-drunk"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 15,
@@ -483,7 +644,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "assassin", "pukka"],
+    "counters": [
+      "poisoner",
+      "assassin",
+      "pukka"
+    ],
     "counterDetail": {
       "assassin": "Assassin kills through Innkeeper protection on both protected players.",
       "poisoner": "Poisoned Innkeeper's protection fails on both players."
@@ -494,7 +659,10 @@
   "gambler": {
     "stComplexity": 2,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring", "lethal-good"],
+    "tags": [
+      "info-recurring",
+      "lethal-good"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 12,
@@ -502,7 +670,10 @@
       "vulnerability": 0.5,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "pukka"],
+    "counters": [
+      "poisoner",
+      "pukka"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Gambler: a correct guess might still kill them (you choose), or a wrong guess might not kill them. Either outcome is false.",
       "pukka": "Pukka's delayed poison means Gambler might die the night after being poisoned, even on a correct guess."
@@ -512,7 +683,10 @@
   "gossip": {
     "stComplexity": 3,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability", "lethal-good"],
+    "tags": [
+      "day-ability",
+      "lethal-good"
+    ],
     "strength": {
       "composite": 20,
       "peakPower": 16,
@@ -520,7 +694,10 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "pukka"],
+    "counters": [
+      "poisoner",
+      "pukka"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Gossip: even if their statement is true, no one dies — and the town doesn't know if it was true or the Gossip was poisoned."
     },
@@ -529,7 +706,10 @@
   "courtier": {
     "stComplexity": 3,
     "abilityCategory": "once-per-game",
-    "tags": ["once-per-game", "poison-drunk"],
+    "tags": [
+      "once-per-game",
+      "poison-drunk"
+    ],
     "strength": {
       "composite": 50,
       "peakPower": 18,
@@ -537,7 +717,10 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "pukka"],
+    "counters": [
+      "poisoner",
+      "pukka"
+    ],
     "counterDetail": {
       "poisoner": "If Courtier is poisoned when they use their ability, it fails — and is wasted."
     },
@@ -547,7 +730,9 @@
   "professor": {
     "stComplexity": 3,
     "abilityCategory": "once-per-game",
-    "tags": ["once-per-game"],
+    "tags": [
+      "once-per-game"
+    ],
     "strength": {
       "composite": 45,
       "peakPower": 20,
@@ -555,7 +740,11 @@
       "vulnerability": 0.4,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "pukka", "mastermind"],
+    "counters": [
+      "poisoner",
+      "pukka",
+      "mastermind"
+    ],
     "counterDetail": {
       "poisoner": "If Professor is poisoned when they use their ability, the resurrection fails and the ability is wasted.",
       "mastermind": "If the demon is executed and Mastermind is alive, the game continues 1 more day — Professor might resurrect someone in that window."
@@ -565,7 +754,9 @@
   "minstrel": {
     "stComplexity": 2,
     "abilityCategory": "protection",
-    "tags": ["execution-modifier"],
+    "tags": [
+      "execution-modifier"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 18,
@@ -581,7 +772,9 @@
   "tealady": {
     "stComplexity": 2,
     "abilityCategory": "protection",
-    "tags": ["protection"],
+    "tags": [
+      "protection"
+    ],
     "strength": {
       "composite": 40,
       "peakPower": 14,
@@ -589,7 +782,12 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "pukka", "assassin", "vigormortis"],
+    "counters": [
+      "poisoner",
+      "pukka",
+      "assassin",
+      "vigormortis"
+    ],
     "counterDetail": {
       "assassin": "Assassin kills through Tea Lady protection.",
       "vigormortis": "If Vigormortis kills a Minion neighbor of Tea Lady, Tea Lady becomes permanently poisoned — her protection drops forever.",
@@ -600,11 +798,16 @@
   "pacifist": {
     "stComplexity": 2,
     "abilityCategory": "protection",
-    "tags": ["execution-modifier"],
+    "tags": [
+      "execution-modifier"
+    ],
     "strength": {
       "composite": 25
     },
-    "counters": ["poisoner", "pukka"],
+    "counters": [
+      "poisoner",
+      "pukka"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Pacifist cannot save good players from execution."
     },
@@ -613,7 +816,10 @@
   "fool": {
     "stComplexity": 1,
     "abilityCategory": "protection",
-    "tags": ["protection", "once-per-game"],
+    "tags": [
+      "protection",
+      "once-per-game"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 15,
@@ -621,7 +827,11 @@
       "vulnerability": 0.1,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "pukka", "assassin"],
+    "counters": [
+      "poisoner",
+      "pukka",
+      "assassin"
+    ],
     "counterDetail": {
       "assassin": "Assassin kills through Fool's protection — Fool uses their one protection and still dies.",
       "poisoner": "Poisoned Fool loses their protection — they die the first time they would die."
@@ -631,7 +841,9 @@
   "tinker": {
     "stComplexity": 2,
     "abilityCategory": "death-trigger",
-    "tags": ["lethal-good"],
+    "tags": [
+      "lethal-good"
+    ],
     "strength": {
       "composite": -20,
       "peakPower": 0,
@@ -647,7 +859,10 @@
   "moonchild": {
     "stComplexity": 2,
     "abilityCategory": "death-trigger",
-    "tags": ["lethal-good", "day-ability"],
+    "tags": [
+      "lethal-good",
+      "day-ability"
+    ],
     "strength": {
       "composite": -25,
       "peakPower": 0,
@@ -662,7 +877,10 @@
   "goon": {
     "stComplexity": 3,
     "abilityCategory": "alignment-change",
-    "tags": ["alignment-change", "poison-drunk"],
+    "tags": [
+      "alignment-change",
+      "poison-drunk"
+    ],
     "strength": {
       "composite": -20,
       "peakPower": 8,
@@ -678,7 +896,9 @@
   "lunatic": {
     "stComplexity": 5,
     "abilityCategory": "alignment-change",
-    "tags": ["setup-modifier"],
+    "tags": [
+      "setup-modifier"
+    ],
     "strength": {
       "composite": -15,
       "peakPower": 5,
@@ -694,7 +914,10 @@
   "godfather": {
     "stComplexity": 3,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "setup-modifier"],
+    "tags": [
+      "lethal-evil",
+      "setup-modifier"
+    ],
     "strength": {
       "composite": -45,
       "peakPower": -12,
@@ -710,7 +933,9 @@
   "devilsadvocate": {
     "stComplexity": 3,
     "abilityCategory": "demon-resilience",
-    "tags": ["demon-resilience"],
+    "tags": [
+      "demon-resilience"
+    ],
     "strength": {
       "composite": -40,
       "peakPower": -15,
@@ -726,7 +951,10 @@
   "assassin": {
     "stComplexity": 2,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "once-per-game"],
+    "tags": [
+      "lethal-evil",
+      "once-per-game"
+    ],
     "strength": {
       "composite": -45,
       "peakPower": -20,
@@ -742,7 +970,9 @@
   "mastermind": {
     "stComplexity": 2,
     "abilityCategory": "demon-resilience",
-    "tags": ["execution-modifier"],
+    "tags": [
+      "execution-modifier"
+    ],
     "strength": {
       "composite": -35
     },
@@ -753,7 +983,10 @@
   "zombuul": {
     "stComplexity": 4,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "demon-resilience"],
+    "tags": [
+      "lethal-evil",
+      "demon-resilience"
+    ],
     "strength": {
       "composite": -70,
       "peakPower": -20,
@@ -761,7 +994,9 @@
       "vulnerability": 0.3,
       "scalingBonus": -3
     },
-    "counters": ["exorcist"],
+    "counters": [
+      "exorcist"
+    ],
     "counterDetail": {
       "exorcist": "If Exorcist chooses Zombuul, no kill that night — powerful counter since Zombuul only kills on no-execution nights."
     },
@@ -771,7 +1006,10 @@
   "pukka": {
     "stComplexity": 4,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "poison-drunk"],
+    "tags": [
+      "lethal-evil",
+      "poison-drunk"
+    ],
     "strength": {
       "composite": -65,
       "peakPower": -20,
@@ -779,7 +1017,9 @@
       "vulnerability": 0.4,
       "scalingBonus": -2
     },
-    "counters": ["exorcist"],
+    "counters": [
+      "exorcist"
+    ],
     "counterDetail": {
       "exorcist": "If Exorcist stops Pukka, the poison target is NOT chosen this night — but last night's poison victim still dies."
     },
@@ -789,7 +1029,9 @@
   "shabaloth": {
     "stComplexity": 4,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil"],
+    "tags": [
+      "lethal-evil"
+    ],
     "strength": {
       "composite": -60,
       "peakPower": -18,
@@ -797,7 +1039,9 @@
       "vulnerability": 0.5,
       "scalingBonus": -2
     },
-    "counters": ["exorcist"],
+    "counters": [
+      "exorcist"
+    ],
     "counterDetail": {
       "exorcist": "If Exorcist stops Shabaloth, no kills and no resurrection choice that night."
     },
@@ -807,7 +1051,9 @@
   "po": {
     "stComplexity": 4,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil"],
+    "tags": [
+      "lethal-evil"
+    ],
     "strength": {
       "composite": -70,
       "peakPower": -20,
@@ -815,7 +1061,10 @@
       "vulnerability": 0.4,
       "scalingBonus": -3
     },
-    "counters": ["exorcist", "monk"],
+    "counters": [
+      "exorcist",
+      "monk"
+    ],
     "counterDetail": {
       "exorcist": "Exorcist prevents Po from acting — both the standard kill and the triple kill.",
       "monk": "Monk protection saves one of the triple-kill targets — but the other two still die."
@@ -826,7 +1075,9 @@
   "clockmaker": {
     "stComplexity": 2,
     "abilityCategory": "info-start",
-    "tags": ["info-first-night"],
+    "tags": [
+      "info-first-night"
+    ],
     "strength": {
       "composite": 25,
       "peakPower": 12,
@@ -834,7 +1085,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "If poisoned night 1, you show a false step count.",
       "vortox": "Vortox makes all Townsfolk info wrong — Clockmaker gets a false number."
@@ -844,7 +1099,9 @@
   "dreamer": {
     "stComplexity": 2,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 10,
@@ -852,7 +1109,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Dreamer info wrong — both shown characters will be incorrect.",
       "poisoner": "Poisoned Dreamer gets a false pair — neither may be correct, or both may be wrong in various ways."
@@ -862,7 +1123,10 @@
   "snakecharmer": {
     "stComplexity": 4,
     "abilityCategory": "character-change",
-    "tags": ["character-change", "alignment-change"],
+    "tags": [
+      "character-change",
+      "alignment-change"
+    ],
     "strength": {
       "composite": 45,
       "peakPower": 20,
@@ -870,7 +1134,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Snake Charmer: if they choose the demon, the swap does NOT happen — even though it looks like it should."
     },
@@ -880,7 +1148,9 @@
   "mathematician": {
     "stComplexity": 3,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 14,
@@ -888,7 +1158,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "If Vortox is the demon, all Townsfolk info malfunctions — Mathematician's count may also be wrong, creating a paradox sharp players can exploit.",
       "poisoner": "Poisoned Mathematician gets a false count."
@@ -898,7 +1172,10 @@
   "flowergirl": {
     "stComplexity": 2,
     "abilityCategory": "info-conditional",
-    "tags": ["info-recurring", "info-conditional"],
+    "tags": [
+      "info-recurring",
+      "info-conditional"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 12,
@@ -906,7 +1183,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Flowergirl info wrong — even if demon voted, Flowergirl may be told they didn't.",
       "poisoner": "Poisoned Flowergirl gets a false yes/no."
@@ -916,7 +1197,10 @@
   "towncrier": {
     "stComplexity": 2,
     "abilityCategory": "info-conditional",
-    "tags": ["info-recurring", "info-conditional"],
+    "tags": [
+      "info-recurring",
+      "info-conditional"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 12,
@@ -924,7 +1208,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Town Crier info wrong.",
       "poisoner": "Poisoned Town Crier gets a false yes/no."
@@ -934,7 +1222,9 @@
   "oracle": {
     "stComplexity": 2,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": 40,
       "peakPower": 14,
@@ -942,7 +1232,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Oracle info wrong — dead evil count may be falsified.",
       "poisoner": "Poisoned Oracle gets a false count."
@@ -952,7 +1246,10 @@
   "savant": {
     "stComplexity": 4,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability", "info-recurring"],
+    "tags": [
+      "day-ability",
+      "info-recurring"
+    ],
     "strength": {
       "composite": 25,
       "peakPower": 12,
@@ -960,7 +1257,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Savant: one of their two facts SHOULD be true, but since they're poisoned, both might be false (or both true).",
       "vortox": "Vortox makes Savant info wrong — the 'true' fact is now false, and the 'false' fact might become true."
@@ -971,7 +1272,9 @@
   "seamstress": {
     "stComplexity": 2,
     "abilityCategory": "once-per-game",
-    "tags": ["once-per-game"],
+    "tags": [
+      "once-per-game"
+    ],
     "strength": {
       "composite": 30,
       "peakPower": 14,
@@ -979,7 +1282,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 1
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Seamstress info wrong — the alignment answer is false.",
       "poisoner": "Poisoned Seamstress gets a false yes/no."
@@ -989,7 +1296,10 @@
   "philosopher": {
     "stComplexity": 5,
     "abilityCategory": "once-per-game",
-    "tags": ["once-per-game", "character-change"],
+    "tags": [
+      "once-per-game",
+      "character-change"
+    ],
     "strength": {
       "composite": 50,
       "peakPower": 20,
@@ -997,7 +1307,11 @@
       "vulnerability": 0.4,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "poisoner": "Poisoned Philosopher: their chosen ability doesn't work (same as being drunk).",
       "vortox": "If Philosopher gains Empath ability under Vortox, all their info is wrong — dangerous."
@@ -1008,7 +1322,10 @@
   "artist": {
     "stComplexity": 3,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability", "once-per-game"],
+    "tags": [
+      "day-ability",
+      "once-per-game"
+    ],
     "strength": {
       "composite": 25,
       "peakPower": 18,
@@ -1016,7 +1333,11 @@
       "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Artist info wrong — the yes/no answer is false.",
       "poisoner": "Poisoned Artist gets a false answer."
@@ -1027,7 +1348,10 @@
   "juggler": {
     "stComplexity": 3,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability", "info-first-night"],
+    "tags": [
+      "day-ability",
+      "info-first-night"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 20,
@@ -1035,7 +1359,11 @@
       "vulnerability": 0.4,
       "scalingBonus": 2
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Juggler info wrong — correct guesses still show as incorrect.",
       "poisoner": "Poisoned Juggler gets a false count."
@@ -1046,7 +1374,9 @@
   "sage": {
     "stComplexity": 2,
     "abilityCategory": "info-on-death",
-    "tags": ["info-on-death"],
+    "tags": [
+      "info-on-death"
+    ],
     "strength": {
       "composite": 35,
       "peakPower": 15,
@@ -1054,7 +1384,11 @@
       "vulnerability": 0.5,
       "scalingBonus": 0
     },
-    "counters": ["poisoner", "drunk", "vortox"],
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
     "counterDetail": {
       "vortox": "Vortox makes Sage info wrong — neither of the two players shown may be the demon.",
       "poisoner": "Poisoned Sage who is killed by the demon gets a false pair."
@@ -1064,7 +1398,9 @@
   "mutant": {
     "stComplexity": 2,
     "abilityCategory": "restriction",
-    "tags": ["madness"],
+    "tags": [
+      "madness"
+    ],
     "strength": {
       "composite": -20,
       "peakPower": 0,
@@ -1080,7 +1416,9 @@
   "sweetheart": {
     "stComplexity": 2,
     "abilityCategory": "death-trigger",
-    "tags": ["poison-drunk"],
+    "tags": [
+      "poison-drunk"
+    ],
     "strength": {
       "composite": -25,
       "peakPower": 0,
@@ -1095,7 +1433,9 @@
   "barber": {
     "stComplexity": 4,
     "abilityCategory": "character-change",
-    "tags": ["character-change"],
+    "tags": [
+      "character-change"
+    ],
     "strength": {
       "composite": -30,
       "peakPower": 0,
@@ -1111,7 +1451,9 @@
   "klutz": {
     "stComplexity": 2,
     "abilityCategory": "execution-trap",
-    "tags": ["execution-trap"],
+    "tags": [
+      "execution-trap"
+    ],
     "strength": {
       "composite": -20,
       "peakPower": 0,
@@ -1126,7 +1468,10 @@
   "eviltwin": {
     "stComplexity": 3,
     "abilityCategory": "social-evil",
-    "tags": ["info-disruption", "execution-modifier"],
+    "tags": [
+      "info-disruption",
+      "execution-modifier"
+    ],
     "strength": {
       "composite": -55,
       "peakPower": -15,
@@ -1142,7 +1487,9 @@
   "witch": {
     "stComplexity": 3,
     "abilityCategory": "social-evil",
-    "tags": ["lethal-evil"],
+    "tags": [
+      "lethal-evil"
+    ],
     "strength": {
       "composite": -45,
       "peakPower": -18,
@@ -1158,7 +1505,9 @@
   "cerenovus": {
     "stComplexity": 4,
     "abilityCategory": "social-evil",
-    "tags": ["madness"],
+    "tags": [
+      "madness"
+    ],
     "strength": {
       "composite": -40,
       "peakPower": -15,
@@ -1174,7 +1523,10 @@
   "pithag": {
     "stComplexity": 5,
     "abilityCategory": "character-change",
-    "tags": ["character-change", "lethal-evil"],
+    "tags": [
+      "character-change",
+      "lethal-evil"
+    ],
     "strength": {
       "composite": -50,
       "peakPower": -18,
@@ -1190,7 +1542,11 @@
   "fanggu": {
     "stComplexity": 3,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "alignment-change", "setup-modifier"],
+    "tags": [
+      "lethal-evil",
+      "alignment-change",
+      "setup-modifier"
+    ],
     "strength": {
       "composite": -60,
       "peakPower": -18,
@@ -1206,7 +1562,10 @@
   "vigormortis": {
     "stComplexity": 4,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "setup-modifier"],
+    "tags": [
+      "lethal-evil",
+      "setup-modifier"
+    ],
     "strength": {
       "composite": -65,
       "peakPower": -18,
@@ -1222,7 +1581,10 @@
   "nodashii": {
     "stComplexity": 3,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "poison-drunk"],
+    "tags": [
+      "lethal-evil",
+      "poison-drunk"
+    ],
     "strength": {
       "composite": -55,
       "peakPower": -20,
@@ -1238,7 +1600,10 @@
   "vortox": {
     "stComplexity": 4,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "info-disruption"],
+    "tags": [
+      "lethal-evil",
+      "info-disruption"
+    ],
     "strength": {
       "composite": -60,
       "peakPower": -20,
@@ -1254,7 +1619,10 @@
   "bureaucrat": {
     "stComplexity": 2,
     "abilityCategory": "restriction",
-    "tags": ["day-ability", "restriction"],
+    "tags": [
+      "day-ability",
+      "restriction"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1269,7 +1637,10 @@
   "thief": {
     "stComplexity": 2,
     "abilityCategory": "restriction",
-    "tags": ["day-ability", "restriction"],
+    "tags": [
+      "day-ability",
+      "restriction"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1284,7 +1655,10 @@
   "gunslinger": {
     "stComplexity": 3,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability", "lethal-good"],
+    "tags": [
+      "day-ability",
+      "lethal-good"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1299,7 +1673,9 @@
   "scapegoat": {
     "stComplexity": 2,
     "abilityCategory": "protection",
-    "tags": ["protection"],
+    "tags": [
+      "protection"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1314,7 +1690,9 @@
   "beggar": {
     "stComplexity": 2,
     "abilityCategory": "info-conditional",
-    "tags": ["info-conditional"],
+    "tags": [
+      "info-conditional"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1329,7 +1707,10 @@
   "apprentice": {
     "stComplexity": 3,
     "abilityCategory": "character-change",
-    "tags": ["character-change", "once-per-game"],
+    "tags": [
+      "character-change",
+      "once-per-game"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1344,7 +1725,10 @@
   "matron": {
     "stComplexity": 2,
     "abilityCategory": "restriction",
-    "tags": ["day-ability", "restriction"],
+    "tags": [
+      "day-ability",
+      "restriction"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1359,7 +1743,11 @@
   "judge": {
     "stComplexity": 3,
     "abilityCategory": "execution-trap",
-    "tags": ["execution-modifier", "once-per-game", "day-ability"],
+    "tags": [
+      "execution-modifier",
+      "once-per-game",
+      "day-ability"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1374,7 +1762,9 @@
   "bishop": {
     "stComplexity": 3,
     "abilityCategory": "restriction",
-    "tags": ["restriction"],
+    "tags": [
+      "restriction"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1389,7 +1779,9 @@
   "voudon": {
     "stComplexity": 4,
     "abilityCategory": "restriction",
-    "tags": ["restriction"],
+    "tags": [
+      "restriction"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1404,7 +1796,9 @@
   "barista": {
     "stComplexity": 3,
     "abilityCategory": "protection",
-    "tags": ["protection"],
+    "tags": [
+      "protection"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1419,7 +1813,9 @@
   "harlot": {
     "stComplexity": 3,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1434,7 +1830,9 @@
   "butcher": {
     "stComplexity": 2,
     "abilityCategory": "day-ability",
-    "tags": ["day-ability"],
+    "tags": [
+      "day-ability"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1449,7 +1847,10 @@
   "bonecollector": {
     "stComplexity": 3,
     "abilityCategory": "character-change",
-    "tags": ["character-change", "once-per-game"],
+    "tags": [
+      "character-change",
+      "once-per-game"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1464,7 +1865,9 @@
   "deviant": {
     "stComplexity": 2,
     "abilityCategory": "restriction",
-    "tags": ["restriction"],
+    "tags": [
+      "restriction"
+    ],
     "strength": {
       "composite": 0,
       "peakPower": 0,
@@ -1477,633 +1880,1049 @@
     "stAdvice": ""
   },
   "gangster": {
-    "stComplexity": 3,
-    "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "day-ability", "once-per-game"],
+    "stComplexity": 2,
+    "abilityCategory": "lethal-good",
+    "tags": [
+      "lethal-good",
+      "once-per-game"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 20,
+      "peakPower": 15,
+      "reliability": 0.6,
+      "vulnerability": 0.25,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "monk",
+      "soldier",
+      "tea_lady",
+      "innkeeper"
+    ],
+    "counterDetail": {
+      "monk": "Monk-protected players survive the Gangster's kill.",
+      "soldier": "Soldier survives the Gangster's kill attempt.",
+      "innkeeper": "Innkeeper guests cannot be killed by the Gangster."
+    },
+    "stAdvice": "Gangster can kill a living neighbor once per day, but only with the agreement of their other alive neighbor — both must visibly agree. This is a traveler role and can be good or evil aligned. When good-aligned, the Gangster is a reliable executioner of known evil neighbors. When evil-aligned, this becomes a lethal daytime threat. Seating matters enormously for Gangster value."
   },
   "noble": {
     "stComplexity": 2,
     "abilityCategory": "info-start",
-    "tags": ["info-first-night"],
+    "tags": [
+      "info-first-night"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": 35,
+      "peakPower": 14,
+      "reliability": 0.75,
+      "vulnerability": 0.3,
+      "scalingBonus": 1
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
+    "counterDetail": {
+      "poisoner": "If poisoned night 1, you fabricate which 3 players to show — the guaranteed-1-evil claim is false.",
+      "spy": "Spy can register as good, removing them from the 'guaranteed 1 evil' and making the info unreliable.",
+      "recluse": "Recluse can register as evil, artificially satisfying the 'exactly 1 evil' constraint with a false positive."
+    },
+    "stAdvice": "Noble guarantees exactly 1 of the 3 shown players is evil — stronger than Investigator since it covers any team. Choose carefully: include known suspects alongside unknowns for maximum deduction value. If Spy or Recluse is in play, this is a prime deception target. High-value night-1 poison target."
   },
   "bountyhunter": {
-    "stComplexity": 3,
-    "abilityCategory": "info-conditional",
-    "tags": ["info-first-night", "info-conditional"],
+    "stComplexity": 2,
+    "abilityCategory": "info-start",
+    "tags": [
+      "info-first-night",
+      "info-recurring"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": 45,
+      "peakPower": 18,
+      "reliability": 0.75,
+      "vulnerability": 0.3,
+      "scalingBonus": 1
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse"
+    ],
+    "counterDetail": {
+      "poisoner": "If poisoned night 1, you name any player as the 'evil' one — the chain info is fabricated.",
+      "spy": "Spy can register as good, so the Bounty Hunter's known 'evil' player may flip to appear trustworthy.",
+      "recluse": "Recluse can register as evil, causing Bounty Hunter to waste their chain on a good player."
+    },
+    "stAdvice": "One of the strongest info roles — directly names an evil player from night 1, and chains when that player dies. Make evil kill or frame the Bounty Hunter's known player quickly. Note: one Townsfolk in play is secretly evil from setup; track this carefully in the grimoire.",
+    "newStWarning": "The Bounty Hunter setup mechanic makes one Townsfolk evil at the start — you must assign this before the game begins. Don't forget to tell the Bounty Hunter who the evil player is on night 1."
   },
   "pixie": {
     "stComplexity": 3,
-    "abilityCategory": "character-change",
-    "tags": ["character-change", "once-per-game", "madness"],
+    "abilityCategory": "once-per-game",
+    "tags": [
+      "info-first-night",
+      "once-per-game"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 30,
+      "peakPower": 15,
+      "reliability": 0.5,
+      "vulnerability": 0.35,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox",
+      "witch"
+    ],
+    "counterDetail": {
+      "poisoner": "If poisoned when the Townsfolk is executed, Pixie does not gain the ability.",
+      "witch": "Witch can curse the Pixie so that nominating the target character kills the Pixie instead.",
+      "vortox": "All Pixie info is wrong — they learn the wrong Townsfolk character to claim madness as."
+    },
+    "stAdvice": "Pixie learns a specific in-play Townsfolk and must stay 'mad' (publicly claim to be that character) for the reward. If the Pixie successfully keeps up the act until that Townsfolk is executed, they gain a copy of the ability. Choose a Townsfolk the Pixie can plausibly claim — if it's too powerful, evil will target both."
   },
   "general": {
-    "stComplexity": 2,
+    "stComplexity": 3,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring"],
+    "tags": [
+      "info-recurring"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 25,
+      "peakPower": 10,
+      "reliability": 0.65,
+      "vulnerability": 0.25,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
+    "counterDetail": {
+      "poisoner": "If poisoned, you give a false winning-alignment reading — 'evil is winning' when they aren't.",
+      "drunk": "Drunk General receives inaccurate win-state info, potentially misguiding the entire good team.",
+      "vortox": "All General info is wrong, giving systematically reversed game-state readings."
+    },
+    "stAdvice": "General's info reflects YOUR subjective view of whether good or evil is currently ahead — be honest but remember it's an ST judgment call. Use 'neither' when the game is genuinely balanced. A poisoned General who 'knows' evil is winning when they're actually losing can completely misdirect good's strategy."
   },
   "preacher": {
     "stComplexity": 3,
-    "abilityCategory": "restriction",
-    "tags": ["restriction", "info-disruption"],
+    "abilityCategory": "disruption-good",
+    "tags": [
+      "disruption",
+      "protection"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": 35,
+      "peakPower": 15,
+      "reliability": 0.5,
+      "vulnerability": 0.3,
+      "scalingBonus": -1
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
+    "counterDetail": {
+      "poisoner": "Poisoned Preacher still wakes and chooses, but Minions chosen don't actually lose their ability.",
+      "drunk": "Drunk Preacher's choices have no effect — Minions retain their abilities regardless.",
+      "vortox": "All Preacher info (who IS a Minion) is wrong; chosen Minions still retain abilities."
+    },
+    "stAdvice": "Preacher can shut down Minion abilities one by one — chosen Minions are told they've been Preached, so they know their ability is disabled. This is powerful against Poisoner, Spy, or Baron; less impactful against passive Minions. Evil should prioritize silencing the Preacher before powerful Minions get targeted."
   },
   "king": {
-    "stComplexity": 3,
-    "abilityCategory": "info-recurring",
-    "tags": ["info-recurring", "info-conditional"],
-    "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
-    },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
-  },
-  "balloonist": {
     "stComplexity": 2,
     "abilityCategory": "info-recurring",
-    "tags": ["info-recurring", "setup-modifier"],
+    "tags": [
+      "info-recurring",
+      "passive-good"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": 20,
+      "peakPower": 10,
+      "reliability": 0.6,
+      "vulnerability": 0.5,
+      "scalingBonus": 1
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "imp",
+      "zombuul",
+      "pukka",
+      "lleech",
+      "poisoner"
+    ],
+    "counterDetail": {
+      "imp": "The Demon knows the King's identity from night 1 and can target them early to prevent late-game info.",
+      "poisoner": "Poisoned King receives false character info during the dead-outnumber-living phase.",
+      "zombuul": "Zombie demon creates many dead players quickly, triggering King info while also disguising demon activity."
+    },
+    "stAdvice": "King info only fires when dead outnumber living — meaning it's most relevant in the late game. The Demon always knows who the King is, making the King a priority elimination target. Consider pairing with Choirboy for a strong anti-demon package. Don't reveal King identity early; the Demon will target you.",
+    "newStWarning": "The Demon learns the King's identity at the start of the game — make sure to wake the Demon and show them the King token before the game begins."
+  },
+  "balloonist": {
+    "stComplexity": 3,
+    "abilityCategory": "info-recurring",
+    "tags": [
+      "info-recurring"
+    ],
+    "strength": {
+      "composite": 40,
+      "peakPower": 15,
+      "reliability": 0.7,
+      "vulnerability": 0.25,
+      "scalingBonus": 2
+    },
+    "counters": [
+      "poisoner",
+      "drunk",
+      "spy",
+      "recluse",
+      "vortox"
+    ],
+    "counterDetail": {
+      "poisoner": "Poisoned Balloonist receives false character-type assignments — wrong players shown for each type.",
+      "spy": "Spy can register as any type, causing the Balloonist to 'confirm' a spy as a legitimate Townsfolk.",
+      "recluse": "Recluse can register as any type, polluting the Balloonist's type-coverage data."
+    },
+    "stAdvice": "Balloonist learns one player of each character type (Townsfolk, Outsider, Minion, Demon) over several nights — one new type per night in order. This is progressive strong info that covers the entire threat landscape. With 5+ types (Traveler), it extends further. In bigger games with more types, this scales very well."
   },
   "cultleader": {
     "stComplexity": 4,
-    "abilityCategory": "alignment-change",
-    "tags": ["alignment-change"],
+    "abilityCategory": "win-condition",
+    "tags": [
+      "win-condition",
+      "state-changing"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": 15,
+      "peakPower": 20,
+      "reliability": 0.2,
+      "vulnerability": 0.5,
+      "scalingBonus": -2
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "imp",
+      "zombuul",
+      "pukka",
+      "lleech"
+    ],
+    "counterDetail": {
+      "imp": "Demon can kill the Cult Leader's good neighbors, flipping the Cult Leader evil and dismantling the cult win path."
+    },
+    "stAdvice": "Cult Leader passively adopts the alignment of a living neighbor each night — if surrounded by evil, they become evil. The alternate win condition (all good players freely join the cult) is very rare but real. Track which neighbor the Cult Leader aligns with each night. Evil can exploit this by seating evil players adjacent to the Cult Leader.",
+    "newStWarning": "The Cult Leader changes alignment each night — you must update their token in the grimoire after every night. If they're evil and die, do NOT announce this; treat them as good until information is public."
   },
   "lycanthrope": {
     "stComplexity": 3,
     "abilityCategory": "lethal-good",
-    "tags": ["lethal-good", "restriction"],
+    "tags": [
+      "lethal-good",
+      "protection"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 30,
+      "peakPower": 15,
+      "reliability": 0.7,
+      "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox",
+      "monk"
+    ],
+    "counterDetail": {
+      "poisoner": "Poisoned Lycanthrope: their chosen target may or may not die — the restriction on single-death also doesn't apply.",
+      "monk": "If the Lycanthrope targets a Monk-protected player, they survive — but the Lycanthrope's restriction (only player who can die) still applies, protecting everyone else that night.",
+      "drunk": "Drunk Lycanthrope has no ability: their chosen good player may not die, and the night death restriction is lifted."
+    },
+    "stAdvice": "When Lycanthrope kills a good player, that is the ONLY death that night — demon cannot also kill. This makes the Lycanthrope a powerful limiter on night deaths but at the cost of occasionally killing good players. The Lycanthrope must choose carefully: picking evil or neutral targets wastes the kill-limit. Use with Monk for strong protection packages."
   },
   "amnesiac": {
     "stComplexity": 5,
-    "abilityCategory": "once-per-game",
-    "tags": ["once-per-game", "day-ability"],
+    "abilityCategory": "misc",
+    "tags": [
+      "passive-good",
+      "state-changing"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 25,
+      "peakPower": 20,
+      "reliability": 0.35,
+      "vulnerability": 0.4,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
+    "counterDetail": {
+      "poisoner": "Poisoned Amnesiac's guesses are never correct, or if correct the ability they gain is drunk/poisoned.",
+      "vortox": "If Vortox is in play, the Amnesiac's guess is always wrong regardless of how close they are."
+    },
+    "stAdvice": "The Amnesiac's ability is entirely ST-defined — you invent it at the start. Choose something interesting but not game-breaking: partial info, a minor protection, or a quirky passive effect. When the Amnesiac guesses correctly, tell them in private and apply the ability immediately. Keep the ability consistent all game.",
+    "newStWarning": "You must decide the Amnesiac's ability BEFORE the game starts and stick to it. Write it down. If the Amnesiac guesses correctly, you must immediately and consistently apply the ability — no improvising mid-game."
   },
   "nightwatchman": {
     "stComplexity": 2,
     "abilityCategory": "once-per-game",
-    "tags": ["once-per-game"],
+    "tags": [
+      "once-per-game"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 25,
+      "peakPower": 12,
+      "reliability": 0.85,
+      "vulnerability": 0.25,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
+    "counterDetail": {
+      "poisoner": "If poisoned when the Night Watchman uses their ability, the target doesn't actually learn who the Watchman is.",
+      "drunk": "Drunk Night Watchman's target learns false information about who the Watchman is."
+    },
+    "stAdvice": "Night Watchman lets a chosen player know exactly who they are — powerful for establishing a trusted pair. Best used on a player the Watchman suspects is a key good role (e.g., Empath, Slayer) to create a verified alliance. Once used, the Watchman is a known-confirmed role, making them an evil target. Time it carefully."
   },
   "engineer": {
-    "stComplexity": 4,
-    "abilityCategory": "character-change",
-    "tags": ["character-change", "once-per-game"],
+    "stComplexity": 3,
+    "abilityCategory": "once-per-game",
+    "tags": [
+      "once-per-game",
+      "setup"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 50,
+      "peakPower": 20,
+      "reliability": 0.75,
+      "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox",
+      "spy"
+    ],
+    "counterDetail": {
+      "poisoner": "Poisoned Engineer's ability has no effect — the Minion/Demon lineup does not change.",
+      "spy": "Spy can see the Engineer in the grimoire, alerting evil to immediately prioritize killing them before they act.",
+      "drunk": "Drunk Engineer believes they changed the lineup but nothing actually changed."
+    },
+    "stAdvice": "Engineer is one of the most powerful townsfolk — it can replace ALL Minions or swap the Demon mid-game. If replacing the Demon, the new Demon is told by the ST immediately. If replacing Minions, affected players wake and are told. Best used to remove Poisoner or Spy that has been identified. Evil should kill the Engineer before they can act.",
+    "newStWarning": "When Engineer swaps characters, you must immediately wake the affected players, show them their new token, and run night actions for the new character that same night. Have replacement tokens ready before the game."
   },
   "fisherman": {
-    "stComplexity": 1,
+    "stComplexity": 2,
     "abilityCategory": "once-per-game",
-    "tags": ["once-per-game", "day-ability"],
+    "tags": [
+      "once-per-game"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 30,
+      "peakPower": 15,
+      "reliability": 0.7,
+      "vulnerability": 0.15,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
+    "counterDetail": {
+      "poisoner": "Poisoned Fisherman gets false advice from the Storyteller — a deliberately misleading tip.",
+      "drunk": "Drunk Fisherman's advice is also false — same as being poisoned."
+    },
+    "stAdvice": "The Fisherman visits the ST during the day for a private strategic tip. Give genuine, useful advice — ideally something the good team doesn't know yet, like a strong Minion interaction or a bluffing evil player. Don't be vague. The ability is only once-per-game, so the tip should be worth acting on."
   },
   "huntsman": {
-    "stComplexity": 3,
-    "abilityCategory": "character-change",
-    "tags": ["character-change", "once-per-game"],
+    "stComplexity": 2,
+    "abilityCategory": "protection",
+    "tags": [
+      "protection",
+      "once-per-game"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 35,
+      "peakPower": 18,
+      "reliability": 0.6,
+      "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
+    "counterDetail": {
+      "poisoner": "Poisoned Huntsman: if they correctly choose the Damsel, she does NOT become a Townsfolk.",
+      "drunk": "Drunk Huntsman's choice has no effect — the Damsel remains a Damsel even if correctly targeted."
+    },
+    "stAdvice": "Huntsman protects the Damsel by converting them to a Townsfolk if correctly identified at night. This should always be paired with the Damsel on the script. The Huntsman must guess who the Damsel is — consider dropping subtle clues that help good players triangulate the Damsel's identity so the Huntsman can act correctly.",
+    "newStWarning": "Huntsman and Damsel must be used together — if you put Huntsman in a script, Damsel must also be in play. If the Huntsman correctly chooses the Damsel, immediately wake the Damsel, show them a Townsfolk token, and give them the ability."
   },
   "alchemist": {
     "stComplexity": 4,
-    "abilityCategory": "character-change",
-    "tags": ["character-change"],
+    "abilityCategory": "misc",
+    "tags": [
+      "passive-good",
+      "state-changing"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 30,
+      "peakPower": 15,
+      "reliability": 0.65,
+      "vulnerability": 0.35,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox"
+    ],
+    "counterDetail": {
+      "poisoner": "Poisoned Alchemist's Minion ability doesn't work — or works incorrectly if it produces info.",
+      "drunk": "Drunk Alchemist has no ability at all — the Minion power is completely suppressed."
+    },
+    "stAdvice": "The Alchemist has a Minion ability but is good-aligned. Choose a not-in-play Minion ability to assign — ideally one that is interesting but not confusing, such as Poisoner (a good Poisoner is very disruptive). The Alchemist gains ST-facing Minion mechanics but works for good. Be explicit with the Alchemist about how their ability functions."
   },
   "farmer": {
     "stComplexity": 2,
-    "abilityCategory": "death-trigger",
-    "tags": ["death-trigger"],
+    "abilityCategory": "passive-good",
+    "tags": [
+      "passive-good",
+      "protection"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": 25,
+      "peakPower": 10,
+      "reliability": 0.75,
+      "vulnerability": 0.2,
+      "scalingBonus": 1
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "imp",
+      "zombuul",
+      "pukka",
+      "lleech",
+      "poisoner"
+    ],
+    "counterDetail": {
+      "poisoner": "If poisoned when killed at night, the Farmer does not propagate — no new Farmer is created.",
+      "imp": "Imp killing the Farmer at night triggers propagation — a good player becomes a new Farmer, spreading protection."
+    },
+    "stAdvice": "When a Farmer dies at night, choose an alive good player to become the new Farmer — ideally one whose original role is less useful at this stage of the game. This creates a chain of potential propagation that evil must manage. Farmer is strongest when evil is killing frequently; less impactful in low-death games."
   },
   "magician": {
-    "stComplexity": 3,
-    "abilityCategory": "info-disruption",
-    "tags": ["info-disruption"],
+    "stComplexity": 2,
+    "abilityCategory": "disruption-good",
+    "tags": [
+      "passive-good",
+      "disruption"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 35,
+      "peakPower": 15,
+      "reliability": 0.85,
+      "vulnerability": 0.15,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "spy"
+    ],
+    "counterDetail": {
+      "spy": "Spy can look at the grimoire and see the Magician token, immediately learning who the Magician is and the actual lineup."
+    },
+    "stAdvice": "Magician causes Minions to believe a Townsfolk is the Demon, and the Demon to believe a Townsfolk is a Minion — this disrupts evil team communication and misdirects kill choices. The effect is passive and always-on while the Magician is alive. Best in scripts without Spy. Extremely effective against Scarlet Woman, which activates based on the Demon dying."
   },
   "choirboy": {
     "stComplexity": 2,
-    "abilityCategory": "info-conditional",
-    "tags": ["info-conditional", "info-on-death"],
+    "abilityCategory": "info-recurring",
+    "tags": [
+      "info-recurring",
+      "passive-good"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 35,
+      "peakPower": 20,
+      "reliability": 0.5,
+      "vulnerability": 0.2,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "vortox",
+      "imp",
+      "lleech"
+    ],
+    "counterDetail": {
+      "poisoner": "Poisoned Choirboy learns false Demon information when the King is killed.",
+      "imp": "If Imp kills the King, Choirboy fires — but Imp can starpass to avoid being identified.",
+      "vortox": "Choirboy's Demon identification is wrong — points to a good player instead."
+    },
+    "stAdvice": "Choirboy is a powerful Demon-detector triggered by the Demon killing the King. Always use with King on the script. Evil must choose between killing the King (triggering Choirboy) or leaving the King alive to generate late-game info. If evil uses a Starpass (Imp killing themselves), Choirboy still fires at the old Imp player.",
+    "newStWarning": "Choirboy only fires if the DEMON kills the King — not if a Minion ability kills them. Track the cause of death carefully. If the Demon uses a Starpass into the King, the Choirboy still identifies the Starpass player as the Demon."
   },
   "poppygrower": {
-    "stComplexity": 3,
-    "abilityCategory": "restriction",
-    "tags": ["restriction", "info-disruption"],
+    "stComplexity": 2,
+    "abilityCategory": "disruption-good",
+    "tags": [
+      "passive-good",
+      "disruption"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": 40,
+      "peakPower": 18,
+      "reliability": 0.9,
+      "vulnerability": 0.45,
+      "scalingBonus": -1
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "imp",
+      "zombuul",
+      "pukka",
+      "lleech",
+      "poisoner"
+    ],
+    "counterDetail": {
+      "imp": "If Imp kills the Poppy Grower, evil immediately learns each other's identities — Demon and all Minions wake.",
+      "poisoner": "Poisoned Poppy Grower: the passive effect fails — evil can communicate as if the Poppy Grower isn't alive."
+    },
+    "stAdvice": "While the Poppy Grower is alive, the Demon and Minions do NOT know each other — they must operate blindly. This creates enormous coordination problems for evil. Evil will prioritize killing the Poppy Grower as early as possible. When the Poppy Grower dies, immediately wake all evil players and let them see each other's identities.",
+    "newStWarning": "On night 1, do NOT wake the Demon to show them the Minion lineup if Poppy Grower is in play — they don't learn this. You must run the night differently. Only after the Poppy Grower dies do you run the standard evil-team-wakes phase."
   },
   "atheist": {
     "stComplexity": 5,
-    "abilityCategory": "restriction",
-    "tags": ["restriction"],
+    "abilityCategory": "win-condition",
+    "tags": [
+      "win-condition",
+      "misc"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 20,
+      "peakPower": 20,
+      "reliability": 0.35,
+      "vulnerability": 0.35,
       "scalingBonus": 0
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": ""
+    "stAdvice": "Atheist allows you to break any rule — give false info to any player, skip wake-ups, anything. You can also win the game normally or via executing the Atheist. This is an advanced role: only use with experienced players and STs. If the Atheist is in play and executed, good wins regardless of alignment. Evil's goal shifts to preventing the Atheist execution.",
+    "newStWarning": "The Atheist game is fundamentally different — you may need to fabricate info, skip phases, or break rules deliberately. Plan your 'broken rules' in advance. If there is no Atheist in play but someone claims to be one, treat them as lying. Make sure all players understand the win conditions before the game starts."
   },
   "cannibal": {
     "stComplexity": 4,
-    "abilityCategory": "character-change",
-    "tags": ["character-change"],
+    "abilityCategory": "misc",
+    "tags": [
+      "state-changing",
+      "passive-good"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": 30,
+      "peakPower": 15,
+      "reliability": 0.55,
+      "vulnerability": 0.4,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "drunk",
+      "witch",
+      "vortox"
+    ],
+    "counterDetail": {
+      "poisoner": "If the recently executed player was poisoned, Cannibal inherits a poisoned ability.",
+      "witch": "If Witch cursed the executee, Cannibal inherits a cursed ability.",
+      "drunk": "If the Cannibal themselves is drunk, their inherited ability doesn't work."
+    },
+    "stAdvice": "Cannibal gains the ability of whoever was most recently executed — if that person was evil, the Cannibal is drunk until a good player is executed. Track executions carefully and update the Cannibal's ability each day. This role can be extremely powerful (inheriting Slayer or Exorcist) or a liability (inheriting Spy). Consider what abilities would be most impactful when deciding execution order."
   },
   "snitch": {
-    "stComplexity": 2,
-    "abilityCategory": "info-disruption",
-    "tags": ["info-disruption", "setup-modifier"],
+    "stComplexity": 1,
+    "abilityCategory": "setup",
+    "tags": [
+      "passive-evil",
+      "setup"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": -20,
+      "peakPower": -12,
+      "reliability": 0.95,
+      "vulnerability": 0.1,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "preacher"
+    ],
+    "counterDetail": {
+      "preacher": "Preacher can target a Minion and remove their ability — including the bluff-info gained from Snitch being in play."
+    },
+    "stAdvice": "Snitch gives ALL Minions 3 extra not-in-play characters as bluffs at game start — a massive advantage for evil's cover stories. Run the Snitch setup phase carefully: tell each Minion separately. The extra bluffs let evil more convincingly claim to be Townsfolk. In scripts with many info roles, Snitch dramatically reduces good's deductive advantage.",
+    "newStWarning": "Remember to wake each Minion separately and show them 3 not-in-play Townsfolk/Outsider tokens as bluffs. This happens on night 1 in addition to the normal Minion wake. With multiple Minions, this extends setup significantly."
   },
   "acrobat": {
-    "stComplexity": 2,
-    "abilityCategory": "restriction",
-    "tags": ["restriction"],
+    "stComplexity": 1,
+    "abilityCategory": "passive-evil",
+    "tags": [
+      "passive-evil"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": -25,
+      "peakPower": -8,
+      "reliability": 0.6,
+      "vulnerability": 0.2,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "poisoner",
+      "pithag"
+    ],
+    "counterDetail": {
+      "poisoner": "If either good neighbor is poisoned, the Acrobat may die that night — Poisoner can weaponize this.",
+      "pithag": "Pit-Hag can change neighboring players to drunk characters, triggering Acrobat's death."
+    },
+    "stAdvice": "Acrobat dies if either living good neighbor is drunk or poisoned — this creates a fragile position in scripts with Poisoner or Philosopher. The Acrobat's death is automatic and silent (ST kills them); good players won't know why the Acrobat died. Strategically, this punishes good for placing Acrobat near drunk/poisoned roles."
   },
   "puzzlemaster": {
-    "stComplexity": 4,
-    "abilityCategory": "info-disruption",
-    "tags": ["info-disruption", "once-per-game"],
+    "stComplexity": 3,
+    "abilityCategory": "setup",
+    "tags": [
+      "setup",
+      "once-per-game"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": -20,
+      "peakPower": 18,
+      "reliability": 0.4,
+      "vulnerability": 0.15,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "courtier"
+    ],
+    "counterDetail": {
+      "courtier": "Courtier can drunkify the Puzzlemaster — while drunk, the 1 player they keep drunk is also 'sober' (the setup effect lapses)."
+    },
+    "stAdvice": "Puzzlemaster makes exactly 1 player drunk for the entire game (even after Puzzlemaster dies), but gives them a one-shot chance to learn the Demon if they guess who is drunk. Choose the drunk player strategically — making a key info role drunk is devastating. If Puzzlemaster guesses correctly, quietly tell them the Demon's name. The persistent drunk creates ongoing false info.",
+    "newStWarning": "The drunk player is chosen at setup — before the game begins. Write it in the grimoire. The drunk effect persists even if the Puzzlemaster dies; do not remove the drunk token when Puzzlemaster is killed."
   },
   "heretic": {
-    "stComplexity": 3,
-    "abilityCategory": "restriction",
-    "tags": ["restriction"],
+    "stComplexity": 5,
+    "abilityCategory": "win-condition",
+    "tags": [
+      "win-condition",
+      "passive-evil"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": -30,
+      "peakPower": -20,
+      "reliability": 0.95,
+      "vulnerability": 0.1,
       "scalingBonus": 0
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": ""
+    "stAdvice": "Heretic inverts all win conditions — whoever would normally win, loses, even after the Heretic is dead. This is an advanced Outsider that fundamentally changes the game's goal. If Heretic is in play, good must now engineer a situation where evil 'wins' by normal rules. Be explicit with all players that win conditions are inverted; explain this at game start.",
+    "newStWarning": "Heretic's effect is permanent and survives their death. Once the Heretic is in play, you cannot simply run a normal game — you must track the inverted win condition at all times. Strongly recommend only using in experienced groups."
   },
   "damsel": {
-    "stComplexity": 3,
-    "abilityCategory": "restriction",
-    "tags": ["restriction"],
+    "stComplexity": 2,
+    "abilityCategory": "win-condition",
+    "tags": [
+      "passive-evil",
+      "win-condition"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": -30,
+      "peakPower": -20,
+      "reliability": 0.85,
+      "vulnerability": 0.2,
+      "scalingBonus": -1
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "huntsman"
+    ],
+    "counterDetail": {
+      "huntsman": "If Huntsman correctly chooses the Damsel, the Damsel becomes a Townsfolk — nullifying the Minion guessing threat entirely."
+    },
+    "stAdvice": "All Minions know the Damsel is in play from the start — they don't know who, but they know the role exists. If any Minion publicly guesses the Damsel correctly (once per Minion), good immediately loses. Good must protect the Damsel's identity at all costs. Use Huntsman on the same script so good has a path to neutralize the threat.",
+    "newStWarning": "Each Minion gets exactly one public guess — if they're wrong, they can't guess again. Make sure Minions understand this rule clearly before the game starts. Track which Minions have already used their guess."
   },
   "golem": {
-    "stComplexity": 3,
-    "abilityCategory": "restriction",
-    "tags": ["restriction", "lethal-good", "once-per-game"],
+    "stComplexity": 2,
+    "abilityCategory": "misc",
+    "tags": [
+      "passive-evil",
+      "once-per-game"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": -25,
+      "peakPower": -10,
+      "reliability": 0.8,
+      "vulnerability": 0.15,
       "scalingBonus": 0
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": ""
+    "stAdvice": "Golem can only nominate once per game — wasted nominations hurt good significantly in games where identifying evil depends on voting patterns. When the Golem does nominate and the target is not the Demon, that player cannot be executed today. This can be used tactically by evil to protect a key Minion from execution. Good should be aware that the Golem's one nomination should be used on a high-confidence target."
   },
   "politician": {
-    "stComplexity": 3,
-    "abilityCategory": "alignment-change",
-    "tags": ["alignment-change"],
+    "stComplexity": 4,
+    "abilityCategory": "win-condition",
+    "tags": [
+      "win-condition",
+      "state-changing",
+      "passive-evil"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": -20,
+      "peakPower": -10,
+      "reliability": 0.3,
+      "vulnerability": 0.2,
       "scalingBonus": 0
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": ""
+    "stAdvice": "Politician changes alignment to evil and wins if they were most responsible for their team losing. This is highly subjective — you (the ST) decide if they qualify. Typical triggers: repeatedly nominating good players, sharing false info that led to good players being executed, or making decisions that directly caused good to lose. The Politician winning is a separate win condition alongside evil.",
+    "newStWarning": "The Politician's alignment change is private — only the ST knows. When the Politician flips evil, update the grimoire token immediately. The Politician themselves may not know they've flipped unless they detect it via other means."
   },
   "widow": {
     "stComplexity": 3,
     "abilityCategory": "info-disruption",
-    "tags": ["poison-drunk", "info-disruption", "info-first-night"],
+    "tags": [
+      "support-evil",
+      "info-disruption"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": -50,
+      "peakPower": -18,
+      "reliability": 0.9,
+      "vulnerability": 0.3,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "exorcist",
+      "courtier"
+    ],
+    "counterDetail": {
+      "exorcist": "Exorcist can target the Widow each night to suppress their poison — the chosen player is no longer poisoned.",
+      "courtier": "Courtier can drunkify the Widow, preventing the poison from being applied or keeping the grimoire-look from producing true info."
+    },
+    "stAdvice": "Widow sees the entire grimoire on night 1 — a huge intelligence windfall for evil — then permanently poisons a chosen player. Good players are told the number of in-play Outsiders, partially offsetting evil's advantage. Choose the poison target carefully: the Empath or a recurring info role loses enormous value. Evil should use this knowledge to optimize bluffs and kill order immediately.",
+    "bluffAdvice": "Widow can claim to be any Townsfolk whose role the Widow knows from the grimoire. Choosing a confirmed-dead role or a safe Townsfolk bluff is straightforward given the full grimoire view."
   },
   "fearmonger": {
     "stComplexity": 3,
-    "abilityCategory": "execution-trap",
-    "tags": ["execution-trap", "day-ability"],
+    "abilityCategory": "win-condition",
+    "tags": [
+      "support-evil",
+      "win-condition"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": -45,
+      "peakPower": -18,
+      "reliability": 0.55,
+      "vulnerability": 0.35,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "exorcist",
+      "slayer"
+    ],
+    "counterDetail": {
+      "exorcist": "Exorcist can disable the Fearmonger's nightly choice, preventing the execution threat from activating.",
+      "slayer": "Slayer can eliminate the Fearmonger during the day before the execution threat is realized."
+    },
+    "stAdvice": "Fearmonger chooses a player each night; if they are subsequently nominated AND executed that day, the Fearmonger's team wins immediately. Announce publicly each day which player has been chosen (without saying why). Good must choose between executing suspects and risking a Fearmonger win, or avoiding that execution and leaving evil at large. Create tension by choosing high-value good targets.",
+    "bluffAdvice": "Fearmonger can bluff as a Townsfolk that makes choices at night — Monk or Innkeeper are natural covers since you 'protect someone each night'."
   },
   "psychopath": {
     "stComplexity": 3,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil", "day-ability"],
+    "tags": [
+      "lethal-evil",
+      "support-evil"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": -55,
+      "peakPower": -20,
+      "reliability": 0.8,
+      "vulnerability": 0.35,
+      "scalingBonus": -2
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "exorcist",
+      "courtier"
+    ],
+    "counterDetail": {
+      "exorcist": "Exorcist can suppress the Psychopath's kill ability on their chosen night.",
+      "courtier": "Courtier can drunkify the Psychopath, disabling the daytime kill."
+    },
+    "stAdvice": "Psychopath kills publicly before nominations — extremely powerful and terrifying for the good team. If executed, all players become drunk until dusk, severely hampering good's ability to act on info that day. Evil should use Psychopath to kill high-priority targets (Slayer, Exorcist) in broad daylight. The drunk-on-execution effect means executing Psychopath is risky.",
+    "bluffAdvice": "Psychopath can be nearly impossible to bluff convincingly given the public kill. Consider claiming to be a Townsfolk that has a reason to publicly choose players — like Juggler or Town Crier."
   },
   "goblin": {
     "stComplexity": 2,
-    "abilityCategory": "execution-trap",
-    "tags": ["execution-trap"],
+    "abilityCategory": "win-condition",
+    "tags": [
+      "win-condition",
+      "support-evil"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": -40,
+      "peakPower": -15,
+      "reliability": 0.5,
+      "vulnerability": 0.4,
+      "scalingBonus": -1
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": ""
+    "stAdvice": "Goblin wins instantly if they publicly claim to be the Goblin when nominated AND are executed that same day. Good must never execute a player who has publicly claimed Goblin on nomination day — even if it seems like a bluff. This creates a powerful shield: real Goblins can claim truthfully and force good to either skip the execution or hand evil a win.",
+    "bluffAdvice": "The Goblin's strongest bluff is to NOT claim Goblin and play as a Townsfolk. Claiming Goblin is a win condition, not a bluff — only do it when nominated and you're sure good will execute you.",
+    "newStWarning": "The Goblin wins ONLY if they claim exactly when nominated AND are executed THAT DAY. If they claim at any other time, or survive the day, the win condition does not trigger. Track this carefully."
   },
   "mezepheles": {
     "stComplexity": 3,
-    "abilityCategory": "alignment-change",
-    "tags": ["alignment-change"],
+    "abilityCategory": "support-evil",
+    "tags": [
+      "support-evil",
+      "state-changing"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": -45,
+      "peakPower": -18,
+      "reliability": 0.5,
+      "vulnerability": 0.25,
+      "scalingBonus": 1
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": ""
+    "stAdvice": "Mezepheles knows a secret word from night 1 — the first good player to publicly say this word becomes evil immediately. Choose a common conversational word for maximum chaos, or a rare word if you want to slow things down. If a good player becomes evil mid-game, update the grimoire immediately. The new evil player is NOT told who Mezepheles is.",
+    "bluffAdvice": "Mezepheles can bluff as any Townsfolk since their ability is entirely secret. Claiming an info role like Fortune Teller or Chambermaid is effective cover.",
+    "newStWarning": "You must decide the secret word before night 1 and tell Mezepheles privately. Monitor ALL public conversation for the word — including pre-game chatter. If a good player accidentally says it before the game officially starts, use judgment about whether it counts."
   },
   "marionette": {
     "stComplexity": 4,
-    "abilityCategory": "info-disruption",
-    "tags": ["info-disruption"],
+    "abilityCategory": "support-evil",
+    "tags": [
+      "support-evil",
+      "passive-evil"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
+      "composite": -50,
+      "peakPower": -18,
+      "reliability": 0.9,
+      "vulnerability": 0.2,
       "scalingBonus": 0
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "investigator",
+      "empath"
+    ],
+    "counterDetail": {
+      "investigator": "Investigator might identify the Marionette as a Minion, exposing the infiltration.",
+      "empath": "Empath seated next to the Marionette will get a count including them as evil, revealing evil seating."
+    },
+    "stAdvice": "Marionette thinks they are a good Townsfolk but is actually a Minion — they are given a fake character token and play with false information. The Demon knows who the Marionette is. The Marionette's fake ability (whatever Townsfolk they think they are) does NOT work. This is devastating if the Marionette is a key role like Empath or Slayer. The Marionette must be seated adjacent to the Demon.",
+    "bluffAdvice": "The Marionette is not bluffing — they genuinely believe they are good. The Demon should leverage this by feeding info to the Marionette that benefits evil.",
+    "newStWarning": "The Marionette MUST be seated next to the Demon in the circle. Arrange seating before assigning tokens. Give the Marionette a fake token for a role that seems legitimate but does nothing. Never tell the Marionette they are evil during the game."
   },
   "boomdandy": {
-    "stComplexity": 2,
-    "abilityCategory": "execution-trap",
-    "tags": ["execution-trap", "lethal-evil"],
-    "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
-    },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
-  },
-  "lilmonsta": {
-    "stComplexity": 4,
-    "abilityCategory": "demon-resilience",
-    "tags": ["demon-resilience", "character-change"],
-    "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
-    },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
-  },
-  "lleech": {
     "stComplexity": 3,
     "abilityCategory": "lethal-evil",
-    "tags": ["poison-drunk", "lethal-evil", "demon-resilience"],
+    "tags": [
+      "lethal-evil",
+      "win-condition"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": -50,
+      "peakPower": -20,
+      "reliability": 0.75,
+      "vulnerability": 0.5,
+      "scalingBonus": -2
     },
     "counters": [],
     "counterDetail": {},
-    "stAdvice": ""
+    "stAdvice": "If Boomdandy is executed, all but 3 players die — then 1 minute later, the player with the most votes from the remaining 3 wins. This is a near-instant game-ending catastrophe for good if triggered. Good must never execute Boomdandy unless they are completely certain they can win the subsequent vote. Evil should position Boomdandy as a reliable 'nuke option' to force impossible decisions.",
+    "bluffAdvice": "Boomdandy should play as a normal Townsfolk and avoid drawing attention. Bluffing as a passive role like Soldier or Farmer is ideal — anything that doesn't require generating info.",
+    "newStWarning": "When Boomdandy is executed, narrate it immediately: announce that all but 3 players die, have 1 minute of 'persuasion' among survivors, then vote. Prepare this moment in advance — it's dramatic and requires smooth MC work."
+  },
+  "lilmonsta": {
+    "stComplexity": 5,
+    "abilityCategory": "lethal-evil",
+    "tags": [
+      "lethal-evil",
+      "demon-resilience"
+    ],
+    "strength": {
+      "composite": -60,
+      "peakPower": -18,
+      "reliability": 0.8,
+      "vulnerability": 0.4,
+      "scalingBonus": -2
+    },
+    "counters": [
+      "exorcist",
+      "slayer",
+      "monk"
+    ],
+    "counterDetail": {
+      "exorcist": "Exorcist can target the current babysitting Minion, suppressing Lil' Monsta's kill that night.",
+      "slayer": "Slayer can kill the babysitting Minion if identified, neutralizing the demon for one cycle.",
+      "monk": "Monk protection prevents Lil' Monsta from killing the protected target."
+    },
+    "stAdvice": "Lil' Monsta is a shared demon: each night Minions vote on who babysits the token, and that player 'is the Demon'. All Minions know each other. The kill happens automatically — you choose who dies, or use standard demon-kill rules. The babysitter is the one executed if good finds 'the Demon'. Evil must decide strategically who to frame with the token each night.",
+    "newStWarning": "Lil' Monsta runs differently each night: wake ALL Minions simultaneously, let them point to who babysits, then the majority choice babysits. If tied, you decide. That player then 'is the Demon' for all mechanical purposes. Track who has the token in the grimoire every night."
+  },
+  "lleech": {
+    "stComplexity": 4,
+    "abilityCategory": "lethal-evil",
+    "tags": [
+      "lethal-evil",
+      "info-disruption"
+    ],
+    "strength": {
+      "composite": -65,
+      "peakPower": -20,
+      "reliability": 0.8,
+      "vulnerability": 0.45,
+      "scalingBonus": -2
+    },
+    "counters": [
+      "monk",
+      "slayer",
+      "exorcist",
+      "soldier"
+    ],
+    "counterDetail": {
+      "monk": "Monk can protect the Lleech's host — if the host is protected, Lleech cannot kill the host that night.",
+      "slayer": "If Lleech's host is identified, Slayer can kill the host, which also kills the Lleech.",
+      "exorcist": "Exorcist can suppress the Lleech's kill for one night.",
+      "soldier": "Soldier survives Lleech attacks."
+    },
+    "stAdvice": "Lleech attaches to a host player on night 1 — that player is poisoned and the Lleech registers as that player for all info purposes (e.g., Empath sees the Lleech as the host's alignment). If the host dies, the Lleech also dies unless they've already killed someone. Keep track of the host token carefully. Good players discovering the 'ghost' host is poisoned is a strong Lleech tell.",
+    "newStWarning": "On night 1, the Lleech chooses their host. Update the grimoire to mark the host as poisoned AND as the Lleech's anchor. If the host is executed during the day, the Lleech dies simultaneously — announce both deaths. The Lleech's kill only happens other nights."
   },
   "alhadikhia": {
     "stComplexity": 3,
     "abilityCategory": "lethal-evil",
-    "tags": ["lethal-evil"],
+    "tags": [
+      "lethal-evil"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": -60,
+      "peakPower": -20,
+      "reliability": 0.6,
+      "vulnerability": 0.45,
+      "scalingBonus": -1
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "monk",
+      "soldier",
+      "innkeeper",
+      "tea_lady"
+    ],
+    "counterDetail": {
+      "monk": "If any of the 3 chosen players is Monk-protected, they survive regardless of whether they raise their hand.",
+      "soldier": "Soldier survives Al-Hadikhia's kill attempt.",
+      "innkeeper": "Innkeeper protection prevents chosen guests from dying."
+    },
+    "stAdvice": "Al-Hadikhia publicly announces 3 players each night — all players see who was chosen. Each chosen player independently decides (secretly, by raised hand) whether to 'cooperate'. Only if ALL 3 raise their hands do all 3 die. This creates psychological pressure and bluffing around cooperation. Evil should choose 3 good players who are likely to cooperate under pressure.",
+    "newStWarning": "Al-Hadikhia's kill requires unanimous cooperation from all 3 chosen players. Run this phase simultaneously: have all 3 players put their hand under the table or behind their back, then reveal simultaneously. If even one player doesn't raise their hand, nobody dies. Announce this clearly before the game."
   },
   "legion": {
-    "stComplexity": 4,
-    "abilityCategory": "demon-resilience",
-    "tags": ["demon-resilience", "info-disruption"],
+    "stComplexity": 5,
+    "abilityCategory": "lethal-evil",
+    "tags": [
+      "lethal-evil",
+      "demon-resilience",
+      "passive-evil"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": -65,
+      "peakPower": -20,
+      "reliability": 0.8,
+      "vulnerability": 0.3,
+      "scalingBonus": -3
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "slayer",
+      "exorcist",
+      "monk"
+    ],
+    "counterDetail": {
+      "slayer": "Slayer can kill a Legion player if identified — but there are many Legion players to choose from.",
+      "exorcist": "Exorcist can suppress Legion's kill for one night.",
+      "monk": "Monk protection prevents a target from dying from Legion."
+    },
+    "stAdvice": "Legion replaces most of the player roster — most players ARE Legion and are evil. Good players are vastly outnumbered. Legion registers as good AND as Townsfolk, making detection nearly impossible. Executions fail if only evil voted — since most players are evil, executions will often fail. This is a total script-breaker that requires a specially designed game.",
+    "newStWarning": "Legion is not compatible with standard scripts — build a Legion-specific setup. Most players receive Townsfolk tokens but are secretly Legion. Run night actions as if they're Townsfolk but give false info. The kill each night is chosen by you, not the players. Make sure all players understand the special Legion rules before starting."
   },
   "leviathan": {
-    "stComplexity": 3,
-    "abilityCategory": "execution-trap",
-    "tags": ["execution-trap"],
+    "stComplexity": 4,
+    "abilityCategory": "win-condition",
+    "tags": [
+      "lethal-evil",
+      "win-condition",
+      "passive-evil"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": -60,
+      "peakPower": -20,
+      "reliability": 0.75,
+      "vulnerability": 0.35,
+      "scalingBonus": -1
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "mayor",
+      "pacifist"
+    ],
+    "counterDetail": {
+      "mayor": "Mayor's 3-player victory condition lets good win without any executions, bypassing Leviathan entirely.",
+      "pacifist": "Pacifist prevents executed good players from dying — if a good player survives execution, Leviathan's counter doesn't advance."
+    },
+    "stAdvice": "Leviathan wins if more than 1 good player is executed over the whole game. All players know Leviathan is in play from day 1. No execution happens on day 1. Good must be extremely cautious about who they execute — one wrong execution is allowed, two is game over. Evil should manufacture false info to bait good into executing good players. Leviathan itself does not kill at night.",
+    "newStWarning": "Announce at the very start: 'Leviathan is in play. If more than 1 good player is executed, evil wins.' Track every execution carefully. The Leviathan does NOT perform a night kill — there are no night deaths from the demon. Good players expect deaths at night; their absence is information."
   },
   "riot": {
-    "stComplexity": 3,
-    "abilityCategory": "execution-trap",
-    "tags": ["execution-trap", "lethal-evil"],
+    "stComplexity": 5,
+    "abilityCategory": "lethal-evil",
+    "tags": [
+      "lethal-evil",
+      "win-condition"
+    ],
     "strength": {
-      "composite": 0,
-      "peakPower": 0,
-      "reliability": 0,
-      "vulnerability": 0,
-      "scalingBonus": 0
+      "composite": -65,
+      "peakPower": -20,
+      "reliability": 0.85,
+      "vulnerability": 0.35,
+      "scalingBonus": -2
     },
-    "counters": [],
-    "counterDetail": {},
-    "stAdvice": ""
+    "counters": [
+      "pacifist",
+      "mayor"
+    ],
+    "counterDetail": {
+      "pacifist": "Pacifist prevents executed good players from dying — reducing the chaos of Riot's chain nominations.",
+      "mayor": "Mayor can win with 3 players alive without an execution, bypassing Riot's day-3 forcing mechanic."
+    },
+    "stAdvice": "Riot turns executions into chain-reaction deaths: nominees die but immediately nominate someone else. On day 3, nominees MUST nominate. This creates rapid escalating deaths on day 3 — good must identify the Riot player before day 3 or face losing multiple good players in a chain. Evil should use Riot to engineer a day-3 chain that kills the most valuable good roles.",
+    "newStWarning": "Day 3 with Riot active is chaotic — prepare players that nominees MUST continue nominating. Have a clear procedure for who nominates whom in the chain. Riot itself registers as multiple players (everyone on the evil team), making identification extremely difficult. Consider this an expert-only demon."
   }
 }
