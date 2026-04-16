@@ -28,7 +28,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
           <div key={step.character.id} className="relative flex gap-2.5">
             {/* Timeline line */}
             <div className="flex w-7 shrink-0 flex-col items-center">
-              <div className="text-gold text-2xs z-10 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#3a3a5a] bg-[#1a1a2e] font-mono">
+              <div className="text-gold text-2xs z-10 flex size-6 shrink-0 items-center justify-center rounded-full border border-[#3a3a5a] bg-[#1a1a2e] font-mono">
                 {step.order}
               </div>
               {i < steps.length - 1 && <div className="bg-subtle min-h-3 w-px flex-1" />}

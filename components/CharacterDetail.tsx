@@ -23,7 +23,7 @@ export function CharacterDetail({
     .filter((c) => c && selectedIds.includes(c.id)) as Character[];
 
   return (
-    <div className="border-subtle fixed top-0 right-0 bottom-0 z-100 flex w-85 flex-col overflow-y-auto border border-r-0 bg-[#0f0f1a]">
+    <div className="border-subtle fixed inset-y-0 right-0 z-100 flex w-85 flex-col overflow-y-auto border border-r-0 bg-[#0f0f1a]">
       {/* Header */}
       <div className="border-subtle flex items-start justify-between gap-2.5 border-b px-4 py-3.5">
         <div>

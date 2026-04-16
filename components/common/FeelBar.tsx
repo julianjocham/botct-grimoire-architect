@@ -21,7 +21,7 @@ export function FeelBar({
       <span className="text-muted text-3xs font-mono tracking-[0.08em] whitespace-nowrap uppercase">{label}</span>
       <div className="flex gap-0.5">
         {Array.from({ length: maxBars }, (_, i) => (
-          <div key={i} className="h-2 w-2 rounded-[1px]" style={{ background: i <= filled ? color : "#2a2a3a" }} />
+          <div key={i} className="size-2 rounded-[1px]" style={{ background: i <= filled ? color : "#2a2a3a" }} />
         ))}
       </div>
       <span className="font-display text-3xs whitespace-nowrap" style={{ color }}>

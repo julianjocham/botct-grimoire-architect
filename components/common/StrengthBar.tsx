@@ -17,7 +17,7 @@ export function StrengthBar({ value, showNumber = true, effectiveValue, small = 
   const color = getBarColor(displayValue);
 
   return (
-    <div className={`flex items-center gap-1 ${small ? "gap-0.5" : ""}`}>
+    <div className={`flex items-center ${small ? "gap-0.5" : "gap-1"}`}>
       {/* Negative side */}
       <div className={`flex flex-1 justify-end ${small ? "h-1" : "h-1.5"}`}>
         <div

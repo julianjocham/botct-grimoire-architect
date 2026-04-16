@@ -209,7 +209,7 @@ function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
                 return (
                   <div key={char.id} className="flex items-center gap-1.5">
                     <div
-                      className="font-display text-2xs shrink-0 overflow-hidden text-ellipsis whitespace-nowrap"
+                      className="font-display text-2xs shrink-0 truncate"
                       style={{ color: col.text, minWidth: 90 }}
                     >
                       {char.name}

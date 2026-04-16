@@ -8,7 +8,7 @@ const COMPLEXITY_DOTS = (n: number) =>
   Array.from({ length: 5 }, (_, i) => (
     <span
       key={i}
-      className="mr-px inline-block h-1 w-1 rounded-full"
+      className="mr-px inline-block size-1 rounded-full"
       style={{ background: i < n ? "#b8965a" : "#2a2a3a" }}
     />
   ));
@@ -45,7 +45,7 @@ export function CharacterToken({
           <div className="min-w-0">
             <div
               className={[
-                "font-display overflow-hidden text-ellipsis whitespace-nowrap",
+                "font-display truncate",
                 compact ? "text-xs" : "text-sm"
               ].join(" ")}
               style={{ color: colors.text }}
@@ -73,7 +73,7 @@ export function CharacterToken({
             onToggle(character.id);
           }}
           className={[
-            "text-md flex h-5.5 w-5.5 shrink-0 cursor-pointer items-center justify-center rounded border-none",
+            "text-md flex size-5.5 shrink-0 cursor-pointer items-center justify-center rounded border-none",
             selected ? "text-white" : "text-[#888]"
           ].join(" ")}
           style={{ background: selected ? colors.border : "#2a2a3a" }}
