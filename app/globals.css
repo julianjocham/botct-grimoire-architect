@@ -138,25 +138,29 @@ h3,
   border-color: #7f1a1a;
 }
 
-/* Print: hide all UI, show only the game script */
+/* Print portal — hidden on screen, shown in print */
+#print-portal {
+  display: none;
+}
+
+/* Print: hide all UI, show only the print portal so content flows across pages */
 @media print {
+  /* Suppress browser-injected URL, date, and page numbers in headers/footers */
+  @page {
+    margin: 0;
+  }
+  html,
   body {
     background: #fff !important;
     color: #000 !important;
   }
-  /* Hide everything that's not .print-only */
-  body *:not(.print-only):not(.print-only *) {
-    visibility: hidden !important;
+  /* Hide everything in body except the print portal */
+  body > *:not(#print-portal) {
+    display: none !important;
   }
-  .print-only {
-    visibility: visible !important;
+  #print-portal {
     display: block !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
     background: #fff !important;
     color: #000 !important;
-    z-index: 9999 !important;
   }
 }

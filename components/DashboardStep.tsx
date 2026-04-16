@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { DashboardStepProps } from "@/types";
 import { analyzeScript } from "@/lib/engine";
 import { NightOrder } from "./NightOrder";
@@ -14,6 +15,7 @@ import { CharacterIcon } from "@/components/ui/CharacterIcon";
 
 export function DashboardStep({
   scriptDisplayName,
+  scriptIds,
   playerCount,
   gameIds,
   allCharacters,
@@ -29,6 +31,10 @@ export function DashboardStep({
   const coreGameIds = gameIds.filter((id) => !travelerIdSet.has(id));
   const selectedTravelers = editionTravelers.filter((t) => gameIds.includes(t.id));
   const gameChars = allCharacters.filter((c) => coreGameIds.includes(c.id));
+  const scriptChars = allCharacters.filter((c) => scriptIds.includes(c.id));
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const analysis = useMemo(
     () => analyzeScript(coreGameIds, allCharacters, interactions, "game"),
@@ -45,7 +51,6 @@ export function DashboardStep({
   const evilPct = Math.round((Math.abs(evilTotal) / strengthRange) * 100);
 
   const criticals = analysis.interactionHints.filter((h) => h.severity === "critical");
-  const important = analysis.interactionHints.filter((h) => h.severity === "important" && h.category !== "jinx");
   const jinxes = analysis.interactionHints.filter((h) => h.category === "jinx");
 
   const nightSteps = nightPhase === "first" ? analysis.nightOrder.first : analysis.nightOrder.other;
@@ -283,89 +288,107 @@ export function DashboardStep({
         </div>
       </div>
 
-      {/* Print-only area */}
-      <div className="print-only hidden">
-        <div className="p-8 font-[Georgia,serif] text-black">
-          <h1 className="mb-1 border-b-2 border-black pb-2 text-[24px]">
-            Blood on the Clocktower — {scriptDisplayName}
-          </h1>
-          <p className="text-muted mb-6 text-sm">
-            {playerCount} players · {new Date().toLocaleDateString()}
-          </p>
-
-          {/* Night order */}
-          <h2 className="mb-3 border-b border-[#ccc] pb-1 text-[16px]">Night Order</h2>
-          <div className="mb-6 grid grid-cols-2 gap-x-6">
-            <div>
-              <h3 className="mb-2 text-base text-[#333]">First Night</h3>
-              {analysis.nightOrder.first.map((s, i) => (
-                <div key={s.character.id} className="mb-1 text-xs">
-                  <strong>
-                    {i + 1}. {s.character.name}
-                  </strong>
-                  {s.reminder && <div className="text-2xs text-muted ml-3">{s.reminder}</div>}
-                </div>
-              ))}
-            </div>
-            <div>
-              <h3 className="mb-2 text-base text-[#333]">Other Nights</h3>
-              {analysis.nightOrder.other.map((s, i) => (
-                <div key={s.character.id} className="mb-1 text-xs">
-                  <strong>
-                    {i + 1}. {s.character.name}
-                  </strong>
-                  {s.reminder && <div className="text-2xs text-muted ml-3">{s.reminder}</div>}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Characters by team */}
-          <h2 className="mb-3 border-b border-[#ccc] pb-1 text-[16px] [page-break-before:always]">
-            Characters in Play
-          </h2>
-          {TEAM_ORDER.map((team) => {
-            const chars = gameChars.filter((c) => c.team === team);
-            if (chars.length === 0) return null;
-            return (
-              <div key={team} className="mb-5">
-                <h3 className="text-md mb-2.5 border-b border-[#eee] pb-1 tracking-[0.08em] uppercase">
-                  {TEAM_LABEL[team]} ({chars.length})
-                </h3>
-                {chars
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map((c) => (
-                    <div key={c.id} className="mb-2.5 [page-break-inside:avoid]">
-                      <strong className="text-base">{c.name}</strong>
-                      <div className="text-dimmer mt-0.5 text-xs leading-normal">{c.ability}</div>
-                      {c.firstNightReminder && (
-                        <div className="text-2xs mt-0.5 text-[#888]">1st Night: {c.firstNightReminder}</div>
-                      )}
-                      {c.otherNightReminder && (
-                        <div className="text-2xs text-[#888]">Other Nights: {c.otherNightReminder}</div>
-                      )}
+      {mounted &&
+        createPortal(
+          <div id="print-portal" className="font-[Georgia,serif] text-black">
+            {/* Page 1 — All script roles (categories stacked, characters in 2-col grid within each) */}
+            <section className="p-6 [page-break-after:always]">
+              <h1 className="mb-3 border-b-2 border-black pb-1 text-[19px] tracking-[0.08em] uppercase">
+                Character Overview
+              </h1>
+              {TEAM_ORDER.map((team) => {
+                const chars = scriptChars
+                  .filter((c) => c.team === team)
+                  .sort((a, b) => a.name.localeCompare(b.name));
+                if (chars.length === 0) return null;
+                return (
+                  <div key={team} className="mb-2.5">
+                    <h3 className="mb-1 border-b border-[#ccc] pb-0.5 text-[11px] font-bold tracking-[0.1em] uppercase">
+                      {TEAM_LABEL[team]} ({chars.length})
+                    </h3>
+                    <div className="grid grid-cols-2 gap-x-4">
+                      {chars.map((c) => (
+                        <div
+                          key={c.id}
+                          className="mb-1.5 flex items-start gap-1.5 [break-inside:avoid]"
+                        >
+                          <CharacterIcon
+                            characterId={c.id}
+                            edition={c.edition}
+                            team={c.team}
+                            alt={c.name}
+                            className="mt-0.25 size-7 shrink-0"
+                          />
+                          <div className="flex-1 leading-tight">
+                            <strong className="text-[12px]">{c.name}</strong>
+                            <span className="ml-1 text-[11px] text-[#333]">{c.ability}</span>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-              </div>
-            );
-          })}
+                  </div>
+                );
+              })}
+            </section>
 
-          {/* Key interactions */}
-          {criticals.concat(important).length > 0 && (
-            <>
-              <h2 className="mb-3 border-b border-[#ccc] pb-1 text-[16px] [page-break-before:always]">
-                Key Interactions
-              </h2>
-              {criticals.concat(important).map((h, i) => (
-                <div key={i} className="mb-2.5 text-xs">
-                  <strong>{h.title}</strong>
-                  <div className="text-dim mt-0.5">{h.description}</div>
+            {/* Page 2 — First Night (game characters only) */}
+            <section className="p-8 [page-break-after:always]">
+              <h1 className="mb-4 border-b-2 border-black pb-1 text-[19px] tracking-[0.08em] uppercase">
+                First Night Order
+              </h1>
+              {analysis.nightOrder.first.map((s, i) => (
+                <div
+                  key={s.character.id}
+                  className="mb-3 flex items-start gap-2.5 [page-break-inside:avoid]"
+                >
+                  <div className="w-7 shrink-0 text-right text-[14px] font-bold">{i + 1}.</div>
+                  <CharacterIcon
+                    characterId={s.character.id}
+                    edition={s.character.edition}
+                    team={s.character.team}
+                    alt={s.character.name}
+                    className="mt-0.5 size-9 shrink-0"
+                  />
+                  <div className="flex-1">
+                    <strong className="text-[14px]">{s.character.name}</strong>
+                    {s.reminder && (
+                      <div className="mt-0.5 text-[13px] leading-snug text-[#333]">{s.reminder}</div>
+                    )}
+                  </div>
                 </div>
               ))}
-            </>
-          )}
-        </div>
-      </div>
+            </section>
+
+            {/* Page 3 — Other Nights (game characters only) */}
+            <section className="p-8">
+              <h1 className="mb-4 border-b-2 border-black pb-1 text-[19px] tracking-[0.08em] uppercase">
+                Other Nights Order
+              </h1>
+              {analysis.nightOrder.other.map((s, i) => (
+                <div
+                  key={s.character.id}
+                  className="mb-3 flex items-start gap-2.5 [page-break-inside:avoid]"
+                >
+                  <div className="w-7 shrink-0 text-right text-[14px] font-bold">{i + 1}.</div>
+                  <CharacterIcon
+                    characterId={s.character.id}
+                    edition={s.character.edition}
+                    team={s.character.team}
+                    alt={s.character.name}
+                    className="mt-0.5 size-9 shrink-0"
+                  />
+                  <div className="flex-1">
+                    <strong className="text-[14px]">{s.character.name}</strong>
+                    {s.reminder && (
+                      <div className="mt-0.5 text-[13px] leading-snug text-[#333]">{s.reminder}</div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </section>
+          </div>,
+          document.body
+        )}
     </div>
   );
 }
