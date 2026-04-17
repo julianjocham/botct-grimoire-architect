@@ -49,12 +49,12 @@ export function CharacterSelectCard({
   return (
     <div
       className={cn(
-        "flex overflow-hidden rounded-[8px] border-2 transition-all duration-100",
+        "flex rounded-[8px] border-2 transition-all duration-100",
         isBlocked && "opacity-30"
       )}
       style={{ border: `2px solid ${borderColor}`, minWidth: "240px" }}
     >
-      <div className="flex flex-1 gap-2 border-none px-2.5 py-2" style={{ background: cardBg }}>
+      <div className="flex flex-1 gap-2 border-none px-2.5 py-2 rounded-l-[6px]" style={{ background: cardBg }}>
         <CharacterIcon
           characterId={character.id}
           edition={character.edition}
@@ -83,7 +83,19 @@ export function CharacterSelectCard({
                   {s}
                 </span>
                 {countersInGame > 0 && <span>⚔{countersInGame}</span>}
-                {hasSynergy && <span>✦{synergiesInGame.length}</span>}
+                {hasSynergy && (
+                  <span className="group relative cursor-default text-[#4a9a4a]">
+                    ✦ {synergiesInGame.length === 1 ? "synergy" : "synergies"}
+                    <div className="pointer-events-none absolute bottom-full left-0 z-50 mb-1.5 hidden w-56 rounded-md border border-[#2a4a20] bg-[#0d1a0d] px-2.5 py-2 shadow-lg group-hover:block">
+                      {synergiesInGame.map((syn, idx) => (
+                        <div key={idx} className={cn("text-left", idx > 0 && "mt-1.5 border-t border-[#1a3a1a] pt-1.5")}>
+                          <div className="font-display text-xs font-bold text-[#4a9a4a]">{syn.title}</div>
+                          <div className="font-body mt-0.5 text-xs leading-snug text-[#8ab88a]">{syn.description}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </span>
+                )}
               </div>
             </>
           )}
@@ -94,7 +106,7 @@ export function CharacterSelectCard({
           if (!isBlocked) onToggle(character.id);
         }}
         disabled={isBlocked}
-        className="font-display border-none px-4 py-3 text-3xl font-bold"
+        className="font-display rounded-r-[6px] border-none px-4 py-3 text-3xl font-bold"
         style={{
           background: cardBg,
           color: inGame ? colors.text : hasSynergy ? "#4a9a4a" : "#888",
