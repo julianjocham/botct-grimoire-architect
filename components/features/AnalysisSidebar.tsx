@@ -23,7 +23,7 @@ export function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps
 
   if (gameIds.length === 0) {
     return (
-      <div className="font-body px-4 py-10 text-center text-base text-[#333]">
+      <div className="font-body text-muted px-4 py-10 text-center text-base">
         Select characters to see live analysis.
       </div>
     );

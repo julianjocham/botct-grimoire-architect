@@ -48,5 +48,5 @@ export const premadeScripts: PremadeScript[] = [
   parseScript("pies-baking", piesBaking as ScriptJson),
   parseScript("uncertain-death", uncertainDeath as ScriptJson),
   parseScript("harold-holts-revenge", haroldHoltsRevenge as ScriptJson),
-  parseScript("hide-and-seek", hideAndSeek as ScriptJson),
+  parseScript("hide-and-seek", hideAndSeek as ScriptJson)
 ];

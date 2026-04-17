@@ -35,9 +35,9 @@
   --color-amber: var(--amber-warning);
   /* UI neutral colors */
   --color-subtle: var(--border-subtle);
-  --color-muted: #666;
-  --color-dim: #555;
-  --color-dimmer: #444;
+  --color-muted: #999;
+  --color-dim: #777;
+  --color-dimmer: #555;
   /* Team colors */
   --color-townsfolk: #5b9bd5;
   --color-outsider: #9b7fd5;

@@ -7,7 +7,8 @@ import { analyzeScript } from "@/lib/engine";
 import { NightOrder } from "./NightOrder";
 import { InteractionFeed } from "./InteractionFeed";
 import { PrintPortal } from "@/components/features/PrintPortal";
-import { FEEL_BARS, FEEL_COLOR } from "@/constants/info";
+import { FEEL_BARS, FEEL_COLOR, CAT_SHORT } from "@/constants/info";
+import { AbilityCategory } from "@/types";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { calculateStrengthTotals } from "@/lib/strength/calculate";
 import { Panel } from "@/components/ui/Panel";
@@ -16,6 +17,16 @@ import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { cn } from "@/lib/cn";
 
 type PrintMode = "pretty" | "clean";
+
+const COVERAGE_CATS: { cat: AbilityCategory; side: "good" | "evil" }[] = [
+  { cat: "info-start", side: "good" },
+  { cat: "info-recurring", side: "good" },
+  { cat: "once-per-game", side: "good" },
+  { cat: "protection", side: "good" },
+  { cat: "day-ability", side: "good" },
+  { cat: "info-disruption", side: "evil" },
+  { cat: "demon-resilience", side: "evil" }
+];
 
 export function DashboardStep({
   scriptDisplayName,
@@ -64,7 +75,8 @@ export function DashboardStep({
     );
   }
   const bluffOptions = useMemo(
-    () => allCharacters.filter((c) => c.team === "townsfolk" && scriptIds.includes(c.id) && !coreGameIds.includes(c.id)),
+    () =>
+      allCharacters.filter((c) => c.team === "townsfolk" && scriptIds.includes(c.id) && !coreGameIds.includes(c.id)),
     [allCharacters, scriptIds, coreGameIds]
   );
 
@@ -182,7 +194,7 @@ export function DashboardStep({
       </Panel>
 
       {/* Main 3-column grid */}
-      <div className="grid grid-cols-[1fr_1fr_300px] gap-4">
+      <div className="grid grid-cols-[1fr_1fr_360px] gap-4">
         <Panel className="flex flex-col">
           <SectionLabel className="mb-2.5">Night Order</SectionLabel>
           <div className="max-h-120 flex-1 overflow-y-auto">
@@ -219,7 +231,7 @@ export function DashboardStep({
                 textClass="text-demon"
                 barClass="bg-blood-light"
               />
-              <div className="font-body text-dim mt-0.5 text-center text-xs">
+              <div className="font-body text-muted mt-0.5 text-center text-xs">
                 {goodTotal > Math.abs(evilTotal) * 1.2
                   ? "Good has a strong advantage"
                   : Math.abs(evilTotal) > goodTotal * 1.2
@@ -238,8 +250,8 @@ export function DashboardStep({
                 return (
                   <div key={key}>
                     <div className="mb-0.75 flex justify-between">
-                      <span className="text-dim text-3xs font-mono tracking-[0.06em] uppercase">{label}</span>
-                      <span style={{ color }} className="font-display text-3xs">
+                      <span className="text-muted text-2xs font-mono tracking-[0.06em] uppercase">{label}</span>
+                      <span style={{ color }} className="font-display text-2xs">
                         {val}
                       </span>
                     </div>
@@ -256,10 +268,38 @@ export function DashboardStep({
                 );
               })}
             </div>
-            <div className="text-dimmer text-3xs mt-2.5 text-center font-mono">
+            <div className="text-muted text-2xs mt-2.5 text-center font-mono">
               Night: {analysis.nightComplexity.complexityRating}
               {" · "}
               {analysis.nightOrder.first.length}↓ {analysis.nightOrder.other.length}↻
+            </div>
+            <div className="mt-3 border-t border-[#1a1a2a] pt-3">
+              <div className="text-muted text-2xs mb-2 font-mono tracking-[0.06em] uppercase">Role Coverage</div>
+              <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
+                {COVERAGE_CATS.map(({ cat, side }) => {
+                  const chars =
+                    side === "good" ? analysis.categoryCoverage.good[cat] : analysis.categoryCoverage.evil[cat];
+                  const covered = (chars?.length ?? 0) > 0;
+                  const dotColor = covered ? (side === "good" ? "#4a9a4a" : "#c0392b") : "#444";
+                  const textColor = covered ? (side === "good" ? "#7ab87a" : "#d47a7a") : "#666";
+                  const countColor = side === "good" ? "#4a7a4a" : "#8b4a4a";
+                  return (
+                    <div key={cat} className="flex items-center gap-1">
+                      <span className="text-2xs" style={{ color: dotColor }}>
+                        ●
+                      </span>
+                      <span className="text-2xs font-mono" style={{ color: textColor }}>
+                        {CAT_SHORT[cat]}
+                      </span>
+                      {covered && chars!.length > 1 && (
+                        <span className="text-2xs font-mono" style={{ color: countColor }}>
+                          ×{chars!.length}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </Panel>
 
@@ -292,11 +332,11 @@ export function DashboardStep({
           <Panel>
             <div className="mb-1 flex items-center justify-between">
               <SectionLabel>Demon Bluffs</SectionLabel>
-              <div className="font-mono text-2xs" style={{ color: selectedBluffs.length === 3 ? "#d55b5b" : "#555" }}>
+              <div className="text-2xs font-mono" style={{ color: selectedBluffs.length === 3 ? "#d55b5b" : "#888" }}>
                 {selectedBluffs.length}/3
               </div>
             </div>
-            <div className="font-body text-dimmer mb-2.5 text-xs leading-snug">
+            <div className="font-body text-muted mb-2.5 text-xs leading-snug">
               Script townsfolk not assigned to a player — pick up to 3 for the demon.
             </div>
 
@@ -312,9 +352,9 @@ export function DashboardStep({
                       disabled={blocked}
                       className={cn(
                         "font-display flex cursor-pointer items-center gap-1.5 rounded-[5px] border px-2 py-1 text-xs transition-all",
-                        sel && "border-blood bg-[#1a0808] text-parchment",
-                        !sel && !blocked && "border-subtle text-dim hover:border-[#3a2a2a] hover:text-[#aaa]",
-                        blocked && "cursor-default border-[#111] text-[#2a2a2a]"
+                        sel && "border-blood text-parchment bg-[#1a0808]",
+                        !sel && !blocked && "border-subtle text-muted hover:border-[#3a2a2a] hover:text-[#ccc]",
+                        blocked && "cursor-default border-[#222] text-[#444]"
                       )}
                     >
                       <CharacterIcon
@@ -331,7 +371,7 @@ export function DashboardStep({
                 })}
               </div>
             ) : (
-              <div className="font-body text-dimmer text-xs">All script townsfolk are in play.</div>
+              <div className="font-body text-muted text-xs">All script townsfolk are in play.</div>
             )}
           </Panel>
         </div>

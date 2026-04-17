@@ -1,7 +1,9 @@
 "use client";
 
-import { GameSetupStepProps } from "@/types";
+import { useMemo } from "react";
+import { GameSetupStepProps, AbilityCategory } from "@/types";
 import { RAW_COUNTS, SETUP_MODIFIERS, TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
+import { getCategoryCoverage } from "@/lib/analysis/coverage";
 import { Panel } from "@/components/ui/Panel";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
@@ -71,6 +73,26 @@ export function GameSetupStep({
   const remainingCoreCount = totalNeeded - coreGameIds.length;
   const remainingTravelerCount = neededTravelers - selectedTravelerIds.length;
 
+  const GOOD_GAP_CATS: AbilityCategory[] = [
+    "info-start",
+    "info-recurring",
+    "once-per-game",
+    "protection",
+    "day-ability"
+  ];
+  const EVIL_GAP_CATS: AbilityCategory[] = ["info-disruption", "demon-resilience"];
+
+  const coverage = useMemo(() => getCategoryCoverage(coreGameIds, allCharacters), [coreGameIds, allCharacters]);
+
+  const missingGoodCats = useMemo(
+    () => new Set<string>(GOOD_GAP_CATS.filter((cat) => !coverage.good[cat])),
+    [coverage]
+  );
+  const missingEvilCats = useMemo(
+    () => new Set<string>(EVIL_GAP_CATS.filter((cat) => !coverage.evil[cat])),
+    [coverage]
+  );
+
   const scriptModifiers = Object.entries(SETUP_MODIFIERS).filter(([id]) => scriptIds.includes(id));
   type SetupVariant = { label: string; tf: number; os: number; m: number; d: number; isBase: boolean };
   const setupVariants: SetupVariant[] = rawReq
@@ -127,7 +149,7 @@ export function GameSetupStep({
               disabled={!isComplete}
               className={cn(
                 "font-display rounded-lg border-none px-7 py-3 text-base tracking-[0.06em]",
-                isComplete ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#333]"
+                isComplete ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#666]"
               )}
             >
               {isComplete
@@ -199,11 +221,11 @@ export function GameSetupStep({
                       className="flex-1 rounded-lg border-2 bg-[#0a0a14] px-1 py-1.5 text-center transition-[border-color] duration-200"
                       style={{ borderColor: done ? c.border : "#2a2a3a" }}
                     >
-                      <div className="font-mono text-lg leading-none" style={{ color: done ? c.text : "#333" }}>
+                      <div className="font-mono text-lg leading-none" style={{ color: done ? c.text : "#666" }}>
                         {have}
                       </div>
-                      <div className="text-3xs my-0.5 font-mono text-[#333]">/ {needed}</div>
-                      <div className="font-body text-dim text-3xs capitalize">{team}</div>
+                      <div className="text-2xs my-0.5 font-mono text-[#666]">/ {needed}</div>
+                      <div className="font-body text-muted text-2xs capitalize">{team}</div>
                     </div>
                   );
                 })}
@@ -215,12 +237,12 @@ export function GameSetupStep({
                     )}
                   >
                     <div
-                      className={cn("font-mono text-lg leading-none", travelersComplete ? "text-gold" : "text-[#333]")}
+                      className={cn("font-mono text-lg leading-none", travelersComplete ? "text-gold" : "text-[#666]")}
                     >
                       {selectedTravelerIds.length}
                     </div>
-                    <div className="text-3xs my-0.5 font-mono text-[#333]">/ {neededTravelers}</div>
-                    <div className="font-body text-dim text-3xs">Travelers</div>
+                    <div className="text-2xs my-0.5 font-mono text-[#666]">/ {neededTravelers}</div>
+                    <div className="font-body text-muted text-2xs">Travelers</div>
                   </div>
                 )}
               </div>
@@ -238,7 +260,7 @@ export function GameSetupStep({
             {/* Valid setups reference */}
             {scriptModifiers.length > 0 && req && (
               <Panel>
-                <div className="font-display text-gold mb-2.5 text-2xs tracking-[0.06em] uppercase">
+                <div className="font-display text-gold text-2xs mb-2.5 tracking-[0.06em] uppercase">
                   Valid Setups — {playerCount}p
                 </div>
                 <div className="flex flex-col gap-0.5">
@@ -249,7 +271,7 @@ export function GameSetupStep({
                         key={i}
                         className={cn(
                           "flex items-center gap-3 rounded px-2 py-1",
-                          isCurrent ? "bg-[#0d1a0d] border border-[#1a4a2e]" : "border border-transparent"
+                          isCurrent ? "border border-[#1a4a2e] bg-[#0d1a0d]" : "border border-transparent"
                         )}
                       >
                         <div
@@ -274,11 +296,11 @@ export function GameSetupStep({
                               >
                                 {n}
                               </span>
-                              <span className="text-dimmer font-mono text-2xs">{abbr}</span>
+                              <span className="text-muted text-2xs font-mono">{abbr}</span>
                             </div>
                           ))}
                         </div>
-                        {isCurrent && <div className="text-tip font-body ml-auto text-2xs">← current</div>}
+                        {isCurrent && <div className="text-tip font-body text-2xs ml-auto">← current</div>}
                       </div>
                     );
                   })}
@@ -327,6 +349,8 @@ export function GameSetupStep({
                             isBlocked={blocked}
                             onDetail={onDetail}
                             onToggle={onToggleGameChar}
+                            missingGoodCats={missingGoodCats}
+                            missingEvilCats={missingEvilCats}
                           />
                         );
                       })}
@@ -374,7 +398,7 @@ export function GameSetupStep({
         )}
 
         {!playerCount && (
-          <div className="text-dimmer font-body text-md py-7.5 text-center">
+          <div className="text-muted font-body text-md py-7.5 text-center">
             Choose a player count above to begin selecting characters.
           </div>
         )}

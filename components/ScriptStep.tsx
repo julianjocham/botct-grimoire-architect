@@ -93,23 +93,34 @@ export function ScriptStep({
         </p>
       </div>
 
-      {/* Game type toggle */}
+      {/* Game type toggle + continue */}
       {!isCustom && (
-        <div className="flex gap-0 self-start rounded-lg border border-[#2a2a3a] bg-[#0a0a14] p-1">
-          {(["full", "teensyville"] as const).map((type) => {
-            const active = scriptType === type;
-            return (
-              <button
-                key={type}
-                onClick={() => onSetScriptType(type)}
-                className={`font-display cursor-pointer rounded-md border-none px-4 py-1.5 text-xs tracking-[0.05em] transition-all duration-150 ${
-                  active ? "bg-blood text-parchment" : "text-dim bg-transparent hover:text-[#888]"
-                }`}
-              >
-                {type === "full" ? "Full Script" : "Teensyville"}
-              </button>
-            );
-          })}
+        <div className="flex items-center justify-between">
+          <div className="flex gap-0 rounded-lg border border-[#2a2a3a] bg-[#0a0a14] p-1">
+            {(["full", "teensyville"] as const).map((type) => {
+              const active = scriptType === type;
+              return (
+                <button
+                  key={type}
+                  onClick={() => onSetScriptType(type)}
+                  className={`font-display cursor-pointer rounded-md border-none px-4 py-1.5 text-xs tracking-[0.05em] transition-all duration-150 ${
+                    active ? "bg-blood text-parchment" : "text-dim bg-transparent hover:text-[#888]"
+                  }`}
+                >
+                  {type === "full" ? "Full Script" : "Teensyville"}
+                </button>
+              );
+            })}
+          </div>
+          <button
+            onClick={onContinue}
+            disabled={!valid}
+            className={`font-display rounded-lg border-none px-7 py-3 text-base tracking-[0.06em] ${
+              valid ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#666]"
+            }`}
+          >
+            Set Up Game →
+          </button>
         </div>
       )}
 
@@ -235,18 +246,6 @@ export function ScriptStep({
               ))}
             </div>
           </div>
-
-          {/* Continue button for edition selection */}
-          {scriptSource && (
-            <div className="flex justify-end">
-              <button
-                onClick={onContinue}
-                className="bg-blood text-parchment font-display cursor-pointer rounded-lg border-none px-7 py-3 text-base tracking-[0.06em]"
-              >
-                Set Up Game →
-              </button>
-            </div>
-          )}
         </>
       )}
 
@@ -270,18 +269,6 @@ export function ScriptStep({
               ))}
             </div>
           </div>
-
-          {/* Continue button for premade selection */}
-          {scriptSource === "premade" && (
-            <div className="flex justify-end">
-              <button
-                onClick={onContinue}
-                className="bg-blood text-parchment font-display cursor-pointer rounded-lg border-none px-7 py-3 text-base tracking-[0.06em]"
-              >
-                Set Up Game →
-              </button>
-            </div>
-          )}
 
           {/* Custom option */}
           <div className="bg-surface border-subtle flex items-center justify-between gap-4 rounded-xl border-2 border-dashed px-6 py-5">
@@ -323,7 +310,7 @@ export function ScriptStep({
               onClick={onContinue}
               disabled={!valid}
               className={`font-display rounded-lg border-none px-7 py-3 text-base tracking-[0.06em] ${
-                valid ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#333]"
+                valid ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#666]"
               }`}
             >
               Set Up Game →
@@ -390,11 +377,11 @@ export function ScriptStep({
                         className="flex-1 rounded-[5px] bg-[#0a0a14] px-0.75 py-1.5 text-center"
                         style={{ border: `1px solid ${ok ? c.border : "#2a2a3a"}` }}
                       >
-                        <div className="font-mono text-base leading-none" style={{ color: ok ? c.text : "#444" }}>
+                        <div className="font-mono text-base leading-none" style={{ color: ok ? c.text : "#777" }}>
                           {have}
                         </div>
-                        <div className="text-dimmer text-3xs font-mono leading-none">/ {need}</div>
-                        <div className="font-body text-dim text-3xs mt-0.5 capitalize">{team}</div>
+                        <div className="text-muted text-2xs font-mono leading-none">/ {need}</div>
+                        <div className="font-body text-muted text-2xs mt-0.5 capitalize">{team}</div>
                       </div>
                     );
                   })}

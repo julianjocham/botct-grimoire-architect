@@ -31,9 +31,7 @@ export function PremadeScriptCard({ script, allCharacters, isSelected, onSelect 
       <div className={cn("font-display text-base tracking-[0.04em]", isSelected ? "text-parchment" : "text-gold")}>
         {script.name}
       </div>
-      {script.author && (
-        <div className="font-body text-dim mb-2.5 mt-0.5 text-xs">{script.author}</div>
-      )}
+      {script.author && <div className="font-body text-dim mt-0.5 mb-2.5 text-xs">{script.author}</div>}
       <div className="mb-3 grid grid-cols-2 gap-x-3 gap-y-1">
         {TEAM_ORDER.map((team) => {
           const n = counts[team as keyof typeof counts];

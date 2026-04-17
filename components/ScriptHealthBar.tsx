@@ -88,7 +88,7 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
               title={present ? (analysis.categoryCoverage.good[cat] ?? []).join(", ") : `Missing: ${cat}`}
               className={[
                 "text-3xs cursor-default rounded-[3px] border px-1.25 py-0.5 font-mono",
-                present ? "border-[#2d6a4f] bg-[#0d2a1a] text-[#4a9a6a]" : "text-dimmer border-[#2a2a2a] bg-[#1a1a1a]"
+                present ? "border-[#2d6a4f] bg-[#0d2a1a] text-[#4a9a6a]" : "text-muted border-[#2a2a2a] bg-[#1a1a1a]"
               ].join(" ")}
             >
               {present ? "✓" : "✗"} {CAT_SHORT[cat] ?? cat}
@@ -103,7 +103,7 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
               title={present ? (analysis.categoryCoverage.evil[cat] ?? []).join(", ") : `Missing: ${cat}`}
               className={[
                 "text-3xs cursor-default rounded-[3px] border px-1.25 py-0.5 font-mono",
-                present ? "border-[#6a2d2d] bg-[#2a0d0d] text-[#c0604a]" : "text-dimmer border-[#2a2a2a] bg-[#1a1a1a]"
+                present ? "border-[#6a2d2d] bg-[#2a0d0d] text-[#c0604a]" : "text-muted border-[#2a2a2a] bg-[#1a1a1a]"
               ].join(" ")}
             >
               {present ? "✓" : "✗"} {CAT_SHORT[cat] ?? cat}
