@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { flushSync } from "react-dom";
 import { DashboardStepProps } from "@/types";
 import { analyzeScript } from "@/lib/engine";
@@ -31,14 +31,13 @@ export function DashboardStep({
   onBackToSetup,
   onReset
 }: DashboardStepProps) {
-  const travelerIdSet = new Set(editionTravelers.map((t) => t.id));
-  const coreGameIds = gameIds.filter((id) => !travelerIdSet.has(id));
+  const coreGameIds = useMemo(
+    () => gameIds.filter((id) => !editionTravelers.some((t) => t.id === id)),
+    [gameIds, editionTravelers]
+  );
   const selectedTravelers = editionTravelers.filter((t) => gameIds.includes(t.id));
   const gameChars = allCharacters.filter((c) => coreGameIds.includes(c.id));
   const scriptChars = allCharacters.filter((c) => scriptIds.includes(c.id));
-
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
 
   const analysis = useMemo(
     () => analyzeScript(coreGameIds, allCharacters, interactions, "game"),
@@ -238,7 +237,7 @@ export function DashboardStep({
                         <div
                           key={i}
                           style={{ background: i <= idx ? color : undefined }}
-                          className={cn("h-1.5 flex-1 rounded-[2px]", i > idx && "bg-subtle")}
+                          className={cn("h-1.5 flex-1 rounded-xs", i > idx && "bg-subtle")}
                         />
                       ))}
                     </div>
@@ -281,7 +280,7 @@ export function DashboardStep({
         </div>
       </div>
 
-      {mounted && <PrintPortal scriptChars={scriptChars} analysis={analysis} printMode={printMode} />}
+      <PrintPortal scriptChars={scriptChars} analysis={analysis} printMode={printMode} />
     </div>
   );
 }

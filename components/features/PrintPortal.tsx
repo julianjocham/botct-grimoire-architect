@@ -1,6 +1,7 @@
 "use client";
 
 import { createPortal } from "react-dom";
+import { useSyncExternalStore } from "react";
 import { Character } from "@/types";
 import { ScriptAnalysis } from "@/types";
 import { TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
@@ -15,8 +16,13 @@ interface PrintPortalProps {
   printMode: PrintMode;
 }
 
+const subscribe = () => () => {};
+
 export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalProps) {
+  const isClient = useSyncExternalStore(subscribe, () => true, () => false);
   const isPretty = printMode === "pretty";
+
+  if (!isClient) return null;
 
   const pageHeading = cn(
     "mb-4 border-b-2 pb-1 text-[19px] tracking-[0.08em] uppercase",
