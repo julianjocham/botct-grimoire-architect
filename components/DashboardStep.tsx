@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { createPortal } from "react-dom";
+import { createPortal, flushSync } from "react-dom";
 import { DashboardStepProps } from "@/types";
 import { analyzeScript } from "@/lib/engine";
 import { NightOrder } from "./NightOrder";
@@ -55,7 +55,10 @@ export function DashboardStep({
 
   const nightSteps = nightPhase === "first" ? analysis.nightOrder.first : analysis.nightOrder.other;
 
-  function handlePrint() {
+  const [printMode, setPrintMode] = useState<"pretty" | "clean">("pretty");
+
+  function handlePrint(mode: "pretty" | "clean") {
+    flushSync(() => setPrintMode(mode));
     window.print();
   }
 
@@ -81,10 +84,16 @@ export function DashboardStep({
             ← Adjust Roster
           </button>
           <button
-            onClick={handlePrint}
+            onClick={() => handlePrint("pretty")}
             className="border-tip font-display cursor-pointer rounded-md border bg-[#1a3a1a] px-4 py-1.75 text-xs tracking-[0.05em] text-[#4a9a6a]"
           >
-            Print Script
+            Print (Pretty)
+          </button>
+          <button
+            onClick={() => handlePrint("clean")}
+            className="border-subtle font-display cursor-pointer rounded-md border bg-transparent px-4 py-1.75 text-xs tracking-[0.05em] text-[#7a9a7a]"
+          >
+            Print (Clean)
           </button>
           <button
             onClick={onReset}
@@ -290,101 +299,125 @@ export function DashboardStep({
 
       {mounted &&
         createPortal(
-          <div id="print-portal" className="font-[Georgia,serif] text-black">
+          <div id="print-portal" className="font-[Georgia,serif]">
             {/* Page 1 — All script roles (categories stacked, characters in 2-col grid within each) */}
-            <section className="p-6 [page-break-after:always]">
-              <h1 className="mb-3 border-b-2 border-black pb-1 text-[19px] tracking-[0.08em] uppercase">
-                Character Overview
-              </h1>
-              {TEAM_ORDER.map((team) => {
-                const chars = scriptChars
-                  .filter((c) => c.team === team)
-                  .sort((a, b) => a.name.localeCompare(b.name));
-                if (chars.length === 0) return null;
-                return (
-                  <div key={team} className="mb-2.5">
-                    <h3 className="mb-1 border-b border-[#ccc] pb-0.5 text-[11px] font-bold tracking-[0.1em] uppercase">
-                      {TEAM_LABEL[team]} ({chars.length})
-                    </h3>
-                    <div className="grid grid-cols-2 gap-x-4">
-                      {chars.map((c) => (
-                        <div
-                          key={c.id}
-                          className="mb-1.5 flex items-start gap-1.5 [break-inside:avoid]"
-                        >
-                          <CharacterIcon
-                            characterId={c.id}
-                            edition={c.edition}
-                            team={c.team}
-                            alt={c.name}
-                            className="mt-0.25 size-7 shrink-0"
-                          />
-                          <div className="flex-1 leading-tight">
-                            <strong className="text-[12px]">{c.name}</strong>
-                            <span className="ml-1 text-[11px] text-[#333]">{c.ability}</span>
+            <section className="relative min-h-[100vh] overflow-hidden p-6 [page-break-after:always]">
+              {printMode === "pretty" && (
+                <img src="/parchment.png" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+              )}
+              <div className={`relative ${printMode === "pretty" ? "text-[#2a1500]" : "text-black"}`}>
+                <h1
+                  className={`mb-3 border-b-2 pb-1 text-[19px] tracking-[0.08em] uppercase ${printMode === "pretty" ? "border-[#6b3a1a]" : "border-black"}`}
+                >
+                  Character Overview
+                </h1>
+                {TEAM_ORDER.map((team) => {
+                  const chars = scriptChars.filter((c) => c.team === team).sort((a, b) => a.name.localeCompare(b.name));
+                  if (chars.length === 0) return null;
+                  return (
+                    <div key={team} className="mb-2.5">
+                      <h3
+                        className={`mb-1 border-b pb-0.5 text-[11px] font-bold tracking-[0.1em] uppercase ${printMode === "pretty" ? "border-[#b07840]" : "border-[#ccc]"}`}
+                      >
+                        {TEAM_LABEL[team]} ({chars.length})
+                      </h3>
+                      <div className="grid grid-cols-2 gap-x-4">
+                        {chars.map((c) => (
+                          <div key={c.id} className="mb-1.5 flex [break-inside:avoid] items-start gap-1.5">
+                            <CharacterIcon
+                              characterId={c.id}
+                              edition={c.edition}
+                              team={c.team}
+                              alt={c.name}
+                              className="mt-0.25 size-7 shrink-0"
+                            />
+                            <div className="flex-1 leading-tight">
+                              <strong className="text-[12px]">{c.name}</strong>
+                              <span
+                                className={`ml-1 text-[11px] ${printMode === "pretty" ? "text-[#5a3010]" : "text-[#333]"}`}
+                              >
+                                {c.ability}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </section>
 
             {/* Page 2 — First Night (game characters only) */}
-            <section className="p-8 [page-break-after:always]">
-              <h1 className="mb-4 border-b-2 border-black pb-1 text-[19px] tracking-[0.08em] uppercase">
-                First Night Order
-              </h1>
-              {analysis.nightOrder.first.map((s, i) => (
-                <div
-                  key={s.character.id}
-                  className="mb-3 flex items-start gap-2.5 [page-break-inside:avoid]"
+            <section className="relative min-h-[100vh] overflow-hidden p-8 [page-break-after:always]">
+              {printMode === "pretty" && (
+                <img src="/parchment.png" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+              )}
+              <div className={`relative ${printMode === "pretty" ? "text-[#2a1500]" : "text-black"}`}>
+                <h1
+                  className={`mb-4 border-b-2 pb-1 text-[19px] tracking-[0.08em] uppercase ${printMode === "pretty" ? "border-[#6b3a1a]" : "border-black"}`}
                 >
-                  <div className="w-7 shrink-0 text-right text-[14px] font-bold">{i + 1}.</div>
-                  <CharacterIcon
-                    characterId={s.character.id}
-                    edition={s.character.edition}
-                    team={s.character.team}
-                    alt={s.character.name}
-                    className="mt-0.5 size-9 shrink-0"
-                  />
-                  <div className="flex-1">
-                    <strong className="text-[14px]">{s.character.name}</strong>
-                    {s.reminder && (
-                      <div className="mt-0.5 text-[13px] leading-snug text-[#333]">{s.reminder}</div>
-                    )}
+                  First Night Order
+                </h1>
+                {analysis.nightOrder.first.map((s, i) => (
+                  <div key={s.character.id} className="mb-3 flex items-start gap-2.5 [page-break-inside:avoid]">
+                    <div className="w-7 shrink-0 text-right text-[14px] font-bold">{i + 1}.</div>
+                    <CharacterIcon
+                      characterId={s.character.id}
+                      edition={s.character.edition}
+                      team={s.character.team}
+                      alt={s.character.name}
+                      className="mt-0.5 size-9 shrink-0"
+                    />
+                    <div className="flex-1">
+                      <strong className="text-[14px]">{s.character.name}</strong>
+                      {s.reminder && (
+                        <div
+                          className={`mt-0.5 text-[13px] leading-snug ${printMode === "pretty" ? "text-[#5a3010]" : "text-[#333]"}`}
+                        >
+                          {s.reminder}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </section>
 
             {/* Page 3 — Other Nights (game characters only) */}
-            <section className="p-8">
-              <h1 className="mb-4 border-b-2 border-black pb-1 text-[19px] tracking-[0.08em] uppercase">
-                Other Nights Order
-              </h1>
-              {analysis.nightOrder.other.map((s, i) => (
-                <div
-                  key={s.character.id}
-                  className="mb-3 flex items-start gap-2.5 [page-break-inside:avoid]"
+            <section className="relative min-h-[100vh] overflow-hidden p-8">
+              {printMode === "pretty" && (
+                <img src="/parchment.png" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+              )}
+              <div className={`relative ${printMode === "pretty" ? "text-[#2a1500]" : "text-black"}`}>
+                <h1
+                  className={`mb-4 border-b-2 pb-1 text-[19px] tracking-[0.08em] uppercase ${printMode === "pretty" ? "border-[#6b3a1a]" : "border-black"}`}
                 >
-                  <div className="w-7 shrink-0 text-right text-[14px] font-bold">{i + 1}.</div>
-                  <CharacterIcon
-                    characterId={s.character.id}
-                    edition={s.character.edition}
-                    team={s.character.team}
-                    alt={s.character.name}
-                    className="mt-0.5 size-9 shrink-0"
-                  />
-                  <div className="flex-1">
-                    <strong className="text-[14px]">{s.character.name}</strong>
-                    {s.reminder && (
-                      <div className="mt-0.5 text-[13px] leading-snug text-[#333]">{s.reminder}</div>
-                    )}
+                  Other Nights Order
+                </h1>
+                {analysis.nightOrder.other.map((s, i) => (
+                  <div key={s.character.id} className="mb-3 flex items-start gap-2.5 [page-break-inside:avoid]">
+                    <div className="w-7 shrink-0 text-right text-[14px] font-bold">{i + 1}.</div>
+                    <CharacterIcon
+                      characterId={s.character.id}
+                      edition={s.character.edition}
+                      team={s.character.team}
+                      alt={s.character.name}
+                      className="mt-0.5 size-9 shrink-0"
+                    />
+                    <div className="flex-1">
+                      <strong className="text-[14px]">{s.character.name}</strong>
+                      {s.reminder && (
+                        <div
+                          className={`mt-0.5 text-[13px] leading-snug ${printMode === "pretty" ? "text-[#5a3010]" : "text-[#333]"}`}
+                        >
+                          {s.reminder}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </section>
           </div>,
           document.body

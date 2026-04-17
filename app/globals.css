@@ -151,7 +151,7 @@ h3,
   }
   html,
   body {
-    background: #fff !important;
+    background: transparent !important;
     color: #000 !important;
   }
   /* Hide everything in body except the print portal */
@@ -160,7 +160,8 @@ h3,
   }
   #print-portal {
     display: block !important;
-    background: #fff !important;
+  }
+  #print-portal {
     color: #000 !important;
   }
 }
