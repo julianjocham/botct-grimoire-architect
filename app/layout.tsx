@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Grimoire Architect — Blood on the Clocktower",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body className="bg-background text-foreground flex min-h-full flex-col">
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
