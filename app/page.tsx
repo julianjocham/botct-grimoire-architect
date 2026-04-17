@@ -66,9 +66,14 @@ export default function Home() {
   return (
     <div className="bg-background flex min-h-screen flex-col">
       <header className="border-subtle bg-surface flex flex-wrap items-center justify-between gap-2 border-b px-3 py-3 sm:gap-4 sm:px-6">
-        <div className="flex flex-col sm:flex-row sm:items-baseline">
-          <span className="font-display text-parchment text-md tracking-wide">Grimoire Architect</span>
-          <span className="font-body text-dimmer text-xs sm:ml-3">Blood on the Clocktower — Storyteller Tool</span>
+        <div className="flex items-center gap-3">
+          <img src="/cc_logo.png" alt="Community Created Content" className="h-8 w-auto opacity-80" />
+          <div className="flex flex-col sm:flex-row sm:items-baseline">
+            <span className="font-display text-parchment text-md tracking-wide">Grimoire Architect</span>
+            <span className="font-body text-dimmer text-xs sm:ml-3">
+              Blood on the Clocktower — Fan-made Storyteller Tool
+            </span>
+          </div>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
@@ -140,6 +145,34 @@ export default function Home() {
           />
         )}
       </main>
+
+      <footer className="border-subtle border-t px-4 py-4 sm:px-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5">
+            <img src="/cc_logo.png" alt="Community Created Content" className="h-5 w-auto opacity-60" />
+            <span className="text-dimmer font-body text-xs">
+              Fan-made tool — not affiliated with{" "}
+              <a
+                href="https://bloodontheclocktower.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted hover:text-foreground underline transition-colors"
+              >
+                The Pandemonium Institute
+              </a>
+              . Free to use.
+            </span>
+          </div>
+          <a
+            href="https://github.com/julianjocham/botct-grimoire-architect"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-dimmer hover:text-foreground font-body text-xs underline transition-colors"
+          >
+            View on GitHub
+          </a>
+        </div>
+      </footer>
 
       {detailChar && detailEffStr && (
         <>
