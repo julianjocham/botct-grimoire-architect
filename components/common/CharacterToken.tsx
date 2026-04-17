@@ -4,6 +4,7 @@ import { CharacterTokenProps } from "@/types";
 import { StrengthBar } from "./StrengthBar";
 import { TEAM_COLORS } from "@/constants/team";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
+import { cn } from "@/lib/cn";
 
 const COMPLEXITY_DOTS = (n: number) =>
   Array.from({ length: 5 }, (_, i) => (
@@ -28,11 +29,11 @@ export function CharacterToken({
 
   return (
     <div
-      className={[
+      className={cn(
         "cursor-pointer rounded-lg border transition-all duration-150",
         compact ? "px-2 py-1.5" : "px-2.5 py-2",
-        hasEnrichment ? "opacity-100" : "opacity-70"
-      ].join(" ")}
+        !hasEnrichment && "opacity-70"
+      )}
       style={{
         background: selected ? colors.bg : "var(--bg-surface)",
         borderColor: selected ? colors.border : "#2a2a3a"
@@ -40,7 +41,6 @@ export function CharacterToken({
       onClick={() => onDetail(character.id)}
     >
       <div className="flex items-center justify-between gap-2">
-        {/* Left: icon + name + complexity */}
         <div className="flex min-w-0 items-center gap-2.5">
           <CharacterIcon
             characterId={character.id}
@@ -48,11 +48,11 @@ export function CharacterToken({
             team={character.team}
             alt={character.name}
             variant="token"
-            className={compact ? "size-7 shrink-0" : "size-8 shrink-0"}
+            className={cn("shrink-0", compact ? "size-7" : "size-8")}
           />
           <div className="min-w-0">
             <div
-              className={["font-display truncate", compact ? "text-xs" : "text-sm"].join(" ")}
+              className={cn("font-display truncate", compact ? "text-xs" : "text-sm")}
               style={{ color: colors.text }}
             >
               {character.name}
@@ -61,7 +61,6 @@ export function CharacterToken({
           </div>
         </div>
 
-        {/* Counter badge */}
         {countersOnScript > 0 && (
           <span
             title={`${countersOnScript} counter${countersOnScript !== 1 ? "s" : ""} on this script`}
@@ -71,16 +70,15 @@ export function CharacterToken({
           </span>
         )}
 
-        {/* Right: add/remove button */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             onToggle(character.id);
           }}
-          className={[
+          className={cn(
             "text-md flex size-5.5 shrink-0 cursor-pointer items-center justify-center rounded border-none",
             selected ? "text-white" : "text-[#888]"
-          ].join(" ")}
+          )}
           style={{ background: selected ? colors.border : "#2a2a3a" }}
           title={selected ? "Remove from script" : "Add to script"}
         >
@@ -88,7 +86,6 @@ export function CharacterToken({
         </button>
       </div>
 
-      {/* Strength bar */}
       {!compact && character.strength?.composite !== undefined && (
         <div className="mt-1.5">
           <StrengthBar value={character.strength.composite} effectiveValue={effectiveStrength} small />

@@ -1,116 +1,20 @@
 "use client";
 
-import { useReducer, useMemo } from "react";
-import { GrimoireState, GrimoireAction } from "@/types";
-import { allCharacters, allInteractions, getEditionPool, getEditionTravelers } from "@/lib/data";
+import { useMemo } from "react";
+import { useGrimoireState } from "@/hooks/useGrimoireState";
+import { allCharacters, getEditionPool, getEditionTravelers } from "@/lib/data";
 import premadeScriptsData from "@/data/premadeScripts.json";
 import { EDITIONS } from "@/constants/info";
 import { CharacterDetail } from "@/components/CharacterDetail";
 import { ScriptStep } from "@/components/ScriptStep";
 import { GameSetupStep } from "@/components/GameSetupStep";
 import { DashboardStep } from "@/components/DashboardStep";
+import { allInteractions } from "@/lib/data";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
-
-const initialState: GrimoireState = {
-  step: "script",
-  scriptType: "full",
-  scriptSource: null,
-  premadeScriptId: null,
-  scriptIds: [],
-  playerCount: null,
-  gameIds: [],
-  nightPhase: "first",
-  searchQuery: "",
-  detailCharacterId: null
-};
-
-function reducer(state: GrimoireState, action: GrimoireAction): GrimoireState {
-  switch (action.type) {
-    case "SET_SCRIPT_TYPE":
-      return {
-        ...state,
-        scriptType: action.scriptType,
-        scriptSource: null,
-        premadeScriptId: null,
-        scriptIds: [],
-        gameIds: [],
-        playerCount: null
-      };
-    case "CLEAR_SCRIPT_SOURCE":
-      return { ...state, scriptSource: null, premadeScriptId: null, scriptIds: [], gameIds: [], playerCount: null };
-    case "SELECT_PREMADE":
-      return {
-        ...state,
-        scriptSource: "premade",
-        premadeScriptId: action.id,
-        scriptIds: action.ids,
-        gameIds: [],
-        playerCount: null,
-        searchQuery: "",
-        detailCharacterId: null
-      };
-    case "SELECT_EDITION":
-      return {
-        ...state,
-        scriptSource: action.edition,
-        premadeScriptId: null,
-        scriptIds: action.ids,
-        gameIds: [],
-        playerCount: null,
-        searchQuery: "",
-        detailCharacterId: null
-      };
-    case "SELECT_CUSTOM":
-      return {
-        ...state,
-        scriptSource: "custom",
-        premadeScriptId: null,
-        scriptIds: [],
-        gameIds: [],
-        playerCount: null,
-        searchQuery: "",
-        detailCharacterId: null
-      };
-    case "TOGGLE_SCRIPT_CHAR": {
-      const inScript = state.scriptIds.includes(action.id);
-      return {
-        ...state,
-        scriptIds: inScript ? state.scriptIds.filter((id) => id !== action.id) : [...state.scriptIds, action.id],
-        gameIds: state.gameIds.filter((id) => id !== action.id)
-      };
-    }
-    case "GO_TO_SETUP":
-      return { ...state, step: "setup", gameIds: [], playerCount: null };
-    case "GO_BACK_TO_SCRIPT":
-      return { ...state, step: "script" };
-    case "GO_TO_DASHBOARD":
-      return { ...state, step: "dashboard" };
-    case "GO_BACK_TO_SETUP":
-      return { ...state, step: "setup" };
-    case "SET_PLAYER_COUNT":
-      return { ...state, playerCount: action.count, gameIds: [] };
-    case "TOGGLE_GAME_CHAR": {
-      const inGame = state.gameIds.includes(action.id);
-      return {
-        ...state,
-        gameIds: inGame ? state.gameIds.filter((id) => id !== action.id) : [...state.gameIds, action.id]
-      };
-    }
-    case "SET_NIGHT_PHASE":
-      return { ...state, nightPhase: action.phase };
-    case "SET_SEARCH":
-      return { ...state, searchQuery: action.query };
-    case "SET_DETAIL":
-      return { ...state, detailCharacterId: action.id };
-    case "RESET":
-      return initialState;
-    default:
-      return state;
-  }
-}
+import { cn } from "@/lib/cn";
 
 export default function Home() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const { state, dispatch } = useGrimoireState();
   const {
     step,
     scriptType,
@@ -124,12 +28,9 @@ export default function Home() {
     detailCharacterId
   } = state;
 
-  // Step 1 custom: context is the script being built.
-  // Steps 2 + 3: context is the in-game characters — counters, interactions, and
-  // strength modifiers only reflect characters actually in play.
+  // Steps 2 + 3 analyze characters in play; step 1 analyzes the script being built.
   const contextIds = step === "script" ? scriptIds : gameIds;
 
-  // Edition pools for the script step cards
   const editionPools = useMemo(
     () => ({
       tb: getEditionPool("tb"),
@@ -139,7 +40,6 @@ export default function Home() {
     []
   );
 
-  // Travelers available for the current script source (only for official editions)
   const editionTravelers = useMemo(() => {
     if (!scriptSource || scriptSource === "custom" || scriptSource === "premade") return [];
     return getEditionTravelers(scriptSource);
@@ -154,7 +54,7 @@ export default function Home() {
     return EDITIONS.find((ed) => ed.key === scriptSource)?.name ?? "Unknown Script";
   }, [scriptSource, premadeScriptId]);
 
-  // CharacterDetail lookup includes travelers so traveler detail panels work
+  // Travelers included so traveler detail panels work on the setup step.
   const allCharactersWithTravelers = useMemo(() => [...allCharacters, ...editionTravelers], [editionTravelers]);
   const detailChar = detailCharacterId
     ? (allCharactersWithTravelers.find((c) => c.id === detailCharacterId) ?? null)
@@ -165,40 +65,14 @@ export default function Home() {
 
   return (
     <div className="bg-background flex min-h-screen flex-col">
-      {/* Global header */}
-      <div className="border-subtle bg-surface flex items-center justify-between border-b px-6 py-3">
+      <header className="border-subtle bg-surface flex items-center justify-between border-b px-6 py-3">
         <div>
           <span className="font-display text-parchment text-[17px] tracking-[0.05em]">Grimoire Architect</span>
           <span className="font-body text-dimmer ml-3 text-[12px]">Blood on the Clocktower — Storyteller Tool</span>
         </div>
 
-        {/* Step indicator + Reset */}
         <div className="flex items-center gap-4">
-          <div className="flex gap-1.5">
-            {(["script", "setup", "dashboard"] as const).map((s, i) => {
-              const labels = ["1 Script", "2 Game Setup", "3 Dashboard"];
-              const reached =
-                s === "script" ||
-                (s === "setup" && (step === "setup" || step === "dashboard")) ||
-                (s === "dashboard" && step === "dashboard");
-              const active = step === s;
-              return (
-                <div
-                  key={s}
-                  className={[
-                    "font-display rounded-[4px] px-2 py-[3px] text-[10px] tracking-[0.06em]",
-                    active
-                      ? "text-parchment bg-blood border-blood border"
-                      : reached
-                        ? "text-gold border border-[#4a3a20] bg-transparent"
-                        : "border-subtle border bg-transparent text-[#333]"
-                  ].join(" ")}
-                >
-                  {labels[i]}
-                </div>
-              );
-            })}
-          </div>
+          <StepIndicator currentStep={step} />
           <button
             onClick={() => dispatch({ type: "RESET" })}
             className="border-subtle text-dim font-body cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-[12px]"
@@ -206,10 +80,9 @@ export default function Home() {
             Start Over
           </button>
         </div>
-      </div>
+      </header>
 
-      {/* Step content */}
-      <div className="flex-1">
+      <main className="flex-1">
         {step === "script" && (
           <ScriptStep
             scriptType={scriptType}
@@ -266,9 +139,8 @@ export default function Home() {
             onReset={() => dispatch({ type: "RESET" })}
           />
         )}
-      </div>
+      </main>
 
-      {/* Character detail slide-in (all steps) */}
       {detailChar && detailEffStr && (
         <>
           <div
@@ -289,6 +161,36 @@ export default function Home() {
           />
         </>
       )}
+    </div>
+  );
+}
+
+const STEP_LABELS = { script: "1 Script", setup: "2 Game Setup", dashboard: "3 Dashboard" } as const;
+type WizardStep = keyof typeof STEP_LABELS;
+
+function StepIndicator({ currentStep }: { currentStep: WizardStep }) {
+  const steps = ["script", "setup", "dashboard"] as const;
+  const currentIndex = steps.indexOf(currentStep);
+
+  return (
+    <div className="flex gap-1.5">
+      {steps.map((step, i) => {
+        const isActive = step === currentStep;
+        const isReached = i <= currentIndex;
+        return (
+          <div
+            key={step}
+            className={cn(
+              "font-display rounded-[4px] px-2 py-[3px] text-[10px] tracking-[0.06em]",
+              isActive && "text-parchment bg-blood border-blood border",
+              !isActive && isReached && "text-gold border border-[#4a3a20] bg-transparent",
+              !isActive && !isReached && "border-subtle border bg-transparent text-[#333]"
+            )}
+          >
+            {STEP_LABELS[step]}
+          </div>
+        );
+      })}
     </div>
   );
 }

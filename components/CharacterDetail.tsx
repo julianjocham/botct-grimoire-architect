@@ -6,6 +6,7 @@ import { COMPLEXITY_LABEL } from "@/constants/character";
 import { StrengthBar } from "@/components/common/StrengthBar";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
+import { cn } from "@/lib/cn";
 
 export function CharacterDetail({
   character,
@@ -72,7 +73,7 @@ export function CharacterDetail({
             </SectionLabel>
             <StrengthBar value={baseStrength} effectiveValue={eff} />
             {modifier !== 0 && (
-              <div className={["text-2xs mt-1 font-mono", eff < 0 ? "text-blood-light" : "text-good-blue"].join(" ")}>
+              <div className={cn("text-2xs mt-1 font-mono", eff < 0 ? "text-blood-light" : "text-good-blue")}>
                 Base {baseStrength > 0 ? "+" : ""}
                 {baseStrength} → {modifier > 0 ? "+" : ""}
                 {modifier} (context) → {eff > 0 ? "+" : ""}
@@ -134,12 +135,12 @@ export function CharacterDetail({
                   return (
                     <div
                       key={r.characterId}
-                      className={[
+                      className={cn(
                         "rounded-[5px] px-2 py-1.5",
                         r.impact < 0 ? "border border-[#3a1a1a] bg-[#150808]" : "border border-[#1a2a3a] bg-[#080d15]"
-                      ].join(" ")}
+                      )}
                     >
-                      <div className={["flex items-center justify-between", r.description ? "mb-1" : ""].join(" ")}>
+                      <div className={cn("flex items-center justify-between", r.description && "mb-1")}>
                         <button
                           onClick={() => onNavigate(r.characterId)}
                           className="text-gold font-display cursor-pointer border-none bg-transparent p-0 text-left text-xs"
@@ -147,10 +148,10 @@ export function CharacterDetail({
                           {char?.name ?? r.characterId}
                         </button>
                         <span
-                          className={[
+                          className={cn(
                             "ml-2 shrink-0 font-mono text-xs",
                             r.impact < 0 ? "text-blood-light" : "text-good-blue"
-                          ].join(" ")}
+                          )}
                         >
                           {r.impact > 0 ? "+" : ""}
                           {r.impact}
@@ -257,10 +258,10 @@ export function CharacterDetail({
         {/* Add/Remove button */}
         <button
           onClick={() => onToggle(character.id)}
-          className={[
+          className={cn(
             "text-parchment font-display cursor-pointer rounded-md border-none p-2.5 text-sm tracking-[0.05em]",
             isSelected ? "bg-blood" : "bg-[#1a3a6a]"
-          ].join(" ")}
+          )}
         >
           {isSelected ? "Remove from Script" : "Add to Script"}
         </button>

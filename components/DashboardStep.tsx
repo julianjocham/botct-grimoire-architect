@@ -1,17 +1,21 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { createPortal, flushSync } from "react-dom";
+import { flushSync } from "react-dom";
 import { DashboardStepProps } from "@/types";
 import { analyzeScript } from "@/lib/engine";
 import { NightOrder } from "./NightOrder";
 import { InteractionFeed } from "./InteractionFeed";
+import { PrintPortal } from "@/components/features/PrintPortal";
 import { FEEL_BARS, FEEL_COLOR } from "@/constants/info";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { calculateStrengthTotals } from "@/lib/strength/calculate";
 import { Panel } from "@/components/ui/Panel";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
+import { cn } from "@/lib/cn";
+
+type PrintMode = "pretty" | "clean";
 
 export function DashboardStep({
   scriptDisplayName,
@@ -50,14 +54,11 @@ export function DashboardStep({
   const goodPct = Math.round((Math.abs(goodTotal) / strengthRange) * 100);
   const evilPct = Math.round((Math.abs(evilTotal) / strengthRange) * 100);
 
-  const criticals = analysis.interactionHints.filter((h) => h.severity === "critical");
   const jinxes = analysis.interactionHints.filter((h) => h.category === "jinx");
 
-  const nightSteps = nightPhase === "first" ? analysis.nightOrder.first : analysis.nightOrder.other;
+  const [printMode, setPrintMode] = useState<PrintMode>("pretty");
 
-  const [printMode, setPrintMode] = useState<"pretty" | "clean">("pretty");
-
-  function handlePrint(mode: "pretty" | "clean") {
+  function handlePrint(mode: PrintMode) {
     flushSync(() => setPrintMode(mode));
     window.print();
   }
@@ -172,15 +173,17 @@ export function DashboardStep({
 
       {/* Main 3-column grid */}
       <div className="grid grid-cols-[1fr_1fr_300px] gap-4">
-        {/* Night Order */}
         <Panel className="flex flex-col">
           <SectionLabel className="mb-2.5">Night Order</SectionLabel>
           <div className="max-h-120 flex-1 overflow-y-auto">
-            <NightOrder steps={nightSteps} phase={nightPhase} onPhaseChange={onNightPhaseChange} />
+            <NightOrder
+              steps={nightPhase === "first" ? analysis.nightOrder.first : analysis.nightOrder.other}
+              phase={nightPhase}
+              onPhaseChange={onNightPhaseChange}
+            />
           </div>
         </Panel>
 
-        {/* Interactions */}
         <Panel className="flex flex-col">
           <SectionLabel className="mb-2.5">Interactions ({analysis.interactionHints.length})</SectionLabel>
           <div className="max-h-120 flex-1 overflow-y-auto">
@@ -188,40 +191,24 @@ export function DashboardStep({
           </div>
         </Panel>
 
-        {/* Right column: Strength + Feel + Issues */}
+        {/* Right column */}
         <div className="flex flex-col gap-3.5">
-          {/* Team strength */}
           <Panel title="Team Strength">
             <div className="flex flex-col gap-2.5">
-              {/* Good */}
-              <div>
-                <div className="mb-1 flex justify-between">
-                  <span className="text-townsfolk text-2xs font-mono uppercase">Good</span>
-                  <span className="text-townsfolk font-mono text-xs">
-                    {goodTotal > 0 ? "+" : ""}
-                    {goodTotal}
-                  </span>
-                </div>
-                <div className="bg-surface h-2 overflow-hidden rounded-sm">
-                  <div
-                    style={{ width: `${goodPct}%` }}
-                    className="bg-good-blue h-full rounded-sm transition-[width] duration-300"
-                  />
-                </div>
-              </div>
-              {/* Evil */}
-              <div>
-                <div className="mb-1 flex justify-between">
-                  <span className="text-demon text-2xs font-mono uppercase">Evil</span>
-                  <span className="text-demon font-mono text-xs">{evilTotal}</span>
-                </div>
-                <div className="bg-surface h-2 overflow-hidden rounded-sm">
-                  <div
-                    style={{ width: `${evilPct}%` }}
-                    className="bg-blood-light h-full rounded-sm transition-[width] duration-300"
-                  />
-                </div>
-              </div>
+              <StrengthRow
+                label="Good"
+                value={goodTotal}
+                pct={goodPct}
+                textClass="text-townsfolk"
+                barClass="bg-good-blue"
+              />
+              <StrengthRow
+                label="Evil"
+                value={evilTotal}
+                pct={evilPct}
+                textClass="text-demon"
+                barClass="bg-blood-light"
+              />
               <div className="font-body text-dim mt-0.5 text-center text-xs">
                 {goodTotal > Math.abs(evilTotal) * 1.2
                   ? "Good has a strong advantage"
@@ -232,7 +219,6 @@ export function DashboardStep({
             </div>
           </Panel>
 
-          {/* Script feel */}
           <Panel title="Game Feel">
             <div className="flex flex-col gap-2">
               {FEEL_BARS.map(({ key, label, levels }) => {
@@ -252,7 +238,7 @@ export function DashboardStep({
                         <div
                           key={i}
                           style={{ background: i <= idx ? color : undefined }}
-                          className={`h-1.5 flex-1 rounded-[2px]${i <= idx ? "" : "bg-subtle"}`}
+                          className={cn("h-1.5 flex-1 rounded-[2px]", i > idx && "bg-subtle")}
                         />
                       ))}
                     </div>
@@ -267,21 +253,19 @@ export function DashboardStep({
             </div>
           </Panel>
 
-          {/* Issues */}
-          {(analysis.compositionWarnings.length > 0 || criticals.length > 0) && (
+          {(analysis.compositionWarnings.length > 0 || jinxes.length > 0) && (
             <Panel>
               <SectionLabel className="mb-2.5">Issues</SectionLabel>
               <div className="flex flex-col gap-1.5">
                 {analysis.compositionWarnings.map((w, i) => (
                   <div
                     key={i}
-                    className={`font-body text-parchment-muted rounded-[5px] border px-2.25 py-1.5 text-sm leading-normal ${
-                      w.severity === "critical"
-                        ? "border-blood bg-[#1a0808]"
-                        : w.severity === "important"
-                          ? "border-[#7a5a00] bg-[#1a1400]"
-                          : "border-[#1a4a2e] bg-[#0a1408]"
-                    }`}
+                    className={cn(
+                      "font-body text-parchment-muted rounded-[5px] border px-2.25 py-1.5 text-sm leading-normal",
+                      w.severity === "critical" ? "border-blood bg-[#1a0808]" : "",
+                      w.severity === "important" ? "border-[#7a5a00] bg-[#1a1400]" : "",
+                      w.severity === "tip" ? "border-[#1a4a2e] bg-[#0a1408]" : ""
+                    )}
                   >
                     {w.severity === "critical" ? "⚠" : w.severity === "important" ? "⚡" : "💡"} {w.message}
                   </div>
@@ -297,131 +281,39 @@ export function DashboardStep({
         </div>
       </div>
 
-      {mounted &&
-        createPortal(
-          <div id="print-portal" className="font-[Georgia,serif]">
-            {/* Page 1 — All script roles (categories stacked, characters in 2-col grid within each) */}
-            <section className="relative min-h-[100vh] overflow-hidden p-6 [page-break-after:always]">
-              {printMode === "pretty" && (
-                <img src="/parchment.png" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
-              )}
-              <div className={`relative ${printMode === "pretty" ? "text-[#2a1500]" : "text-black"}`}>
-                <h1
-                  className={`mb-3 border-b-2 pb-1 text-[19px] tracking-[0.08em] uppercase ${printMode === "pretty" ? "border-[#6b3a1a]" : "border-black"}`}
-                >
-                  Character Overview
-                </h1>
-                {TEAM_ORDER.map((team) => {
-                  const chars = scriptChars.filter((c) => c.team === team).sort((a, b) => a.name.localeCompare(b.name));
-                  if (chars.length === 0) return null;
-                  return (
-                    <div key={team} className="mb-2.5">
-                      <h3
-                        className={`mb-1 border-b pb-0.5 text-[11px] font-bold tracking-[0.1em] uppercase ${printMode === "pretty" ? "border-[#b07840]" : "border-[#ccc]"}`}
-                      >
-                        {TEAM_LABEL[team]} ({chars.length})
-                      </h3>
-                      <div className="grid grid-cols-2 gap-x-4">
-                        {chars.map((c) => (
-                          <div key={c.id} className="mb-1.5 flex [break-inside:avoid] items-start gap-1.5">
-                            <CharacterIcon
-                              characterId={c.id}
-                              edition={c.edition}
-                              team={c.team}
-                              alt={c.name}
-                              className="mt-0.25 size-7 shrink-0"
-                            />
-                            <div className="flex-1 leading-tight">
-                              <strong className="text-[12px]">{c.name}</strong>
-                              <span
-                                className={`ml-1 text-[11px] ${printMode === "pretty" ? "text-[#5a3010]" : "text-[#333]"}`}
-                              >
-                                {c.ability}
-                              </span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
+      {mounted && <PrintPortal scriptChars={scriptChars} analysis={analysis} printMode={printMode} />}
+    </div>
+  );
+}
 
-            {/* Page 2 — First Night (game characters only) */}
-            <section className="relative min-h-[100vh] overflow-hidden p-8 [page-break-after:always]">
-              {printMode === "pretty" && (
-                <img src="/parchment.png" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
-              )}
-              <div className={`relative ${printMode === "pretty" ? "text-[#2a1500]" : "text-black"}`}>
-                <h1
-                  className={`mb-4 border-b-2 pb-1 text-[19px] tracking-[0.08em] uppercase ${printMode === "pretty" ? "border-[#6b3a1a]" : "border-black"}`}
-                >
-                  First Night Order
-                </h1>
-                {analysis.nightOrder.first.map((s, i) => (
-                  <div key={s.character.id} className="mb-3 flex items-start gap-2.5 [page-break-inside:avoid]">
-                    <div className="w-7 shrink-0 text-right text-[14px] font-bold">{i + 1}.</div>
-                    <CharacterIcon
-                      characterId={s.character.id}
-                      edition={s.character.edition}
-                      team={s.character.team}
-                      alt={s.character.name}
-                      className="mt-0.5 size-9 shrink-0"
-                    />
-                    <div className="flex-1">
-                      <strong className="text-[14px]">{s.character.name}</strong>
-                      {s.reminder && (
-                        <div
-                          className={`mt-0.5 text-[13px] leading-snug ${printMode === "pretty" ? "text-[#5a3010]" : "text-[#333]"}`}
-                        >
-                          {s.reminder}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Page 3 — Other Nights (game characters only) */}
-            <section className="relative min-h-[100vh] overflow-hidden p-8">
-              {printMode === "pretty" && (
-                <img src="/parchment.png" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
-              )}
-              <div className={`relative ${printMode === "pretty" ? "text-[#2a1500]" : "text-black"}`}>
-                <h1
-                  className={`mb-4 border-b-2 pb-1 text-[19px] tracking-[0.08em] uppercase ${printMode === "pretty" ? "border-[#6b3a1a]" : "border-black"}`}
-                >
-                  Other Nights Order
-                </h1>
-                {analysis.nightOrder.other.map((s, i) => (
-                  <div key={s.character.id} className="mb-3 flex items-start gap-2.5 [page-break-inside:avoid]">
-                    <div className="w-7 shrink-0 text-right text-[14px] font-bold">{i + 1}.</div>
-                    <CharacterIcon
-                      characterId={s.character.id}
-                      edition={s.character.edition}
-                      team={s.character.team}
-                      alt={s.character.name}
-                      className="mt-0.5 size-9 shrink-0"
-                    />
-                    <div className="flex-1">
-                      <strong className="text-[14px]">{s.character.name}</strong>
-                      {s.reminder && (
-                        <div
-                          className={`mt-0.5 text-[13px] leading-snug ${printMode === "pretty" ? "text-[#5a3010]" : "text-[#333]"}`}
-                        >
-                          {s.reminder}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          </div>,
-          document.body
-        )}
+function StrengthRow({
+  label,
+  value,
+  pct,
+  textClass,
+  barClass
+}: {
+  label: string;
+  value: number;
+  pct: number;
+  textClass: string;
+  barClass: string;
+}) {
+  return (
+    <div>
+      <div className="mb-1 flex justify-between">
+        <span className={cn("text-2xs font-mono uppercase", textClass)}>{label}</span>
+        <span className={cn("font-mono text-xs", textClass)}>
+          {value > 0 ? "+" : ""}
+          {value}
+        </span>
+      </div>
+      <div className="bg-surface h-2 overflow-hidden rounded-sm">
+        <div
+          style={{ width: `${pct}%` }}
+          className={cn("h-full rounded-sm transition-[width] duration-300", barClass)}
+        />
+      </div>
     </div>
   );
 }
