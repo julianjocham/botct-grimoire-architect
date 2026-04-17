@@ -15,12 +15,13 @@ export interface EditionConfig {
 
 export type AppStep = "script" | "setup" | "dashboard";
 export type EditionKey = "tb" | "bmr" | "snv" | "custom" | "premade";
-export type ScriptType = "full" | "teensyville";
+export type ScriptType = "full" | "teensyville" | "official";
 
 export interface PremadeScript {
   id: string;
   name: string;
   type: ScriptType;
+  author?: string;
   characters: string[];
 }
 

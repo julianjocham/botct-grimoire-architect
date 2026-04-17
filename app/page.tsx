@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useGrimoireState } from "@/hooks/useGrimoireState";
 import { allCharacters, getEditionPool, getEditionTravelers } from "@/lib/data";
-import premadeScriptsData from "@/data/premadeScripts.json";
+import { premadeScripts as premadeScriptsData } from "@/data/scripts";
 import { EDITIONS } from "@/constants/info";
 import { CharacterDetail } from "@/components/CharacterDetail";
 import { ScriptStep } from "@/components/ScriptStep";

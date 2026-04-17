@@ -1,13 +1,13 @@
 "use client";
 
-import { Character, PremadeScript, ScriptStepProps, ScriptType } from "@/types";
+import { Character, ScriptStepProps, ScriptType } from "@/types";
 import { CharacterToken } from "./common/CharacterToken";
 import { PremadeScriptCard } from "./common/PremadeScriptCard";
 import { EDITIONS } from "@/constants/info";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { Panel } from "./ui/Panel";
-import premadeScriptsData from "@/data/premadeScripts.json";
+import { premadeScripts } from "@/data/scripts";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 
 function teamCount(chars: Character[], team: string) {
@@ -31,8 +31,6 @@ function scriptIsValid(scriptIds: string[], allCharacters: Character[], scriptTy
   );
 }
 
-const premadeScripts = premadeScriptsData as PremadeScript[];
-
 export function ScriptStep({
   scriptType,
   scriptSource,
@@ -54,6 +52,7 @@ export function ScriptStep({
   const isCustom = scriptSource === "custom";
   const isTeensyville = scriptType === "teensyville";
 
+  const officialScripts = premadeScripts.filter((s) => s.type === "official");
   const teensyvilleScripts = premadeScripts.filter((s) => s.type === "teensyville");
   const fullPremadeScripts = premadeScripts.filter((s) => s.type === "full");
 
@@ -203,6 +202,22 @@ export function ScriptStep({
             >
               Build Custom →
             </button>
+          </div>
+
+          {/* Official scripts */}
+          <div>
+            <div className="font-display text-gold mb-3 text-sm tracking-[0.06em] uppercase">Official Scripts</div>
+            <div className="grid grid-cols-4 gap-3">
+              {officialScripts.map((script) => (
+                <PremadeScriptCard
+                  key={script.id}
+                  script={script}
+                  allCharacters={allCharacters}
+                  isSelected={scriptSource === "premade" && premadeScriptId === script.id}
+                  onSelect={() => onSelectPremade(script.id, script.characters)}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Community full scripts */}

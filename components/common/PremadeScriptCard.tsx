@@ -28,11 +28,12 @@ export function PremadeScriptCard({ script, allCharacters, isSelected, onSelect 
         isSelected ? "border-blood bg-[#1a0f0f]" : "bg-surface border-subtle"
       )}
     >
-      <div
-        className={cn("font-display mb-2.5 text-base tracking-[0.04em]", isSelected ? "text-parchment" : "text-gold")}
-      >
+      <div className={cn("font-display text-base tracking-[0.04em]", isSelected ? "text-parchment" : "text-gold")}>
         {script.name}
       </div>
+      {script.author && (
+        <div className="font-body text-dim mb-2.5 mt-0.5 text-xs">{script.author}</div>
+      )}
       <div className="mb-3 grid grid-cols-2 gap-x-3 gap-y-1">
         {TEAM_ORDER.map((team) => {
           const n = counts[team as keyof typeof counts];
