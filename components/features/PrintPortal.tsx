@@ -99,7 +99,7 @@ function PrintPage({
   return (
     <section className={cn("relative min-h-[100vh] overflow-hidden p-8", pageBreak && "[page-break-after:always]")}>
       {isPretty && (
-        <img src="/parchment.png" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+        <img src="/parchment.png" alt="" aria-hidden className="absolute inset-0 h-full w-full scale-[1.1] object-cover" />
       )}
       <div className={cn("relative", isPretty ? "text-[#2a1500]" : "text-black")}>{children}</div>
     </section>
