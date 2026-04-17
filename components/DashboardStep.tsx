@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { flushSync } from "react-dom";
 import { DashboardStepProps } from "@/types";
 import { analyzeScript } from "@/lib/engine";
 import { NightOrder } from "./NightOrder";
@@ -15,8 +14,9 @@ import { Panel } from "@/components/ui/Panel";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { cn } from "@/lib/cn";
+import { Button } from "@/components/ui/Button";
 
-type PrintMode = "pretty" | "clean";
+type PrintMode = "pretty" | "clean" | "script-pretty" | "script-clean";
 
 const COVERAGE_CATS: { cat: AbilityCategory; side: "good" | "evil" }[] = [
   { cat: "info-start", side: "good" },
@@ -68,6 +68,10 @@ export function DashboardStep({
 
   const [printMode, setPrintMode] = useState<PrintMode>("pretty");
 
+  function handlePrint() {
+    window.print();
+  }
+
   const [selectedBluffs, setSelectedBluffs] = useState<string[]>([]);
   function toggleBluff(id: string) {
     setSelectedBluffs((prev) =>
@@ -79,11 +83,6 @@ export function DashboardStep({
       allCharacters.filter((c) => c.team === "townsfolk" && scriptIds.includes(c.id) && !coreGameIds.includes(c.id)),
     [allCharacters, scriptIds, coreGameIds]
   );
-
-  function handlePrint(mode: PrintMode) {
-    flushSync(() => setPrintMode(mode));
-    window.print();
-  }
 
   return (
     <div className="mx-auto flex max-w-325 flex-col gap-5 px-6 pt-6 pb-12">
@@ -100,24 +99,32 @@ export function DashboardStep({
           </div>
         </div>
         <div className="flex gap-2">
-          <button
-            onClick={onBackToSetup}
-            className="border-subtle text-muted font-body cursor-pointer rounded-md border bg-transparent px-4 py-1.75 text-base"
-          >
+          <Button onClick={onBackToSetup} variant="ghost">
             ← Adjust Roster
-          </button>
-          <button
-            onClick={() => handlePrint("pretty")}
-            className="border-tip font-display cursor-pointer rounded-md border bg-[#1a3a1a] px-4 py-1.75 text-xs tracking-[0.05em] text-[#4a9a6a]"
-          >
-            Print (Pretty)
-          </button>
-          <button
-            onClick={() => handlePrint("clean")}
-            className="border-subtle font-display cursor-pointer rounded-md border bg-transparent px-4 py-1.75 text-xs tracking-[0.05em] text-[#7a9a7a]"
-          >
-            Print (Clean)
-          </button>
+          </Button>
+          <div className="flex items-center gap-2">
+            <select
+              value={printMode}
+              onChange={(e) => setPrintMode(e.target.value as PrintMode)}
+              className="border-subtle text-parchment font-body cursor-pointer rounded-lg border bg-transparent px-4 py-2 text-base"
+            >
+              <option className="text-parchment bg-[#0a0a0f]" value="pretty">
+                Print All (Pretty)
+              </option>
+              <option className="text-parchment bg-[#0a0a0f]" value="clean">
+                Print All (Clean)
+              </option>
+              <option className="text-parchment bg-[#0a0a0f]" value="script-pretty">
+                Print Script (Pretty)
+              </option>
+              <option className="text-parchment bg-[#0a0a0f]" value="script-clean">
+                Print Script (Clean)
+              </option>
+            </select>
+            <Button onClick={handlePrint} variant="primary">
+              Print ⎙
+            </Button>
+          </div>
           <button
             onClick={onReset}
             className="text-blood font-body cursor-pointer rounded-md border border-[#3a1a1a] bg-transparent px-4 py-1.75 text-base"

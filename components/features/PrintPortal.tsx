@@ -8,7 +8,7 @@ import { TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { cn } from "@/lib/cn";
 
-type PrintMode = "pretty" | "clean";
+type PrintMode = "pretty" | "clean" | "script-pretty" | "script-clean";
 
 interface PrintPortalProps {
   scriptChars: Character[];
@@ -24,7 +24,8 @@ export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalPro
     () => true,
     () => false
   );
-  const isPretty = printMode === "pretty";
+  const isPretty = printMode === "pretty" || printMode === "script-pretty";
+  const isScriptOnly = printMode === "script-pretty" || printMode === "script-clean";
 
   if (!isClient) return null;
 
@@ -45,7 +46,7 @@ export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalPro
             <div key={team} className="mb-2.5">
               <h3
                 className={cn(
-                  "mb-1 border-b pb-0.5 text-[11px] font-bold tracking-[0.1em] uppercase",
+                  "text-2xs mb-1 border-b pb-0.5 font-bold tracking-widest uppercase",
                   isPretty ? "border-[#b07840]" : "border-[#ccc]"
                 )}
               >
@@ -53,17 +54,17 @@ export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalPro
               </h3>
               <div className="grid grid-cols-2 gap-x-4">
                 {chars.map((c) => (
-                  <div key={c.id} className="mb-1.5 flex [break-inside:avoid] items-start gap-1.5">
+                  <div key={c.id} className="mb-1.5 flex break-inside-avoid items-start gap-1.5">
                     <CharacterIcon
                       characterId={c.id}
                       edition={c.edition}
                       team={c.team}
                       alt={c.name}
-                      className="mt-0.25 size-7 shrink-0"
+                      className="mt-px size-7 shrink-0"
                     />
                     <div className="flex-1 leading-tight">
                       <strong className="text-[12px]">{c.name}</strong>
-                      <span className={cn("ml-1 text-[11px]", isPretty ? "text-[#5a3010]" : "text-[#333]")}>
+                      <span className={cn("text-2xs ml-1", isPretty ? "text-[#5a3010]" : "text-[#333]")}>
                         {c.ability}
                       </span>
                     </div>
@@ -75,17 +76,20 @@ export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalPro
         })}
       </PrintPage>
 
-      {/* Page 2: First Night */}
-      <PrintPage isPretty={isPretty} pageBreak>
-        <h1 className={pageHeading}>First Night Order</h1>
-        <NightOrderList steps={analysis.nightOrder.first} isPretty={isPretty} />
-      </PrintPage>
+      {/* Pages 2 & 3: Night orders (skipped in script-only mode) */}
+      {!isScriptOnly && (
+        <>
+          <PrintPage isPretty={isPretty} pageBreak>
+            <h1 className={pageHeading}>First Night Order</h1>
+            <NightOrderList steps={analysis.nightOrder.first} isPretty={isPretty} />
+          </PrintPage>
 
-      {/* Page 3: Other Nights */}
-      <PrintPage isPretty={isPretty}>
-        <h1 className={pageHeading}>Other Nights Order</h1>
-        <NightOrderList steps={analysis.nightOrder.other} isPretty={isPretty} />
-      </PrintPage>
+          <PrintPage isPretty={isPretty}>
+            <h1 className={pageHeading}>Other Nights Order</h1>
+            <NightOrderList steps={analysis.nightOrder.other} isPretty={isPretty} />
+          </PrintPage>
+        </>
+      )}
     </div>,
     document.body
   );
@@ -101,7 +105,7 @@ function PrintPage({
   children: React.ReactNode;
 }) {
   return (
-    <section className={cn("relative min-h-[100vh] overflow-hidden p-8", pageBreak && "[page-break-after:always]")}>
+    <section className={cn("relative min-h-screen overflow-hidden p-8", pageBreak && "[page-break-after:always]")}>
       {isPretty && (
         <img
           src="/parchment.png"
