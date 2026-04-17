@@ -57,6 +57,17 @@ export function DashboardStep({
 
   const [printMode, setPrintMode] = useState<PrintMode>("pretty");
 
+  const [selectedBluffs, setSelectedBluffs] = useState<string[]>([]);
+  function toggleBluff(id: string) {
+    setSelectedBluffs((prev) =>
+      prev.includes(id) ? prev.filter((b) => b !== id) : prev.length < 3 ? [...prev, id] : prev
+    );
+  }
+  const bluffOptions = useMemo(
+    () => allCharacters.filter((c) => c.team === "townsfolk" && scriptIds.includes(c.id) && !coreGameIds.includes(c.id)),
+    [allCharacters, scriptIds, coreGameIds]
+  );
+
   function handlePrint(mode: PrintMode) {
     flushSync(() => setPrintMode(mode));
     window.print();
@@ -277,6 +288,52 @@ export function DashboardStep({
               </div>
             </Panel>
           )}
+
+          <Panel>
+            <div className="mb-1 flex items-center justify-between">
+              <SectionLabel>Demon Bluffs</SectionLabel>
+              <div className="font-mono text-2xs" style={{ color: selectedBluffs.length === 3 ? "#d55b5b" : "#555" }}>
+                {selectedBluffs.length}/3
+              </div>
+            </div>
+            <div className="font-body text-dimmer mb-2.5 text-xs leading-snug">
+              Script townsfolk not assigned to a player — pick up to 3 for the demon.
+            </div>
+
+            {bluffOptions.length > 0 ? (
+              <div className="flex flex-wrap gap-1.5">
+                {bluffOptions.map((c) => {
+                  const sel = selectedBluffs.includes(c.id);
+                  const blocked = !sel && selectedBluffs.length >= 3;
+                  return (
+                    <button
+                      key={c.id}
+                      onClick={() => toggleBluff(c.id)}
+                      disabled={blocked}
+                      className={cn(
+                        "font-display flex cursor-pointer items-center gap-1.5 rounded-[5px] border px-2 py-1 text-xs transition-all",
+                        sel && "border-blood bg-[#1a0808] text-parchment",
+                        !sel && !blocked && "border-subtle text-dim hover:border-[#3a2a2a] hover:text-[#aaa]",
+                        blocked && "cursor-default border-[#111] text-[#2a2a2a]"
+                      )}
+                    >
+                      <CharacterIcon
+                        characterId={c.id}
+                        edition={c.edition}
+                        team={c.team}
+                        alt={c.name}
+                        variant="token"
+                        className="size-4"
+                      />
+                      {c.name}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="font-body text-dimmer text-xs">All script townsfolk are in play.</div>
+            )}
+          </Panel>
         </div>
       </div>
 

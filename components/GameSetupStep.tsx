@@ -71,6 +71,34 @@ export function GameSetupStep({
   const remainingCoreCount = totalNeeded - coreGameIds.length;
   const remainingTravelerCount = neededTravelers - selectedTravelerIds.length;
 
+  const scriptModifiers = Object.entries(SETUP_MODIFIERS).filter(([id]) => scriptIds.includes(id));
+  type SetupVariant = { label: string; tf: number; os: number; m: number; d: number; isBase: boolean };
+  const setupVariants: SetupVariant[] = rawReq
+    ? [
+        { label: "Base", tf: rawReq.townsfolk, os: rawReq.outsider, m: rawReq.minion, d: rawReq.demon, isBase: true },
+        ...scriptModifiers.map(([id, mod]) => ({
+          label: allCharacters.find((c) => c.id === id)?.name ?? id,
+          tf: Math.max(0, rawReq.townsfolk + (mod.townsfolk ?? 0)),
+          os: Math.max(0, rawReq.outsider + (mod.outsider ?? 0)),
+          m: rawReq.minion,
+          d: rawReq.demon,
+          isBase: false
+        })),
+        ...(scriptModifiers.length >= 2
+          ? [
+              {
+                label: "All modifiers",
+                tf: Math.max(0, rawReq.townsfolk + scriptModifiers.reduce((s, [, m]) => s + (m.townsfolk ?? 0), 0)),
+                os: Math.max(0, rawReq.outsider + scriptModifiers.reduce((s, [, m]) => s + (m.outsider ?? 0), 0)),
+                m: rawReq.minion,
+                d: rawReq.demon,
+                isBase: false
+              }
+            ]
+          : [])
+      ]
+    : [];
+
   return (
     <div className="mx-auto grid max-w-325 grid-cols-[1fr_320px] items-start gap-6 px-6 py-8">
       {/* ── Left: selection ── */}
@@ -206,6 +234,57 @@ export function GameSetupStep({
                 </div>
               )}
             </Panel>
+
+            {/* Valid setups reference */}
+            {scriptModifiers.length > 0 && req && (
+              <Panel>
+                <div className="font-display text-gold mb-2.5 text-2xs tracking-[0.06em] uppercase">
+                  Valid Setups — {playerCount}p
+                </div>
+                <div className="flex flex-col gap-0.5">
+                  {setupVariants.map((v, i) => {
+                    const isCurrent = req.townsfolk === v.tf && req.outsider === v.os;
+                    return (
+                      <div
+                        key={i}
+                        className={cn(
+                          "flex items-center gap-3 rounded px-2 py-1",
+                          isCurrent ? "bg-[#0d1a0d] border border-[#1a4a2e]" : "border border-transparent"
+                        )}
+                      >
+                        <div
+                          className="font-display min-w-28 shrink-0 text-xs"
+                          style={{ color: v.isBase ? "#555" : TEAM_COLORS.minion.text }}
+                        >
+                          {v.label}
+                        </div>
+                        <div className="flex gap-3">
+                          {(
+                            [
+                              { n: v.tf, team: "townsfolk", abbr: "TF" },
+                              { n: v.os, team: "outsider", abbr: "OS" },
+                              { n: v.m, team: "minion", abbr: "M" },
+                              { n: v.d, team: "demon", abbr: "D" }
+                            ] as const
+                          ).map(({ n, team, abbr }) => (
+                            <div key={abbr} className="flex items-center gap-0.75">
+                              <span
+                                className="font-mono text-sm leading-none"
+                                style={{ color: TEAM_COLORS[team].text }}
+                              >
+                                {n}
+                              </span>
+                              <span className="text-dimmer font-mono text-2xs">{abbr}</span>
+                            </div>
+                          ))}
+                        </div>
+                        {isCurrent && <div className="text-tip font-body ml-auto text-2xs">← current</div>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </Panel>
+            )}
 
             {/* Character selection */}
             <div className="flex flex-col gap-3">
