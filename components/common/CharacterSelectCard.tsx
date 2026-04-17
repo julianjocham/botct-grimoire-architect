@@ -30,6 +30,13 @@ interface CharacterSelectCardProps {
   missingEvilCats?: Set<string>;
 }
 
+function strengthBarColor(s: number): string {
+  if (s > 30) return "var(--strength-good)";
+  if (s > 0) return "var(--strength-good-light)";
+  if (s > -30) return "var(--strength-evil-strong)";
+  return "var(--blood-red)";
+}
+
 export function CharacterSelectCard({
   character,
   gameIds,
@@ -67,15 +74,18 @@ export function CharacterSelectCard({
   const isHighlighted = hasSynergy || isGapFill;
   const eff = calculateEffectiveStrength(character.id, gameIds, allCharacters);
   const s = eff.effectiveStrength;
-  const barColor = s > 30 ? "#2a7fd4" : s > 0 ? "#5b9bd5" : s > -30 ? "#c0392b" : "#8b1a1a";
+  const barColor = strengthBarColor(s);
 
-  const cardBg = inGame ? colors.bg : isHighlighted ? "#0d1a0d" : "#14141f";
-  const borderColor = inGame ? colors.border : isHighlighted ? "#2a4a20" : "#2a2a3a";
+  const cardBg = inGame ? colors.bg : isHighlighted ? "var(--good-indicator-bg)" : "var(--bg-surface)";
+  const borderColor = inGame ? colors.border : isHighlighted ? "var(--good-indicator-border)" : "var(--border-subtle)";
 
   return (
     <div
-      className={cn("flex rounded-[8px] border-2 transition-all duration-100", isBlocked && "opacity-30")}
-      style={{ border: `2px solid ${borderColor}`, minWidth: "240px" }}
+      className={cn(
+        "flex w-full min-w-0 rounded-[8px] border-2 transition-all duration-100 sm:w-auto sm:min-w-60",
+        isBlocked && "opacity-30"
+      )}
+      style={{ borderColor }}
     >
       <div className="flex flex-1 gap-2 rounded-l-[6px] border-none px-2.5 py-2" style={{ background: cardBg }}>
         <CharacterIcon
@@ -88,41 +98,43 @@ export function CharacterSelectCard({
         />
         <button
           onClick={() => onDetail(character.id)}
-          className="font-display flex flex-1 cursor-pointer flex-col gap-1.5 border-none p-0 text-sm"
-          style={{ background: "transparent", color: inGame ? colors.text : "#666" }}
+          className="font-display flex flex-1 cursor-pointer flex-col gap-1.5 border-none bg-transparent p-0 text-left text-sm"
+          style={{ color: inGame ? colors.text : "var(--color-dimmer)" }}
         >
           <span className="font-display text-base leading-tight font-bold">{character.name}</span>
           {s !== undefined && (
             <>
-              <div className="h-1 w-full overflow-hidden rounded-xs bg-[#0a0a14]">
+              <div className="bg-deep h-1 w-full overflow-hidden rounded-xs">
                 <div
                   className="h-full rounded-xs"
                   style={{ width: `${(Math.abs(s) / 100) * 100}%`, background: barColor }}
                 />
               </div>
-              <div className="text-2xs flex gap-1">
+              <div className="text-2xs flex flex-wrap gap-1">
                 <span style={{ color: barColor }} className="font-mono">
                   {s > 0 ? "+" : ""}
                   {s}
                 </span>
                 {countersInGame > 0 && <span>⚔{countersInGame}</span>}
                 {hasSynergy && (
-                  <span className="group relative cursor-default text-[#4a9a4a]">
+                  <span className="group text-good-indicator relative cursor-default">
                     ✦ {notableSynergies.length === 1 ? "synergy" : "synergies"}
-                    <div className="pointer-events-none absolute bottom-full left-0 z-50 mb-1.5 hidden w-56 rounded-md border border-[#2a4a20] bg-[#0d1a0d] px-2.5 py-2 shadow-lg group-hover:block">
+                    <div className="border-good-indicator-border bg-good-indicator-bg pointer-events-none absolute bottom-full left-0 z-50 mb-1.5 hidden w-56 rounded-md border px-2.5 py-2 shadow-lg group-hover:block">
                       {notableSynergies.map((syn, idx) => (
                         <div
                           key={idx}
-                          className={cn("text-left", idx > 0 && "mt-1.5 border-t border-[#1a3a1a] pt-1.5")}
+                          className={cn("text-left", idx > 0 && "border-good-indicator-border mt-1.5 border-t pt-1.5")}
                         >
-                          <div className="font-display text-xs font-bold text-[#4a9a4a]">{syn.title}</div>
-                          <div className="font-body mt-0.5 text-xs leading-snug text-[#8ab88a]">{syn.description}</div>
+                          <div className="font-display text-good-indicator text-xs font-bold">{syn.title}</div>
+                          <div className="font-body text-parchment-muted mt-0.5 text-xs leading-snug">
+                            {syn.description}
+                          </div>
                         </div>
                       ))}
                     </div>
                   </span>
                 )}
-                {gapFillLabel && <span className="text-[#4a9a4a]">◈ {gapFillLabel}</span>}
+                {gapFillLabel && <span className="text-good-indicator">◈ {gapFillLabel}</span>}
               </div>
             </>
           )}
@@ -133,15 +145,13 @@ export function CharacterSelectCard({
           if (!isBlocked) onToggle(character.id);
         }}
         disabled={isBlocked}
-        className="font-display rounded-r-[6px] border-none px-4 py-3 text-3xl font-bold"
+        className={cn(
+          "font-display flex w-12 shrink-0 items-center justify-center rounded-r-[6px] border-none px-2 py-3 text-2xl font-bold sm:w-15 sm:text-3xl",
+          isBlocked ? "cursor-default" : "cursor-pointer"
+        )}
         style={{
           background: cardBg,
-          color: inGame ? colors.text : isHighlighted ? "#4a9a4a" : "#888",
-          cursor: isBlocked ? "default" : "pointer",
-          minWidth: "60px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center"
+          color: inGame ? colors.text : isHighlighted ? "var(--good-indicator)" : "var(--color-muted)"
         }}
       >
         {inGame ? "−" : "+"}

@@ -1,9 +1,15 @@
 @import "tailwindcss";
 
 :root {
+  /* Core surfaces */
   --bg-base: #0a0a0f;
   --bg-surface: #14141f;
   --bg-elevated: #1e1e2e;
+  --bg-deep: #0a0a14;
+  --bg-panel-dark: #1a1a2a;
+  --bg-modal: #0f0f1a;
+
+  /* Brand colors */
   --blood-red: #8b1a1a;
   --blood-red-light: #c0392b;
   --good-blue: #2a4a7f;
@@ -16,6 +22,45 @@
   --critical-red: #c0392b;
   --tip-green: #2d6a4f;
   --border-subtle: #2a2a3a;
+  --border-faint: #3a3a4a;
+  --gold-accent-bg: #2a1f00;
+  --gold-accent-border: #7a5a00;
+
+  /* Strength bar palette */
+  --strength-good-strong: #1a5fa8;
+  --strength-good: #2a7fd4;
+  --strength-good-light: #5b9bd5;
+  --strength-neutral: #555577;
+  --strength-evil: #8b2222;
+  --strength-evil-strong: #c0392b;
+
+  /* Severity palette (border + bg pairs) */
+  --severity-critical: #8b1a1a;
+  --severity-critical-bg: #1a0808;
+  --severity-important: #7a5a00;
+  --severity-important-bg: #1a1400;
+  --severity-tip: #1a4a2e;
+  --severity-tip-bg: #0a1a10;
+
+  /* Jinx palette */
+  --jinx: #7a6200;
+  --jinx-bg: #1a1500;
+  --jinx-bg-strong: #2a1f00;
+
+  /* Gap-fill / good-indicator green */
+  --good-indicator: #4a9a4a;
+  --good-indicator-border: #2a4a20;
+  --good-indicator-bg: #0d1a0d;
+
+  /* Traveler accents */
+  --traveler-bg: #1a1500;
+  --traveler-border: #4a3a20;
+
+  /* Print palette */
+  --print-ink: #2a1500;
+  --print-ink-soft: #5a3010;
+  --print-rule: #b07840;
+  --print-rule-heavy: #6b3a1a;
 }
 
 @theme inline {
@@ -24,17 +69,23 @@
   --color-foreground: var(--parchment);
   --color-surface: var(--bg-surface);
   --color-elevated: var(--bg-elevated);
+  --color-deep: var(--bg-deep);
+  --color-panel-dark: var(--bg-panel-dark);
+  --color-modal: var(--bg-modal);
   /* Brand colors */
   --color-parchment: var(--parchment);
   --color-parchment-muted: var(--parchment-muted);
   --color-gold: var(--gold);
   --color-gold-light: var(--gold-light);
+  --color-gold-accent-bg: var(--gold-accent-bg);
+  --color-gold-accent-border: var(--gold-accent-border);
   --color-blood: var(--blood-red);
   --color-blood-light: var(--blood-red-light);
   --color-tip: var(--tip-green);
   --color-amber: var(--amber-warning);
   /* UI neutral colors */
   --color-subtle: var(--border-subtle);
+  --color-faint: var(--border-faint);
   --color-muted: #999;
   --color-dim: #777;
   --color-dimmer: #555;
@@ -43,12 +94,47 @@
   --color-outsider: #9b7fd5;
   --color-minion: #d5825b;
   --color-demon: #d55b5b;
+  --color-townsfolk-border: #2a4a7f;
+  --color-outsider-border: #4a2a7f;
+  --color-minion-border: #7f2a2a;
+  --color-demon-border: #7f1a1a;
   /* Good-side blue */
   --color-good-blue: #2a7fd4;
+  /* Strength palette tokens */
+  --color-strength-good-strong: var(--strength-good-strong);
+  --color-strength-good: var(--strength-good);
+  --color-strength-good-light: var(--strength-good-light);
+  --color-strength-neutral: var(--strength-neutral);
+  --color-strength-evil: var(--strength-evil);
+  --color-strength-evil-strong: var(--strength-evil-strong);
+  /* Severity palette tokens */
+  --color-severity-critical: var(--severity-critical);
+  --color-severity-critical-bg: var(--severity-critical-bg);
+  --color-severity-important: var(--severity-important);
+  --color-severity-important-bg: var(--severity-important-bg);
+  --color-severity-tip: var(--severity-tip);
+  --color-severity-tip-bg: var(--severity-tip-bg);
+  /* Jinx tokens */
+  --color-jinx: var(--jinx);
+  --color-jinx-bg: var(--jinx-bg);
+  --color-jinx-bg-strong: var(--jinx-bg-strong);
+  /* Good indicator */
+  --color-good-indicator: var(--good-indicator);
+  --color-good-indicator-border: var(--good-indicator-border);
+  --color-good-indicator-bg: var(--good-indicator-bg);
+  /* Traveler */
+  --color-traveler-bg: var(--traveler-bg);
+  --color-traveler-border: var(--traveler-border);
+  /* Print */
+  --color-print-ink: var(--print-ink);
+  --color-print-ink-soft: var(--print-ink-soft);
+  --color-print-rule: var(--print-rule);
+  --color-print-rule-heavy: var(--print-rule-heavy);
   /* System fonts — no external dependencies */
   --font-display: system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-serif: Georgia, "Times New Roman", serif;
   /* Font size scale — semantic tokens replacing arbitrary text-[Xpx] */
   --text-3xs: 0.625rem; /* 10px — tiny labels, badges */
   --text-2xs: 0.6875rem; /* 11px — small labels */
@@ -59,6 +145,11 @@
   --text-lg: 1.125rem; /* 18px — section titles */
   --text-xl: 1.25rem; /* 20px — modal headings */
   --text-2xl: 1.5rem; /* 24px — page headings */
+  /* Tracking helpers */
+  --tracking-tight-wide: 0.04em;
+  --tracking-wide: 0.05em;
+  --tracking-wider: 0.06em;
+  --tracking-widest: 0.08em;
 }
 
 body {
@@ -105,19 +196,19 @@ h3,
 
 /* Strength bar colors */
 .strength-very-good {
-  background: #1a5fa8;
+  background: var(--strength-good-strong);
 }
 .strength-good {
-  background: #2a7fd4;
+  background: var(--strength-good);
 }
 .strength-neutral {
-  background: #555577;
+  background: var(--strength-neutral);
 }
 .strength-evil {
-  background: #8b2222;
+  background: var(--strength-evil);
 }
 .strength-very-evil {
-  background: #c0392b;
+  background: var(--strength-evil-strong);
 }
 
 /* Team colors */

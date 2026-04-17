@@ -9,6 +9,7 @@ import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { Panel } from "./ui/Panel";
 import { premadeScripts } from "@/data/scripts";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
+import { cn } from "@/lib/cn";
 
 function teamCount(chars: Character[], team: string) {
   return chars.filter((c) => c.team === team).length;
@@ -83,11 +84,18 @@ export function ScriptStep({
       )
     : [];
 
+  const continueButtonClass = cn(
+    "font-display rounded-lg border-none px-5 py-2.5 text-sm tracking-wider sm:px-7 sm:py-3 sm:text-base",
+    valid ? "bg-blood text-parchment cursor-pointer" : "bg-panel-dark text-dimmer cursor-default"
+  );
+
   return (
-    <div className="mx-auto flex max-w-300 flex-col gap-9 px-6 py-8">
+    <div className="mx-auto flex max-w-300 flex-col gap-6 px-3 py-5 sm:gap-9 sm:px-6 sm:py-8">
       <div>
-        <h2 className="font-display text-parchment m-0 mb-2 text-2xl tracking-[0.04em]">Step 1 — Choose Your Script</h2>
-        <p className="font-body text-dim text-md m-0">
+        <h2 className="font-display text-parchment tracking-tight-wide m-0 mb-2 text-xl sm:text-2xl">
+          Step 1 — Choose Your Script
+        </h2>
+        <p className="font-body text-dim sm:text-md m-0 text-base">
           A script is the set of characters available to appear in your game. Choose a pre-made script or build your
           own.
         </p>
@@ -95,30 +103,25 @@ export function ScriptStep({
 
       {/* Game type toggle + continue */}
       {!isCustom && (
-        <div className="flex items-center justify-between">
-          <div className="flex gap-0 rounded-lg border border-[#2a2a3a] bg-[#0a0a14] p-1">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="border-subtle bg-deep flex gap-0 rounded-lg border p-1">
             {(["full", "teensyville"] as const).map((type) => {
               const active = scriptType === type;
               return (
                 <button
                   key={type}
                   onClick={() => onSetScriptType(type)}
-                  className={`font-display cursor-pointer rounded-md border-none px-4 py-1.5 text-xs tracking-[0.05em] transition-all duration-150 ${
-                    active ? "bg-blood text-parchment" : "text-dim bg-transparent hover:text-[#888]"
-                  }`}
+                  className={cn(
+                    "font-display cursor-pointer rounded-md border-none px-3 py-1.5 text-xs tracking-wide transition-all duration-150 sm:px-4",
+                    active ? "bg-blood text-parchment" : "text-dim hover:text-muted bg-transparent"
+                  )}
                 >
                   {type === "full" ? "Full Script" : "Teensyville"}
                 </button>
               );
             })}
           </div>
-          <button
-            onClick={onContinue}
-            disabled={!valid}
-            className={`font-display rounded-lg border-none px-7 py-3 text-base tracking-[0.06em] ${
-              valid ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#666]"
-            }`}
-          >
+          <button onClick={onContinue} disabled={!valid} className={continueButtonClass}>
             Set Up Game →
           </button>
         </div>
@@ -127,7 +130,7 @@ export function ScriptStep({
       {/* Edition cards — full scripts only */}
       {!isCustom && !isTeensyville && (
         <>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {EDITIONS.map((ed) => {
               const pool = editionPools[ed.key];
               const isSelected = scriptSource === ed.key;
@@ -140,15 +143,17 @@ export function ScriptStep({
                       pool.map((c) => c.id)
                     )
                   }
-                  className={`cursor-pointer rounded-xl border-2 p-[20px_22px] transition-all duration-150 ease-[ease] ${
-                    isSelected ? "border-blood bg-[#1a0f0f]" : "bg-surface border-subtle"
-                  }`}
+                  className={cn(
+                    "cursor-pointer rounded-xl border-2 px-4 py-4 transition-all duration-150 ease-[ease] sm:px-5.5 sm:py-5",
+                    isSelected ? "border-blood bg-severity-critical-bg" : "bg-surface border-subtle"
+                  )}
                 >
                   <div className="mb-2.5 flex items-start justify-between">
                     <div
-                      className={`font-display text-lg tracking-[0.04em] ${
+                      className={cn(
+                        "font-display tracking-tight-wide text-lg",
                         isSelected ? "text-parchment" : "text-gold"
-                      }`}
+                      )}
                     >
                       {ed.name}
                     </div>
@@ -187,9 +192,10 @@ export function ScriptStep({
                         pool.map((c) => c.id)
                       );
                     }}
-                    className={`font-display w-full cursor-pointer rounded-md border-none py-2 text-xs tracking-[0.05em] transition-all duration-150 ease-[ease] ${
-                      isSelected ? "bg-blood text-parchment" : "bg-subtle text-[#888]"
-                    }`}
+                    className={cn(
+                      "font-display w-full cursor-pointer rounded-md border-none py-2 text-xs tracking-wide transition-all duration-150 ease-[ease]",
+                      isSelected ? "bg-blood text-parchment" : "bg-subtle text-muted"
+                    )}
                   >
                     {isSelected ? "✓ Selected" : "Select Script"}
                   </button>
@@ -199,7 +205,7 @@ export function ScriptStep({
           </div>
 
           {/* Custom option */}
-          <div className="bg-surface border-subtle flex items-center justify-between gap-4 rounded-xl border-2 border-dashed px-6 py-5">
+          <div className="bg-surface border-subtle flex flex-col items-stretch justify-between gap-3 rounded-xl border-2 border-dashed px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-6 sm:py-5">
             <div>
               <div className="font-display text-gold text-md mb-1">Custom Script</div>
               <div className="font-body text-dim text-base leading-normal">
@@ -209,7 +215,7 @@ export function ScriptStep({
             </div>
             <button
               onClick={onSelectCustom}
-              className="bg-surface border-gold text-gold font-display shrink-0 cursor-pointer rounded-md border px-4.5 py-2 text-xs tracking-[0.05em] whitespace-nowrap"
+              className="bg-surface border-gold text-gold font-display shrink-0 cursor-pointer rounded-md border px-4.5 py-2 text-xs tracking-wide whitespace-nowrap"
             >
               Build Custom →
             </button>
@@ -217,8 +223,8 @@ export function ScriptStep({
 
           {/* Official scripts */}
           <div>
-            <div className="font-display text-gold mb-3 text-sm tracking-[0.06em] uppercase">Official Scripts</div>
-            <div className="grid grid-cols-4 gap-3">
+            <div className="font-display text-gold mb-3 text-sm tracking-wider uppercase">Official Scripts</div>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
               {officialScripts.map((script) => (
                 <PremadeScriptCard
                   key={script.id}
@@ -233,8 +239,8 @@ export function ScriptStep({
 
           {/* Community full scripts */}
           <div>
-            <div className="font-display text-gold mb-3 text-sm tracking-[0.06em] uppercase">Community Scripts</div>
-            <div className="grid grid-cols-4 gap-3">
+            <div className="font-display text-gold mb-3 text-sm tracking-wider uppercase">Community Scripts</div>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
               {fullPremadeScripts.map((script) => (
                 <PremadeScriptCard
                   key={script.id}
@@ -254,10 +260,10 @@ export function ScriptStep({
         <>
           {/* Premade scripts */}
           <div>
-            <div className="font-display text-gold mb-3 text-sm tracking-[0.06em] uppercase">
+            <div className="font-display text-gold mb-3 text-sm tracking-wider uppercase">
               Community Teensyville Scripts
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
               {teensyvilleScripts.map((script) => (
                 <PremadeScriptCard
                   key={script.id}
@@ -271,7 +277,7 @@ export function ScriptStep({
           </div>
 
           {/* Custom option */}
-          <div className="bg-surface border-subtle flex items-center justify-between gap-4 rounded-xl border-2 border-dashed px-6 py-5">
+          <div className="bg-surface border-subtle flex flex-col items-stretch justify-between gap-3 rounded-xl border-2 border-dashed px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-6 sm:py-5">
             <div>
               <div className="font-display text-gold text-md mb-1">Custom Teensyville Script</div>
               <div className="font-body text-dim text-base leading-normal">
@@ -280,7 +286,7 @@ export function ScriptStep({
             </div>
             <button
               onClick={onSelectCustom}
-              className="bg-surface border-gold text-gold font-display shrink-0 cursor-pointer rounded-md border px-4.5 py-2 text-xs tracking-[0.05em] whitespace-nowrap"
+              className="bg-surface border-gold text-gold font-display shrink-0 cursor-pointer rounded-md border px-4.5 py-2 text-xs tracking-wide whitespace-nowrap"
             >
               Build Custom →
             </button>
@@ -292,7 +298,7 @@ export function ScriptStep({
       {isCustom && (
         <div className="flex flex-col gap-4">
           {/* Top controls */}
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <button
               onClick={() =>
                 isTeensyville
@@ -302,23 +308,17 @@ export function ScriptStep({
                       editionPools.tb.map((c) => c.id)
                     )
               }
-              className="border-subtle text-muted font-body cursor-pointer rounded-[5px] border bg-transparent px-3 py-1.25 text-base"
+              className="border-subtle text-muted font-body cursor-pointer rounded-[5px] border bg-transparent px-3 py-1.25 text-sm sm:text-base"
             >
               ← Back to Script Selection
             </button>
-            <button
-              onClick={onContinue}
-              disabled={!valid}
-              className={`font-display rounded-lg border-none px-7 py-3 text-base tracking-[0.06em] ${
-                valid ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#666]"
-              }`}
-            >
+            <button onClick={onContinue} disabled={!valid} className={continueButtonClass}>
               Set Up Game →
             </button>
           </div>
 
-          {/* Main grid */}
-          <div className="grid min-h-150 grid-cols-[1fr_280px] gap-4">
+          {/* Main grid — stacks on small screens */}
+          <div className="flex flex-col gap-4 lg:grid lg:min-h-150 lg:grid-cols-[1fr_280px]">
             {/* Left: character pool */}
             <div className="bg-surface border-subtle flex flex-col overflow-hidden rounded-[10px] border">
               <div className="border-subtle border-b px-3 py-2.5">
@@ -327,7 +327,7 @@ export function ScriptStep({
                   placeholder="Search characters..."
                   value={searchQuery}
                   onChange={(e) => onSearch(e.target.value)}
-                  className="bg-background text-parchment font-body box-border w-full rounded-md border border-[#3a3a4a] px-2.5 py-1.5 text-base outline-none"
+                  className="bg-background text-parchment border-faint font-body box-border w-full rounded-md border px-2.5 py-1.5 text-base outline-none"
                 />
               </div>
               <div className="flex flex-1 flex-col gap-3 overflow-y-auto px-3 py-2.5">
@@ -340,7 +340,7 @@ export function ScriptStep({
                       <div className="font-display text-gold border-subtle text-2xs mb-1.5 border-b pb-1 tracking-widest uppercase">
                         {TEAM_LABEL[team]} ({chars.length})
                       </div>
-                      <div className="grid grid-cols-3 gap-1.5">
+                      <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
                         {chars.map((c) => {
                           const eff = calculateEffectiveStrength(c.id, scriptIds, allCharacters);
                           return (
@@ -374,10 +374,13 @@ export function ScriptStep({
                     return (
                       <div
                         key={team}
-                        className="flex-1 rounded-[5px] bg-[#0a0a14] px-0.75 py-1.5 text-center"
-                        style={{ border: `1px solid ${ok ? c.border : "#2a2a3a"}` }}
+                        className="bg-deep flex-1 rounded-[5px] px-0.75 py-1.5 text-center"
+                        style={{ border: `1px solid ${ok ? c.border : "var(--border-subtle)"}` }}
                       >
-                        <div className="font-mono text-base leading-none" style={{ color: ok ? c.text : "#777" }}>
+                        <div
+                          className="font-mono text-base leading-none"
+                          style={{ color: ok ? c.text : "var(--color-dim)" }}
+                        >
                           {have}
                         </div>
                         <div className="text-muted text-2xs font-mono leading-none">/ {need}</div>
@@ -407,7 +410,7 @@ export function ScriptStep({
               {/* Script character list — compact */}
               {scriptIds.length > 0 && (
                 <Panel className="min-h-0 flex-1 overflow-y-auto">
-                  <div className="font-display text-gold text-2xs mb-2 tracking-[0.06em] uppercase">Contents</div>
+                  <div className="font-display text-gold text-2xs mb-2 tracking-wider uppercase">Contents</div>
                   {TEAM_ORDER.map((team) => {
                     const chars = scriptChars.filter((c) => c.team === team);
                     if (chars.length === 0) return null;
@@ -415,7 +418,7 @@ export function ScriptStep({
                     return (
                       <div key={team} className="mb-2">
                         <div
-                          className="font-display text-3xs mb-0.75 tracking-[0.08em] uppercase"
+                          className="font-display text-3xs mb-0.75 tracking-widest uppercase"
                           style={{ color: c.text }}
                         >
                           {TEAM_LABEL[team]} ({chars.length})
@@ -426,7 +429,7 @@ export function ScriptStep({
                               key={char.id}
                               onClick={() => onToggleScriptChar(char.id)}
                               title={`Remove ${char.name}`}
-                              className="font-display text-2xs flex cursor-pointer items-center gap-0.75 rounded-xs bg-[#1a1a2a] px-1.5 py-0.5"
+                              className="font-display bg-panel-dark text-2xs flex cursor-pointer items-center gap-0.75 rounded-xs px-1.5 py-0.5"
                               style={{
                                 border: `1px solid ${c.border}`,
                                 color: c.text

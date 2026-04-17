@@ -11,6 +11,7 @@ import {
   LETHAL_LEVEL,
   ST_LEVEL
 } from "@/constants/info";
+import { cn } from "@/lib/cn";
 
 export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
   const { scriptFeel, nightComplexity, interactionHints, compositionWarnings, goodStrengthTotal, evilStrengthTotal } =
@@ -19,20 +20,20 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
   const warnCount = compositionWarnings.filter((w) => w.severity !== "tip").length;
 
   return (
-    <div className="bg-surface border-subtle flex flex-wrap items-center gap-5 rounded-[10px] border px-4 py-2.5">
+    <div className="bg-surface border-subtle flex flex-wrap items-center gap-3 rounded-[10px] border px-3 py-2.5 sm:gap-5 sm:px-4">
       {/* Script feel bars */}
-      <div className="flex items-start gap-3.5">
+      <div className="flex items-start gap-3 sm:gap-3.5">
         <FeelBar label="Info" value={scriptFeel.infoLevel} levelMap={INFO_LEVEL} maxBars={4} />
         <FeelBar label="Lethal" value={scriptFeel.lethalityLevel} levelMap={LETHAL_LEVEL} maxBars={3} />
         <FeelBar label="Chaos" value={scriptFeel.chaosLevel} levelMap={CHAOS_LEVEL} maxBars={3} />
         <FeelBar label="ST Load" value={scriptFeel.stWorkload} levelMap={ST_LEVEL} maxBars={3} />
       </div>
 
-      <div className="bg-subtle h-7 w-px shrink-0" />
+      <div className="bg-subtle hidden h-7 w-px shrink-0 sm:block" />
 
       {/* Night complexity */}
       <div className="flex flex-col items-center gap-0.5">
-        <span className="text-muted text-3xs font-mono tracking-[0.08em] uppercase">Night</span>
+        <span className="text-muted text-3xs font-mono tracking-widest uppercase">Night</span>
         <span className="font-display text-gold text-xs">{nightComplexity.complexityRating}</span>
         <span
           className="text-dim text-3xs font-mono"
@@ -42,7 +43,7 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
         </span>
       </div>
 
-      <div className="bg-subtle h-7 w-px shrink-0" />
+      <div className="bg-subtle hidden h-7 w-px shrink-0 sm:block" />
 
       {/* Strength totals */}
       <div className="flex flex-col gap-0.5">
@@ -59,7 +60,7 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
         </div>
       </div>
 
-      <div className="bg-subtle h-7 w-px shrink-0" />
+      <div className="bg-subtle hidden h-7 w-px shrink-0 sm:block" />
 
       {/* Warnings badges */}
       <div className="flex gap-1.5">
@@ -69,7 +70,7 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
           </span>
         )}
         {warnCount > 0 && (
-          <span className="text-parchment font-display rounded-[10px] bg-[#5a4000] px-2 py-0.5 text-xs">
+          <span className="text-parchment border-severity-important bg-severity-important-bg font-display rounded-[10px] border px-2 py-0.5 text-xs">
             ⚡ {warnCount} warnings
           </span>
         )}
@@ -86,10 +87,10 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
             <span
               key={cat}
               title={present ? (analysis.categoryCoverage.good[cat] ?? []).join(", ") : `Missing: ${cat}`}
-              className={[
+              className={cn(
                 "text-3xs cursor-default rounded-[3px] border px-1.25 py-0.5 font-mono",
-                present ? "border-[#2d6a4f] bg-[#0d2a1a] text-[#4a9a6a]" : "text-muted border-[#2a2a2a] bg-[#1a1a1a]"
-              ].join(" ")}
+                present ? "border-tip text-good-indicator bg-severity-tip-bg" : "text-muted border-subtle bg-panel-dark"
+              )}
             >
               {present ? "✓" : "✗"} {CAT_SHORT[cat] ?? cat}
             </span>
@@ -101,10 +102,12 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
             <span
               key={cat}
               title={present ? (analysis.categoryCoverage.evil[cat] ?? []).join(", ") : `Missing: ${cat}`}
-              className={[
+              className={cn(
                 "text-3xs cursor-default rounded-[3px] border px-1.25 py-0.5 font-mono",
-                present ? "border-[#6a2d2d] bg-[#2a0d0d] text-[#c0604a]" : "text-muted border-[#2a2a2a] bg-[#1a1a1a]"
-              ].join(" ")}
+                present
+                  ? "border-minion-border bg-severity-critical-bg text-minion"
+                  : "text-muted border-subtle bg-panel-dark"
+              )}
             >
               {present ? "✓" : "✗"} {CAT_SHORT[cat] ?? cat}
             </span>

@@ -65,17 +65,17 @@ export default function Home() {
 
   return (
     <div className="bg-background flex min-h-screen flex-col">
-      <header className="border-subtle bg-surface flex items-center justify-between border-b px-6 py-3">
-        <div>
-          <span className="font-display text-parchment text-[17px] tracking-[0.05em]">Grimoire Architect</span>
-          <span className="font-body text-dimmer ml-3 text-[12px]">Blood on the Clocktower — Storyteller Tool</span>
+      <header className="border-subtle bg-surface flex flex-wrap items-center justify-between gap-2 border-b px-3 py-3 sm:gap-4 sm:px-6">
+        <div className="flex flex-col sm:flex-row sm:items-baseline">
+          <span className="font-display text-parchment text-md tracking-wide">Grimoire Architect</span>
+          <span className="font-body text-dimmer text-xs sm:ml-3">Blood on the Clocktower — Storyteller Tool</span>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <StepIndicator currentStep={step} />
           <button
             onClick={() => dispatch({ type: "RESET" })}
-            className="border-subtle text-dim font-body cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-[12px]"
+            className="border-subtle text-dim font-body cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-xs"
           >
             Start Over
           </button>
@@ -173,7 +173,7 @@ function StepIndicator({ currentStep }: { currentStep: WizardStep }) {
   const currentIndex = steps.indexOf(currentStep);
 
   return (
-    <div className="flex gap-1.5">
+    <div className="flex gap-1 sm:gap-1.5">
       {steps.map((step, i) => {
         const isActive = step === currentStep;
         const isReached = i <= currentIndex;
@@ -181,10 +181,10 @@ function StepIndicator({ currentStep }: { currentStep: WizardStep }) {
           <div
             key={step}
             className={cn(
-              "font-display rounded-[4px] px-2 py-[3px] text-[10px] tracking-[0.06em]",
+              "font-display text-3xs rounded-[4px] px-1.5 py-0.5 tracking-wider sm:px-2 sm:py-[3px]",
               isActive && "text-parchment bg-blood border-blood border",
-              !isActive && isReached && "text-gold border border-[#4a3a20] bg-transparent",
-              !isActive && !isReached && "border-subtle border bg-transparent text-[#333]"
+              !isActive && isReached && "text-gold border-traveler-border border bg-transparent",
+              !isActive && !isReached && "border-subtle text-dimmer border bg-transparent"
             )}
           >
             {STEP_LABELS[step]}

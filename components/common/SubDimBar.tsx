@@ -27,7 +27,7 @@ export function SubDimBar({
           {suffix}
         </span>
       </div>
-      <div className="h-0.75 overflow-hidden rounded-xs bg-[#1a1a2a]">
+      <div className="bg-panel-dark h-0.75 overflow-hidden rounded-xs">
         <div className="h-full rounded-xs" style={{ width: `${pct}%`, background: color }} />
       </div>
     </div>

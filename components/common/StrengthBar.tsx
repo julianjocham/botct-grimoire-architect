@@ -2,11 +2,11 @@ import { StrengthBarProps } from "@/types";
 import { cn } from "@/lib/cn";
 
 function getBarColor(value: number): string {
-  if (value >= 40) return "#2a7fd4";
-  if (value >= 10) return "#3a6abf";
-  if (value >= -10) return "#555577";
-  if (value >= -40) return "#8b2222";
-  return "#c0392b";
+  if (value >= 40) return "var(--strength-good)";
+  if (value >= 10) return "var(--good-blue-light)";
+  if (value >= -10) return "var(--strength-neutral)";
+  if (value >= -40) return "var(--strength-evil)";
+  return "var(--strength-evil-strong)";
 }
 
 export function StrengthBar({ value, showNumber = true, effectiveValue, small = false }: StrengthBarProps) {
@@ -24,7 +24,7 @@ export function StrengthBar({ value, showNumber = true, effectiveValue, small = 
         />
       </div>
 
-      <div className={cn("w-px shrink-0 bg-[#3a3a4a]", small ? "h-2" : "h-2.5")} />
+      <div className={cn("bg-faint w-px shrink-0", small ? "h-2" : "h-2.5")} />
 
       <div className={cn("flex-1", small ? "h-1" : "h-1.5")}>
         <div

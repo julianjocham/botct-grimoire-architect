@@ -14,8 +14,8 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
             key={p}
             onClick={() => onPhaseChange(p)}
             className={cn(
-              "font-display flex-1 cursor-pointer rounded-sm border-none py-1.25 text-xs tracking-[0.05em]",
-              phase === p ? "text-parchment bg-[#2a4a7f]" : "text-muted bg-transparent"
+              "font-display flex-1 cursor-pointer rounded-sm border-none py-1.25 text-xs tracking-wide",
+              phase === p ? "text-parchment bg-townsfolk-border" : "text-muted bg-transparent"
             )}
           >
             {p === "first" ? "First Night" : "Other Nights"}
@@ -29,7 +29,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
         {steps.map((step, i) => (
           <div key={step.character.id} className="relative flex gap-2.5">
             <div className="flex w-7 shrink-0 flex-col items-center">
-              <div className="text-gold text-2xs z-10 flex size-6 shrink-0 items-center justify-center rounded-full border border-[#3a3a5a] bg-[#1a1a2e] font-mono">
+              <div className="text-gold text-2xs border-faint bg-elevated z-10 flex size-6 shrink-0 items-center justify-center rounded-full border font-mono">
                 {step.order}
               </div>
               {i < steps.length - 1 && <div className="bg-subtle min-h-3 w-px flex-1" />}
@@ -47,13 +47,13 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
                 />
                 {step.character.name}
               </div>
-              <div className={cn("text-sm leading-[1.4] text-[#888]", step.contextHints.length > 0 && "mb-1.5")}>
+              <div className={cn("text-muted text-sm leading-[1.4]", step.contextHints.length > 0 && "mb-1.5")}>
                 {step.reminder}
               </div>
               {step.contextHints.map((hint, j) => (
                 <div
                   key={j}
-                  className="mt-1 rounded-sm border border-[#3a3000] bg-[#1a1500] px-2 py-1 text-sm leading-[1.4] text-[#c8a840]"
+                  className="border-severity-important bg-severity-important-bg text-gold-light mt-1 rounded-sm border px-2 py-1 text-sm leading-[1.4]"
                 >
                   ⚡ {hint}
                 </div>

@@ -11,6 +11,45 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { cn } from "@/lib/cn";
 
+type HintStyle = {
+  border: string;
+  bg: string;
+  borderClass: string;
+  bgClass: string;
+};
+
+function hintStyle(isJinx: boolean, severity: string): HintStyle {
+  if (isJinx) {
+    return {
+      border: "var(--jinx)",
+      bg: "var(--jinx-bg)",
+      borderClass: "border-jinx",
+      bgClass: "bg-jinx-bg"
+    };
+  }
+  if (severity === "critical") {
+    return {
+      border: "var(--severity-critical)",
+      bg: "var(--severity-critical-bg)",
+      borderClass: "border-severity-critical",
+      bgClass: "bg-severity-critical-bg"
+    };
+  }
+  return {
+    border: "var(--severity-important)",
+    bg: "var(--severity-important-bg)",
+    borderClass: "border-severity-important",
+    bgClass: "bg-severity-important-bg"
+  };
+}
+
+function strengthBarColor(s: number): string {
+  if (s > 30) return "var(--strength-good)";
+  if (s > 0) return "var(--strength-good-light)";
+  if (s > -30) return "var(--strength-evil-strong)";
+  return "var(--blood-red)";
+}
+
 export function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
   const analysis = useMemo(
     () => analyzeScript(gameIds, allCharacters, allInteractions, "game"),
@@ -44,17 +83,20 @@ export function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps
               const involvedChars = hint.involvedCharacters
                 .map((id) => allCharacters.find((c) => c.id === id))
                 .filter(Boolean) as Character[];
-              const borderColor = isJinx ? "#7a6200" : hint.severity === "critical" ? "#8b1a1a" : "#7a5a00";
-              const bgColor = isJinx ? "#1a1500" : hint.severity === "critical" ? "#1a0808" : "#1a1400";
+              const st = hintStyle(isJinx, hint.severity);
               return (
                 <div
                   key={i}
-                  className={cn("rounded-md px-2.5 py-2", isJinx ? "border-dashed" : "border-solid")}
-                  style={{ border: `1px solid ${borderColor}`, background: bgColor }}
+                  className={cn(
+                    "rounded-md border px-2.5 py-2",
+                    st.borderClass,
+                    st.bgClass,
+                    isJinx ? "border-dashed" : "border-solid"
+                  )}
                 >
                   <div className="mb-1 flex flex-wrap items-center gap-1.25">
                     {isJinx && (
-                      <span className="font-display text-gold text-3xs shrink-0 rounded-[3px] border border-[#7a6200] bg-[#2a1f00] px-1 py-px">
+                      <span className="font-display text-gold text-3xs border-jinx bg-jinx-bg-strong shrink-0 rounded-[3px] border px-1 py-px">
                         ⚖ Jinx
                       </span>
                     )}
@@ -90,12 +132,12 @@ export function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps
             {analysis.compositionWarnings.map((w, i) => (
               <div
                 key={i}
-                className="font-body text-parchment-muted rounded-[5px] px-2 py-1.5 text-sm leading-normal"
-                style={{
-                  background:
-                    w.severity === "critical" ? "#1a0808" : w.severity === "important" ? "#1a1400" : "#0a1408",
-                  border: `1px solid ${w.severity === "critical" ? "#8b1a1a" : w.severity === "important" ? "#7a5a00" : "#1a4a2e"}`
-                }}
+                className={cn(
+                  "font-body text-parchment-muted rounded-[5px] border px-2 py-1.5 text-sm leading-normal",
+                  w.severity === "critical" && "border-severity-critical bg-severity-critical-bg",
+                  w.severity === "important" && "border-severity-important bg-severity-important-bg",
+                  w.severity === "tip" && "border-severity-tip bg-severity-tip-bg"
+                )}
               >
                 {w.severity === "critical" ? "⚠" : w.severity === "important" ? "⚡" : "💡"} {w.message}
               </div>
@@ -115,8 +157,8 @@ function TeamStrengthSection({ good, evil, maxAbs }: { good: number; evil: numbe
       <SectionLabel className="mb-2.5">Team Strength</SectionLabel>
       <div className="flex flex-col gap-2">
         {[
-          { label: "Good", value: good, color: "#2a7fd4" },
-          { label: "Evil", value: evil, color: "#c0392b" }
+          { label: "Good", value: good, color: "var(--strength-good)" },
+          { label: "Evil", value: evil, color: "var(--strength-evil-strong)" }
         ].map(({ label, value, color }) => (
           <div key={label}>
             <div className="mb-0.75 flex justify-between">
@@ -128,7 +170,7 @@ function TeamStrengthSection({ good, evil, maxAbs }: { good: number; evil: numbe
                 {value}
               </span>
             </div>
-            <div className="h-1.5 overflow-hidden rounded-[3px] bg-[#1a1a2a]">
+            <div className="bg-panel-dark h-1.5 overflow-hidden rounded-[3px]">
               <div
                 className="h-full rounded-[3px]"
                 style={{ width: `${(Math.abs(value) / maxAbs) * 100}%`, background: color }}
@@ -149,7 +191,7 @@ function GameFeelSection({ analysis }: { analysis: ReturnType<typeof analyzeScri
         {FEEL_BARS.map(({ key, label, levels }) => {
           const val = analysis.scriptFeel[key] as string;
           const idx = levels.indexOf(val);
-          const color = FEEL_COLOR[val] ?? "#b8965a";
+          const color = FEEL_COLOR[val] ?? "var(--gold)";
           return (
             <div key={key}>
               <div className="mb-0.5 flex justify-between">
@@ -163,7 +205,7 @@ function GameFeelSection({ analysis }: { analysis: ReturnType<typeof analyzeScri
                   <div
                     key={i}
                     className="h-1.25 flex-1 rounded-xs"
-                    style={{ background: i <= idx ? color : "#2a2a3a" }}
+                    style={{ background: i <= idx ? color : "var(--border-subtle)" }}
                   />
                 ))}
               </div>
@@ -195,7 +237,7 @@ function CharacterStrengthList({ gameIds, allCharacters }: { gameIds: string[]; 
           const { char, eff } = entry;
           const col = TEAM_COLORS[char.team];
           const s = eff.effectiveStrength;
-          const barColor = s > 30 ? "#2a7fd4" : s > 0 ? "#5b9bd5" : s > -30 ? "#c0392b" : "#8b1a1a";
+          const barColor = strengthBarColor(s);
           return (
             <div key={char.id} className="flex items-center gap-2">
               <CharacterIcon
@@ -206,16 +248,16 @@ function CharacterStrengthList({ gameIds, allCharacters }: { gameIds: string[]; 
                 variant="token"
                 className="size-5 shrink-0"
               />
-              <div className="font-display text-2xs shrink-0 truncate" style={{ color: col.text, minWidth: 90 }}>
+              <div className="font-display text-2xs min-w-[5.5rem] shrink-0 truncate" style={{ color: col.text }}>
                 {char.name}
               </div>
-              <div className="h-1 flex-1 overflow-hidden rounded-xs bg-[#1a1a2a]">
+              <div className="bg-panel-dark h-1 flex-1 overflow-hidden rounded-xs">
                 <div
                   className="h-full rounded-xs"
                   style={{ width: `${(Math.abs(s) / 100) * 100}%`, background: barColor }}
                 />
               </div>
-              <div className="text-3xs shrink-0 text-right font-mono" style={{ color: barColor, minWidth: 28 }}>
+              <div className="text-3xs min-w-7 shrink-0 text-right font-mono" style={{ color: barColor }}>
                 {s > 0 ? "+" : ""}
                 {s}
               </div>

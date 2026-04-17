@@ -8,11 +8,11 @@ interface BadgeProps {
   children: React.ReactNode;
 }
 
-const base = "inline-flex items-center rounded-[3px] px-[5px] py-[2px] font-mono text-2xs";
+const base = "inline-flex items-center rounded-[3px] px-1.5 py-0.5 font-mono text-2xs";
 
 const variants: Record<BadgeVariant, string> = {
   filled: "bg-blood text-parchment",
-  outlined: "border border-[#7a6200] bg-[#2a1f00] text-gold"
+  outlined: "border border-jinx bg-jinx-bg-strong text-gold"
 };
 
 export function Badge({ variant = "outlined", className, children }: BadgeProps) {

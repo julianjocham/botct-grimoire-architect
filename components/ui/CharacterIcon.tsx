@@ -21,9 +21,7 @@ export function CharacterIcon({
 
   if (variant === "token") {
     return (
-      <div
-        className={`flex items-center justify-center rounded-full border border-[#1a1a2a] bg-[#0f0f14] ${className}`}
-      >
+      <div className={`border-panel-dark bg-modal flex items-center justify-center rounded-full border ${className}`}>
         <img
           src={iconUrl}
           alt={alt}

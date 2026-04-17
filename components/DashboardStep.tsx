@@ -85,12 +85,12 @@ export function DashboardStep({
   );
 
   return (
-    <div className="mx-auto flex max-w-325 flex-col gap-5 px-6 pt-6 pb-12">
+    <div className="mx-auto flex max-w-325 flex-col gap-4 px-3 pt-4 pb-8 sm:gap-5 sm:px-6 sm:pt-6 sm:pb-12">
       {/* Top bar */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <div className="font-display text-parchment text-xl tracking-[0.04em]">{scriptDisplayName}</div>
-          <div className="font-body text-muted mt-0.5 text-base">
+        <div className="min-w-0">
+          <div className="font-display text-parchment tracking-tight-wide text-lg sm:text-xl">{scriptDisplayName}</div>
+          <div className="font-body text-muted mt-0.5 text-sm sm:text-base">
             {playerCount} players · {coreGameIds.length} characters
             {selectedTravelers.length > 0
               ? ` + ${selectedTravelers.length} traveler${selectedTravelers.length > 1 ? "s" : ""}`
@@ -98,7 +98,7 @@ export function DashboardStep({
             in play
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Button onClick={onBackToSetup} variant="ghost">
             ← Adjust Roster
           </Button>
@@ -106,18 +106,18 @@ export function DashboardStep({
             <select
               value={printMode}
               onChange={(e) => setPrintMode(e.target.value as PrintMode)}
-              className="border-subtle text-parchment font-body cursor-pointer rounded-lg border bg-transparent px-4 py-2 text-base"
+              className="border-subtle text-parchment font-body cursor-pointer rounded-lg border bg-transparent px-3 py-2 text-sm sm:px-4 sm:text-base"
             >
-              <option className="text-parchment bg-[#0a0a0f]" value="pretty">
+              <option className="text-parchment bg-background" value="pretty">
                 Print All (Pretty)
               </option>
-              <option className="text-parchment bg-[#0a0a0f]" value="clean">
+              <option className="text-parchment bg-background" value="clean">
                 Print All (Clean)
               </option>
-              <option className="text-parchment bg-[#0a0a0f]" value="script-pretty">
+              <option className="text-parchment bg-background" value="script-pretty">
                 Print Script (Pretty)
               </option>
-              <option className="text-parchment bg-[#0a0a0f]" value="script-clean">
+              <option className="text-parchment bg-background" value="script-clean">
                 Print Script (Clean)
               </option>
             </select>
@@ -127,7 +127,7 @@ export function DashboardStep({
           </div>
           <button
             onClick={onReset}
-            className="text-blood font-body cursor-pointer rounded-md border border-[#3a1a1a] bg-transparent px-4 py-1.75 text-base"
+            className="text-blood border-demon-border font-body cursor-pointer rounded-md border bg-transparent px-3 py-1.75 text-sm sm:px-4 sm:text-base"
           >
             New Game
           </button>
@@ -182,7 +182,7 @@ export function DashboardStep({
                 <button
                   key={c.id}
                   onClick={() => onDetail(c.id)}
-                  className="text-gold font-display flex cursor-pointer items-center gap-2 rounded-[5px] border border-[#4a3a20] bg-[#1a1500] px-2.5 py-1 text-xs"
+                  className="text-gold border-traveler-border bg-traveler-bg font-display flex cursor-pointer items-center gap-2 rounded-[5px] border px-2.5 py-1 text-xs"
                 >
                   <CharacterIcon
                     characterId={c.id}
@@ -200,8 +200,8 @@ export function DashboardStep({
         </div>
       </Panel>
 
-      {/* Main 3-column grid */}
-      <div className="grid grid-cols-[1fr_1fr_360px] gap-4">
+      {/* Main grid: stacks on small, 2-column on md, 3-column on xl */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-[1fr_1fr_360px]">
         <Panel className="flex flex-col">
           <SectionLabel className="mb-2.5">Night Order</SectionLabel>
           <div className="max-h-120 flex-1 overflow-y-auto">
@@ -220,8 +220,8 @@ export function DashboardStep({
           </div>
         </Panel>
 
-        {/* Right column */}
-        <div className="flex flex-col gap-3.5">
+        {/* Right column — spans both columns on md so it sits below the 2-col stack */}
+        <div className="flex flex-col gap-3.5 md:col-span-2 xl:col-span-1">
           <Panel title="Team Strength">
             <div className="flex flex-col gap-2.5">
               <StrengthRow
@@ -253,11 +253,11 @@ export function DashboardStep({
               {FEEL_BARS.map(({ key, label, levels }) => {
                 const val = analysis.scriptFeel[key] as string;
                 const idx = levels.indexOf(val);
-                const color = FEEL_COLOR[val] ?? "#b8965a";
+                const color = FEEL_COLOR[val] ?? "var(--gold)";
                 return (
                   <div key={key}>
                     <div className="mb-0.75 flex justify-between">
-                      <span className="text-muted text-2xs font-mono tracking-[0.06em] uppercase">{label}</span>
+                      <span className="text-muted text-2xs font-mono tracking-wider uppercase">{label}</span>
                       <span style={{ color }} className="font-display text-2xs">
                         {val}
                       </span>
@@ -280,16 +280,24 @@ export function DashboardStep({
               {" · "}
               {analysis.nightOrder.first.length}↓ {analysis.nightOrder.other.length}↻
             </div>
-            <div className="mt-3 border-t border-[#1a1a2a] pt-3">
-              <div className="text-muted text-2xs mb-2 font-mono tracking-[0.06em] uppercase">Role Coverage</div>
+            <div className="border-panel-dark mt-3 border-t pt-3">
+              <div className="text-muted text-2xs mb-2 font-mono tracking-wider uppercase">Role Coverage</div>
               <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
                 {COVERAGE_CATS.map(({ cat, side }) => {
                   const chars =
                     side === "good" ? analysis.categoryCoverage.good[cat] : analysis.categoryCoverage.evil[cat];
                   const covered = (chars?.length ?? 0) > 0;
-                  const dotColor = covered ? (side === "good" ? "#4a9a4a" : "#c0392b") : "#444";
-                  const textColor = covered ? (side === "good" ? "#7ab87a" : "#d47a7a") : "#666";
-                  const countColor = side === "good" ? "#4a7a4a" : "#8b4a4a";
+                  const dotColor = covered
+                    ? side === "good"
+                      ? "var(--good-indicator)"
+                      : "var(--blood-red-light)"
+                    : "var(--color-dimmer)";
+                  const textColor = covered
+                    ? side === "good"
+                      ? "var(--color-townsfolk)"
+                      : "var(--color-demon)"
+                    : "var(--color-dim)";
+                  const countColor = side === "good" ? "var(--good-indicator-border)" : "var(--color-minion-border)";
                   return (
                     <div key={cat} className="flex items-center gap-1">
                       <span className="text-2xs" style={{ color: dotColor }}>
@@ -319,16 +327,16 @@ export function DashboardStep({
                     key={i}
                     className={cn(
                       "font-body text-parchment-muted rounded-[5px] border px-2.25 py-1.5 text-sm leading-normal",
-                      w.severity === "critical" ? "border-blood bg-[#1a0808]" : "",
-                      w.severity === "important" ? "border-[#7a5a00] bg-[#1a1400]" : "",
-                      w.severity === "tip" ? "border-[#1a4a2e] bg-[#0a1408]" : ""
+                      w.severity === "critical" && "border-blood bg-severity-critical-bg",
+                      w.severity === "important" && "border-severity-important bg-severity-important-bg",
+                      w.severity === "tip" && "border-severity-tip bg-severity-tip-bg"
                     )}
                   >
                     {w.severity === "critical" ? "⚠" : w.severity === "important" ? "⚡" : "💡"} {w.message}
                   </div>
                 ))}
                 {jinxes.length > 0 && (
-                  <div className="font-body text-gold rounded-[5px] border border-dashed border-[#7a6200] bg-[#1a1500] px-2.25 py-1.5 text-sm">
+                  <div className="font-body text-gold border-jinx bg-jinx-bg rounded-[5px] border border-dashed px-2.25 py-1.5 text-sm">
                     ⚖ {jinxes.length} Djinn Jinx{jinxes.length > 1 ? "es" : ""} — see Interactions tab
                   </div>
                 )}
@@ -339,7 +347,7 @@ export function DashboardStep({
           <Panel>
             <div className="mb-1 flex items-center justify-between">
               <SectionLabel>Demon Bluffs</SectionLabel>
-              <div className="text-2xs font-mono" style={{ color: selectedBluffs.length === 3 ? "#d55b5b" : "#888" }}>
+              <div className={cn("text-2xs font-mono", selectedBluffs.length === 3 ? "text-demon" : "text-muted")}>
                 {selectedBluffs.length}/3
               </div>
             </div>
@@ -359,9 +367,9 @@ export function DashboardStep({
                       disabled={blocked}
                       className={cn(
                         "font-display flex cursor-pointer items-center gap-1.5 rounded-[5px] border px-2 py-1 text-xs transition-all",
-                        sel && "border-blood text-parchment bg-[#1a0808]",
-                        !sel && !blocked && "border-subtle text-muted hover:border-[#3a2a2a] hover:text-[#ccc]",
-                        blocked && "cursor-default border-[#222] text-[#444]"
+                        sel && "border-blood text-parchment bg-severity-critical-bg",
+                        !sel && !blocked && "border-subtle text-muted hover:border-faint hover:text-parchment-muted",
+                        blocked && "border-subtle text-dimmer cursor-default"
                       )}
                     >
                       <CharacterIcon

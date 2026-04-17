@@ -11,7 +11,7 @@ const COMPLEXITY_DOTS = (n: number) =>
     <span
       key={i}
       className="mr-px inline-block size-1 rounded-full"
-      style={{ background: i < n ? "#b8965a" : "#2a2a3a" }}
+      style={{ background: i < n ? "var(--gold)" : "var(--border-subtle)" }}
     />
   ));
 
@@ -36,7 +36,7 @@ export function CharacterToken({
       )}
       style={{
         background: selected ? colors.bg : "var(--bg-surface)",
-        borderColor: selected ? colors.border : "#2a2a3a"
+        borderColor: selected ? colors.border : "var(--border-subtle)"
       }}
       onClick={() => onDetail(character.id)}
     >
@@ -64,7 +64,7 @@ export function CharacterToken({
         {countersOnScript > 0 && (
           <span
             title={`${countersOnScript} counter${countersOnScript !== 1 ? "s" : ""} on this script`}
-            className="text-gold text-3xs shrink-0 rounded-[3px] border border-[#7a5a00] bg-[#2a1a0a] px-1 py-px font-mono"
+            className="text-gold text-3xs bg-gold-accent-bg border-gold-accent-border shrink-0 rounded-[3px] border px-1 py-px font-mono"
           >
             ⚔ {countersOnScript}
           </span>
@@ -77,9 +77,9 @@ export function CharacterToken({
           }}
           className={cn(
             "text-md flex size-5.5 shrink-0 cursor-pointer items-center justify-center rounded border-none",
-            selected ? "text-white" : "text-[#888]"
+            selected ? "text-white" : "text-muted"
           )}
-          style={{ background: selected ? colors.border : "#2a2a3a" }}
+          style={{ background: selected ? colors.border : "var(--border-subtle)" }}
           title={selected ? "Remove from script" : "Add to script"}
         >
           {selected ? "−" : "+"}

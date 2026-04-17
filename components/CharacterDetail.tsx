@@ -26,7 +26,7 @@ export function CharacterDetail({
     .filter((c) => c && selectedIds.includes(c.id)) as Character[];
 
   return (
-    <div className="border-subtle fixed inset-y-0 right-0 z-100 flex w-85 flex-col overflow-y-auto border border-r-0 bg-[#0f0f1a]">
+    <div className="border-subtle bg-modal fixed inset-y-0 right-0 z-100 flex w-full flex-col overflow-y-auto border border-r-0 sm:w-85">
       {/* Header */}
       <div className="border-subtle flex items-start justify-between gap-2.5 border-b px-4 py-3.5">
         <div className="flex items-start gap-3">
@@ -91,7 +91,7 @@ export function CharacterDetail({
                     value={character.strength.peakPower}
                     min={-20}
                     max={20}
-                    color={character.strength.peakPower >= 0 ? "#2a7fd4" : "#c0392b"}
+                    color={character.strength.peakPower >= 0 ? "var(--strength-good)" : "var(--strength-evil-strong)"}
                     tooltip="Maximum impact in the best-case scenario (-20 to +20)"
                   />
                 )}
@@ -101,7 +101,7 @@ export function CharacterDetail({
                     value={Math.round(character.strength.reliability * 100)}
                     min={0}
                     max={100}
-                    color="#b8965a"
+                    color="var(--gold)"
                     suffix="%"
                     tooltip="How often the ability works as intended (0–100%)"
                   />
@@ -112,7 +112,7 @@ export function CharacterDetail({
                     value={Math.round(character.strength.vulnerability * 100)}
                     min={0}
                     max={100}
-                    color="#c0392b"
+                    color="var(--strength-evil-strong)"
                     suffix="%"
                     tooltip="How exposed to disruption or countering the character is (0–100%)"
                   />
@@ -136,8 +136,8 @@ export function CharacterDetail({
                     <div
                       key={r.characterId}
                       className={cn(
-                        "rounded-[5px] px-2 py-1.5",
-                        r.impact < 0 ? "border border-[#3a1a1a] bg-[#150808]" : "border border-[#1a2a3a] bg-[#080d15]"
+                        "rounded-[5px] border px-2 py-1.5",
+                        r.impact < 0 ? "border-demon-border bg-severity-critical-bg" : "border-townsfolk-border bg-deep"
                       )}
                     >
                       <div className={cn("flex items-center justify-between", r.description && "mb-1")}>
@@ -158,7 +158,7 @@ export function CharacterDetail({
                         </span>
                       </div>
                       {r.description && (
-                        <div className="font-body text-sm leading-[1.45] text-[#888]">{r.description}</div>
+                        <div className="font-body text-muted text-sm leading-[1.45]">{r.description}</div>
                       )}
                     </div>
                   );
@@ -180,11 +180,11 @@ export function CharacterDetail({
 
         {/* New ST Warning */}
         {character.newStWarning && (
-          <div className="rounded-md border border-[#5a3000] bg-[#1a0a00] px-2.5 py-2">
+          <div className="border-severity-important bg-severity-important-bg rounded-md border px-2.5 py-2">
             <SectionLabel color="amber" mono className="mb-1">
               ⚠ New ST Warning
             </SectionLabel>
-            <div className="font-body text-sm leading-normal text-[#c8a050]">{character.newStWarning}</div>
+            <div className="font-body text-gold-light text-sm leading-normal">{character.newStWarning}</div>
           </div>
         )}
 
@@ -196,13 +196,13 @@ export function CharacterDetail({
             </SectionLabel>
             <div className="flex flex-col gap-1">
               {character.firstNightReminder && (
-                <div className="font-body text-sm leading-[1.4] text-[#888]">
+                <div className="font-body text-muted text-sm leading-[1.4]">
                   <span className="text-dim">1st: </span>
                   {character.firstNightReminder}
                 </div>
               )}
               {character.otherNightReminder && (
-                <div className="font-body text-sm leading-[1.4] text-[#888]">
+                <div className="font-body text-muted text-sm leading-[1.4]">
                   <span className="text-dim">Other: </span>
                   {character.otherNightReminder}
                 </div>
@@ -219,7 +219,10 @@ export function CharacterDetail({
             </SectionLabel>
             <div className="flex flex-col gap-1.5">
               {countersOnScript.map((counter) => (
-                <div key={counter.id} className="rounded-md border border-[#4a1a1a] bg-[#1a0808] px-2.5 py-1.5">
+                <div
+                  key={counter.id}
+                  className="border-severity-critical bg-severity-critical-bg rounded-md border px-2.5 py-1.5"
+                >
                   <button
                     onClick={() => onNavigate(counter.id)}
                     className="text-minion font-display mb-0.5 flex cursor-pointer items-center gap-2 border-none bg-transparent p-0 text-sm"
@@ -235,7 +238,7 @@ export function CharacterDetail({
                     {counter.name}
                   </button>
                   {character.counterDetail[counter.id] && (
-                    <div className="font-body text-sm leading-[1.4] text-[#888]">
+                    <div className="font-body text-muted text-sm leading-[1.4]">
                       {character.counterDetail[counter.id]}
                     </div>
                   )}
@@ -259,8 +262,8 @@ export function CharacterDetail({
         <button
           onClick={() => onToggle(character.id)}
           className={cn(
-            "text-parchment font-display cursor-pointer rounded-md border-none p-2.5 text-sm tracking-[0.05em]",
-            isSelected ? "bg-blood" : "bg-[#1a3a6a]"
+            "text-parchment font-display cursor-pointer rounded-md border-none p-2.5 text-sm tracking-wide",
+            isSelected ? "bg-blood" : "bg-good-blue"
           )}
         >
           {isSelected ? "Remove from Script" : "Add to Script"}

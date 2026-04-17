@@ -30,12 +30,12 @@ export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalPro
   if (!isClient) return null;
 
   const pageHeading = cn(
-    "mb-4 border-b-2 pb-1 text-[19px] tracking-[0.08em] uppercase",
-    isPretty ? "border-[#6b3a1a]" : "border-black"
+    "mb-4 border-b-2 pb-1 text-lg tracking-widest uppercase",
+    isPretty ? "border-print-rule-heavy" : "border-black"
   );
 
   return createPortal(
-    <div id="print-portal" className="font-[Georgia,serif]">
+    <div id="print-portal" className="font-serif">
       {/* Page 1: All script roles grouped by team */}
       <PrintPage isPretty={isPretty} pageBreak>
         <h1 className={cn(pageHeading, "mb-3")}>Character Overview</h1>
@@ -47,7 +47,7 @@ export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalPro
               <h3
                 className={cn(
                   "text-2xs mb-1 border-b pb-0.5 font-bold tracking-widest uppercase",
-                  isPretty ? "border-[#b07840]" : "border-[#ccc]"
+                  isPretty ? "border-print-rule" : "border-[#ccc]"
                 )}
               >
                 {TEAM_LABEL[team]} ({chars.length})
@@ -63,8 +63,8 @@ export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalPro
                       className="mt-px size-7 shrink-0"
                     />
                     <div className="flex-1 leading-tight">
-                      <strong className="text-[12px]">{c.name}</strong>
-                      <span className={cn("text-2xs ml-1", isPretty ? "text-[#5a3010]" : "text-[#333]")}>
+                      <strong className="text-xs">{c.name}</strong>
+                      <span className={cn("text-2xs ml-1", isPretty ? "text-print-ink-soft" : "text-[#333]")}>
                         {c.ability}
                       </span>
                     </div>
@@ -114,7 +114,7 @@ function PrintPage({
           className="absolute inset-0 h-full w-full scale-[1.1] object-cover"
         />
       )}
-      <div className={cn("relative", isPretty ? "text-[#2a1500]" : "text-black")}>{children}</div>
+      <div className={cn("relative", isPretty ? "text-print-ink" : "text-black")}>{children}</div>
     </section>
   );
 }
@@ -124,7 +124,7 @@ function NightOrderList({ steps, isPretty }: { steps: ScriptAnalysis["nightOrder
     <>
       {steps.map((s, i) => (
         <div key={s.character.id} className="mb-3 flex items-start gap-2.5 [page-break-inside:avoid]">
-          <div className="w-7 shrink-0 text-right text-[14px] font-bold">{i + 1}.</div>
+          <div className="w-7 shrink-0 text-right text-sm font-bold">{i + 1}.</div>
           <CharacterIcon
             characterId={s.character.id}
             edition={s.character.edition}
@@ -133,9 +133,9 @@ function NightOrderList({ steps, isPretty }: { steps: ScriptAnalysis["nightOrder
             className="mt-0.5 size-9 shrink-0"
           />
           <div className="flex-1">
-            <strong className="text-[14px]">{s.character.name}</strong>
+            <strong className="text-sm">{s.character.name}</strong>
             {s.reminder && (
-              <div className={cn("mt-0.5 text-[13px] leading-snug", isPretty ? "text-[#5a3010]" : "text-[#333]")}>
+              <div className={cn("mt-0.5 text-sm leading-snug", isPretty ? "text-print-ink-soft" : "text-[#333]")}>
                 {s.reminder}
               </div>
             )}

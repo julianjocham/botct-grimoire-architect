@@ -122,12 +122,12 @@ export function GameSetupStep({
     : [];
 
   return (
-    <div className="mx-auto grid max-w-325 grid-cols-[1fr_320px] items-start gap-6 px-6 py-8">
+    <div className="mx-auto grid max-w-325 grid-cols-1 items-start gap-4 px-3 py-5 sm:gap-6 sm:px-6 sm:py-8 lg:grid-cols-[1fr_320px]">
       {/* ── Left: selection ── */}
-      <div className="flex flex-col gap-7">
-        <div className="flex items-start justify-between">
-          <div>
-            <h2 className="font-display text-parchment m-0 mb-1.5 text-[22px] tracking-[0.04em]">
+      <div className="flex flex-col gap-5 sm:gap-7">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h2 className="font-display text-parchment tracking-tight-wide m-0 mb-1.5 text-xl sm:text-2xl">
               Step 2 — Set Up Your Game
             </h2>
             <div className="font-body text-dim text-base">
@@ -148,8 +148,8 @@ export function GameSetupStep({
               onClick={onContinue}
               disabled={!isComplete}
               className={cn(
-                "font-display rounded-lg border-none px-7 py-3 text-base tracking-[0.06em]",
-                isComplete ? "bg-blood text-parchment cursor-pointer" : "cursor-default bg-[#1a1a1a] text-[#666]"
+                "font-display rounded-lg border-none px-5 py-2.5 text-sm tracking-wider sm:px-7 sm:py-3 sm:text-base",
+                isComplete ? "bg-blood text-parchment cursor-pointer" : "bg-panel-dark text-dimmer cursor-default"
               )}
             >
               {isComplete
@@ -174,10 +174,10 @@ export function GameSetupStep({
                   onClick={() => onSetPlayerCount(isActive ? null : n)}
                   className={cn(
                     "cursor-pointer rounded-[7px] border-2 font-mono transition-all duration-100",
-                    isTraveler ? "px-2.5 py-1.25 text-xs" : "text-md px-3.5 py-2",
+                    isTraveler ? "px-2.5 py-1.25 text-xs" : "text-md px-3 py-1.5 sm:px-3.5 sm:py-2",
                     isActive && "bg-blood border-blood text-parchment font-bold",
-                    !isActive && isTraveler && "bg-surface text-dim border-[#2a2a2a]",
-                    !isActive && !isTraveler && "bg-surface border-subtle text-[#888]"
+                    !isActive && isTraveler && "bg-surface text-dim border-subtle",
+                    !isActive && !isTraveler && "bg-surface border-subtle text-muted"
                   )}
                   title={isTraveler ? `${n} players (${n - 15} traveler${n - 15 > 1 ? "s" : ""})` : `${n} players`}
                 >
@@ -204,7 +204,7 @@ export function GameSetupStep({
           <>
             <Panel className="shrink-0">
               <div className="mb-2 flex items-center justify-between">
-                <div className="font-display text-gold text-2xs tracking-[0.06em] uppercase">
+                <div className="font-display text-gold text-2xs tracking-wider uppercase">
                   {playerCount}p Distribution
                 </div>
                 {isComplete && <div className="font-display text-tip text-2xs">✓ Complete</div>}
@@ -218,13 +218,16 @@ export function GameSetupStep({
                   return (
                     <div
                       key={team}
-                      className="flex-1 rounded-lg border-2 bg-[#0a0a14] px-1 py-1.5 text-center transition-[border-color] duration-200"
-                      style={{ borderColor: done ? c.border : "#2a2a3a" }}
+                      className="bg-deep flex-1 rounded-lg border-2 px-1 py-1.5 text-center transition-[border-color] duration-200"
+                      style={{ borderColor: done ? c.border : "var(--border-subtle)" }}
                     >
-                      <div className="font-mono text-lg leading-none" style={{ color: done ? c.text : "#666" }}>
+                      <div
+                        className="font-mono text-lg leading-none"
+                        style={{ color: done ? c.text : "var(--color-dimmer)" }}
+                      >
                         {have}
                       </div>
-                      <div className="text-2xs my-0.5 font-mono text-[#666]">/ {needed}</div>
+                      <div className="text-dimmer text-2xs my-0.5 font-mono">/ {needed}</div>
                       <div className="font-body text-muted text-2xs capitalize">{team}</div>
                     </div>
                   );
@@ -232,16 +235,16 @@ export function GameSetupStep({
                 {neededTravelers > 0 && (
                   <div
                     className={cn(
-                      "flex-1 rounded-lg border-2 bg-[#0a0a14] px-1 py-1.5 text-center transition-[border-color] duration-200",
-                      travelersComplete ? "border-[#4a3a20]" : "border-subtle"
+                      "bg-deep flex-1 rounded-lg border-2 px-1 py-1.5 text-center transition-[border-color] duration-200",
+                      travelersComplete ? "border-traveler-border" : "border-subtle"
                     )}
                   >
                     <div
-                      className={cn("font-mono text-lg leading-none", travelersComplete ? "text-gold" : "text-[#666]")}
+                      className={cn("font-mono text-lg leading-none", travelersComplete ? "text-gold" : "text-dimmer")}
                     >
                       {selectedTravelerIds.length}
                     </div>
-                    <div className="text-2xs my-0.5 font-mono text-[#666]">/ {neededTravelers}</div>
+                    <div className="text-dimmer text-2xs my-0.5 font-mono">/ {neededTravelers}</div>
                     <div className="font-body text-muted text-2xs">Travelers</div>
                   </div>
                 )}
@@ -260,7 +263,7 @@ export function GameSetupStep({
             {/* Valid setups reference */}
             {scriptModifiers.length > 0 && req && (
               <Panel>
-                <div className="font-display text-gold text-2xs mb-2.5 tracking-[0.06em] uppercase">
+                <div className="font-display text-gold text-2xs mb-2.5 tracking-wider uppercase">
                   Valid Setups — {playerCount}p
                 </div>
                 <div className="flex flex-col gap-0.5">
@@ -270,13 +273,13 @@ export function GameSetupStep({
                       <div
                         key={i}
                         className={cn(
-                          "flex items-center gap-3 rounded px-2 py-1",
-                          isCurrent ? "border border-[#1a4a2e] bg-[#0d1a0d]" : "border border-transparent"
+                          "flex flex-wrap items-center gap-3 rounded px-2 py-1",
+                          isCurrent ? "border-severity-tip bg-severity-tip-bg border" : "border border-transparent"
                         )}
                       >
                         <div
                           className="font-display min-w-28 shrink-0 text-xs"
-                          style={{ color: v.isBase ? "#555" : TEAM_COLORS.minion.text }}
+                          style={{ color: v.isBase ? "var(--color-dimmer)" : TEAM_COLORS.minion.text }}
                         >
                           {v.label}
                         </div>
@@ -310,7 +313,7 @@ export function GameSetupStep({
 
             {/* Character selection */}
             <div className="flex flex-col gap-3">
-              <div className="font-display text-gold text-2xs tracking-[0.08em] uppercase">Choose Characters</div>
+              <div className="font-display text-gold text-2xs tracking-widest uppercase">Choose Characters</div>
               {TEAM_ORDER.map((team) => {
                 const chars = scriptChars.filter((c) => c.team === team).sort((a, b) => a.name.localeCompare(b.name));
                 const needed = req[team];
@@ -322,21 +325,21 @@ export function GameSetupStep({
                 return (
                   <div key={team}>
                     <div className="mb-1.5 flex items-center gap-2">
-                      <div className="font-display text-xs tracking-[0.06em] uppercase" style={{ color: c.text }}>
+                      <div className="font-display text-xs tracking-wider uppercase" style={{ color: c.text }}>
                         {TEAM_LABEL[team]}
                       </div>
                       <div
-                        className="text-2xs rounded-lg bg-[#0a0a14] px-1.5 py-px font-mono"
+                        className="text-2xs bg-deep rounded-lg px-1.5 py-px font-mono"
                         style={{
-                          color: isFull ? c.text : "#555",
-                          border: `1px solid ${isFull ? c.border : "#2a2a3a"}`
+                          color: isFull ? c.text : "var(--color-dimmer)",
+                          border: `1px solid ${isFull ? c.border : "var(--border-subtle)"}`
                         }}
                       >
                         {have} / {needed}
                       </div>
                       {needed === 0 && <div className="font-body text-dimmer text-2xs">(not needed)</div>}
                     </div>
-                    <div className="flex flex-wrap gap-2.5">
+                    <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
                       {chars.map((char) => {
                         const inGame = gameIds.includes(char.id);
                         const blocked = !inGame && isFull;
@@ -364,17 +367,17 @@ export function GameSetupStep({
             {neededTravelers > 0 && editionTravelers.length > 0 && (
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
-                  <div className="font-display text-gold text-2xs tracking-[0.08em] uppercase">Travelers</div>
+                  <div className="font-display text-gold text-2xs tracking-widest uppercase">Travelers</div>
                   <div
                     className={cn(
-                      "text-2xs rounded-lg bg-[#0a0a14] px-1.5 py-px font-mono",
-                      travelersComplete ? "text-gold border border-[#4a3a20]" : "text-dim border-subtle border"
+                      "text-2xs bg-deep rounded-lg px-1.5 py-px font-mono",
+                      travelersComplete ? "text-gold border-traveler-border border" : "text-dim border-subtle border"
                     )}
                   >
                     {selectedTravelerIds.length} / {neededTravelers}
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2.5">
+                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
                   {editionTravelers.map((traveler) => {
                     const inGame = gameIds.includes(traveler.id);
                     const blocked = !inGame && travelersComplete;
@@ -405,7 +408,7 @@ export function GameSetupStep({
       </div>
 
       {/* ── Right: live analysis sidebar ── */}
-      <div className="bg-surface border-subtle sticky top-4 max-h-[calc(100vh-100px)] overflow-y-auto rounded-[10px] border p-4">
+      <div className="bg-surface border-subtle rounded-[10px] border p-3 sm:p-4 lg:sticky lg:top-4 lg:max-h-[calc(100vh-100px)] lg:overflow-y-auto">
         <SectionLabel className="mb-4">Live Analysis</SectionLabel>
         <AnalysisSidebar gameIds={gameIds} allCharacters={allCharacters} />
       </div>

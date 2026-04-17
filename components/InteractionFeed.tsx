@@ -23,9 +23,9 @@ export function InteractionFeed({ hints, characters, onDetail }: InteractionFeed
         return (
           <div
             key={i}
-            className={`rounded-lg px-3 py-2.5 ${isJinx ? "border-dashed" : ""}`}
+            className={`rounded-lg border px-3 py-2.5 ${isJinx ? "border-dashed" : ""}`}
             style={{
-              border: `1px solid ${style.border}`,
+              borderColor: style.border,
               background: style.bg
             }}
           >
