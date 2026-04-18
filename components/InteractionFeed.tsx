@@ -5,10 +5,12 @@ import { JINX_STYLE, SEVERITY_STYLES } from "@/constants/character";
 import { EmptyState } from "./ui/EmptyState";
 import { Badge } from "@/components/ui/Badge";
 import { CharacterIcon } from "./ui/CharacterIcon";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 export function InteractionFeed({ hints, characters, onDetail }: InteractionFeedProps) {
+  const { t } = useTranslation();
   if (hints.length === 0) {
-    return <EmptyState>Add characters to see interaction warnings and tips.</EmptyState>;
+    return <EmptyState>{t("interactions.empty")}</EmptyState>;
   }
 
   return (
@@ -33,7 +35,7 @@ export function InteractionFeed({ hints, characters, onDetail }: InteractionFeed
               <span className="shrink-0 text-sm">{style.icon}</span>
               <div className="min-w-0 flex-1">
                 <div className="mb-0.5 flex items-center gap-1.5">
-                  {isJinx && <Badge variant="outlined">⚖ Djinn Jinx</Badge>}
+                  {isJinx && <Badge variant="outlined">{t("interactions.djinnJinx")}</Badge>}
                   <div className="font-display text-parchment text-sm">{hint.title}</div>
                 </div>
                 <div className="mb-1.5 flex flex-wrap gap-1">

@@ -5,6 +5,7 @@ import { StrengthBar } from "./StrengthBar";
 import { TEAM_COLORS } from "@/constants/team";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { cn } from "@/lib/cn";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 const COMPLEXITY_DOTS = (n: number) =>
   Array.from({ length: 5 }, (_, i) => (
@@ -24,6 +25,7 @@ export function CharacterToken({
   compact = false,
   countersOnScript = 0
 }: CharacterTokenProps) {
+  const { t } = useTranslation();
   const colors = TEAM_COLORS[character.team] ?? TEAM_COLORS.townsfolk;
   const hasEnrichment = !!character.stAdvice;
 
@@ -63,7 +65,10 @@ export function CharacterToken({
 
         {countersOnScript > 0 && (
           <span
-            title={`${countersOnScript} counter${countersOnScript !== 1 ? "s" : ""} on this script`}
+            title={t("characterToken.countersTitle", {
+              n: countersOnScript,
+              s: countersOnScript !== 1 ? "s" : ""
+            })}
             className="text-gold text-3xs bg-gold-accent-bg border-gold-accent-border shrink-0 rounded-[3px] border px-1 py-px font-mono"
           >
             ⚔ {countersOnScript}
@@ -80,7 +85,7 @@ export function CharacterToken({
             selected ? "text-white" : "text-muted"
           )}
           style={{ background: selected ? colors.border : "var(--border-subtle)" }}
-          title={selected ? "Remove from script" : "Add to script"}
+          title={selected ? t("characterToken.removeFromScript") : t("characterToken.addToScript")}
         >
           {selected ? "−" : "+"}
         </button>

@@ -7,6 +7,7 @@ import { ScriptAnalysis } from "@/types";
 import { TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { cn } from "@/lib/cn";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 type PrintMode = "pretty" | "clean" | "script-pretty" | "script-clean";
 
@@ -19,6 +20,7 @@ interface PrintPortalProps {
 const subscribe = () => () => {};
 
 export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalProps) {
+  const { t } = useTranslation();
   const isClient = useSyncExternalStore(
     subscribe,
     () => true,
@@ -36,9 +38,8 @@ export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalPro
 
   return createPortal(
     <div id="print-portal" className="font-serif">
-      {/* Page 1: All script roles grouped by team */}
       <PrintPage isPretty={isPretty} pageBreak>
-        <h1 className={cn(pageHeading, "mb-3")}>Character Overview</h1>
+        <h1 className={cn(pageHeading, "mb-3")}>{t("print.characterOverview")}</h1>
         {TEAM_ORDER.map((team) => {
           const chars = scriptChars.filter((c) => c.team === team).sort((a, b) => a.name.localeCompare(b.name));
           if (chars.length === 0) return null;
@@ -76,16 +77,15 @@ export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalPro
         })}
       </PrintPage>
 
-      {/* Pages 2 & 3: Night orders (skipped in script-only mode) */}
       {!isScriptOnly && (
         <>
           <PrintPage isPretty={isPretty} pageBreak>
-            <h1 className={pageHeading}>First Night Order</h1>
+            <h1 className={pageHeading}>{t("print.firstNightOrder")}</h1>
             <NightOrderList steps={analysis.nightOrder.first} isPretty={isPretty} />
           </PrintPage>
 
           <PrintPage isPretty={isPretty}>
-            <h1 className={pageHeading}>Other Nights Order</h1>
+            <h1 className={pageHeading}>{t("print.otherNightsOrder")}</h1>
             <NightOrderList steps={analysis.nightOrder.other} isPretty={isPretty} />
           </PrintPage>
         </>

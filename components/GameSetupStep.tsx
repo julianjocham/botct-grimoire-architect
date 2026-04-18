@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { AnalysisSidebar } from "@/components/features/AnalysisSidebar";
 import { CharacterSelectCard } from "@/components/common/CharacterSelectCard";
 import { cn } from "@/lib/cn";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 function getAdjustedReq(
   rawReq: { townsfolk: number; outsider: number; minion: number; demon: number },
@@ -45,6 +46,7 @@ export function GameSetupStep({
   onBack,
   onDetail
 }: GameSetupStepProps) {
+  const { t } = useTranslation();
   const scriptChars = allCharacters.filter((c) => scriptIds.includes(c.id));
   const rawReq = playerCount ? RAW_COUNTS[String(playerCount)] : null;
   const req = rawReq ? getAdjustedReq(rawReq, gameIds) : null;
@@ -97,7 +99,14 @@ export function GameSetupStep({
   type SetupVariant = { label: string; tf: number; os: number; m: number; d: number; isBase: boolean };
   const setupVariants: SetupVariant[] = rawReq
     ? [
-        { label: "Base", tf: rawReq.townsfolk, os: rawReq.outsider, m: rawReq.minion, d: rawReq.demon, isBase: true },
+        {
+          label: t("setup.base"),
+          tf: rawReq.townsfolk,
+          os: rawReq.outsider,
+          m: rawReq.minion,
+          d: rawReq.demon,
+          isBase: true
+        },
         ...scriptModifiers.map(([id, mod]) => ({
           label: allCharacters.find((c) => c.id === id)?.name ?? id,
           tf: Math.max(0, rawReq.townsfolk + (mod.townsfolk ?? 0)),
@@ -109,7 +118,7 @@ export function GameSetupStep({
         ...(scriptModifiers.length >= 2
           ? [
               {
-                label: "All modifiers",
+                label: t("setup.allModifiers"),
                 tf: Math.max(0, rawReq.townsfolk + scriptModifiers.reduce((s, [, m]) => s + (m.townsfolk ?? 0), 0)),
                 os: Math.max(0, rawReq.outsider + scriptModifiers.reduce((s, [, m]) => s + (m.outsider ?? 0), 0)),
                 m: rawReq.minion,
@@ -121,6 +130,22 @@ export function GameSetupStep({
       ]
     : [];
 
+  function continueBtnLabel() {
+    if (isComplete) return t("setup.viewDashboard");
+    if (coreComplete && neededTravelers > 0) {
+      return t("setup.selectMoreTravelers", {
+        count: remainingTravelerCount,
+        r: remainingTravelerCount !== 1 ? "n" : "",
+        e: remainingTravelerCount !== 1 ? "n" : ""
+      });
+    }
+    return t("setup.selectMoreCharacters", {
+      count: remainingCoreCount,
+      r: remainingCoreCount !== 1 ? "" : "",
+      e: remainingCoreCount !== 1 ? "s" : ""
+    });
+  }
+
   return (
     <div className="mx-auto grid max-w-325 grid-cols-1 items-start gap-4 px-3 py-5 sm:gap-6 sm:px-6 sm:py-8 lg:grid-cols-[1fr_320px]">
       {/* ── Left: selection ── */}
@@ -128,16 +153,16 @@ export function GameSetupStep({
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
             <h2 className="font-display text-parchment tracking-tight-wide m-0 mb-1.5 text-xl sm:text-2xl">
-              Step 2 — Set Up Your Game
+              {t("setup.title")}
             </h2>
             <div className="font-body text-dim text-base">
-              Script: <span className="text-gold">{scriptDisplayName}</span>
+              {t("setup.scriptLabel")} <span className="text-gold">{scriptDisplayName}</span>
               {" · "}
-              {scriptIds.length} characters available
+              {t("setup.charactersAvailable", { count: scriptIds.length })}
             </div>
           </div>
           <Button variant="ghost" onClick={onBack}>
-            ← Change Script
+            {t("setup.changeScript")}
           </Button>
         </div>
 
@@ -152,18 +177,14 @@ export function GameSetupStep({
                 isComplete ? "bg-blood text-parchment cursor-pointer" : "bg-panel-dark text-dimmer cursor-default"
               )}
             >
-              {isComplete
-                ? "View Dashboard →"
-                : coreComplete && neededTravelers > 0
-                  ? `Select ${remainingTravelerCount} more traveler${remainingTravelerCount !== 1 ? "s" : ""}…`
-                  : `Select ${remainingCoreCount} more character${remainingCoreCount !== 1 ? "s" : ""}…`}
+              {continueBtnLabel()}
             </button>
           </div>
         )}
 
         {/* Player count */}
         <div>
-          <SectionLabel className="mb-2.5">How many players?</SectionLabel>
+          <SectionLabel className="mb-2.5">{t("setup.howManyPlayers")}</SectionLabel>
           <div className="flex flex-wrap gap-1.5">
             {Array.from({ length: scriptType === "teensyville" ? 2 : 16 }, (_, i) => i + 5).map((n) => {
               const isActive = playerCount === n;
@@ -179,7 +200,7 @@ export function GameSetupStep({
                     !isActive && isTraveler && "bg-surface text-dim border-subtle",
                     !isActive && !isTraveler && "bg-surface border-subtle text-muted"
                   )}
-                  title={isTraveler ? `${n} players (${n - 15} traveler${n - 15 > 1 ? "s" : ""})` : `${n} players`}
+                  title={isTraveler ? `${n} players (${n - 15} traveler${n - 15 > 1 ? "s" : ""})` : t("setup.playersTitle", { n })}
                 >
                   {n}
                   {isTraveler && (
@@ -193,8 +214,10 @@ export function GameSetupStep({
           </div>
           {neededTravelers > 0 && playerCount && (
             <div className="font-body text-dim mt-2 text-sm">
-              Travelers fill the extra {neededTravelers} slot{neededTravelers > 1 ? "s" : ""} — they are not from your
-              script.
+              {t("setup.travelerSlotsNote", {
+                n: neededTravelers,
+                s: neededTravelers > 1 ? "s" : ""
+              })}
             </div>
           )}
         </div>
@@ -205,9 +228,9 @@ export function GameSetupStep({
             <Panel className="shrink-0">
               <div className="mb-2 flex items-center justify-between">
                 <div className="font-display text-gold text-2xs tracking-wider uppercase">
-                  {playerCount}p Distribution
+                  {t("setup.distribution", { n: playerCount })}
                 </div>
-                {isComplete && <div className="font-display text-tip text-2xs">✓ Complete</div>}
+                {isComplete && <div className="font-display text-tip text-2xs">{t("setup.complete")}</div>}
               </div>
               <div className="flex gap-1.5">
                 {TEAM_ORDER.map((team) => {
@@ -245,7 +268,7 @@ export function GameSetupStep({
                       {selectedTravelerIds.length}
                     </div>
                     <div className="text-dimmer text-2xs my-0.5 font-mono">/ {neededTravelers}</div>
-                    <div className="font-body text-muted text-2xs">Travelers</div>
+                    <div className="font-body text-muted text-2xs">{t("setup.travelers")}</div>
                   </div>
                 )}
               </div>
@@ -264,7 +287,7 @@ export function GameSetupStep({
             {scriptModifiers.length > 0 && req && (
               <Panel>
                 <div className="font-display text-gold text-2xs mb-2.5 tracking-wider uppercase">
-                  Valid Setups — {playerCount}p
+                  {t("setup.validSetups", { n: playerCount })}
                 </div>
                 <div className="flex flex-col gap-0.5">
                   {setupVariants.map((v, i) => {
@@ -303,7 +326,9 @@ export function GameSetupStep({
                             </div>
                           ))}
                         </div>
-                        {isCurrent && <div className="text-tip font-body text-2xs ml-auto">← current</div>}
+                        {isCurrent && (
+                          <div className="text-tip font-body text-2xs ml-auto">{t("setup.current")}</div>
+                        )}
                       </div>
                     );
                   })}
@@ -313,9 +338,13 @@ export function GameSetupStep({
 
             {/* Character selection */}
             <div className="flex flex-col gap-3">
-              <div className="font-display text-gold text-2xs tracking-widest uppercase">Choose Characters</div>
+              <div className="font-display text-gold text-2xs tracking-widest uppercase">
+                {t("setup.chooseCharacters")}
+              </div>
               {TEAM_ORDER.map((team) => {
-                const chars = scriptChars.filter((c) => c.team === team).sort((a, b) => a.name.localeCompare(b.name));
+                const chars = scriptChars
+                  .filter((c) => c.team === team)
+                  .sort((a, b) => a.name.localeCompare(b.name));
                 const needed = req[team];
                 const have = gameCounts[team];
                 const isFull = have >= needed;
@@ -337,7 +366,9 @@ export function GameSetupStep({
                       >
                         {have} / {needed}
                       </div>
-                      {needed === 0 && <div className="font-body text-dimmer text-2xs">(not needed)</div>}
+                      {needed === 0 && (
+                        <div className="font-body text-dimmer text-2xs">{t("setup.notNeeded")}</div>
+                      )}
                     </div>
                     <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
                       {chars.map((char) => {
@@ -367,7 +398,9 @@ export function GameSetupStep({
             {neededTravelers > 0 && editionTravelers.length > 0 && (
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
-                  <div className="font-display text-gold text-2xs tracking-widest uppercase">Travelers</div>
+                  <div className="font-display text-gold text-2xs tracking-widest uppercase">
+                    {t("setup.travelers")}
+                  </div>
                   <div
                     className={cn(
                       "text-2xs bg-deep rounded-lg px-1.5 py-px font-mono",
@@ -401,15 +434,13 @@ export function GameSetupStep({
         )}
 
         {!playerCount && (
-          <div className="text-muted font-body text-md py-7.5 text-center">
-            Choose a player count above to begin selecting characters.
-          </div>
+          <div className="text-muted font-body text-md py-7.5 text-center">{t("setup.choosePlayerCount")}</div>
         )}
       </div>
 
       {/* ── Right: live analysis sidebar ── */}
       <div className="bg-surface border-subtle rounded-[10px] border p-3 sm:p-4 lg:sticky lg:top-4 lg:max-h-[calc(100vh-100px)] lg:overflow-y-auto">
-        <SectionLabel className="mb-4">Live Analysis</SectionLabel>
+        <SectionLabel className="mb-4">{t("setup.liveAnalysis")}</SectionLabel>
         <AnalysisSidebar gameIds={gameIds} allCharacters={allCharacters} />
       </div>
     </div>

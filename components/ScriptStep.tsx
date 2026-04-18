@@ -10,6 +10,7 @@ import { Panel } from "./ui/Panel";
 import { premadeScripts } from "@/data/scripts";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { cn } from "@/lib/cn";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 function teamCount(chars: Character[], team: string) {
   return chars.filter((c) => c.team === team).length;
@@ -50,6 +51,7 @@ export function ScriptStep({
   onSearch,
   onDetail
 }: ScriptStepProps) {
+  const { t } = useTranslation();
   const isCustom = scriptSource === "custom";
   const isTeensyville = scriptType === "teensyville";
 
@@ -57,7 +59,6 @@ export function ScriptStep({
   const teensyvilleScripts = premadeScripts.filter((s) => s.type === "teensyville");
   const fullPremadeScripts = premadeScripts.filter((s) => s.type === "full");
 
-  // Script character counts for custom builder
   const scriptChars = allCharacters.filter((c) => scriptIds.includes(c.id));
   const counts = {
     townsfolk: teamCount(scriptChars, "townsfolk"),
@@ -69,12 +70,10 @@ export function ScriptStep({
   const TARGETS = isTeensyville
     ? { townsfolk: 5, outsider: 1, minion: 1, demon: 1 }
     : { townsfolk: hasBaron ? 11 : 13, outsider: hasBaron ? 6 : 4, minion: 4, demon: 1 };
-  // minimum TF needed to play the smallest supported game
   const tfMin = isTeensyville ? 5 : hasBaron ? 7 : 9;
 
   const valid = isCustom ? scriptIsValid(scriptIds, allCharacters, scriptType) : scriptSource !== null;
 
-  // Custom builder: filtered pool
   const filteredPool = isCustom
     ? allCharacters.filter(
         (c) =>
@@ -93,12 +92,9 @@ export function ScriptStep({
     <div className="mx-auto flex max-w-300 flex-col gap-6 px-3 py-5 sm:gap-9 sm:px-6 sm:py-8">
       <div>
         <h2 className="font-display text-parchment tracking-tight-wide m-0 mb-2 text-xl sm:text-2xl">
-          Step 1 — Choose Your Script
+          {t("script.title")}
         </h2>
-        <p className="font-body text-dim sm:text-md m-0 text-base">
-          A script is the set of characters available to appear in your game. Choose a pre-made script or build your
-          own.
-        </p>
+        <p className="font-body text-dim sm:text-md m-0 text-base">{t("script.description")}</p>
       </div>
 
       {/* Game type toggle + continue */}
@@ -116,13 +112,13 @@ export function ScriptStep({
                     active ? "bg-blood text-parchment" : "text-dim hover:text-muted bg-transparent"
                   )}
                 >
-                  {type === "full" ? "Full Script" : "Teensyville"}
+                  {type === "full" ? t("script.fullScript") : t("script.teensyville")}
                 </button>
               );
             })}
           </div>
           <button onClick={onContinue} disabled={!valid} className={continueButtonClass}>
-            Set Up Game →
+            {t("script.setUpGame")}
           </button>
         </div>
       )}
@@ -170,7 +166,6 @@ export function ScriptStep({
 
                   <div className="font-body text-muted mb-4 min-h-10 text-base leading-normal">{ed.tagline}</div>
 
-                  {/* Character count grid */}
                   <div className="mb-4 grid grid-cols-2 gap-x-3 gap-y-1">
                     {TEAM_ORDER.map((team) => {
                       const n = teamCount(pool, team);
@@ -197,7 +192,7 @@ export function ScriptStep({
                       isSelected ? "bg-blood text-parchment" : "bg-subtle text-muted"
                     )}
                   >
-                    {isSelected ? "✓ Selected" : "Select Script"}
+                    {isSelected ? t("script.selected") : t("script.selectScript")}
                   </button>
                 </div>
               );
@@ -207,23 +202,22 @@ export function ScriptStep({
           {/* Custom option */}
           <div className="bg-surface border-subtle flex flex-col items-stretch justify-between gap-3 rounded-xl border-2 border-dashed px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-6 sm:py-5">
             <div>
-              <div className="font-display text-gold text-md mb-1">Custom Script</div>
-              <div className="font-body text-dim text-base leading-normal">
-                Mix characters from all editions. Aim for 13+ Townsfolk, 4 Outsiders, 4 Minions, and at least 1 Demon to
-                support all player counts.
-              </div>
+              <div className="font-display text-gold text-md mb-1">{t("script.customScript")}</div>
+              <div className="font-body text-dim text-base leading-normal">{t("script.customScriptDescription")}</div>
             </div>
             <button
               onClick={onSelectCustom}
               className="bg-surface border-gold text-gold font-display shrink-0 cursor-pointer rounded-md border px-4.5 py-2 text-xs tracking-wide whitespace-nowrap"
             >
-              Build Custom →
+              {t("script.buildCustom")}
             </button>
           </div>
 
           {/* Official scripts */}
           <div>
-            <div className="font-display text-gold mb-3 text-sm tracking-wider uppercase">Official Scripts</div>
+            <div className="font-display text-gold mb-3 text-sm tracking-wider uppercase">
+              {t("script.officialScripts")}
+            </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
               {officialScripts.map((script) => (
                 <PremadeScriptCard
@@ -239,7 +233,9 @@ export function ScriptStep({
 
           {/* Community full scripts */}
           <div>
-            <div className="font-display text-gold mb-3 text-sm tracking-wider uppercase">Community Scripts</div>
+            <div className="font-display text-gold mb-3 text-sm tracking-wider uppercase">
+              {t("script.communityScripts")}
+            </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
               {fullPremadeScripts.map((script) => (
                 <PremadeScriptCard
@@ -258,10 +254,9 @@ export function ScriptStep({
       {/* Teensyville landing */}
       {!isCustom && isTeensyville && (
         <>
-          {/* Premade scripts */}
           <div>
             <div className="font-display text-gold mb-3 text-sm tracking-wider uppercase">
-              Community Teensyville Scripts
+              {t("script.communityTeensyvilleScripts")}
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
               {teensyvilleScripts.map((script) => (
@@ -279,16 +274,16 @@ export function ScriptStep({
           {/* Custom option */}
           <div className="bg-surface border-subtle flex flex-col items-stretch justify-between gap-3 rounded-xl border-2 border-dashed px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-6 sm:py-5">
             <div>
-              <div className="font-display text-gold text-md mb-1">Custom Teensyville Script</div>
+              <div className="font-display text-gold text-md mb-1">{t("script.customTeensyvilleScript")}</div>
               <div className="font-body text-dim text-base leading-normal">
-                Build a small script for 5–6 players. You need at least 5 Townsfolk, 1 Outsider, 1 Minion, and 1 Demon.
+                {t("script.customTeensyvilleDescription")}
               </div>
             </div>
             <button
               onClick={onSelectCustom}
               className="bg-surface border-gold text-gold font-display shrink-0 cursor-pointer rounded-md border px-4.5 py-2 text-xs tracking-wide whitespace-nowrap"
             >
-              Build Custom →
+              {t("script.buildCustom")}
             </button>
           </div>
         </>
@@ -297,7 +292,6 @@ export function ScriptStep({
       {/* Custom script builder */}
       {isCustom && (
         <div className="flex flex-col gap-4">
-          {/* Top controls */}
           <div className="flex flex-wrap items-center justify-between gap-3">
             <button
               onClick={() =>
@@ -310,21 +304,20 @@ export function ScriptStep({
               }
               className="border-subtle text-muted font-body cursor-pointer rounded-[5px] border bg-transparent px-3 py-1.25 text-sm sm:text-base"
             >
-              ← Back to Script Selection
+              {t("script.backToSelection")}
             </button>
             <button onClick={onContinue} disabled={!valid} className={continueButtonClass}>
-              Set Up Game →
+              {t("script.setUpGame")}
             </button>
           </div>
 
-          {/* Main grid — stacks on small screens */}
           <div className="flex flex-col gap-4 lg:grid lg:min-h-150 lg:grid-cols-[1fr_280px]">
             {/* Left: character pool */}
             <div className="bg-surface border-subtle flex flex-col overflow-hidden rounded-[10px] border">
               <div className="border-subtle border-b px-3 py-2.5">
                 <input
                   type="text"
-                  placeholder="Search characters..."
+                  placeholder={t("script.searchPlaceholder")}
                   value={searchQuery}
                   onChange={(e) => onSearch(e.target.value)}
                   className="bg-background text-parchment border-faint font-body box-border w-full rounded-md border px-2.5 py-1.5 text-base outline-none"
@@ -363,8 +356,7 @@ export function ScriptStep({
 
             {/* Right: script summary */}
             <div className="flex flex-col gap-2.5 overflow-y-auto">
-              {/* Count dashboard */}
-              <Panel title={`Your Script — ${scriptIds.length}`} className="shrink-0">
+              <Panel title={t("script.yourScript", { count: scriptIds.length })} className="shrink-0">
                 <div className="flex gap-1.5">
                   {TEAM_ORDER.map((team) => {
                     const have = counts[team];
@@ -390,27 +382,29 @@ export function ScriptStep({
                   })}
                 </div>
 
-                {/* Hint messages — condensed */}
                 <div className="text-2xs mt-2 flex flex-col gap-0.5">
-                  {counts.demon === 0 && <div className="font-body text-blood-light">⚠ Need Demon</div>}
+                  {counts.demon === 0 && <div className="font-body text-blood-light">{t("script.needDemon")}</div>}
                   {counts.townsfolk < tfMin && (
-                    <div className="font-body text-amber">⚡ Add {tfMin - counts.townsfolk}+ Townsfolk</div>
+                    <div className="font-body text-amber">
+                      {t("script.addTownsfolk", { n: tfMin - counts.townsfolk })}
+                    </div>
                   )}
-                  {counts.minion === 0 && <div className="font-body text-amber">⚡ Need Minion</div>}
+                  {counts.minion === 0 && <div className="font-body text-amber">{t("script.needMinion")}</div>}
                   {isTeensyville && counts.outsider === 0 && (
-                    <div className="font-body text-amber">⚡ Need Outsider</div>
+                    <div className="font-body text-amber">{t("script.needOutsider")}</div>
                   )}
                   {!isTeensyville && hasBaron && counts.townsfolk >= tfMin && (
-                    <div className="font-body text-outsider">⚙ Baron active</div>
+                    <div className="font-body text-outsider">{t("script.baronActive")}</div>
                   )}
-                  {valid && <div className="font-body text-tip">✓ Valid script</div>}
+                  {valid && <div className="font-body text-tip">{t("script.validScript")}</div>}
                 </div>
               </Panel>
 
-              {/* Script character list — compact */}
               {scriptIds.length > 0 && (
                 <Panel className="min-h-0 flex-1 overflow-y-auto">
-                  <div className="font-display text-gold text-2xs mb-2 tracking-wider uppercase">Contents</div>
+                  <div className="font-display text-gold text-2xs mb-2 tracking-wider uppercase">
+                    {t("script.contents")}
+                  </div>
                   {TEAM_ORDER.map((team) => {
                     const chars = scriptChars.filter((c) => c.team === team);
                     if (chars.length === 0) return null;
@@ -428,7 +422,7 @@ export function ScriptStep({
                             <button
                               key={char.id}
                               onClick={() => onToggleScriptChar(char.id)}
-                              title={`Remove ${char.name}`}
+                              title={t("script.removeChar", { name: char.name })}
                               className="font-display bg-panel-dark text-2xs flex cursor-pointer items-center gap-0.75 rounded-xs px-1.5 py-0.5"
                               style={{
                                 border: `1px solid ${c.border}`,

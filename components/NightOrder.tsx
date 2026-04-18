@@ -4,8 +4,10 @@ import { NightOrderProps } from "@/types";
 import { EmptyState } from "./ui/EmptyState";
 import { CharacterIcon } from "./ui/CharacterIcon";
 import { cn } from "@/lib/cn";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
+  const { t } = useTranslation();
   return (
     <div>
       <div className="bg-background mb-3 flex gap-1 rounded-md p-0.75">
@@ -18,12 +20,12 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
               phase === p ? "text-parchment bg-townsfolk-border" : "text-muted bg-transparent"
             )}
           >
-            {p === "first" ? "First Night" : "Other Nights"}
+            {p === "first" ? t("nightOrder.firstNight") : t("nightOrder.otherNights")}
           </button>
         ))}
       </div>
 
-      {steps.length === 0 && <EmptyState>No night actions for this phase.</EmptyState>}
+      {steps.length === 0 && <EmptyState>{t("nightOrder.empty")}</EmptyState>}
 
       <div className="flex flex-col">
         {steps.map((step, i) => (

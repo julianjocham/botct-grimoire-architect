@@ -10,6 +10,7 @@ import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { cn } from "@/lib/cn";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 type HintStyle = {
   border: string;
@@ -51,6 +52,7 @@ function strengthBarColor(s: number): string {
 }
 
 export function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps) {
+  const { t } = useTranslation();
   const analysis = useMemo(
     () => analyzeScript(gameIds, allCharacters, allInteractions, "game"),
     [gameIds, allCharacters]
@@ -62,9 +64,7 @@ export function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps
 
   if (gameIds.length === 0) {
     return (
-      <div className="font-body text-muted px-4 py-10 text-center text-base">
-        Select characters to see live analysis.
-      </div>
+      <div className="font-body text-muted px-4 py-10 text-center text-base">{t("analysisSidebar.empty")}</div>
     );
   }
 
@@ -76,7 +76,9 @@ export function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps
 
       {keyHints.length > 0 && (
         <div>
-          <SectionLabel className="mb-2">Interactions ({keyHints.length})</SectionLabel>
+          <SectionLabel className="mb-2">
+            {t("analysisSidebar.interactions", { count: keyHints.length })}
+          </SectionLabel>
           <div className="flex flex-col gap-1.5">
             {keyHints.map((hint, i) => {
               const isJinx = hint.category === "jinx";
@@ -127,7 +129,7 @@ export function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps
 
       {analysis.compositionWarnings.length > 0 && (
         <div>
-          <SectionLabel className="mb-2">Issues</SectionLabel>
+          <SectionLabel className="mb-2">{t("analysisSidebar.issues")}</SectionLabel>
           <div className="flex flex-col gap-1.25">
             {analysis.compositionWarnings.map((w, i) => (
               <div
@@ -152,18 +154,19 @@ export function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps
 }
 
 function TeamStrengthSection({ good, evil, maxAbs }: { good: number; evil: number; maxAbs: number }) {
+  const { t } = useTranslation();
   return (
     <div>
-      <SectionLabel className="mb-2.5">Team Strength</SectionLabel>
+      <SectionLabel className="mb-2.5">{t("analysisSidebar.teamStrength")}</SectionLabel>
       <div className="flex flex-col gap-2">
         {[
-          { label: "Good", value: good, color: "var(--strength-good)" },
-          { label: "Evil", value: evil, color: "var(--strength-evil-strong)" }
-        ].map(({ label, value, color }) => (
-          <div key={label}>
+          { labelKey: "analysisSidebar.good", value: good, color: "var(--strength-good)" },
+          { labelKey: "analysisSidebar.evil", value: evil, color: "var(--strength-evil-strong)" }
+        ].map(({ labelKey, value, color }) => (
+          <div key={labelKey}>
             <div className="mb-0.75 flex justify-between">
               <span className="text-3xs font-mono uppercase" style={{ color }}>
-                {label}
+                {t(labelKey)}
               </span>
               <span className="text-2xs font-mono" style={{ color }}>
                 {value > 0 ? "+" : ""}
@@ -184,18 +187,19 @@ function TeamStrengthSection({ good, evil, maxAbs }: { good: number; evil: numbe
 }
 
 function GameFeelSection({ analysis }: { analysis: ReturnType<typeof analyzeScript> }) {
+  const { t } = useTranslation();
   return (
     <div>
-      <SectionLabel className="mb-2.5">Game Feel</SectionLabel>
+      <SectionLabel className="mb-2.5">{t("analysisSidebar.gameFeel")}</SectionLabel>
       <div className="flex flex-col gap-1.75">
-        {FEEL_BARS.map(({ key, label, levels }) => {
+        {FEEL_BARS.map(({ key, levels }) => {
           const val = analysis.scriptFeel[key] as string;
           const idx = levels.indexOf(val);
           const color = FEEL_COLOR[val] ?? "var(--gold)";
           return (
             <div key={key}>
               <div className="mb-0.5 flex justify-between">
-                <span className="text-dim text-3xs font-mono uppercase">{label}</span>
+                <span className="text-dim text-3xs font-mono uppercase">{t(`feelLabels.${key}`)}</span>
                 <span className="font-display text-3xs" style={{ color }}>
                   {val}
                 </span>
@@ -218,6 +222,7 @@ function GameFeelSection({ analysis }: { analysis: ReturnType<typeof analyzeScri
 }
 
 function CharacterStrengthList({ gameIds, allCharacters }: { gameIds: string[]; allCharacters: Character[] }) {
+  const { t } = useTranslation();
   const entries = gameIds
     .map((id) => {
       const char = allCharacters.find((c) => c.id === id);
@@ -230,7 +235,7 @@ function CharacterStrengthList({ gameIds, allCharacters }: { gameIds: string[]; 
 
   return (
     <div>
-      <SectionLabel className="mb-2">Character Strengths</SectionLabel>
+      <SectionLabel className="mb-2">{t("analysisSidebar.characterStrengths")}</SectionLabel>
       <div className="flex flex-col gap-1">
         {entries.map((entry) => {
           if (!entry) return null;

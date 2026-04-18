@@ -6,16 +6,7 @@ import { allInteractions } from "@/lib/data";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { cn } from "@/lib/cn";
-
-const GAP_LABELS: Record<string, string> = {
-  "info-start": "first-night info",
-  "info-recurring": "recurring info",
-  "once-per-game": "once-per-game power",
-  "protection": "protection",
-  "day-ability": "day ability",
-  "info-disruption": "disruption",
-  "demon-resilience": "demon resilience"
-};
+import { useTranslation } from "@/contexts/LanguageContext";
 
 interface CharacterSelectCardProps {
   character: Character;
@@ -24,7 +15,6 @@ interface CharacterSelectCardProps {
   isBlocked: boolean;
   onDetail: (id: string) => void;
   onToggle: (id: string) => void;
-  /** Pass a custom accent color override (e.g. for travelers using gold). */
   accentColor?: { bg: string; border: string; text: string };
   missingGoodCats?: Set<string>;
   missingEvilCats?: Set<string>;
@@ -48,6 +38,7 @@ export function CharacterSelectCard({
   missingGoodCats,
   missingEvilCats
 }: CharacterSelectCardProps) {
+  const { t } = useTranslation();
   const inGame = gameIds.includes(character.id);
   const teamColors = TEAM_COLORS[character.team] ?? TEAM_COLORS.townsfolk;
   const colors = accentColor ?? teamColors;
@@ -69,7 +60,7 @@ export function CharacterSelectCard({
     !inGame &&
     cat != null &&
     ((isGoodTeam && (missingGoodCats?.has(cat) ?? false)) || (isEvilTeam && (missingEvilCats?.has(cat) ?? false)));
-  const gapFillLabel = isGapFill && cat ? GAP_LABELS[cat] : null;
+  const gapFillLabel = isGapFill && cat ? t(`gapLabels.${cat}`) : null;
 
   const isHighlighted = hasSynergy || isGapFill;
   const eff = calculateEffectiveStrength(character.id, gameIds, allCharacters);
@@ -118,7 +109,7 @@ export function CharacterSelectCard({
                 {countersInGame > 0 && <span>⚔{countersInGame}</span>}
                 {hasSynergy && (
                   <span className="group text-good-indicator relative cursor-default">
-                    ✦ {notableSynergies.length === 1 ? "synergy" : "synergies"}
+                    ✦ {notableSynergies.length === 1 ? t("synergy") : t("synergies")}
                     <div className="border-good-indicator-border bg-good-indicator-bg pointer-events-none absolute bottom-full left-0 z-50 mb-1.5 hidden w-56 rounded-md border px-2.5 py-2 shadow-lg group-hover:block">
                       {notableSynergies.map((syn, idx) => (
                         <div

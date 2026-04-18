@@ -3,6 +3,7 @@
 import { Character, PremadeScript } from "@/types";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { cn } from "@/lib/cn";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 interface PremadeScriptCardProps {
   script: PremadeScript;
@@ -12,6 +13,7 @@ interface PremadeScriptCardProps {
 }
 
 export function PremadeScriptCard({ script, allCharacters, isSelected, onSelect }: PremadeScriptCardProps) {
+  const { t } = useTranslation();
   const chars = allCharacters.filter((c) => script.characters.includes(c.id));
   const counts = {
     townsfolk: chars.filter((c) => c.team === "townsfolk").length,
@@ -54,7 +56,7 @@ export function PremadeScriptCard({ script, allCharacters, isSelected, onSelect 
           isSelected ? "bg-blood text-parchment" : "bg-subtle text-muted"
         )}
       >
-        {isSelected ? "✓ Selected" : "Select Script"}
+        {isSelected ? t("premadeScriptCard.selected") : t("premadeScriptCard.selectScript")}
       </button>
     </div>
   );

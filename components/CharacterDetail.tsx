@@ -7,6 +7,7 @@ import { StrengthBar } from "@/components/common/StrengthBar";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { cn } from "@/lib/cn";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 export function CharacterDetail({
   character,
@@ -17,10 +18,10 @@ export function CharacterDetail({
   onToggle,
   onNavigate
 }: CharacterDetailProps) {
+  const { t } = useTranslation();
   const isSelected = selectedIds.includes(character.id);
   const { baseStrength, modifier, effectiveStrength: eff, reasons } = effectiveStrength;
 
-  // Fun interactions: characters NOT on script that interact with this one
   const countersOnScript = character.counters
     .map((id) => allCharacters.find((c) => c.id === id))
     .filter((c) => c && selectedIds.includes(c.id)) as Character[];
@@ -41,8 +42,8 @@ export function CharacterDetail({
           <div>
             <div className="font-display text-parchment mb-0.5 text-lg">{character.name}</div>
             <div className="font-body text-muted text-sm capitalize">
-              {character.team} · {character.edition?.toUpperCase() || "Experimental"} · ST Complexity:{" "}
-              {COMPLEXITY_LABEL[character.stComplexity ?? 2]}
+              {character.team} · {character.edition?.toUpperCase() || t("characterDetail.experimental")} ·{" "}
+              {t("characterDetail.stComplexity")} {COMPLEXITY_LABEL[character.stComplexity ?? 2]}
             </div>
           </div>
         </div>
@@ -58,7 +59,7 @@ export function CharacterDetail({
         {/* Ability text */}
         <div>
           <SectionLabel color="muted" mono className="mb-1">
-            Ability
+            {t("characterDetail.ability")}
           </SectionLabel>
           <div className="font-body text-parchment-muted bg-surface border-subtle rounded-md border px-2.5 py-2 text-base leading-[1.6] italic">
             &ldquo;{character.ability}&rdquo;
@@ -69,60 +70,61 @@ export function CharacterDetail({
         {character.strength?.composite !== undefined && (
           <div>
             <SectionLabel color="muted" mono className="mb-1.5">
-              Strength
+              {t("characterDetail.strength")}
             </SectionLabel>
             <StrengthBar value={baseStrength} effectiveValue={eff} />
             {modifier !== 0 && (
               <div className={cn("text-2xs mt-1 font-mono", eff < 0 ? "text-blood-light" : "text-good-blue")}>
-                Base {baseStrength > 0 ? "+" : ""}
-                {baseStrength} → {modifier > 0 ? "+" : ""}
-                {modifier} (context) → {eff > 0 ? "+" : ""}
-                {eff}
+                {t("characterDetail.strengthContext", {
+                  base: (baseStrength > 0 ? "+" : "") + baseStrength,
+                  modifier: (modifier > 0 ? "+" : "") + modifier,
+                  eff: (eff > 0 ? "+" : "") + eff
+                })}
               </div>
             )}
-            {/* Sub-dimensions */}
             {(character.strength.peakPower !== undefined ||
               character.strength.reliability !== undefined ||
               character.strength.vulnerability !== undefined) && (
               <div className="mt-2.5 flex flex-col gap-1.25">
                 {character.strength.peakPower !== undefined && (
                   <SubDimBar
-                    label="Peak Power"
+                    label={t("characterDetail.peakPower")}
                     value={character.strength.peakPower}
                     min={-20}
                     max={20}
                     color={character.strength.peakPower >= 0 ? "var(--strength-good)" : "var(--strength-evil-strong)"}
-                    tooltip="Maximum impact in the best-case scenario (-20 to +20)"
+                    tooltip={t("characterDetail.peakPowerTooltip")}
                   />
                 )}
                 {character.strength.reliability !== undefined && (
                   <SubDimBar
-                    label="Reliability"
+                    label={t("characterDetail.reliability")}
                     value={Math.round(character.strength.reliability * 100)}
                     min={0}
                     max={100}
                     color="var(--gold)"
                     suffix="%"
-                    tooltip="How often the ability works as intended (0–100%)"
+                    tooltip={t("characterDetail.reliabilityTooltip")}
                   />
                 )}
                 {character.strength.vulnerability !== undefined && (
                   <SubDimBar
-                    label="Vulnerability"
+                    label={t("characterDetail.vulnerability")}
                     value={Math.round(character.strength.vulnerability * 100)}
                     min={0}
                     max={100}
                     color="var(--strength-evil-strong)"
                     suffix="%"
-                    tooltip="How exposed to disruption or countering the character is (0–100%)"
+                    tooltip={t("characterDetail.vulnerabilityTooltip")}
                   />
                 )}
                 {character.strength.scalingBonus !== undefined && character.strength.scalingBonus !== 0 && (
                   <div className="text-dim text-3xs flex justify-between font-mono">
-                    <span title="Bonus or penalty in larger games">Scaling</span>
+                    <span title={t("characterDetail.scaling")}>{t("characterDetail.scaling")}</span>
                     <span className={character.strength.scalingBonus > 0 ? "text-good-blue" : "text-blood-light"}>
                       {character.strength.scalingBonus > 0 ? "+" : ""}
-                      {character.strength.scalingBonus} large games
+                      {character.strength.scalingBonus}{" "}
+                      {t("characterDetail.scalingLargeGames", { n: "" }).trim()}
                     </span>
                   </div>
                 )}
@@ -172,7 +174,7 @@ export function CharacterDetail({
         {character.stAdvice && (
           <div>
             <SectionLabel color="muted" mono className="mb-1">
-              ST Advice
+              {t("characterDetail.stAdvice")}
             </SectionLabel>
             <div className="font-body text-parchment-muted text-base leading-[1.6]">{character.stAdvice}</div>
           </div>
@@ -182,7 +184,7 @@ export function CharacterDetail({
         {character.newStWarning && (
           <div className="border-severity-important bg-severity-important-bg rounded-md border px-2.5 py-2">
             <SectionLabel color="amber" mono className="mb-1">
-              ⚠ New ST Warning
+              {t("characterDetail.newStWarning")}
             </SectionLabel>
             <div className="font-body text-gold-light text-sm leading-normal">{character.newStWarning}</div>
           </div>
@@ -192,18 +194,18 @@ export function CharacterDetail({
         {(character.firstNightReminder || character.otherNightReminder) && (
           <div>
             <SectionLabel color="muted" mono className="mb-1">
-              Official Reminders
+              {t("characterDetail.officialReminders")}
             </SectionLabel>
             <div className="flex flex-col gap-1">
               {character.firstNightReminder && (
                 <div className="font-body text-muted text-sm leading-[1.4]">
-                  <span className="text-dim">1st: </span>
+                  <span className="text-dim">{t("characterDetail.firstNight")}</span>
                   {character.firstNightReminder}
                 </div>
               )}
               {character.otherNightReminder && (
                 <div className="font-body text-muted text-sm leading-[1.4]">
-                  <span className="text-dim">Other: </span>
+                  <span className="text-dim">{t("characterDetail.otherNights")}</span>
                   {character.otherNightReminder}
                 </div>
               )}
@@ -215,7 +217,7 @@ export function CharacterDetail({
         {countersOnScript.length > 0 && (
           <div>
             <SectionLabel color="blood" mono className="mb-1.5">
-              ⚔ Counters on this script
+              {t("characterDetail.countersOnScript")}
             </SectionLabel>
             <div className="flex flex-col gap-1.5">
               {countersOnScript.map((counter) => (
@@ -252,7 +254,7 @@ export function CharacterDetail({
         {character.bluffAdvice && (
           <div>
             <SectionLabel color="muted" mono className="mb-1">
-              Bluff Advice
+              {t("characterDetail.bluffAdvice")}
             </SectionLabel>
             <div className="font-body text-parchment-muted text-base leading-normal">{character.bluffAdvice}</div>
           </div>
@@ -266,7 +268,7 @@ export function CharacterDetail({
             isSelected ? "bg-blood" : "bg-good-blue"
           )}
         >
-          {isSelected ? "Remove from Script" : "Add to Script"}
+          {isSelected ? t("characterDetail.removeFromScript") : t("characterDetail.addToScript")}
         </button>
       </div>
     </div>

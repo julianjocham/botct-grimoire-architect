@@ -12,8 +12,18 @@ import { DashboardStep } from "@/components/DashboardStep";
 import { allInteractions } from "@/lib/data";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { cn } from "@/lib/cn";
+import { LanguageProvider, useTranslation } from "@/contexts/LanguageContext";
 
 export default function Home() {
+  return (
+    <LanguageProvider>
+      <App />
+    </LanguageProvider>
+  );
+}
+
+function App() {
+  const { t, language, setLanguage } = useTranslation();
   const { state, dispatch } = useGrimoireState();
   const {
     step,
@@ -28,7 +38,6 @@ export default function Home() {
     detailCharacterId
   } = state;
 
-  // Steps 2 + 3 analyze characters in play; step 1 analyzes the script being built.
   const contextIds = step === "script" ? scriptIds : gameIds;
 
   const editionPools = useMemo(
@@ -54,7 +63,6 @@ export default function Home() {
     return EDITIONS.find((ed) => ed.key === scriptSource)?.name ?? "Unknown Script";
   }, [scriptSource, premadeScriptId]);
 
-  // Travelers included so traveler detail panels work on the setup step.
   const allCharactersWithTravelers = useMemo(() => [...allCharacters, ...editionTravelers], [editionTravelers]);
   const detailChar = detailCharacterId
     ? (allCharactersWithTravelers.find((c) => c.id === detailCharacterId) ?? null)
@@ -70,19 +78,23 @@ export default function Home() {
           <img src="/cc_logo.png" alt="Community Created Content" className="h-8 w-auto opacity-80" />
           <div className="flex flex-col sm:flex-row sm:items-baseline">
             <span className="font-display text-parchment text-md tracking-wide">Grimoire Architect</span>
-            <span className="font-body text-dimmer text-xs sm:ml-3">
-              Blood on the Clocktower — Fan-made Storyteller Tool
-            </span>
+            <span className="font-body text-dimmer text-xs sm:ml-3">{t("header.subtitle")}</span>
           </div>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
           <StepIndicator currentStep={step} />
           <button
+            onClick={() => setLanguage(language === "en" ? "de" : "en")}
+            className="border-subtle text-dim font-body cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-xs"
+          >
+            {t("langToggle")}
+          </button>
+          <button
             onClick={() => dispatch({ type: "RESET" })}
             className="border-subtle text-dim font-body cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-xs"
           >
-            Start Over
+            {t("header.startOver")}
           </button>
         </div>
       </header>
@@ -151,16 +163,16 @@ export default function Home() {
           <div className="flex items-center gap-2.5">
             <img src="/cc_logo.png" alt="Community Created Content" className="h-5 w-auto opacity-60" />
             <span className="text-dimmer font-body text-xs">
-              Fan-made tool — not affiliated with{" "}
+              {t("footer.disclaimer")}{" "}
               <a
                 href="https://bloodontheclocktower.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted hover:text-foreground underline transition-colors"
               >
-                The Pandemonium Institute
+                {t("footer.tpi")}
               </a>
-              . Free to use.
+              . {t("footer.free")}
             </span>
           </div>
           <a
@@ -169,7 +181,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="text-dimmer hover:text-foreground font-body text-xs underline transition-colors"
           >
-            View on GitHub
+            {t("footer.github")}
           </a>
         </div>
       </footer>
@@ -198,11 +210,11 @@ export default function Home() {
   );
 }
 
-const STEP_LABELS = { script: "1 Script", setup: "2 Game Setup", dashboard: "3 Dashboard" } as const;
-type WizardStep = keyof typeof STEP_LABELS;
+type WizardStep = "script" | "setup" | "dashboard";
 
 function StepIndicator({ currentStep }: { currentStep: WizardStep }) {
-  const steps = ["script", "setup", "dashboard"] as const;
+  const { t } = useTranslation();
+  const steps: WizardStep[] = ["script", "setup", "dashboard"];
   const currentIndex = steps.indexOf(currentStep);
 
   return (
@@ -220,7 +232,7 @@ function StepIndicator({ currentStep }: { currentStep: WizardStep }) {
               !isActive && !isReached && "border-subtle text-dimmer border bg-transparent"
             )}
           >
-            {STEP_LABELS[step]}
+            {t(`steps.${step}`)}
           </div>
         );
       })}
