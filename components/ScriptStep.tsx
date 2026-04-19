@@ -4,7 +4,7 @@ import { Character, ScriptStepProps, ScriptType } from "@/types";
 import { CharacterToken } from "./common/CharacterToken";
 import { PremadeScriptCard } from "./common/PremadeScriptCard";
 import { EDITIONS } from "@/constants/info";
-import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
+import { SCRIPT_BUILD_TEAM_ORDER, TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { Panel } from "./ui/Panel";
 import { premadeScripts } from "@/data/scripts";
@@ -324,7 +324,7 @@ export function ScriptStep({
                 />
               </div>
               <div className="flex flex-1 flex-col gap-3 overflow-y-auto px-3 py-2.5">
-                {TEAM_ORDER.map((team) => {
+                {SCRIPT_BUILD_TEAM_ORDER.map((team) => {
                   let chars = filteredPool.filter((c) => c.team === team);
                   if (chars.length === 0) return null;
                   chars = chars.sort((a, b) => a.name.localeCompare(b.name));
@@ -405,7 +405,7 @@ export function ScriptStep({
                   <div className="font-display text-gold text-2xs mb-2 tracking-wider uppercase">
                     {t("script.contents")}
                   </div>
-                  {TEAM_ORDER.map((team) => {
+                  {SCRIPT_BUILD_TEAM_ORDER.map((team) => {
                     const chars = scriptChars.filter((c) => c.team === team);
                     if (chars.length === 0) return null;
                     const c = TEAM_COLORS[team];

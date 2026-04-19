@@ -2,18 +2,34 @@ import playerCountsData from "@/data/playerCounts.json";
 
 export const TEAM_ORDER = ["townsfolk", "outsider", "minion", "demon"] as const;
 
+export const SCRIPT_BUILD_TEAM_ORDER = [
+  "townsfolk",
+  "outsider",
+  "minion",
+  "demon",
+  "traveler",
+  "fabled",
+  "loric"
+] as const;
+
 export const TEAM_LABEL: Record<string, string> = {
   townsfolk: "Townsfolk",
   outsider: "Outsiders",
   minion: "Minions",
-  demon: "Demons"
+  demon: "Demons",
+  traveler: "Travelers",
+  fabled: "Fabled",
+  loric: "Loric"
 };
 
 export const TEAM_COLORS: Record<string, { border: string; bg: string; text: string }> = {
   townsfolk: { border: "#2a4a7f", bg: "#0d1a2e", text: "#5b9bd5" },
   outsider: { border: "#4a2a7f", bg: "#1a0d2e", text: "#9b7fd5" },
   minion: { border: "#7f2a2a", bg: "#2e0d0d", text: "#d5825b" },
-  demon: { border: "#7f1a1a", bg: "#2e0808", text: "#d55b5b" }
+  demon: { border: "#7f1a1a", bg: "#2e0808", text: "#d55b5b" },
+  traveler: { border: "#5a5a2e", bg: "#1a1a08", text: "#c9b868" },
+  fabled: { border: "#5a3a7a", bg: "#1a0d22", text: "#b89ad5" },
+  loric: { border: "#2e5a5a", bg: "#081a1a", text: "#68c9c9" }
 };
 
 export const TEAM_ICON: Record<string, string> = {

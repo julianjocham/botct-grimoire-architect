@@ -27,13 +27,26 @@ function mergeCharacter(c: RawCharacter): Character {
 
 // Non-traveler, non-fabled characters — the main pool
 export const allCharacters: Character[] = (rawCharacters as RawCharacter[])
-  .filter((c) => c.team !== "traveler" && c.team !== "fabled")
+  .filter((c) => c.team !== "traveler" && c.team !== "fabled" && c.team !== "loric")
   .map(mergeCharacter);
 
 // All traveler characters (used for 16+ player games)
 export const allTravelers: Character[] = (rawCharacters as RawCharacter[])
   .filter((c) => c.team === "traveler")
   .map(mergeCharacter);
+
+// All fabled characters (optional additions for special game modes)
+export const allFabled: Character[] = (rawCharacters as RawCharacter[])
+  .filter((c) => c.team === "fabled")
+  .map(mergeCharacter);
+
+// All loric characters
+export const allLoric: Character[] = (rawCharacters as RawCharacter[])
+  .filter((c) => c.team === "loric")
+  .map(mergeCharacter);
+
+// Full character pool including travelers, fabled, loric — used by the custom script builder
+export const allCharactersWithExtras: Character[] = [...allCharacters, ...allTravelers, ...allFabled, ...allLoric];
 
 export const categoryRules: CategoryRule[] = categoryRulesData.rules as CategoryRule[];
 

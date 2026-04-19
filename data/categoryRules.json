@@ -100,14 +100,14 @@
       "category": "info-poisoning"
     },
     {
-      "id": "lethal-evil-vs-protection",
-      "sourceTag": "lethal-evil",
+      "id": "ultra-lethal-evil-vs-protection",
+      "sourceTag": "ultra-lethal-evil",
       "targetTag": "protection",
       "type": "counter",
-      "severity": "important",
-      "title": "{source} can bypass {target}'s protection",
-      "description": "{source} adds an extra kill source that may not be blocked by {target}'s protection mechanic. This erodes the safety net {target} provides.",
-      "strengthImpact": -10,
+      "severity": "critical",
+      "title": "{source} bypasses {target}'s protection unconditionally",
+      "description": "{source} can kill protected targets even when not poisoned or drunk.",
+      "strengthImpact": -18,
       "category": "death-rate"
     },
     {
@@ -152,6 +152,127 @@
       "title": "{source} and {target} layer protection for good",
       "description": "Multiple protection abilities make it harder for evil to remove key good players. Stacked protection slows evil's night kill efficiency.",
       "strengthImpact": 8,
+      "category": "death-rate"
+    },
+    {
+      "id": "protection-self-vs-ultra-lethal-evil",
+      "sourceTag": "protection-self",
+      "targetTag": "ultra-lethal-evil",
+      "type": "counter",
+      "severity": "critical",
+      "title": "{target} kills {source} through their self-protection",
+      "description": "{source} can only protect themselves and nobody else — against {target}, this protection is meaningless. The one player {source} could protect still dies, wasting the ability entirely.",
+      "strengthImpact": -12,
+      "category": "death-rate"
+    },
+    {
+      "id": "extra-life-vs-ultra-lethal-evil",
+      "sourceTag": "extra-life",
+      "targetTag": "ultra-lethal-evil",
+      "type": "counter",
+      "severity": "critical",
+      "title": "{source}'s extra life absorbs {target}'s unblockable kill",
+      "description": "{source} survives the first death — even {target}'s protection-piercing kill is absorbed. The shot is wasted on a single life rather than ending the role. Good effectively gets one free save against the Assassin.",
+      "strengthImpact": 15,
+      "category": "death-rate"
+    },
+    {
+      "id": "extra-life-vs-lethal-evil",
+      "sourceTag": "extra-life",
+      "targetTag": "lethal-evil",
+      "type": "counter",
+      "severity": "important",
+      "title": "{source} has a one-time safety net against {target}",
+      "description": "The first death from any source (including {target}) is absorbed by {source}'s extra life. {target}'s kill still counts, but {source} remains in the game to keep contributing.",
+      "strengthImpact": 10,
+      "category": "death-rate"
+    },
+    {
+      "id": "poison-drunk-vs-extra-life",
+      "sourceTag": "poison-drunk",
+      "targetTag": "extra-life",
+      "type": "counter",
+      "severity": "important",
+      "title": "{source} nullifies {target}'s extra life",
+      "description": "If {target} is poisoned or drunk when they would die, their ability fails — they die as normal. {source} is the clean counter to the extra-life mechanic.",
+      "strengthImpact": -12,
+      "category": "info-poisoning"
+    },
+    {
+      "id": "protection-other-vs-info-recurring",
+      "sourceTag": "protection-other",
+      "targetTag": "info-recurring",
+      "type": "synergy",
+      "severity": "important",
+      "title": "{source} can shield {target} to keep info flowing",
+      "description": "{source} cannot protect themselves — but can choose to protect {target}, keeping good's recurring information source alive. This is a natural pairing that maximizes night-kill denial.",
+      "strengthImpact": 10,
+      "category": "death-rate"
+    },
+    {
+      "id": "protection-any-flexibility",
+      "sourceTag": "protection-any",
+      "targetTag": "lethal-evil",
+      "type": "counter",
+      "severity": "tip",
+      "title": "{source} offers flexible protection against {target}",
+      "description": "{source} can choose to protect themselves or another player, giving good maximum adaptability against {target}'s nightly kill pressure. Hardest protection type for evil to play around.",
+      "strengthImpact": 6,
+      "category": "death-rate"
+    },
+    {
+      "id": "protection-execution-vs-execution-trap",
+      "sourceTag": "protection-execution",
+      "targetTag": "execution-trap",
+      "type": "counter",
+      "severity": "important",
+      "title": "{source} can prevent {target} from triggering",
+      "description": "{source} can block the execution that would cause {target}'s negative effect (e.g. Saint's team-loss, Klutz's mis-pick). This is the specific counter to execution-based losing conditions.",
+      "strengthImpact": 12,
+      "category": "execution-trap"
+    },
+    {
+      "id": "protection-execution-vs-lethal-good",
+      "sourceTag": "protection-execution",
+      "targetTag": "lethal-good",
+      "type": "counter",
+      "severity": "tip",
+      "title": "{source} does NOT block {target}'s kills",
+      "description": "{source} only protects against execution — {target}'s out-of-execution kills still land normally. Good players should not rely on {source} for night-kill defense.",
+      "strengthImpact": -4,
+      "category": "death-rate"
+    },
+    {
+      "id": "protection-execution-evil-shield",
+      "sourceTag": "protection-execution",
+      "targetTag": "demon-resilience",
+      "type": "synergy",
+      "severity": "important",
+      "title": "{source} can shield evil from {target}'s execution",
+      "description": "{source} (like Devil's Advocate) protects ANY chosen player from execution, including the Demon or Minions. Combined with {target}, good's only reliable removal path becomes blocked.",
+      "strengthImpact": -10,
+      "category": "demon-resilience"
+    },
+    {
+      "id": "protection-self-stacks",
+      "sourceTag": "protection-self",
+      "targetTag": "protection-self",
+      "type": "synergy",
+      "severity": "tip",
+      "title": "{source} and {target} each protect only themselves",
+      "description": "Stacking self-protection roles means two specific players are hard to kill — but neither can shield other good roles. Info roles remain exposed unless also self-protecting.",
+      "strengthImpact": 4,
+      "category": "death-rate"
+    },
+    {
+      "id": "protection-other-stacks",
+      "sourceTag": "protection-other",
+      "targetTag": "protection-other",
+      "type": "synergy",
+      "severity": "important",
+      "title": "{source} and {target} can cover different players each night",
+      "description": "Two other-protection roles create a much wider night-kill defense — they can protect two separate key players simultaneously, dramatically reducing evil's kill efficiency.",
+      "strengthImpact": 10,
       "category": "death-rate"
     },
     {

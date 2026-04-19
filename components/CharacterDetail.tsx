@@ -123,8 +123,7 @@ export function CharacterDetail({
                     <span title={t("characterDetail.scaling")}>{t("characterDetail.scaling")}</span>
                     <span className={character.strength.scalingBonus > 0 ? "text-good-blue" : "text-blood-light"}>
                       {character.strength.scalingBonus > 0 ? "+" : ""}
-                      {character.strength.scalingBonus}{" "}
-                      {t("characterDetail.scalingLargeGames", { n: "" }).trim()}
+                      {character.strength.scalingBonus} {t("characterDetail.scalingLargeGames", { n: "" }).trim()}
                     </span>
                   </div>
                 )}

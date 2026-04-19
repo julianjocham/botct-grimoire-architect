@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { useGrimoireState } from "@/hooks/useGrimoireState";
-import { allCharacters, getEditionPool, getEditionTravelers } from "@/lib/data";
+import { allCharacters, allCharactersWithExtras, getEditionPool, getEditionTravelers } from "@/lib/data";
 import { premadeScripts as premadeScriptsData } from "@/data/scripts";
 import { EDITIONS } from "@/constants/info";
 import { CharacterDetail } from "@/components/CharacterDetail";
@@ -63,7 +63,10 @@ function App() {
     return EDITIONS.find((ed) => ed.key === scriptSource)?.name ?? "Unknown Script";
   }, [scriptSource, premadeScriptId]);
 
-  const allCharactersWithTravelers = useMemo(() => [...allCharacters, ...editionTravelers], [editionTravelers]);
+  const allCharactersWithTravelers = useMemo(
+    () => (scriptSource === "custom" ? allCharactersWithExtras : [...allCharacters, ...editionTravelers]),
+    [scriptSource, editionTravelers]
+  );
   const detailChar = detailCharacterId
     ? (allCharactersWithTravelers.find((c) => c.id === detailCharacterId) ?? null)
     : null;
@@ -106,7 +109,7 @@ function App() {
             scriptSource={scriptSource}
             premadeScriptId={premadeScriptId}
             scriptIds={scriptIds}
-            allCharacters={allCharacters}
+            allCharacters={allCharactersWithExtras}
             editionPools={editionPools}
             searchQuery={searchQuery}
             onSetScriptType={(type) => dispatch({ type: "SET_SCRIPT_TYPE", scriptType: type })}

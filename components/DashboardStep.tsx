@@ -269,7 +269,9 @@ export function DashboardStep({
                 return (
                   <div key={key}>
                     <div className="mb-0.75 flex justify-between">
-                      <span className="text-muted text-2xs font-mono tracking-wider uppercase">{t(`feelLabels.${key}`)}</span>
+                      <span className="text-muted text-2xs font-mono tracking-wider uppercase">
+                        {t(`feelLabels.${key}`)}
+                      </span>
                       <span style={{ color }} className="font-display text-2xs">
                         {val}
                       </span>

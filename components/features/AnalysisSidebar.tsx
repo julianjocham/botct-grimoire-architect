@@ -63,9 +63,7 @@ export function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps
   const keyHints = analysis.interactionHints.filter((h) => h.severity !== "tip" || h.category === "jinx");
 
   if (gameIds.length === 0) {
-    return (
-      <div className="font-body text-muted px-4 py-10 text-center text-base">{t("analysisSidebar.empty")}</div>
-    );
+    return <div className="font-body text-muted px-4 py-10 text-center text-base">{t("analysisSidebar.empty")}</div>;
   }
 
   return (
@@ -76,9 +74,7 @@ export function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps
 
       {keyHints.length > 0 && (
         <div>
-          <SectionLabel className="mb-2">
-            {t("analysisSidebar.interactions", { count: keyHints.length })}
-          </SectionLabel>
+          <SectionLabel className="mb-2">{t("analysisSidebar.interactions", { count: keyHints.length })}</SectionLabel>
           <div className="flex flex-col gap-1.5">
             {keyHints.map((hint, i) => {
               const isJinx = hint.category === "jinx";

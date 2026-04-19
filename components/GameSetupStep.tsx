@@ -200,7 +200,11 @@ export function GameSetupStep({
                     !isActive && isTraveler && "bg-surface text-dim border-subtle",
                     !isActive && !isTraveler && "bg-surface border-subtle text-muted"
                   )}
-                  title={isTraveler ? `${n} players (${n - 15} traveler${n - 15 > 1 ? "s" : ""})` : t("setup.playersTitle", { n })}
+                  title={
+                    isTraveler
+                      ? `${n} players (${n - 15} traveler${n - 15 > 1 ? "s" : ""})`
+                      : t("setup.playersTitle", { n })
+                  }
                 >
                   {n}
                   {isTraveler && (
@@ -326,9 +330,7 @@ export function GameSetupStep({
                             </div>
                           ))}
                         </div>
-                        {isCurrent && (
-                          <div className="text-tip font-body text-2xs ml-auto">{t("setup.current")}</div>
-                        )}
+                        {isCurrent && <div className="text-tip font-body text-2xs ml-auto">{t("setup.current")}</div>}
                       </div>
                     );
                   })}
@@ -342,9 +344,7 @@ export function GameSetupStep({
                 {t("setup.chooseCharacters")}
               </div>
               {TEAM_ORDER.map((team) => {
-                const chars = scriptChars
-                  .filter((c) => c.team === team)
-                  .sort((a, b) => a.name.localeCompare(b.name));
+                const chars = scriptChars.filter((c) => c.team === team).sort((a, b) => a.name.localeCompare(b.name));
                 const needed = req[team];
                 const have = gameCounts[team];
                 const isFull = have >= needed;
@@ -366,9 +366,7 @@ export function GameSetupStep({
                       >
                         {have} / {needed}
                       </div>
-                      {needed === 0 && (
-                        <div className="font-body text-dimmer text-2xs">{t("setup.notNeeded")}</div>
-                      )}
+                      {needed === 0 && <div className="font-body text-dimmer text-2xs">{t("setup.notNeeded")}</div>}
                     </div>
                     <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
                       {chars.map((char) => {
