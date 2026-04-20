@@ -34,11 +34,13 @@ function getAdjustedReq(
 
 export function GameSetupStep({
   scriptType,
+  scriptSource,
   scriptDisplayName,
   scriptIds,
   playerCount,
   gameIds,
   allCharacters,
+  editionTravelers,
   onSetPlayerCount,
   onToggleGameChar,
   onContinue,
@@ -50,6 +52,7 @@ export function GameSetupStep({
   const scriptTravelers = scriptChars.filter((c) => c.team === "traveler");
   const scriptFabled = scriptChars.filter((c) => c.team === "fabled");
   const scriptLoric = scriptChars.filter((c) => c.team === "loric");
+  const availableTravelers = scriptSource === "custom" ? scriptTravelers : editionTravelers;
   const rawReq = playerCount ? RAW_COUNTS[String(playerCount)] : null;
   const req = rawReq ? getAdjustedReq(rawReq, gameIds) : null;
 
@@ -400,7 +403,7 @@ export function GameSetupStep({
             </div>
 
             {/* Traveler picker */}
-            {neededTravelers > 0 && scriptTravelers.length > 0 && (
+            {neededTravelers > 0 && availableTravelers.length > 0 && (
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
                   <div className="font-display text-gold text-2xs tracking-widest uppercase">
@@ -416,7 +419,7 @@ export function GameSetupStep({
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
-                  {scriptTravelers.map((traveler) => {
+                  {availableTravelers.map((traveler) => {
                     const inGame = gameIds.includes(traveler.id);
                     const blocked = !inGame && travelersComplete;
                     return (

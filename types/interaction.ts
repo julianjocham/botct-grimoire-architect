@@ -22,12 +22,18 @@ export type InteractionCategory =
 export interface Interaction {
   a: string;
   b: string;
+  aName?: string;
+  bName?: string;
   type: "counter" | "synergy" | "dramatic" | "puzzle" | "jinx";
   severity: "critical" | "important" | "tip";
   title: string;
   description: string;
   strengthImpact: number;
   category: InteractionCategory;
+  ruleId?: string;
+  generatedByCategoryRule?: boolean;
+  ruleTitleTemplate?: string;
+  ruleDescriptionTemplate?: string;
 }
 
 // Rule for auto-generating category-based interactions
