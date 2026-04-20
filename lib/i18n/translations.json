@@ -182,7 +182,7 @@
       "tooltipLine": "{name}: {value}",
       "tooltipStHeading": "ST complexity by role",
       "tooltipLethalityHeading": "Lethality (max deaths per full night+day cycle)",
-      "tooltipInfoGoodHeading": "Good-side info index (townsfolk, outsiders, travelers)",
+      "tooltipInfoGoodHeading": "Good-side info index (townsfolk and outsiders only)",
       "tooltipInfoEvilHeading": "Evil-side info index (minions, demon)"
     },
     "characterDetail": {
@@ -444,7 +444,7 @@
       "tooltipLine": "{name}: {value}",
       "tooltipStHeading": "ST-Komplexität je Rolle",
       "tooltipLethalityHeading": "Letalität (max. Todesfälle pro voller Nacht+Tag)",
-      "tooltipInfoGoodHeading": "Info-Index gut (Townsfolk, Outsiders, Travelers)",
+      "tooltipInfoGoodHeading": "Info-Index gut (nur Townsfolk und Outsiders)",
       "tooltipInfoEvilHeading": "Info-Index böse (Minions, Demon)"
     },
     "characterDetail": {

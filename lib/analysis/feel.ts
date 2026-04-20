@@ -14,7 +14,7 @@ function round1(n: number): number {
 }
 
 function isGoodInfoSide(team: Character["team"]): boolean {
-  return team === "townsfolk" || team === "outsider" || team === "traveler";
+  return team === "townsfolk" || team === "outsider";
 }
 
 function isEvilInfoSide(team: Character["team"]): boolean {

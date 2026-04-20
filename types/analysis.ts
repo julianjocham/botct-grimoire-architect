@@ -25,14 +25,14 @@ export interface ScriptRosterScoreFeel {
   /** Mean ST Part-A band (1–5), one decimal. */
   stComplexityAvg: number;
   lethalityPerCycleSum: number;
-  /** Sum of `infoGathering` for townsfolk, outsiders, and travelers. */
+  /** Sum of `infoGathering` for townsfolk and outsiders only (not travelers / fabled / loric). */
   infoGatheringGoodSum: number;
   /** Sum of `infoGathering` for minions and demons. */
   infoGatheringEvilSum: number;
   /** Total info index (all in-play characters). */
   infoGatheringSum: number;
   characterCount: number;
-  /** Count of characters in the “good info” bucket (for bar scaling). */
+  /** Count of townsfolk + outsiders in the roster (for good-info bar scaling). */
   infoGoodRosterCount: number;
   /** Count of characters in the “evil info” bucket (for bar scaling). */
   infoEvilRosterCount: number;
@@ -50,7 +50,7 @@ export interface RosterScoreContributions {
   stComplexity: RosterScoreContributionEntry[];
   /** `lethalityPerCycle` > 0 only, highest first. */
   lethality: RosterScoreContributionEntry[];
-  /** Good-side info index > 0 only. */
+  /** Townsfolk + outsider `infoGathering` > 0 only. */
   infoGood: RosterScoreContributionEntry[];
   /** Evil-side info index > 0 only. */
   infoEvil: RosterScoreContributionEntry[];
