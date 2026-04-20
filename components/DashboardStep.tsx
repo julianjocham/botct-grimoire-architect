@@ -72,7 +72,7 @@ export function DashboardStep({
       : "";
 
   return (
-    <div className="mx-auto flex max-w-325 flex-col gap-4 px-3 pt-4 pb-8 sm:gap-5 sm:px-6 sm:pt-6 sm:pb-12">
+    <div className="mx-auto flex max-w-[min(100rem,calc(100vw-2rem))] flex-col gap-4 px-3 pt-4 pb-8 sm:gap-5 sm:px-6 sm:pt-6 sm:pb-12">
       {/* Top bar */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="min-w-0">
@@ -194,7 +194,7 @@ export function DashboardStep({
       </Panel>
 
       {/* Main grid */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_380px]">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_28rem]">
         <Panel className="flex flex-col">
           <SectionLabel className="mb-2.5">{t("dashboard.nightOrder")}</SectionLabel>
           <div className="max-h-120 flex-1 overflow-y-auto">

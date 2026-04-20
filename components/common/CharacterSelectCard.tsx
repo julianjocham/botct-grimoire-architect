@@ -6,6 +6,7 @@ import { allInteractions } from "@/lib/data";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { CharacterRoleStats } from "@/components/common/CharacterRoleStats";
+import { PortalHoverPopup } from "@/components/common/PortalTooltip";
 import { cn } from "@/lib/cn";
 import { useTranslation } from "@/contexts/LanguageContext";
 
@@ -110,22 +111,32 @@ export function CharacterSelectCard({
                 </span>
                 {countersInGame > 0 && <span>⚔{countersInGame}</span>}
                 {hasSynergy && (
-                  <span className="group text-good-indicator relative cursor-default">
-                    ✦ {notableSynergies.length === 1 ? t("synergy") : t("synergies")}
-                    <div className="border-good-indicator-border bg-good-indicator-bg pointer-events-none absolute bottom-full left-0 z-50 mb-1.5 hidden w-56 rounded-md border px-2.5 py-2 shadow-lg group-hover:block">
-                      {notableSynergies.map((syn, idx) => (
-                        <div
-                          key={idx}
-                          className={cn("text-left", idx > 0 && "border-good-indicator-border mt-1.5 border-t pt-1.5")}
-                        >
-                          <div className="font-display text-good-indicator text-xs font-bold">{syn.title}</div>
-                          <div className="font-body text-parchment-muted mt-0.5 text-xs leading-snug">
-                            {syn.description}
+                  <PortalHoverPopup
+                    placement="above"
+                    popupClassName="border-good-indicator-border bg-good-indicator-bg max-w-[min(28rem,calc(100vw-2rem))] rounded-lg border px-4 py-3 text-left text-sm leading-relaxed shadow-xl"
+                    popup={
+                      <>
+                        {notableSynergies.map((syn, idx) => (
+                          <div
+                            key={idx}
+                            className={cn(
+                              "text-left",
+                              idx > 0 && "border-good-indicator-border mt-1.5 border-t pt-1.5"
+                            )}
+                          >
+                            <div className="font-display text-good-indicator text-base font-bold">{syn.title}</div>
+                            <div className="font-body text-parchment-muted mt-1 text-sm leading-snug">
+                              {syn.description}
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </span>
+                        ))}
+                      </>
+                    }
+                  >
+                    <span className="text-good-indicator cursor-default">
+                      ✦ {notableSynergies.length === 1 ? t("synergy") : t("synergies")}
+                    </span>
+                  </PortalHoverPopup>
                 )}
                 {gapFillLabel && <span className="text-good-indicator">◈ {gapFillLabel}</span>}
               </div>

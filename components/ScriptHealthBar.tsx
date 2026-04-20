@@ -14,17 +14,17 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
   const warnCount = compositionWarnings.filter((w) => w.severity !== "tip").length;
 
   return (
-    <div className="bg-surface border-subtle flex flex-wrap items-center gap-3 rounded-[10px] border px-3 py-2.5 sm:gap-5 sm:px-4">
+    <div className="bg-surface border-subtle flex flex-wrap items-center gap-4 rounded-[10px] border px-4 py-3 sm:gap-6 sm:px-5">
       <GameFeelRosterPanel feel={scriptFeel} variant="healthStrip" />
 
-      <div className="bg-subtle hidden h-7 w-px shrink-0 sm:block" />
+      <div className="bg-subtle hidden h-9 w-px shrink-0 sm:block" />
 
       {/* Night complexity */}
       <div className="flex flex-col items-center gap-0.5">
-        <span className="text-muted text-3xs font-mono tracking-widest uppercase">{t("healthBar.night")}</span>
-        <span className="font-display text-gold text-xs">{nightComplexity.complexityRating}</span>
+        <span className="text-muted text-xs font-mono tracking-widest uppercase">{t("healthBar.night")}</span>
+        <span className="font-display text-gold text-sm">{nightComplexity.complexityRating}</span>
         <span
-          className="text-dim text-3xs font-mono"
+          className="text-dim text-xs font-mono"
           title={t("healthBar.nightTitle", {
             first: nightComplexity.firstNightSteps,
             other: nightComplexity.otherNightSteps
@@ -34,44 +34,44 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
         </span>
       </div>
 
-      <div className="bg-subtle hidden h-7 w-px shrink-0 sm:block" />
+      <div className="bg-subtle hidden h-9 w-px shrink-0 sm:block" />
 
       {/* Strength totals */}
       <div className="flex flex-col gap-0.5">
         <div className="flex items-center gap-2">
-          <span className="text-good-blue text-3xs font-mono uppercase">{t("healthBar.good")}</span>
-          <span className="text-good-blue font-mono text-xs">
+          <span className="text-good-blue text-xs font-mono uppercase">{t("healthBar.good")}</span>
+          <span className="text-good-blue font-mono text-sm">
             {goodStrengthTotal > 0 ? "+" : ""}
             {goodStrengthTotal}
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-blood-light text-3xs font-mono uppercase">{t("healthBar.evil")}</span>
-          <span className="text-blood-light font-mono text-xs">{evilStrengthTotal}</span>
+          <span className="text-blood-light text-xs font-mono uppercase">{t("healthBar.evil")}</span>
+          <span className="text-blood-light font-mono text-sm">{evilStrengthTotal}</span>
         </div>
       </div>
 
-      <div className="bg-subtle hidden h-7 w-px shrink-0 sm:block" />
+      <div className="bg-subtle hidden h-9 w-px shrink-0 sm:block" />
 
       {/* Warnings badges */}
       <div className="flex gap-1.5">
         {criticalCount > 0 && (
-          <span className="bg-blood text-parchment font-display rounded-[10px] px-2 py-0.5 text-xs">
+          <span className="bg-blood text-parchment font-display rounded-[10px] px-2.5 py-1 text-sm">
             {t("healthBar.critical", { n: criticalCount })}
           </span>
         )}
         {warnCount > 0 && (
-          <span className="text-parchment border-severity-important bg-severity-important-bg font-display rounded-[10px] border px-2 py-0.5 text-xs">
+          <span className="text-parchment border-severity-important bg-severity-important-bg font-display rounded-[10px] border px-2.5 py-1 text-sm">
             ⚡ {t("healthBar.warnings", { n: warnCount })}
           </span>
         )}
         {criticalCount === 0 && warnCount === 0 && (
-          <span className="text-dim font-body text-xs">{t("healthBar.noCritical")}</span>
+          <span className="text-dim font-body text-sm">{t("healthBar.noCritical")}</span>
         )}
       </div>
 
       {/* Category coverage */}
-      <div className="flex flex-wrap gap-1">
+      <div className="flex flex-wrap gap-1.5">
         {GOOD_CATEGORIES.map((cat) => {
           const present = !!analysis.categoryCoverage.good[cat];
           return (
@@ -79,7 +79,7 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
               key={cat}
               title={present ? (analysis.categoryCoverage.good[cat] ?? []).join(", ") : `Missing: ${cat}`}
               className={cn(
-                "text-3xs cursor-default rounded-[3px] border px-1.25 py-0.5 font-mono",
+                "cursor-default rounded-[3px] border px-1.5 py-1 font-mono text-xs",
                 present ? "border-tip text-good-indicator bg-severity-tip-bg" : "text-muted border-subtle bg-panel-dark"
               )}
             >
@@ -94,7 +94,7 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
               key={cat}
               title={present ? (analysis.categoryCoverage.evil[cat] ?? []).join(", ") : `Missing: ${cat}`}
               className={cn(
-                "text-3xs cursor-default rounded-[3px] border px-1.25 py-0.5 font-mono",
+                "cursor-default rounded-[3px] border px-1.5 py-1 font-mono text-xs",
                 present
                   ? "border-minion-border bg-severity-critical-bg text-minion"
                   : "text-muted border-subtle bg-panel-dark"

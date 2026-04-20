@@ -90,7 +90,7 @@ export function ScriptStep({
   );
 
   return (
-    <div className="mx-auto flex max-w-300 flex-col gap-6 px-3 py-5 sm:gap-9 sm:px-6 sm:py-8">
+    <div className="mx-auto flex max-w-[min(100rem,calc(100vw-2rem))] flex-col gap-6 px-3 py-5 sm:gap-9 sm:px-6 sm:py-8">
       <div>
         <h2 className="font-display text-parchment tracking-tight-wide m-0 mb-2 text-xl sm:text-2xl">
           {t("script.title")}

@@ -1,9 +1,8 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { useId } from "react";
 import type { Character } from "@/types";
 import type { CharacterScoreBreakdown, TimingPhase } from "@/types/scoring";
+import { PortalTooltip } from "@/components/common/PortalTooltip";
 import { cn } from "@/lib/cn";
 import { useTranslation } from "@/contexts/LanguageContext";
 
@@ -20,58 +19,11 @@ function ComplexityDots({ n }: { n: number }) {
       {Array.from({ length: 5 }, (_, i) => (
         <span
           key={i}
-          className="mr-px inline-block h-[3px] w-[3px] rounded-full"
+          className="mr-0.5 inline-block size-1.5 shrink-0 rounded-full"
           style={{ background: i < capped ? "var(--gold)" : "var(--border-subtle)" }}
         />
       ))}
     </>
-  );
-}
-
-function StatWithTooltip({
-  heading,
-  titleFallback,
-  lines,
-  className,
-  dottedUnderline,
-  children
-}: {
-  heading: string;
-  /** Native tooltip fallback (e.g. touch devices). */
-  titleFallback: string;
-  lines: string[];
-  className?: string;
-  dottedUnderline?: boolean;
-  children: ReactNode;
-}) {
-  const id = useId();
-  return (
-    <span className={cn("group/stat relative inline-flex max-w-full", className)}>
-      <span
-        className={cn(
-          "cursor-help",
-          dottedUnderline &&
-            "underline decoration-current/35 decoration-dotted underline-offset-[3px]"
-        )}
-        tabIndex={0}
-        aria-describedby={id}
-        title={titleFallback}
-      >
-        {children}
-      </span>
-      <span
-        id={id}
-        role="tooltip"
-        className="border-subtle bg-surface text-muted pointer-events-none absolute left-1/2 top-full z-[120] mt-1.5 hidden w-max max-w-[min(22rem,calc(100vw-1.5rem))] -translate-x-1/2 rounded-md border px-2.5 py-2 text-left text-3xs leading-snug shadow-lg group-focus-within/stat:block group-hover/stat:block print:hidden"
-      >
-        <div className="text-parchment font-body font-semibold">{heading}</div>
-        <ul className="mt-1.5 list-disc space-y-0.5 pl-3.5 marker:text-muted">
-          {lines.map((line, i) => (
-            <li key={i}>{line}</li>
-          ))}
-        </ul>
-      </span>
-    </span>
   );
 }
 
@@ -171,40 +123,40 @@ export function CharacterRoleStats({
 
   if (variant === "inline") {
     return (
-      <div className={cn("font-mono text-3xs tracking-tight text-current/80", className)}>
-        <StatWithTooltip
+      <div className={cn("font-mono text-sm tracking-tight text-current/80", className)}>
+        <PortalTooltip
           heading={copy.st.heading}
           titleFallback={copy.st.titleFallback}
           lines={copy.st.lines}
           dottedUnderline
         >
           ST{st}
-        </StatWithTooltip>
+        </PortalTooltip>
         <span className="text-muted/60 mx-0.5">·</span>
-        <StatWithTooltip
+        <PortalTooltip
           heading={copy.leth.heading}
           titleFallback={copy.leth.titleFallback}
           lines={copy.leth.lines}
           dottedUnderline
         >
           L{leth}
-        </StatWithTooltip>
+        </PortalTooltip>
         <span className="text-muted/60 mx-0.5">·</span>
-        <StatWithTooltip
+        <PortalTooltip
           heading={copy.info.heading}
           titleFallback={copy.info.titleFallback}
           lines={copy.info.lines}
           dottedUnderline
         >
           I{info}
-        </StatWithTooltip>
+        </PortalTooltip>
       </div>
     );
   }
 
   return (
-    <div className={cn("text-muted flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-3xs", className)}>
-      <StatWithTooltip
+    <div className={cn("text-muted flex flex-wrap items-center gap-x-2 gap-y-1 text-sm", className)}>
+      <PortalTooltip
         heading={copy.st.heading}
         titleFallback={copy.st.titleFallback}
         lines={copy.st.lines}
@@ -213,8 +165,8 @@ export function CharacterRoleStats({
         <span className="flex items-center gap-0.5">
           <ComplexityDots n={st} />
         </span>
-      </StatWithTooltip>
-      <StatWithTooltip
+      </PortalTooltip>
+      <PortalTooltip
         heading={copy.leth.heading}
         titleFallback={copy.leth.titleFallback}
         lines={copy.leth.lines}
@@ -225,8 +177,8 @@ export function CharacterRoleStats({
           {t("roleStats.lethalityShort")}
           {leth}
         </span>
-      </StatWithTooltip>
-      <StatWithTooltip
+      </PortalTooltip>
+      <PortalTooltip
         heading={copy.info.heading}
         titleFallback={copy.info.titleFallback}
         lines={copy.info.lines}
@@ -237,7 +189,7 @@ export function CharacterRoleStats({
           {t("roleStats.infoShort")}
           {info}
         </span>
-      </StatWithTooltip>
+      </PortalTooltip>
     </div>
   );
 }

@@ -157,7 +157,7 @@ export function GameSetupStep({
   }
 
   return (
-    <div className="mx-auto grid max-w-325 grid-cols-1 items-start gap-4 px-3 py-5 sm:gap-6 sm:px-6 sm:py-8 lg:grid-cols-[1fr_320px]">
+    <div className="mx-auto grid max-w-[min(100rem,calc(100vw-2rem))] grid-cols-1 items-start gap-4 px-3 py-5 sm:gap-6 sm:px-6 sm:py-8 lg:grid-cols-[1fr_28rem]">
       {/* ── Left: selection ── */}
       <div className="flex flex-col gap-5 sm:gap-7">
         <div className="flex flex-wrap items-start justify-between gap-3">
