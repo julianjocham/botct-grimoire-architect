@@ -18,10 +18,74 @@
     "langToggle": "DE",
     "roleStats": {
       "stTitle": "ST complexity (1 = lowest operational load)",
+      "stHoverTitle": "ST complexity",
       "lethalityShort": "L",
       "lethalityTitle": "Lethality: max deaths this role can cause in one full night and day cycle",
+      "lethalityHoverTitle": "Lethality (per cycle)",
       "infoShort": "I",
-      "infoTitle": "Information score (0–100)"
+      "infoTitle": "Information index (rule-based, not out of 100)",
+      "infoHoverTitle": "Information index",
+      "yes": "yes",
+      "no": "no",
+      "listSep": ", ",
+      "stIntro": "Band {band}/5 from total raw load {raw}. Mapping: raw ≤2 → 1, ≤5 → 2, ≤8 → 3, ≤11 → 4, else 5.",
+      "stLineNight": "Night wake pattern — {label}: +{pts}",
+      "stLineDay": "Day / public surface — {label}: +{pts}",
+      "stLineGm": "ST choices per wake (input {n}, capped 3): +{pts}",
+      "stLineRem": "Reminder state — {label}: +{pts}",
+      "phaseListNone": "none listed",
+      "stLineTime": "Distinct timing phases ({count}): +{pts} (capped at 3) — {list}",
+      "stLineDep": "Dependency on hidden grimoire facts (input {n}, capped 3): +{pts}",
+      "lethIntro": "Max deaths in one full night + day when the ability is fully charged: {night} (night) + {day} (day) = {total}. Sourced from curated overrides and heuristics on the printed ability.",
+      "infoIntroNone": "No information role modeled (info type “none”): score 0.",
+      "infoIntro": "Index = frequency sum × information-type weight × sobriety gate (edition-agnostic for custom scripts). Shown rounded to one decimal; not capped.",
+      "infoLineType": "Information type — {label}: weight {w}",
+      "infoLineFreq": "Frequency sum: ({fn}×2.2) + ({rn}×9.5) + ({dn}×7.0) = {sum}",
+      "infoLineGate": "Good-team drunk/poison proxy: ×{w} ({state})",
+      "infoLineGateExplain": "“Yes” = Townsfolk or Outsider with scored info (index multiplied by 0.88). “No” = minion/demon, no info, or Spy/Widow. Not ST operational load; see lib/scoring/README.md.",
+      "infoLineProduct": "Full product (frequency × type × gate): {raw} → displayed index {score}",
+      "infoLineTuning": "All numeric weights are app-side heuristics for ranking roles in this tool (see comments in lib/scoring/compute.ts); they are not official BOTC design.",
+      "enum": {
+        "nightWake": {
+          "none": "no night wake",
+          "first_only": "first night only",
+          "every_night": "every night",
+          "conditional": "conditional night wake",
+          "multiple_phases": "multiple night phases"
+        },
+        "daySurface": {
+          "none": "none",
+          "passive": "passive day presence",
+          "limited_uses": "limited day uses",
+          "always_on": "ongoing day ability",
+          "public_mechanic": "public / table-facing day mechanic"
+        },
+        "reminder": {
+          "stateless": "stateless",
+          "few_tokens": "few reminder tokens",
+          "many_tokens": "many reminder tokens",
+          "persistent_alterations": "persistent grimoire changes"
+        },
+        "infoType": {
+          "none": "none",
+          "fact": "simple fact",
+          "comparison": "comparison / either-or",
+          "subset": "subset / shortlist",
+          "full_identity": "full identity",
+          "player_chosen_pointer": "player-chosen pointer",
+          "register": "register / alignment signal",
+          "public_signal": "public signal"
+        },
+        "timingPhase": {
+          "first_night": "first night",
+          "other_nights": "other nights",
+          "day": "day",
+          "dusk": "dusk",
+          "dawn": "dawn",
+          "nomination": "nomination",
+          "execution": "execution"
+        }
+      }
     },
     "script": {
       "title": "Step 1 — Choose Your Script",
@@ -209,10 +273,74 @@
     "langToggle": "EN",
     "roleStats": {
       "stTitle": "ST-Komplexität (1 = geringste operative Last)",
+      "stHoverTitle": "ST-Komplexität",
       "lethalityShort": "L",
       "lethalityTitle": "Letalität: max. Todesfälle, die diese Rolle in einem vollen Nacht+Tag-Zyklus verursachen kann",
+      "lethalityHoverTitle": "Letalität (pro Zyklus)",
       "infoShort": "I",
-      "infoTitle": "Informations-Score (0–100)"
+      "infoTitle": "Informations-Index (regelbasiert, nicht „von 100“)",
+      "infoHoverTitle": "Informations-Index",
+      "yes": "ja",
+      "no": "nein",
+      "listSep": ", ",
+      "stIntro": "Stufe {band}/5 aus Rohlast {raw}. Zuordnung: Roh ≤2 → 1, ≤5 → 2, ≤8 → 3, ≤11 → 4, sonst 5.",
+      "stLineNight": "Nachtaufwecken — {label}: +{pts}",
+      "stLineDay": "Tag / öffentliche Fläche — {label}: +{pts}",
+      "stLineGm": "SL-Entscheidungen pro Aufwachen (Eingabe {n}, max. 3): +{pts}",
+      "stLineRem": "Reminder-Last — {label}: +{pts}",
+      "phaseListNone": "keine erfasst",
+      "stLineTime": "Zeitphasen ({count}): +{pts} (max. 3) — {list}",
+      "stLineDep": "Abhängigkeit von versteckten Grimoire-Fakten (Eingabe {n}, max. 3): +{pts}",
+      "lethIntro": "Max. Todesfälle in einer vollen Nacht + Tag bei voller „Ladung“: {night} (Nacht) + {day} (Tag) = {total}. Quelle: kuratierte Overrides und Heuristiken auf dem abgedruckten Ability-Text.",
+      "infoIntroNone": "Keine Informations-Rolle modelliert (Typ „none“): Score 0.",
+      "infoIntro": "Index = Häufigkeitssumme × Infotyp-Gewicht × Nüchternheits-Faktor (editionsneutral für eigene Skripte). Eine Nachkommastelle, kein Deckel bei 100.",
+      "infoLineType": "Informationstyp — {label}: Gewicht {w}",
+      "infoLineFreq": "Häufigkeitssumme: ({fn}×2,2) + ({rn}×9,5) + ({dn}×7,0) = {sum}",
+      "infoLineGate": "Proxy für drunk/poison (nur gut): ×{w} ({state})",
+      "infoLineGateExplain": "„Ja“ = Townsfolk oder Outsider mit gezähltem Info-Block (Index ×0,88). „Nein“ = Minion/Demon, keine Info oder Spy/Widow. Keine ST-Operativlast; siehe lib/scoring/README.md.",
+      "infoLineProduct": "Volles Produkt (Häufigkeit × Typ × Faktor): {raw} → angezeigter Index {score}",
+      "infoLineTuning": "Alle Zahlen-Gewichte sind heuristische App-Werte zum Vergleich der Rollen (Kommentare in lib/scoring/compute.ts), nicht offizielles BOTC-Regelwerk.",
+      "enum": {
+        "nightWake": {
+          "none": "kein Nachtaufwecken",
+          "first_only": "nur erste Nacht",
+          "every_night": "jede Nacht",
+          "conditional": "bedingtes Nachtaufwecken",
+          "multiple_phases": "mehrere Nachtphasen"
+        },
+        "daySurface": {
+          "none": "keine",
+          "passive": "passive Präsenz am Tag",
+          "limited_uses": "begrenzte Tag-Nutzungen",
+          "always_on": "durchgehende Tag-Fähigkeit",
+          "public_mechanic": "öffentlicher / tischrelevanter Tag-Mechanismus"
+        },
+        "reminder": {
+          "stateless": "zustandslos",
+          "few_tokens": "wenige Reminder",
+          "many_tokens": "viele Reminder",
+          "persistent_alterations": "dauerhafte Grimoire-Änderungen"
+        },
+        "infoType": {
+          "none": "keine",
+          "fact": "einfache Tatsache",
+          "comparison": "Vergleich / Entweder-oder",
+          "subset": "Teilmenge / Kurzliste",
+          "full_identity": "volle Identität",
+          "player_chosen_pointer": "spielerwahl Zeiger",
+          "register": "Register / Alignmentsignal",
+          "public_signal": "öffentliches Signal"
+        },
+        "timingPhase": {
+          "first_night": "erste Nacht",
+          "other_nights": "weitere Nächte",
+          "day": "Tag",
+          "dusk": "Dämmerung",
+          "dawn": "Morgengrauen",
+          "nomination": "Nominierung",
+          "execution": "Hinrichtung"
+        }
+      }
     },
     "script": {
       "title": "Schritt 1 — Skript auswählen",

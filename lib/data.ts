@@ -18,6 +18,7 @@ function mergeCharacter(c: RawCharacter): Character {
     stComplexity: scores.stComplexity,
     lethalityPerCycle: scores.lethalityPerCycle,
     infoGathering: scores.infoGathering,
+    scoreBreakdown: scores.scoreBreakdown,
     abilityCategory: e?.abilityCategory ?? "unknown",
     tags: e?.tags ?? [],
     strength: e?.strength ?? { composite: 0 },

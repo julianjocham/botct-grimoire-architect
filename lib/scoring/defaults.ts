@@ -96,6 +96,7 @@ function inferInfoBlock(c: RawCharacter): InfoGatheringInput {
       firstNightFacts,
       recurringInfoPerNight,
       dayInfoEventsPerDay,
+      // Evil grimoire access: not modeled as “good info that might be drunk/poison wrong”
       sobrietyGating: false
     };
   }
@@ -126,6 +127,7 @@ function inferInfoBlock(c: RawCharacter): InfoGatheringInput {
     }
   }
 
+  // Good-team info discount (see lib/scoring/README.md): not applied to minions/demons here.
   const sobrietyGating = c.team === "townsfolk" || c.team === "outsider";
 
   return {

@@ -41,6 +41,13 @@ export interface InfoGatheringInput {
   firstNightFacts: number;
   recurringInfoPerNight: number;
   dayInfoEventsPerDay: number;
+  /**
+   * When true, the information index is multiplied by **0.88** after frequency × type (see `computeInfoGathering`).
+   * In the default model this is set for **Townsfolk and Outsiders** that actually contribute info, as a coarse
+   * proxy that their info may be wrong or suppressed while **drunk or poisoned**. It is **not** part of ST
+   * Part A complexity. Evil roles (and explicit Spy/Widow) default to false. Override per role in
+   * `data/scoreOverrides.json` if needed.
+   */
   sobrietyGating: boolean;
 }
 
@@ -53,6 +60,45 @@ export interface CharacterScoreInputs {
 export interface CharacterScores {
   stComplexity: 1 | 2 | 3 | 4 | 5;
   lethalityPerCycle: number;
-  /** 0–100 composite (frequency × type weight × edition baseline; tune later). */
+  /** Rule-based info index (frequency × type weight × gate), rounded to 1 decimal; not capped at 100. */
   infoGathering: number;
+}
+
+/** Inputs + intermediate numbers used for per-stat hover explanations in the UI. */
+export interface CharacterScoreBreakdown {
+  st: {
+    totalRaw: number;
+    band: 1 | 2 | 3 | 4 | 5;
+    nightWakePattern: NightWakePattern;
+    nightPts: number;
+    daySurfaceArea: DaySurfaceArea;
+    dayPts: number;
+    gmDecisionsPerWake: number;
+    gmPts: number;
+    reminderStatefulness: ReminderStatefulness;
+    reminderPts: number;
+    timingPhases: TimingPhase[];
+    timingPts: number;
+    dependencyOnHiddenFacts: number;
+    dependencyPts: number;
+  };
+  lethality: {
+    maxKillsAttributedPerNight: number;
+    maxKillsAttributedPerDay: number;
+  };
+  info: {
+    infoType: InfoType;
+    firstNightFacts: number;
+    recurringInfoPerNight: number;
+    dayInfoEventsPerDay: number;
+    /** firstNightFacts×2.2 + recurring×9.5 + day×7.0 */
+    frequencySum: number;
+    typeWeight: number;
+    sobrietyGating: boolean;
+    gatedMultiplier: number;
+    /** frequencySum × typeWeight × gatedMultiplier */
+    rawProduct: number;
+    /** Same as merged `infoGathering` (1 decimal). */
+    score: number;
+  };
 }

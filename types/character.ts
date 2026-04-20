@@ -1,5 +1,7 @@
 // ─── Character data model ─────────────────────────────────────────────────────
 
+import type { CharacterScoreBreakdown } from "./scoring";
+
 // Raw data from characters.json (bra1n/townsquare roles.json schema)
 export interface RawCharacter {
   id: string;
@@ -41,8 +43,10 @@ export interface Character extends RawCharacter {
   stComplexity: 1 | 2 | 3 | 4 | 5;
   /** Max deaths per full cycle (night + day) attributable to this character’s ability when “charged”. */
   lethalityPerCycle: number;
-  /** 0–100 composite from info frequency, info type, and edition baseline. */
+  /** Rule-based info index (frequency × type weight × gate), ~1 decimal; edition-agnostic for custom scripts. */
   infoGathering: number;
+  /** Rule-based score inputs collapsed for tooltips (ST Part A, lethality inputs, info formula). */
+  scoreBreakdown: CharacterScoreBreakdown;
   abilityCategory: AbilityCategory;
   tags: CharacterTag[];
   strength: {
