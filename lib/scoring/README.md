@@ -1,6 +1,8 @@
 # Rule-based character scores
 
-This folder implements **ST Part A complexity**, **lethality per cycle**, and an **information index** used in the UI. Values are **heuristic** (tunable in code and via `data/scoreOverrides.json`); they are not official Blood on the Clocktower design.
+This folder implements **ST Part A complexity**, **lethality per cycle**, and an **information index** merged onto each character for the app. In the UI they appear compactly as **ST · L · I** (with hover tooltips) on roster cards, the setup sidebar roster list, and dashboard tokens — see the project root `README.md` for product context.
+
+Values are **heuristic** (tunable in code and via `data/scoreOverrides.json`); they are not official Blood on the Clocktower design.
 
 ## Information index: “sobriety” gating
 

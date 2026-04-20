@@ -1,6 +1,6 @@
 # Grimoire Architect
 
-A Storyteller tool for **Blood on the Clocktower** — a social deduction party game for 5–20 players. Grimoire Architect helps Storytellers build custom scripts, configure rosters, analyze game balance, understand character interactions, and run the game at the table.
+A Storyteller tool for **Blood on the Clocktower** — a social deduction party game for 5–20 players. Grimoire Architect helps Storytellers build custom scripts, configure rosters, analyze game feel and role-level load, and run the game at the table.
 
 ---
 
@@ -10,16 +10,16 @@ A Storyteller tool for **Blood on the Clocktower** — a social deduction party 
 
 - Designs or selects scripts (character pools) for each game
 - Assembles rosters for specific player counts
-- Needs to understand power balance and character interactions before play
-- Wants a reference tool for managing night actions and reminder text at the table
+- Wants heuristic balance signals (game feel, ST load, lethality, information) and official reminder order before play
+- Wants a reference for night order, optional demon bluffs, and printouts
 
-Secondary audience: **script designers** testing balance of custom character sets.
+Secondary audience: **script designers** testing how a character set “feels” in the model and whether Djinn jinxes apply once both roles are in play.
 
 ---
 
 ## What It Does
 
-Grimoire Architect is a 3-step wizard that guides you from script selection through game setup to a dashboard with everything needed to run the game.
+Grimoire Architect is a 3-step flow: **script** → **setup (roster)** → **dashboard**.
 
 ### Step 1 — Choose Your Script
 
@@ -28,103 +28,64 @@ Select a pre-built script or create a custom one from the full character pool.
 **Pre-Built Options:**
 
 - **3 Official Edition Scripts** — Trouble Brewing (Beginner), Bad Moon Rising (Intermediate), and Sects & Violets (Advanced), each with difficulty badges and play style descriptions
-- **17 Community-Designed Premade Scripts** — hand-crafted scripts for quick setup, available in both full and Teensyville variants
+- **Community Premade Scripts** — hand-crafted full scripts and Teensyville (5–6 player) scripts for quick setup
 - **Carousel / Experimental Characters** — optional pool of community-created and experimental characters to mix in
 
 **Custom Script Builder:**
 
 - Mix and match characters from all editions and the carousel
-- Live composition dashboard shows Townsfolk, Outsiders, Minions, Demon counts
-- Validates against team size requirements (supports 5–20 players)
-- Warns about setup-modifying effects (e.g., Baron, Godfather, Balloonist shifts)
-- Shows exactly which player counts the script can support
+- Live composition targets for full scripts (with Baron-aware townsfolk/outsider targets) or Teensyville minimums
+- Validates team counts for the script type you chose
 - Character filtering and search by name, ability text, category, or tag
+- Choose **full script** or **Teensyville** before building; validation and player-count options follow that mode
 
 ### Step 2 — Set Up the Game Roster
 
 Configure which characters appear in tonight's specific game.
 
-- **Player Count Selection** — Choose 5–20 players
-- **Character Toggling** — Enable/disable characters from your script in real-time
-- **Traveler Support** — Add optional characters beyond the core script to balance or fill gaps
-- **Live Analysis Sidebar** updates instantly:
-  - **Team Strength** — Good vs. Evil power balance (−100 to +100 scale)
-  - **Game Feel** — Four dimensions of how the game will play
-  - **Night Complexity** — Step counts and difficulty rating for First Night and Other Nights
-  - **Category Coverage** — Visual grid showing presence of 13 ability archetypes
-  - **Composition Warnings** — Critical issues, important warnings, and tips prioritized by severity
-
-- **Character Details Modal** — Click any character to see:
-  - Full ability text and reminder instructions
-  - Base strength and effective strength (with modifier breakdown)
-  - Counter characters and how they disrupt this character
-  - In-play interactions with other selected characters
-  - Quick toggle to add/remove from roster
+- **Player Count** — 5–15 for standard scripts (16–20 add traveler slots on top of the core 15). Teensyville uses 5–6 only.
+- **Character Toggling** — Enable/disable characters from your script in real time; distribution panel shows progress toward required Townsfolk / Outsider / Minion / Demon counts (adjusted for setup modifiers such as Baron).
+- **Traveler Support** — At 16+ players, pick travelers from the script (custom) or edition traveler list (official scripts).
+- **Fabled & Loric** — When those roles are on the script, optional sections let you include them in the grimoire.
+- **Live analysis (sidebar)** — **Game feel** (four axes) for the current roster, plus a **per-character score strip** for everyone selected: **ST** (Storyteller Part A complexity band), **L** (lethality attributed per cycle), **I** (information index). Hover tooltips explain how each value is derived from the heuristic model.
+- **Character tiles** — Effective strength, minibar, count of **counters** from the enrichment data that are also in play, and optional **gap hints** (◈) when adding a role would cover a missing good/evil ability category the UI tracks for suggestions.
+- **Character Details** — Click any character to see full ability text, strength bar with **roster-based modifiers** (who shifted the score and why), sub-dimensions where defined, Storyteller advice, “new ST” callouts, official night reminders, **counters that are actually in this game**, demon bluff advice where present, and add/remove for the roster.
 
 ### Step 3 — Game Dashboard
 
-View and manage everything needed to run the game.
+View and manage what you need at the table.
 
-**At-a-Glance Metrics:**
+**In-play strip**
 
-- **Team Strength Bars** — Composite Good vs. Evil power, plus individual character strength indicators
-- **Game Feel Profile** — Visual progress for Info Level, Lethality, Chaos, and ST Load
-- **Night Complexity Badge** — Difficulty rating (Beginner/Intermediate/Advanced/Expert) with step counts
-- **Health Dashboard** — Team strength, warning count, and category coverage grid on one screen
+- Characters grouped by team (and travelers), each showing the same **ST · L · I** strip as in setup; click opens the detail sheet.
 
-**Night Order:**
+**Night order**
 
-- **First Night sequence** — Exact action order with official reminder text for each character
-- **Other Nights sequence** — Order for subsequent nights
-- **Interaction Hints** — Context callouts showing which characters interact during each step
-- Toggleable between First Night and Other Nights views
-- Numbered steps with character tokens for quick visual reference
+- **First Night** and **Other Nights** toggles with numbered steps, official reminder text, and **Djinn jinx callouts**: when two characters in the roster have an official jinx entry, the full jinx rule appears under each involved step (so you see it in night context, not in a separate feed). Hints use important/critical severities from the data (tip-level entries are omitted from these step callouts).
 
-**Interaction Analysis Feed:**
+**Right column**
 
-- All character pairings sorted by severity:
-  - **⚠ Critical** — Broken combos or impossible situations
-  - **⚡ Important** — Powerful synergies or dangerous power spikes
-  - **⚖ Jinxes** — Official Djinn Jinx rules (cross-character effects)
-  - **💡 Tips** — Tactical advice and interactions to watch
-- Color-coded by severity with character chips for quick scanning
+- **Game feel** for the in-play roster
+- **Night complexity** summary (rating plus step counts for first vs. other nights)
+- **Demon bluffs** — Pick up to three **Townsfolk from the script who are not in the grimoire** as quick ST-facing bluff reminders (with the same score strip on each chip).
 
-**Roster Display:**
+**Print**
 
-- Characters listed by team (Good/Evil/Traveler)
-- Visual team separation with color coding
-- Role adjustment indicators for setup-modifiers
-- Quick-reference character strength values
-
-**Printable Script:**
-
-- Print-friendly layout (Ctrl+P / Cmd+P) with:
-  - Script title, player count, and generation date
-  - Two-column night order (First Night and Other Nights side-by-side)
-  - Full character abilities and reminder text
-  - Ready to print and bring to the table
+- **Print** from the dashboard with a mode selector: full pack (pretty or clean parchment styling) or **script-only** print (pretty or clean) with character overview; when not script-only, separate pages for First Night and Other Nights order (**reminder text**; jinx callouts are an on-screen night list feature and are not duplicated on the default print night pages).
 
 ---
 
 ## Character Database
 
-**181 total characters** from official editions and community pools:
+**181 characters** in the dataset (non-traveler core pool plus travelers, fabled, and loric used where applicable):
 
-- **27 Trouble Brewing** — Official beginner edition
-- **30 Bad Moon Rising** — Official intermediate edition with setup modifiers
-- **30 Sects & Violets** — Official advanced edition with character transformation
-- **71 Carousel / Experimental** — Community-created and playtested characters for extended gameplay
-- **12 Fabled** — Additional community-created roles
-- **11 Loric** — Extended character pool
+- **Trouble Brewing, Bad Moon Rising, Sects & Violets** — official edition pools as in the app
+- **Carousel / Experimental** — extended community pool
+- **Travelers** — for high player counts and edition-specific lists
+- **Fabled** — optional meta roles when included on a script
+- **Loric** — extended pool
 
-Each character includes:
-
-- Full ability text and complexity rating
-- Base strength value (−100 to +100)
-- Strength modifiers based on script composition
-- Category tags (13 types: information, protection, disruption, demon resilience, lethality, etc.)
-- Counter characters that disrupt or weaken this role
-- Related interactions and Jinxes
+Each character includes official script fields where applicable, enrichment (strength, counters, tags, ability category, Storyteller notes), and heuristic scores (ST complexity, lethality, information index) merged from `lib/scoring` and optional `data/scoreOverrides.json`.
 
 ---
 
@@ -132,110 +93,51 @@ Each character includes:
 
 ### Game Feel (4 Dimensions)
 
-How the game will play, updated live as you build the roster:
+How the game tends to play in the model, updated as you change the roster:
 
 | Dimension      | Spectrum                                   | What It Means                                                  |
 | -------------- | ------------------------------------------ | -------------------------------------------------------------- |
-| **Info Level** | Blind → Low → Moderate → High → Flooded    | How much deductive information Good team gets from their roles |
-| **Lethality**  | Gentle → Standard → Deadly → Massacre      | How many players Evil kills per night on average               |
-| **Chaos**      | Orderly → Moderate → Chaotic → Pandemonium | How unpredictable and hard to read the game feels              |
-| **ST Load**    | Light → Moderate → Heavy → Exhausting      | How many night actions the Storyteller must manage             |
+| **Info Level** | Blind → Low → Moderate → High → Flooded    | How much deductive information Good tends to get from roles    |
+| **Lethality**  | Gentle → Standard → Deadly → Massacre      | How lethal pressure reads in the model                         |
+| **Chaos**      | Orderly → Moderate → Chaotic → Pandemonium | How unpredictable the script reads                             |
+| **ST Load**    | Light → Moderate → Heavy → Exhausting      | How heavy operational / cognitive load reads for the Storyteller |
 
-### Strength System
+### Role-level scores (ST · L · I)
 
-- **Team Strength** — Composite power of Good vs. Evil (−100 to +100 scale)
-- **Effective Strength** — Each character's power adjusted for interactions with co-selected characters
-- **Context-Aware Modifiers** — Automatic strength adjustments based on script composition (e.g., Drunk is stronger without info roles, Oracle is weaker with Marionette)
-- **Strength Breakdown** — See exactly how each character's strength is calculated with visible modifier rules
+Heuristic, tunable metrics (not official BOTC design): **ST** is Storyteller Part A–style complexity, **L** is attributed kills per cycle, **I** is an information-throughput index (see `lib/scoring/README.md` for formulas and tuning).
 
-### Composition Analysis
+### Strength on the roster
 
-Real-time warnings and recommendations:
+- **Composite strength** from enrichment, with **effective strength** adjusted when specific other characters are selected (reasons listed in the character detail panel).
+- These are advisory signals for script tuning, not win-rate predictors.
 
-**Critical Issues** ⚠
+### Roster construction UX
 
-- Missing demon or townsfolk team
-- Impossible character assembly for selected player count
-
-**Important Warnings** ⚡
-
-- Too few townsfolk, outsiders, or minions for balance
-- Information density (too much or too little deductive power)
-- Missing key ability types (no protection roles, no disruption)
-- Setup modifier conflicts or excess
-
-**Tips & Suggestions** 💡
-
-- Category gaps — characters recommended to fill missing ability archetypes
-- No day abilities (consider adding discussion-phase powers)
-- Misinformation coverage (social deception roles)
-- ST Load optimization for your group skill level
-
-### Category Coverage Grid
-
-Visual checklist of 13 ability archetypes:
-
-**Good Team:** Information (start / recurring / on-death / conditional), Day Abilities, Protection, Once-Per-Game Utility
-
-**Evil Team:** Information Disruption, Setup Modification, Demon Resilience, Lethal Attacks, Social Manipulation, Character Transformation
+- Hard requirements: correct **counts** per player count (including setup modifiers and traveler slots).
+- Soft guidance: **game feel**, **ST/L/I** tooltips, **category gap** highlights on tiles, and **counter** presence markers — not a separate “warnings dashboard” in the sidebar.
 
 ---
 
-## Night Order & Interaction System
+## Night Order & Djinn Jinxes
 
-### Night Order Generation
+### Night order
 
-- **First Night** — Initial setup night with all start-of-game actions
-- **Other Nights** — Standard night sequence for subsequent rounds
-- Automatically sequenced based on official rules and character priorities
-- Interaction-aware hints show which characters' actions affect each other during each step
+- Steps are ordered from character night-order fields for **First Night** vs **Other Nights**, with official reminder strings on each line.
 
-### Jinx System
+### Jinx data
 
-**131 official Djinn Jinxes** codified:
-
-- Cross-character rules and restrictions (e.g., "If Marionette is alive, add Atheist to seating...")
-- Automatic detection and flagging during roster assembly
-- Displayed in interaction feed with official rule text
-- Some Jinxes create composition requirements (setup modifiers, etc.)
-
-### Interaction Feed
-
-All character pairings in your game analyzed and sorted by impact:
-
-- **Broken Combos** — Two characters that can't work together
-- **Power Spikes** — Character pairs with disproportionate synergy
-- **Tactical Notes** — Strategic advice for character interactions
-- Character tokens with team colors for quick visual reference
-
----
-
-## Warnings & Recommendations
-
-**Smart Composition Validator:**
-
-- Flags issues as you build the roster (real-time feedback)
-- Severity-based prioritization (critical → important → tip)
-- Specific recommendations for which characters to add to fix gaps
-- Explains why each warning matters for game experience
-
-**Example Warnings:**
-
-- "No protection roles — Good team has no way to save players from Evil kills"
-- "Information is flooded — Good team will know too much and game will feel easy"
-- "Setup modifier conflict — Baron + Godfather can't both shift slots in the same game"
-- "ST Load is exhausting for an intermediate group — consider removing Marionette"
+- **131 official Djinn jinx rules** live in `data/jinxes.json` and are loaded as the only **pairwise interaction** source in the app.
+- When **both** characters of a jinx pair are in the **game** roster, the rule is surfaced as **context text on the night list** for each character involved (see Step 3 above). There is no separate scrolling “interaction feed” in the current UI.
 
 ---
 
 ## Use Cases
 
-- **Running a beginner game** — Pick Trouble Brewing from presets, review the roster supports your player count, print the night order.
-- **Designing a balanced script** — Build from scratch, watch game feel and strength bars, use category coverage to ensure all ability types are represented.
-- **Testing a homebrew character** — Add it from the Carousel pool, see how interactions and strength calculations change with other characters.
-- **Game night prep** — Load a saved script, set player count, add travelers if needed, print and bring to the table.
-- **Mid-game reference** — Use night order pane to check action sequence and reminder text during play; check interaction feed if something unexpected happens.
-- **Teaching new Storytellers** — Start with a preset script, use warnings and category coverage to explain why each character was chosen.
+- **Running a beginner game** — Pick Trouble Brewing, set player count, fill the grimoire, review night order and jinx callouts, print if needed.
+- **Designing a script** — Build custom or premade, watch game feel and role-level scores, use gap hints and counters while toggling characters.
+- **Teensyville** — Switch script type to Teensyville, pick a small script or build to minimums, play 5–6.
+- **Game night prep** — Dashboard for order, bluffs, and print layouts.
+- **Teaching new Storytellers** — Tooltips on ST/L/I explain what the numbers are trying to approximate.
 
 ---
 
@@ -245,7 +147,7 @@ All character pairings in your game analyzed and sorted by impact:
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000). The UI supports **English** and **German** (toggle in the header).
 
 ---
 
