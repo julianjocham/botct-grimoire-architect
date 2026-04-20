@@ -1,5 +1,3 @@
-export const COMPLEXITY_LABEL = ["", "Passive", "Simple", "Recurring", "State-tracking", "Multi-state"];
-
 export const SEVERITY_STYLES: Record<string, { border: string; bg: string; icon: string; label: string }> = {
   critical: {
     border: "#8b1a1a",

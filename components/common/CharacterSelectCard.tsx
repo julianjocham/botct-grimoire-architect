@@ -5,6 +5,7 @@ import { TEAM_COLORS } from "@/constants/team";
 import { allInteractions } from "@/lib/data";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
+import { CharacterRoleStats } from "@/components/common/CharacterRoleStats";
 import { cn } from "@/lib/cn";
 import { useTranslation } from "@/contexts/LanguageContext";
 
@@ -93,6 +94,7 @@ export function CharacterSelectCard({
           style={{ color: inGame ? colors.text : "var(--color-dimmer)" }}
         >
           <span className="font-display text-base leading-tight font-bold">{character.name}</span>
+          <CharacterRoleStats character={character} className="mt-0.5" />
           {s !== undefined && (
             <>
               <div className="bg-deep h-1 w-full overflow-hidden rounded-xs">

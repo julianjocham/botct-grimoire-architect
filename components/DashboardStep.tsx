@@ -13,6 +13,7 @@ import { calculateStrengthTotals } from "@/lib/strength/calculate";
 import { Panel } from "@/components/ui/Panel";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
+import { CharacterRoleStats } from "@/components/common/CharacterRoleStats";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
 import { useTranslation } from "@/contexts/LanguageContext";
@@ -167,17 +168,20 @@ export function DashboardStep({
                     key={c.id}
                     onClick={() => onDetail(c.id)}
                     style={{ background: col.bg, borderColor: col.border, color: col.text }}
-                    className="font-display flex cursor-pointer items-center gap-2 rounded-[5px] border px-2.5 py-1 text-xs"
+                    className="font-display flex cursor-pointer flex-col items-stretch gap-0.5 rounded-[5px] border px-2.5 py-1 text-left text-xs"
                   >
-                    <CharacterIcon
-                      characterId={c.id}
-                      edition={c.edition}
-                      team={c.team}
-                      alt={c.name}
-                      variant="token"
-                      className="size-5"
-                    />
-                    {c.name}
+                    <span className="flex items-center gap-2">
+                      <CharacterIcon
+                        characterId={c.id}
+                        edition={c.edition}
+                        team={c.team}
+                        alt={c.name}
+                        variant="token"
+                        className="size-5 shrink-0"
+                      />
+                      {c.name}
+                    </span>
+                    <CharacterRoleStats character={c} variant="inline" />
                   </button>
                 ))}
               </div>
@@ -192,17 +196,20 @@ export function DashboardStep({
                 <button
                   key={c.id}
                   onClick={() => onDetail(c.id)}
-                  className="text-gold border-traveler-border bg-traveler-bg font-display flex cursor-pointer items-center gap-2 rounded-[5px] border px-2.5 py-1 text-xs"
+                  className="text-gold border-traveler-border bg-traveler-bg font-display flex cursor-pointer flex-col items-stretch gap-0.5 rounded-[5px] border px-2.5 py-1 text-left text-xs"
                 >
-                  <CharacterIcon
-                    characterId={c.id}
-                    edition={c.edition}
-                    team={c.team}
-                    alt={c.name}
-                    variant="token"
-                    className="size-5"
-                  />
-                  {c.name}
+                  <span className="flex items-center gap-2">
+                    <CharacterIcon
+                      characterId={c.id}
+                      edition={c.edition}
+                      team={c.team}
+                      alt={c.name}
+                      variant="token"
+                      className="size-5 shrink-0"
+                    />
+                    {c.name}
+                  </span>
+                  <CharacterRoleStats character={c} variant="inline" />
                 </button>
               ))}
             </div>
@@ -387,21 +394,24 @@ export function DashboardStep({
                       onClick={() => toggleBluff(c.id)}
                       disabled={blocked}
                       className={cn(
-                        "font-display flex cursor-pointer items-center gap-1.5 rounded-[5px] border px-2 py-1 text-xs transition-all",
+                        "font-display flex cursor-pointer flex-col items-stretch gap-0.5 rounded-[5px] border px-2 py-1 text-left text-xs transition-all",
                         sel && "border-blood text-parchment bg-severity-critical-bg",
                         !sel && !blocked && "border-subtle text-muted hover:border-faint hover:text-parchment-muted",
                         blocked && "border-subtle text-dimmer cursor-default"
                       )}
                     >
-                      <CharacterIcon
-                        characterId={c.id}
-                        edition={c.edition}
-                        team={c.team}
-                        alt={c.name}
-                        variant="token"
-                        className="size-4"
-                      />
-                      {c.name}
+                      <span className="flex items-center gap-1.5">
+                        <CharacterIcon
+                          characterId={c.id}
+                          edition={c.edition}
+                          team={c.team}
+                          alt={c.name}
+                          variant="token"
+                          className="size-4 shrink-0"
+                        />
+                        {c.name}
+                      </span>
+                      <CharacterRoleStats character={c} variant="inline" />
                     </button>
                   );
                 })}

@@ -2,19 +2,11 @@
 
 import { CharacterTokenProps } from "@/types";
 import { StrengthBar } from "./StrengthBar";
+import { CharacterRoleStats } from "./CharacterRoleStats";
 import { TEAM_COLORS } from "@/constants/team";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { cn } from "@/lib/cn";
 import { useTranslation } from "@/contexts/LanguageContext";
-
-const COMPLEXITY_DOTS = (n: number) =>
-  Array.from({ length: 5 }, (_, i) => (
-    <span
-      key={i}
-      className="mr-px inline-block size-1 rounded-full"
-      style={{ background: i < n ? "var(--gold)" : "var(--border-subtle)" }}
-    />
-  ));
 
 export function CharacterToken({
   character,
@@ -59,7 +51,7 @@ export function CharacterToken({
             >
               {character.name}
             </div>
-            {!compact && <div className="mt-0.5">{COMPLEXITY_DOTS(character.stComplexity ?? 2)}</div>}
+            <CharacterRoleStats character={character} className="mt-0.5" />
           </div>
         </div>
 

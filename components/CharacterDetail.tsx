@@ -2,8 +2,8 @@
 
 import { Character, CharacterDetailProps } from "@/types";
 import { SubDimBar } from "./common/SubDimBar";
-import { COMPLEXITY_LABEL } from "@/constants/character";
 import { StrengthBar } from "@/components/common/StrengthBar";
+import { CharacterRoleStats } from "@/components/common/CharacterRoleStats";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { cn } from "@/lib/cn";
@@ -42,9 +42,9 @@ export function CharacterDetail({
           <div>
             <div className="font-display text-parchment mb-0.5 text-lg">{character.name}</div>
             <div className="font-body text-muted text-sm capitalize">
-              {character.team} · {character.edition?.toUpperCase() || t("characterDetail.experimental")} ·{" "}
-              {t("characterDetail.stComplexity")} {COMPLEXITY_LABEL[character.stComplexity ?? 2]}
+              {character.team} · {character.edition?.toUpperCase() || t("characterDetail.experimental")}
             </div>
+            <CharacterRoleStats character={character} variant="inline" className="text-muted mt-1" />
           </div>
         </div>
         <button

@@ -2,16 +2,22 @@ import rawCharacters from "@/data/characters.json";
 import enrichmentData from "@/data/enrichment.json";
 import jinxesData from "@/data/jinxes.json";
 import editionsData from "@/data/editions.json";
+import scoreOverridesData from "@/data/scoreOverrides.json";
+import { buildCharacterScores } from "@/lib/scoring/build";
 import { Character, CharacterEnrichment, EditionConfig, Interaction, RawCharacter } from "@/types";
 
 const enrichment = enrichmentData as Record<string, CharacterEnrichment>;
+const scoreOverrides = scoreOverridesData as Record<string, unknown>;
 
 function mergeCharacter(c: RawCharacter): Character {
   const e = enrichment[c.id];
   const counters = Array.isArray(e?.counters) ? e.counters : Object.keys(e?.counters ?? {});
+  const scores = buildCharacterScores(c, scoreOverrides[c.id]);
   return {
     ...c,
-    stComplexity: e?.stComplexity ?? 2,
+    stComplexity: scores.stComplexity,
+    lethalityPerCycle: scores.lethalityPerCycle,
+    infoGathering: scores.infoGathering,
     abilityCategory: e?.abilityCategory ?? "unknown",
     tags: e?.tags ?? [],
     strength: e?.strength ?? { composite: 0 },

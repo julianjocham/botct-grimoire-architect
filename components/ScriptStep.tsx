@@ -2,6 +2,7 @@
 
 import { Character, ScriptStepProps, ScriptType } from "@/types";
 import { CharacterToken } from "./common/CharacterToken";
+import { CharacterRoleStats } from "./common/CharacterRoleStats";
 import { PremadeScriptCard } from "./common/PremadeScriptCard";
 import { EDITIONS } from "@/constants/info";
 import { SCRIPT_BUILD_TEAM_ORDER, TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
@@ -423,21 +424,24 @@ export function ScriptStep({
                               key={char.id}
                               onClick={() => onToggleScriptChar(char.id)}
                               title={t("script.removeChar", { name: char.name })}
-                              className="font-display bg-panel-dark text-2xs flex cursor-pointer items-center gap-0.75 rounded-xs px-1.5 py-0.5"
+                              className="font-display bg-panel-dark text-2xs flex cursor-pointer flex-col items-stretch gap-0.5 rounded-xs px-1.5 py-0.75 text-left"
                               style={{
                                 border: `1px solid ${c.border}`,
                                 color: c.text
                               }}
                             >
-                              <CharacterIcon
-                                characterId={char.id}
-                                edition={char.edition}
-                                team={char.team}
-                                alt={char.name}
-                                variant="token"
-                                className="size-3"
-                              />
-                              <span className="line-clamp-1">{char.name}</span>
+                              <span className="flex min-w-0 items-center gap-0.75">
+                                <CharacterIcon
+                                  characterId={char.id}
+                                  edition={char.edition}
+                                  team={char.team}
+                                  alt={char.name}
+                                  variant="token"
+                                  className="size-3 shrink-0"
+                                />
+                                <span className="line-clamp-1">{char.name}</span>
+                              </span>
+                              <CharacterRoleStats character={char} variant="inline" />
                             </button>
                           ))}
                         </div>

@@ -39,6 +39,10 @@ export interface CharacterEnrichment {
 // Merged character used throughout the app
 export interface Character extends RawCharacter {
   stComplexity: 1 | 2 | 3 | 4 | 5;
+  /** Max deaths per full cycle (night + day) attributable to this character’s ability when “charged”. */
+  lethalityPerCycle: number;
+  /** 0–100 composite from info frequency, info type, and edition baseline. */
+  infoGathering: number;
   abilityCategory: AbilityCategory;
   tags: CharacterTag[];
   strength: {

@@ -3,6 +3,7 @@
 import { NightOrderProps } from "@/types";
 import { EmptyState } from "./ui/EmptyState";
 import { CharacterIcon } from "./ui/CharacterIcon";
+import { CharacterRoleStats } from "./common/CharacterRoleStats";
 import { cn } from "@/lib/cn";
 import { useTranslation } from "@/contexts/LanguageContext";
 
@@ -38,7 +39,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
             </div>
 
             <div className="min-w-0 flex-1 pb-3">
-              <div className="font-display text-parchment mb-0.75 flex items-center gap-2.5 text-sm">
+              <div className="font-display text-parchment mb-0.75 flex flex-wrap items-center gap-2.5 text-sm">
                 <CharacterIcon
                   characterId={step.character.id}
                   edition={step.character.edition}
@@ -49,6 +50,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
                 />
                 {step.character.name}
               </div>
+              <CharacterRoleStats character={step.character} variant="inline" className="mb-1" />
               <div className={cn("text-muted text-sm leading-[1.4]", step.contextHints.length > 0 && "mb-1.5")}>
                 {step.reminder}
               </div>

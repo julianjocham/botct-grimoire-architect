@@ -9,6 +9,7 @@ import { analyzeScript } from "@/lib/engine";
 import { calculateEffectiveStrength } from "@/lib/strength/calculate";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
+import { CharacterRoleStats } from "@/components/common/CharacterRoleStats";
 import { cn } from "@/lib/cn";
 import { useTranslation } from "@/contexts/LanguageContext";
 
@@ -240,39 +241,42 @@ function CharacterStrengthList({ gameIds, allCharacters }: { gameIds: string[]; 
           const s = eff.effectiveStrength;
           const barColor = strengthBarColor(s);
           return (
-            <div key={char.id} className="flex items-center gap-2">
-              <CharacterIcon
-                characterId={char.id}
-                edition={char.edition}
-                team={char.team}
-                alt={char.name}
-                variant="token"
-                className="size-5 shrink-0"
-              />
-              <div className="font-display text-2xs min-w-[5.5rem] shrink-0 truncate" style={{ color: col.text }}>
-                {char.name}
-              </div>
-              <div className="bg-panel-dark h-1 flex-1 overflow-hidden rounded-xs">
-                <div
-                  className="h-full rounded-xs"
-                  style={{ width: `${(Math.abs(s) / 100) * 100}%`, background: barColor }}
+            <div key={char.id} className="flex flex-col gap-0.5">
+              <div className="flex items-center gap-2">
+                <CharacterIcon
+                  characterId={char.id}
+                  edition={char.edition}
+                  team={char.team}
+                  alt={char.name}
+                  variant="token"
+                  className="size-5 shrink-0"
                 />
-              </div>
-              <div className="text-3xs min-w-7 shrink-0 text-right font-mono" style={{ color: barColor }}>
-                {s > 0 ? "+" : ""}
-                {s}
-              </div>
-              {eff.modifier !== 0 && (
-                <div
-                  className={cn(
-                    "text-3xs shrink-0 font-mono",
-                    eff.modifier > 0 ? "text-good-blue" : "text-blood-light"
-                  )}
-                >
-                  ({eff.modifier > 0 ? "+" : ""}
-                  {eff.modifier})
+                <div className="font-display text-2xs min-w-[5.5rem] shrink-0 truncate" style={{ color: col.text }}>
+                  {char.name}
                 </div>
-              )}
+                <div className="bg-panel-dark h-1 flex-1 overflow-hidden rounded-xs">
+                  <div
+                    className="h-full rounded-xs"
+                    style={{ width: `${(Math.abs(s) / 100) * 100}%`, background: barColor }}
+                  />
+                </div>
+                <div className="text-3xs min-w-7 shrink-0 text-right font-mono" style={{ color: barColor }}>
+                  {s > 0 ? "+" : ""}
+                  {s}
+                </div>
+                {eff.modifier !== 0 && (
+                  <div
+                    className={cn(
+                      "text-3xs shrink-0 font-mono",
+                      eff.modifier > 0 ? "text-good-blue" : "text-blood-light"
+                    )}
+                  >
+                    ({eff.modifier > 0 ? "+" : ""}
+                    {eff.modifier})
+                  </div>
+                )}
+              </div>
+              <CharacterRoleStats variant="inline" character={char} className="text-muted pl-7" />
             </div>
           );
         })}

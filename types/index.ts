@@ -1,6 +1,9 @@
 // Character data model, strength types, and character component props
 export * from "./character";
 
+// Rule-based score inputs and computed scores
+export * from "./scoring";
+
 // Interaction system types and InteractionFeed props
 export * from "./interaction";
 

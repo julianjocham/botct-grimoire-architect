@@ -16,6 +16,13 @@
       "dashboard": "3 Dashboard"
     },
     "langToggle": "DE",
+    "roleStats": {
+      "stTitle": "ST complexity (1 = lowest operational load)",
+      "lethalityShort": "L",
+      "lethalityTitle": "Lethality: max deaths this role can cause in one full night and day cycle",
+      "infoShort": "I",
+      "infoTitle": "Information score (0–100)"
+    },
     "script": {
       "title": "Step 1 — Choose Your Script",
       "description": "A script is the set of characters available to appear in your game. Choose a pre-made script or build your own.",
@@ -117,7 +124,6 @@
       "bluffAdvice": "Bluff Advice",
       "removeFromScript": "Remove from Script",
       "addToScript": "Add to Script",
-      "stComplexity": "ST Complexity:",
       "experimental": "Experimental"
     },
     "nightOrder": {
@@ -201,6 +207,13 @@
       "dashboard": "3 Übersicht"
     },
     "langToggle": "EN",
+    "roleStats": {
+      "stTitle": "ST-Komplexität (1 = geringste operative Last)",
+      "lethalityShort": "L",
+      "lethalityTitle": "Letalität: max. Todesfälle, die diese Rolle in einem vollen Nacht+Tag-Zyklus verursachen kann",
+      "infoShort": "I",
+      "infoTitle": "Informations-Score (0–100)"
+    },
     "script": {
       "title": "Schritt 1 — Skript auswählen",
       "description": "Ein Skript ist die Menge der Charaktere, die in deinem Spiel erscheinen können. Wähle ein vorgefertigtes Skript oder erstelle dein eigenes.",
@@ -302,7 +315,6 @@
       "bluffAdvice": "Bluff-Ratschlag",
       "removeFromScript": "Aus Skript entfernen",
       "addToScript": "Zum Skript hinzufügen",
-      "stComplexity": "ST-Komplexität:",
       "experimental": "Experimentell"
     },
     "nightOrder": {

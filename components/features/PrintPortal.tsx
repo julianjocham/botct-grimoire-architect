@@ -6,6 +6,7 @@ import { Character } from "@/types";
 import { ScriptAnalysis } from "@/types";
 import { SCRIPT_BUILD_TEAM_ORDER, TEAM_LABEL } from "@/constants/team";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
+import { CharacterRoleStats } from "@/components/common/CharacterRoleStats";
 import { cn } from "@/lib/cn";
 import { useTranslation } from "@/contexts/LanguageContext";
 
@@ -65,9 +66,14 @@ export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalPro
                     />
                     <div className="flex-1 leading-tight">
                       <strong className="text-xs">{c.name}</strong>
-                      <span className={cn("text-2xs ml-1", isPretty ? "text-print-ink-soft" : "text-[#333]")}>
+                      <CharacterRoleStats
+                        character={c}
+                        variant="inline"
+                        className={cn("mt-0.5 block", isPretty ? "text-print-ink-soft" : "text-[#555]")}
+                      />
+                      <div className={cn("text-2xs mt-0.5", isPretty ? "text-print-ink-soft" : "text-[#333]")}>
                         {c.ability}
-                      </span>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -134,6 +140,11 @@ function NightOrderList({ steps, isPretty }: { steps: ScriptAnalysis["nightOrder
           />
           <div className="flex-1">
             <strong className="text-sm">{s.character.name}</strong>
+            <CharacterRoleStats
+              character={s.character}
+              variant="inline"
+              className={cn("mt-0.5", isPretty ? "text-print-ink-soft" : "text-[#555]")}
+            />
             {s.reminder && (
               <div className={cn("mt-0.5 text-sm leading-snug", isPretty ? "text-print-ink-soft" : "text-[#333]")}>
                 {s.reminder}
