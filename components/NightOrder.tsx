@@ -17,8 +17,10 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
             key={p}
             onClick={() => onPhaseChange(p)}
             className={cn(
-              "font-display flex-1 cursor-pointer rounded-sm border-none py-1.25 text-xs tracking-wide",
-              phase === p ? "text-parchment bg-townsfolk-border" : "text-muted bg-transparent"
+              "font-display flex-1 cursor-pointer rounded-sm border-none py-1.25 text-xs tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-light/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              phase === p
+                ? "text-parchment bg-townsfolk-border"
+                : "text-muted hover:bg-elevated/50 hover:text-parchment-muted bg-transparent"
             )}
           >
             {p === "first" ? t("nightOrder.firstNight") : t("nightOrder.otherNights")}
@@ -32,7 +34,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
         {steps.map((step, i) => (
           <div key={step.character.id} className="relative flex gap-2.5">
             <div className="flex w-7 shrink-0 flex-col items-center">
-              <div className="text-gold text-2xs border-faint bg-elevated z-10 flex size-6 shrink-0 items-center justify-center rounded-full border font-mono">
+              <div className="text-gold text-2xs border-faint bg-elevated z-10 flex size-7 shrink-0 items-center justify-center rounded-full border font-mono">
                 {step.order}
               </div>
               {i < steps.length - 1 && <div className="bg-subtle min-h-3 w-px flex-1" />}

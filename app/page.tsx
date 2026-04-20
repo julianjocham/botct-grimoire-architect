@@ -81,7 +81,7 @@ function App() {
           <img src="/cc_logo.png" alt="Community Created Content" className="h-8 w-auto opacity-80" />
           <div className="flex flex-col sm:flex-row sm:items-baseline">
             <span className="font-display text-parchment text-md tracking-wide">Grimoire Architect</span>
-            <span className="font-body text-dimmer text-xs sm:ml-3">{t("header.subtitle")}</span>
+            <span className="font-body text-dim text-xs sm:ml-3">{t("header.subtitle")}</span>
           </div>
         </div>
 
@@ -89,13 +89,13 @@ function App() {
           <StepIndicator currentStep={step} />
           <button
             onClick={() => setLanguage(language === "en" ? "de" : "en")}
-            className="border-subtle text-dim font-body cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-xs"
+            className="border-faint text-muted hover:border-parchment-muted/40 hover:bg-elevated/45 hover:text-parchment-muted font-body cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-light/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
           >
             {t("langToggle")}
           </button>
           <button
             onClick={() => dispatch({ type: "RESET" })}
-            className="border-subtle text-dim font-body cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-xs"
+            className="border-faint text-muted hover:border-parchment-muted/40 hover:bg-elevated/45 hover:text-parchment-muted font-body cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-light/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
           >
             {t("header.startOver")}
           </button>
@@ -165,13 +165,13 @@ function App() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <img src="/cc_logo.png" alt="Community Created Content" className="h-5 w-auto opacity-60" />
-            <span className="text-dimmer font-body text-xs">
+            <span className="text-dim font-body text-xs">
               {t("footer.disclaimer")}{" "}
               <a
                 href="https://bloodontheclocktower.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted hover:text-foreground underline transition-colors"
+                className="text-muted hover:text-parchment underline decoration-parchment-muted/60 hover:decoration-parchment/80 transition-colors"
               >
                 {t("footer.tpi")}
               </a>
@@ -182,7 +182,7 @@ function App() {
             href="https://github.com/julianjocham/botct-grimoire-architect"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-dimmer hover:text-foreground font-body text-xs underline transition-colors"
+            className="text-muted hover:text-parchment font-body text-xs underline decoration-parchment-muted/60 hover:decoration-parchment/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-light/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
           >
             {t("footer.github")}
           </a>
@@ -232,7 +232,7 @@ function StepIndicator({ currentStep }: { currentStep: WizardStep }) {
               "font-display text-3xs rounded-[4px] px-1.5 py-0.5 tracking-wider sm:px-2 sm:py-[3px]",
               isActive && "text-parchment bg-blood border-blood border",
               !isActive && isReached && "text-gold border-traveler-border border bg-transparent",
-              !isActive && !isReached && "border-subtle text-dimmer border bg-transparent"
+              !isActive && !isReached && "border-subtle text-dim border bg-transparent"
             )}
           >
             {t(`steps.${step}`)}

@@ -243,7 +243,7 @@ export function DashboardStep({
                         "font-display flex cursor-pointer flex-col items-stretch gap-0.5 rounded-[5px] border px-2 py-1 text-left text-xs transition-all",
                         sel && "border-blood text-parchment bg-severity-critical-bg",
                         !sel && !blocked && "border-subtle text-muted hover:border-faint hover:text-parchment-muted",
-                        blocked && "border-subtle text-dimmer cursor-default"
+                        blocked && "border-subtle text-dim cursor-default"
                       )}
                     >
                       <span className="flex items-center gap-1.5">

@@ -132,7 +132,7 @@ export function CharacterRoleStats({
         >
           ST{st}
         </PortalTooltip>
-        <span className="text-muted/60 mx-0.5">·</span>
+        <span className="text-dim mx-0.5">·</span>
         <PortalTooltip
           heading={copy.leth.heading}
           titleFallback={copy.leth.titleFallback}
@@ -141,7 +141,7 @@ export function CharacterRoleStats({
         >
           L{leth}
         </PortalTooltip>
-        <span className="text-muted/60 mx-0.5">·</span>
+        <span className="text-dim mx-0.5">·</span>
         <PortalTooltip
           heading={copy.info.heading}
           titleFallback={copy.info.titleFallback}

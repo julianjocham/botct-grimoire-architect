@@ -8,13 +8,15 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize;
 }
 
-const base = "cursor-pointer border-none font-display tracking-[0.05em] transition-all duration-100";
+const base =
+  "cursor-pointer border-none font-display tracking-[0.05em] transition-all duration-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-light/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
 const variants: Record<ButtonVariant, string> = {
   primary: "bg-townsfolk/70 text-white rounded-lg disabled:cursor-default",
-  action: "bg-blood text-parchment rounded-lg disabled:bg-panel-dark disabled:text-dimmer disabled:cursor-default",
-  ghost: "border border-subtle bg-transparent text-muted rounded-md font-body tracking-normal hover:text-foreground",
-  chip: "bg-subtle text-gold rounded border-none"
+  action: "bg-blood text-parchment rounded-lg disabled:bg-panel-dark disabled:text-muted disabled:cursor-default",
+  ghost:
+    "border border-faint bg-transparent text-muted rounded-md font-body tracking-normal hover:border-parchment-muted/35 hover:bg-elevated/40 hover:text-parchment-muted",
+  chip: "bg-subtle text-gold-light rounded border-none"
 };
 
 const sizes: Record<ButtonSize, string> = {
