@@ -51,12 +51,18 @@ function SegmentedBarCompact({ fill, color, segments }: { fill: number; color: s
   );
 }
 
-function contribLines(entries: RosterScoreContributionEntry[], t: (k: string, v?: Record<string, string | number>) => string): string[] {
+function contribLines(
+  entries: RosterScoreContributionEntry[],
+  t: (k: string, v?: Record<string, string | number>) => string
+): string[] {
   if (entries.length === 0) return [t("gameFeelRoster.tooltipNone")];
   return entries.map((e) => t("gameFeelRoster.tooltipLine", { name: e.name, value: fmtScore(e.value) }));
 }
 
-function stContribLines(entries: RosterScoreContributionEntry[], t: (k: string, v?: Record<string, string | number>) => string): string[] {
+function stContribLines(
+  entries: RosterScoreContributionEntry[],
+  t: (k: string, v?: Record<string, string | number>) => string
+): string[] {
   if (entries.length === 0) return [t("gameFeelRoster.tooltipStAllMinimal")];
   return contribLines(entries, t);
 }
@@ -77,11 +83,7 @@ export function GameFeelRosterPanel({
   const fillsCompact = scoreFeelBarFillsCompact(rs);
 
   if (rs.characterCount === 0) {
-    return (
-      <div className={cn("text-muted font-body text-sm", className)}>
-        {t("gameFeelRoster.empty")}
-      </div>
-    );
+    return <div className={cn("text-muted font-body text-sm", className)}>{t("gameFeelRoster.empty")}</div>;
   }
 
   if (variant === "healthStrip") {
@@ -145,7 +147,7 @@ export function GameFeelRosterPanel({
       <div className={cn("flex flex-wrap items-start gap-4 sm:gap-5", className)}>
         {rows.map(({ key, label, fill, color, value, heading, lines, title }) => (
           <div key={key} className="flex min-w-[4.5rem] flex-col items-center gap-1">
-            <span className="text-muted max-w-[7rem] text-center text-xs font-mono tracking-[0.06em] uppercase">
+            <span className="text-muted max-w-[7rem] text-center font-mono text-xs tracking-[0.06em] uppercase">
               {label}
             </span>
             <SegmentedBarCompact fill={fill} color={color} segments={BAR_SEGMENTS_COMPACT} />
@@ -166,7 +168,7 @@ export function GameFeelRosterPanel({
     <div className={cn("flex flex-col gap-3", className)}>
       <div>
         <div className="mb-1 flex justify-between gap-2">
-          <span className="text-muted text-sm font-mono tracking-wider uppercase">{t("gameFeelRoster.st")}</span>
+          <span className="text-muted font-mono text-sm tracking-wider uppercase">{t("gameFeelRoster.st")}</span>
           <PortalTooltip
             heading={t("gameFeelRoster.tooltipStHeading")}
             titleFallback={
@@ -177,7 +179,7 @@ export function GameFeelRosterPanel({
             lines={stContribLines(contributions.stComplexity, t)}
             dottedUnderline
           >
-            <span className="text-gold font-display text-base shrink-0 text-right tabular-nums">
+            <span className="text-gold font-display shrink-0 text-right text-base tabular-nums">
               {t("gameFeelRoster.stValue", { avg: rs.stComplexityAvg, sum: rs.stComplexitySum })}
             </span>
           </PortalTooltip>
@@ -187,9 +189,7 @@ export function GameFeelRosterPanel({
 
       <div>
         <div className="mb-1 flex justify-between gap-2">
-          <span className="text-muted text-sm font-mono tracking-wider uppercase">
-            {t("gameFeelRoster.lethality")}
-          </span>
+          <span className="text-muted font-mono text-sm tracking-wider uppercase">{t("gameFeelRoster.lethality")}</span>
           <PortalTooltip
             heading={t("gameFeelRoster.tooltipLethalityHeading")}
             titleFallback={
@@ -200,7 +200,7 @@ export function GameFeelRosterPanel({
             lines={contribLines(contributions.lethality, t)}
             dottedUnderline
           >
-            <span className="text-blood-light font-display text-base shrink-0 text-right tabular-nums">
+            <span className="text-blood-light font-display shrink-0 text-right text-base tabular-nums">
               {t("gameFeelRoster.lethalityValue", { sum: fmtScore(rs.lethalityPerCycleSum) })}
             </span>
           </PortalTooltip>
@@ -210,9 +210,7 @@ export function GameFeelRosterPanel({
 
       <div>
         <div className="mb-1 flex justify-between gap-2">
-          <span className="text-muted text-sm font-mono tracking-wider uppercase">
-            {t("gameFeelRoster.infoGood")}
-          </span>
+          <span className="text-muted font-mono text-sm tracking-wider uppercase">{t("gameFeelRoster.infoGood")}</span>
           <PortalTooltip
             heading={t("gameFeelRoster.tooltipInfoGoodHeading")}
             titleFallback={
@@ -223,7 +221,7 @@ export function GameFeelRosterPanel({
             lines={contribLines(contributions.infoGood, t)}
             dottedUnderline
           >
-            <span className="text-good-blue font-display text-base shrink-0 text-right tabular-nums">
+            <span className="text-good-blue font-display shrink-0 text-right text-base tabular-nums">
               {t("gameFeelRoster.infoGoodValue", { sum: fmtScore(rs.infoGatheringGoodSum) })}
             </span>
           </PortalTooltip>
@@ -233,9 +231,7 @@ export function GameFeelRosterPanel({
 
       <div>
         <div className="mb-1 flex justify-between gap-2">
-          <span className="text-muted text-sm font-mono tracking-wider uppercase">
-            {t("gameFeelRoster.infoEvil")}
-          </span>
+          <span className="text-muted font-mono text-sm tracking-wider uppercase">{t("gameFeelRoster.infoEvil")}</span>
           <PortalTooltip
             heading={t("gameFeelRoster.tooltipInfoEvilHeading")}
             titleFallback={
@@ -246,7 +242,7 @@ export function GameFeelRosterPanel({
             lines={contribLines(contributions.infoEvil, t)}
             dottedUnderline
           >
-            <span className="text-minion font-display text-base shrink-0 text-right tabular-nums">
+            <span className="text-minion font-display shrink-0 text-right text-base tabular-nums">
               {t("gameFeelRoster.infoEvilValue", { sum: fmtScore(rs.infoGatheringEvilSum) })}
             </span>
           </PortalTooltip>

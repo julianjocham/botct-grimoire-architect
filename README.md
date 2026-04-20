@@ -95,11 +95,11 @@ Each character includes official script fields where applicable, enrichment (str
 
 How the game tends to play in the model, updated as you change the roster:
 
-| Dimension      | Spectrum                                   | What It Means                                                  |
-| -------------- | ------------------------------------------ | -------------------------------------------------------------- |
-| **Info Level** | Blind → Low → Moderate → High → Flooded    | How much deductive information Good tends to get from roles    |
-| **Lethality**  | Gentle → Standard → Deadly → Massacre      | How lethal pressure reads in the model                         |
-| **Chaos**      | Orderly → Moderate → Chaotic → Pandemonium | How unpredictable the script reads                             |
+| Dimension      | Spectrum                                   | What It Means                                                    |
+| -------------- | ------------------------------------------ | ---------------------------------------------------------------- |
+| **Info Level** | Blind → Low → Moderate → High → Flooded    | How much deductive information Good tends to get from roles      |
+| **Lethality**  | Gentle → Standard → Deadly → Massacre      | How lethal pressure reads in the model                           |
+| **Chaos**      | Orderly → Moderate → Chaotic → Pandemonium | How unpredictable the script reads                               |
 | **ST Load**    | Light → Moderate → Heavy → Exhausting      | How heavy operational / cognitive load reads for the Storyteller |
 
 ### Role-level scores (ST · L · I)

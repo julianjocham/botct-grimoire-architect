@@ -102,11 +102,23 @@ function inferInfoBlock(c: RawCharacter): InfoGatheringInput {
   }
 
   if (!looks && c.team !== "townsfolk" && c.team !== "outsider") {
-    return { infoType: "none", firstNightFacts: 0, recurringInfoPerNight: 0, dayInfoEventsPerDay: 0, sobrietyGating: false };
+    return {
+      infoType: "none",
+      firstNightFacts: 0,
+      recurringInfoPerNight: 0,
+      dayInfoEventsPerDay: 0,
+      sobrietyGating: false
+    };
   }
 
   if (!looks) {
-    return { infoType: "none", firstNightFacts: 0, recurringInfoPerNight: 0, dayInfoEventsPerDay: 0, sobrietyGating: false };
+    return {
+      infoType: "none",
+      firstNightFacts: 0,
+      recurringInfoPerNight: 0,
+      dayInfoEventsPerDay: 0,
+      sobrietyGating: false
+    };
   }
 
   if (/how many pairs|finger signal|0, 1, 2|number of|how many dead/.test(c.ability.toLowerCase())) infoType = "fact";

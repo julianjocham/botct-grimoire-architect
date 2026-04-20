@@ -93,10 +93,7 @@ export function computeInfoGathering(info: InfoGatheringInput): number {
   const typeW = INFO_TYPE_WEIGHT[info.infoType];
   if (typeW <= 0) return 0;
 
-  const freq =
-    info.firstNightFacts * 2.2 +
-    info.recurringInfoPerNight * 9.5 +
-    info.dayInfoEventsPerDay * 7.0;
+  const freq = info.firstNightFacts * 2.2 + info.recurringInfoPerNight * 9.5 + info.dayInfoEventsPerDay * 7.0;
 
   const gated = info.sobrietyGating ? INFO_SOBRIETY_GATE_MULTIPLIER : 1;
   const raw = freq * typeW * gated;
@@ -125,8 +122,7 @@ export function buildScoreBreakdown(inputs: CharacterScoreInputs): CharacterScor
 
   const info = inputs.info;
   const typeW = INFO_TYPE_WEIGHT[info.infoType];
-  const frequencySum =
-    info.firstNightFacts * 2.2 + info.recurringInfoPerNight * 9.5 + info.dayInfoEventsPerDay * 7.0;
+  const frequencySum = info.firstNightFacts * 2.2 + info.recurringInfoPerNight * 9.5 + info.dayInfoEventsPerDay * 7.0;
   const gated = info.sobrietyGating ? INFO_SOBRIETY_GATE_MULTIPLIER : 1;
   const rawProduct = info.infoType === "none" || typeW <= 0 ? 0 : frequencySum * typeW * gated;
   const score = computeInfoGathering(info);

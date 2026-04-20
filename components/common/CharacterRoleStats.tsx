@@ -27,10 +27,7 @@ function ComplexityDots({ n }: { n: number }) {
   );
 }
 
-function buildRoleStatCopy(
-  character: Character,
-  t: (key: string, vars?: Record<string, string | number>) => string
-) {
+function buildRoleStatCopy(character: Character, t: (key: string, vars?: Record<string, string | number>) => string) {
   const b = character.scoreBreakdown;
 
   const enumT = {

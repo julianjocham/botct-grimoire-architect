@@ -17,7 +17,7 @@ export function NightOrder({ steps, phase, onPhaseChange }: NightOrderProps) {
             key={p}
             onClick={() => onPhaseChange(p)}
             className={cn(
-              "font-display flex-1 cursor-pointer rounded-sm border-none py-1.25 text-xs tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-light/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              "font-display focus-visible:ring-gold-light/55 focus-visible:ring-offset-background flex-1 cursor-pointer rounded-sm border-none py-1.25 text-xs tracking-wide focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
               phase === p
                 ? "text-parchment bg-townsfolk-border"
                 : "text-muted hover:bg-elevated/50 hover:text-parchment-muted bg-transparent"

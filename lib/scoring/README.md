@@ -30,12 +30,12 @@ It is **deliberately separate** from **ST Part A complexity** (operational load)
 
 ### Default inference (`defaults.ts`)
 
-| Situation | `sobrietyGating` |
-|-----------|------------------|
-| No scored info (`infoType === "none"`, etc.) | `false` (gate irrelevant; index is 0) |
-| **Spy** or **Widow** (evil grimoire-style info) | `false` — not modeled as good-team drunk/poison misinfo |
-| **Townsfolk** or **Outsider** with ability text that counts as info | `true` |
-| **Minion** or **Demon** with info-like text | `false` — evil info is not given the good-team discount in the default model |
+| Situation                                                           | `sobrietyGating`                                                             |
+| ------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| No scored info (`infoType === "none"`, etc.)                        | `false` (gate irrelevant; index is 0)                                        |
+| **Spy** or **Widow** (evil grimoire-style info)                     | `false` — not modeled as good-team drunk/poison misinfo                      |
+| **Townsfolk** or **Outsider** with ability text that counts as info | `true`                                                                       |
+| **Minion** or **Demon** with info-like text                         | `false` — evil info is not given the good-team discount in the default model |
 
 So **“yes” in the UI** means: team is good-side **and** the role contributed to the info block; **“no”** means evil team, no info, or the Spy/Widow special case.
 
@@ -51,11 +51,11 @@ If you dislike the constant, treat it like any other heuristic: change `INFO_SOB
 
 ### Could the gate depend on the chosen script?
 
-**Conceptually, yes** — on a script with more ways to poison or manufacture drunks, good players’ information is *on average* less reliable, so a **script-level** adjustment to the information index (or to the multiplier) can be more faithful than a single global constant.
+**Conceptually, yes** — on a script with more ways to poison or manufacture drunks, good players’ information is _on average_ less reliable, so a **script-level** adjustment to the information index (or to the multiplier) can be more faithful than a single global constant.
 
 **Practically, it is easy to get wrong** unless you commit to a clear, maintainable model:
 
-1. **What counts as a “poison slot”?** Officially only some effects are *Poisoned* or *Drunk* in the glossary sense. Do you count the **Poisoner** only, or also **Widow**, **Pukka**, **Cerenovus** (madness), **Philosopher**-style, **Marionette** edge cases, **Baron** (extra outsider → extra drunk possibility), **Lunatic**, travelers, fabled, homebrew? Each choice changes the number.
+1. **What counts as a “poison slot”?** Officially only some effects are _Poisoned_ or _Drunk_ in the glossary sense. Do you count the **Poisoner** only, or also **Widow**, **Pukka**, **Cerenovus** (madness), **Philosopher**-style, **Marionette** edge cases, **Baron** (extra outsider → extra drunk possibility), **Lunatic**, travelers, fabled, homebrew? Each choice changes the number.
 
 2. **Per-player vs per-role.** “How many ways to be poisoned” is really about **how many good players can be affected at once** and **whether your info role is the one poisoned**, not just a count of evil characters on the script. A simple count of minions with “poison” in the ability text is a **very rough** proxy.
 

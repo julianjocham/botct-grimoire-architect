@@ -89,13 +89,13 @@ function App() {
           <StepIndicator currentStep={step} />
           <button
             onClick={() => setLanguage(language === "en" ? "de" : "en")}
-            className="border-faint text-muted hover:border-parchment-muted/40 hover:bg-elevated/45 hover:text-parchment-muted font-body cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-light/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+            className="border-faint text-muted hover:border-parchment-muted/40 hover:bg-elevated/45 hover:text-parchment-muted font-body focus-visible:ring-gold-light/55 focus-visible:ring-offset-surface cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-xs transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
           >
             {t("langToggle")}
           </button>
           <button
             onClick={() => dispatch({ type: "RESET" })}
-            className="border-faint text-muted hover:border-parchment-muted/40 hover:bg-elevated/45 hover:text-parchment-muted font-body cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-light/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+            className="border-faint text-muted hover:border-parchment-muted/40 hover:bg-elevated/45 hover:text-parchment-muted font-body focus-visible:ring-gold-light/55 focus-visible:ring-offset-surface cursor-pointer rounded-[4px] border bg-transparent px-2.5 py-1 text-xs transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
           >
             {t("header.startOver")}
           </button>
@@ -172,7 +172,7 @@ function App() {
                 href="https://bloodontheclocktower.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted hover:text-parchment underline decoration-parchment-muted/60 hover:decoration-parchment/80 transition-colors"
+                className="text-muted hover:text-parchment decoration-parchment-muted/60 hover:decoration-parchment/80 underline transition-colors"
               >
                 {t("footer.tpi")}
               </a>
@@ -183,7 +183,7 @@ function App() {
             href="https://github.com/julianjocham/botct-grimoire-architect"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted hover:text-parchment font-body text-xs underline decoration-parchment-muted/60 hover:decoration-parchment/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-light/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+            className="text-muted hover:text-parchment font-body decoration-parchment-muted/60 hover:decoration-parchment/80 focus-visible:ring-gold-light/55 focus-visible:ring-offset-background rounded-sm text-xs underline transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
           >
             {t("footer.github")}
           </a>

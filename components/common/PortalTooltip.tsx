@@ -21,11 +21,7 @@ const VIEW_MARGIN = 16;
  * popup sits more toward the middle on small screens and near edges, then clamp to
  * keep the full box on-screen.
  */
-function blendXTowardViewportCenter(
-  pointerOrFallbackX: number,
-  viewportWidth: number,
-  popupHalfWidth: number
-): number {
+function blendXTowardViewportCenter(pointerOrFallbackX: number, viewportWidth: number, popupHalfWidth: number): number {
   const center = viewportWidth / 2;
   // Narrower viewports pull harder toward the middle (better for one-handed mobile).
   const narrowT = Math.min(1, Math.max(0, (720 - viewportWidth) / 480));
@@ -84,8 +80,7 @@ export function PortalHoverPopup({
 
     const triggerCenterX = r.left + r.width / 2;
     const px = pointerXRef.current;
-    const anchorX =
-      px != null && Number.isFinite(px) ? px : triggerCenterX;
+    const anchorX = px != null && Number.isFinite(px) ? px : triggerCenterX;
 
     const left = blendXTowardViewportCenter(anchorX, vw, halfW);
 
@@ -128,14 +123,11 @@ export function PortalHoverPopup({
     pointerXRef.current = e.clientX;
   }, []);
 
-  const handlePointerEnter = useCallback(
-    (e: ReactPointerEvent<HTMLSpanElement>) => {
-      pointerXRef.current = e.clientX;
-      openRef.current = true;
-      setOpen(true);
-    },
-    []
-  );
+  const handlePointerEnter = useCallback((e: ReactPointerEvent<HTMLSpanElement>) => {
+    pointerXRef.current = e.clientX;
+    openRef.current = true;
+    setOpen(true);
+  }, []);
 
   const cancelScheduledPosition = useCallback(() => {
     if (positionRafRef.current != null) {
@@ -210,10 +202,7 @@ export function PortalHoverPopup({
         ref={popupRef}
         role="tooltip"
         style={popupStyle}
-        className={cn(
-          "pointer-events-none w-max max-w-[min(42rem,calc(100vw-2rem))] print:hidden",
-          popupClassName
-        )}
+        className={cn("pointer-events-none w-max max-w-[min(42rem,calc(100vw-2rem))] print:hidden", popupClassName)}
       >
         {popup}
       </div>,
@@ -270,7 +259,7 @@ export function PortalTooltip({
       popup={
         <>
           <div className="text-parchment font-body text-base font-semibold">{heading}</div>
-          <ul className="text-parchment-muted mt-2 list-disc space-y-1 pl-4 marker:text-muted">
+          <ul className="text-parchment-muted marker:text-muted mt-2 list-disc space-y-1 pl-4">
             {lines.map((line, i) => (
               <li key={i}>{line}</li>
             ))}
@@ -282,8 +271,7 @@ export function PortalTooltip({
       <span
         className={cn(
           "cursor-help text-sm",
-          dottedUnderline &&
-            "underline decoration-current/35 decoration-dotted underline-offset-[3px]"
+          dottedUnderline && "underline decoration-current/35 decoration-dotted underline-offset-[3px]"
         )}
         tabIndex={0}
         title={titleFallback}

@@ -61,9 +61,7 @@ export function DashboardStep({
     const byId = new Map(allCharacters.map((c) => [c.id, c] as const));
     const ids = new Set(scriptIds);
     for (const c of scriptTravelerExtras) ids.add(c.id);
-    return [...ids]
-      .map((id) => byId.get(id))
-      .filter((c): c is Character => c !== undefined);
+    return [...ids].map((id) => byId.get(id)).filter((c): c is Character => c !== undefined);
   }, [allCharacters, scriptIds, scriptTravelerExtras]);
 
   const analysis = useMemo(

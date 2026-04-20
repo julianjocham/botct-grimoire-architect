@@ -21,10 +21,10 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
 
       {/* Night complexity */}
       <div className="flex flex-col items-center gap-0.5">
-        <span className="text-muted text-xs font-mono tracking-widest uppercase">{t("healthBar.night")}</span>
+        <span className="text-muted font-mono text-xs tracking-widest uppercase">{t("healthBar.night")}</span>
         <span className="font-display text-gold text-sm">{nightComplexity.complexityRating}</span>
         <span
-          className="text-dim text-xs font-mono"
+          className="text-dim font-mono text-xs"
           title={t("healthBar.nightTitle", {
             first: nightComplexity.firstNightSteps,
             other: nightComplexity.otherNightSteps
@@ -39,14 +39,14 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
       {/* Strength totals */}
       <div className="flex flex-col gap-0.5">
         <div className="flex items-center gap-2">
-          <span className="text-good-blue text-xs font-mono uppercase">{t("healthBar.good")}</span>
+          <span className="text-good-blue font-mono text-xs uppercase">{t("healthBar.good")}</span>
           <span className="text-good-blue font-mono text-sm">
             {goodStrengthTotal > 0 ? "+" : ""}
             {goodStrengthTotal}
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-blood-light text-xs font-mono uppercase">{t("healthBar.evil")}</span>
+          <span className="text-blood-light font-mono text-xs uppercase">{t("healthBar.evil")}</span>
           <span className="text-blood-light font-mono text-sm">{evilStrengthTotal}</span>
         </div>
       </div>

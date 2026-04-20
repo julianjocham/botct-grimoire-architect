@@ -5,7 +5,10 @@ function isPlainObject(v: unknown): v is Record<string, unknown> {
 }
 
 /** Deep-merge score input objects (JSON overrides win). Arrays on the right replace the left. */
-export function mergeScoreInputs(base: CharacterScoreInputs, patch: Partial<CharacterScoreInputs>): CharacterScoreInputs {
+export function mergeScoreInputs(
+  base: CharacterScoreInputs,
+  patch: Partial<CharacterScoreInputs>
+): CharacterScoreInputs {
   const out: CharacterScoreInputs = {
     st: { ...base.st },
     lethality: { ...base.lethality },
@@ -20,10 +23,7 @@ export function mergeScoreInputs(base: CharacterScoreInputs, patch: Partial<Char
   return out;
 }
 
-export function mergePartialScoreInputs(
-  base: CharacterScoreInputs,
-  patch: unknown
-): CharacterScoreInputs {
+export function mergePartialScoreInputs(base: CharacterScoreInputs, patch: unknown): CharacterScoreInputs {
   if (patch == null || !isPlainObject(patch) || Object.keys(patch).length === 0) return base;
   return mergeScoreInputs(base, patch as Partial<CharacterScoreInputs>);
 }

@@ -131,76 +131,76 @@ export function ScriptStep({
               {t("script.officialScripts")}
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-            {EDITIONS.map((ed) => {
-              const pool = editionPools[ed.key];
-              const isSelected = scriptSource === ed.key;
-              return (
-                <div
-                  key={ed.key}
-                  onClick={() =>
-                    onSelectEdition(
-                      ed.key,
-                      pool.map((c) => c.id)
-                    )
-                  }
-                  className={cn(
-                    "cursor-pointer rounded-xl border-2 px-4 py-4 transition-all duration-150 ease-[ease] sm:px-5.5 sm:py-5",
-                    isSelected ? "border-blood bg-severity-critical-bg" : "bg-surface border-subtle"
-                  )}
-                >
-                  <div className="mb-2.5 flex items-start justify-between">
-                    <div
-                      className={cn(
-                        "font-display tracking-tight-wide text-lg",
-                        isSelected ? "text-parchment" : "text-gold"
-                      )}
-                    >
-                      {ed.name}
-                    </div>
-                    <span
-                      className="font-body text-2xs shrink-0 rounded-[3px] px-1.75 py-0.5"
-                      style={{
-                        color: ed.diffColor,
-                        border: `1px solid ${ed.diffColor}44`
-                      }}
-                    >
-                      {ed.difficulty}
-                    </span>
-                  </div>
-
-                  <div className="font-body text-muted mb-4 min-h-10 text-base leading-normal">{ed.tagline}</div>
-
-                  <div className="mb-4 grid grid-cols-2 gap-x-3 gap-y-1">
-                    {TEAM_ORDER.map((team) => {
-                      const n = teamCount(pool, team);
-                      if (n === 0) return null;
-                      const c = TEAM_COLORS[team];
-                      return (
-                        <div key={team} className="font-mono text-xs" style={{ color: c.text }}>
-                          {n} {TEAM_LABEL[team]}
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
+              {EDITIONS.map((ed) => {
+                const pool = editionPools[ed.key];
+                const isSelected = scriptSource === ed.key;
+                return (
+                  <div
+                    key={ed.key}
+                    onClick={() =>
                       onSelectEdition(
                         ed.key,
                         pool.map((c) => c.id)
-                      );
-                    }}
+                      )
+                    }
                     className={cn(
-                      "font-display w-full cursor-pointer rounded-md border-none py-2 text-xs tracking-wide transition-all duration-150 ease-[ease]",
-                      isSelected ? "bg-blood text-parchment" : "bg-subtle text-muted"
+                      "cursor-pointer rounded-xl border-2 px-4 py-4 transition-all duration-150 ease-[ease] sm:px-5.5 sm:py-5",
+                      isSelected ? "border-blood bg-severity-critical-bg" : "bg-surface border-subtle"
                     )}
                   >
-                    {isSelected ? t("script.selected") : t("script.selectScript")}
-                  </button>
-                </div>
-              );
-            })}
+                    <div className="mb-2.5 flex items-start justify-between">
+                      <div
+                        className={cn(
+                          "font-display tracking-tight-wide text-lg",
+                          isSelected ? "text-parchment" : "text-gold"
+                        )}
+                      >
+                        {ed.name}
+                      </div>
+                      <span
+                        className="font-body text-2xs shrink-0 rounded-[3px] px-1.75 py-0.5"
+                        style={{
+                          color: ed.diffColor,
+                          border: `1px solid ${ed.diffColor}44`
+                        }}
+                      >
+                        {ed.difficulty}
+                      </span>
+                    </div>
+
+                    <div className="font-body text-muted mb-4 min-h-10 text-base leading-normal">{ed.tagline}</div>
+
+                    <div className="mb-4 grid grid-cols-2 gap-x-3 gap-y-1">
+                      {TEAM_ORDER.map((team) => {
+                        const n = teamCount(pool, team);
+                        if (n === 0) return null;
+                        const c = TEAM_COLORS[team];
+                        return (
+                          <div key={team} className="font-mono text-xs" style={{ color: c.text }}>
+                            {n} {TEAM_LABEL[team]}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onSelectEdition(
+                          ed.key,
+                          pool.map((c) => c.id)
+                        );
+                      }}
+                      className={cn(
+                        "font-display w-full cursor-pointer rounded-md border-none py-2 text-xs tracking-wide transition-all duration-150 ease-[ease]",
+                        isSelected ? "bg-blood text-parchment" : "bg-subtle text-muted"
+                      )}
+                    >
+                      {isSelected ? t("script.selected") : t("script.selectScript")}
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           </div>
 

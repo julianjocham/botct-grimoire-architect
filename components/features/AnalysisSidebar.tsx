@@ -36,9 +36,7 @@ export function AnalysisSidebar({ gameIds, allCharacters }: AnalysisSidebarProps
 
 function RosterRoleStatsList({ gameIds, allCharacters }: { gameIds: string[]; allCharacters: Character[] }) {
   const { t } = useTranslation();
-  const entries = gameIds
-    .map((id) => allCharacters.find((c) => c.id === id))
-    .filter(Boolean) as Character[];
+  const entries = gameIds.map((id) => allCharacters.find((c) => c.id === id)).filter(Boolean) as Character[];
   entries.sort((a, b) => a.name.localeCompare(b.name));
 
   return (
