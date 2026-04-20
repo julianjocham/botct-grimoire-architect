@@ -4,7 +4,7 @@ export * from "./character";
 // Rule-based score inputs and computed scores
 export * from "./scoring";
 
-// Interaction system types and InteractionFeed props
+// Interaction system types
 export * from "./interaction";
 
 // Script analysis output types and related component props

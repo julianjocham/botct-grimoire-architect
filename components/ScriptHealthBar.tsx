@@ -1,18 +1,10 @@
 "use client";
 
 import { ScriptHealthBarProps } from "@/types";
-import { FeelBar } from "./common/FeelBar";
-import {
-  CAT_SHORT,
-  CHAOS_LEVEL,
-  EVIL_CATEGORIES,
-  GOOD_CATEGORIES,
-  INFO_LEVEL,
-  LETHAL_LEVEL,
-  ST_LEVEL
-} from "@/constants/info";
+import { CAT_SHORT, EVIL_CATEGORIES, GOOD_CATEGORIES } from "@/constants/info";
 import { cn } from "@/lib/cn";
 import { useTranslation } from "@/contexts/LanguageContext";
+import { GameFeelRosterPanel } from "@/components/common/GameFeelRosterPanel";
 
 export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
   const { t } = useTranslation();
@@ -23,13 +15,7 @@ export function ScriptHealthBar({ analysis }: ScriptHealthBarProps) {
 
   return (
     <div className="bg-surface border-subtle flex flex-wrap items-center gap-3 rounded-[10px] border px-3 py-2.5 sm:gap-5 sm:px-4">
-      {/* Script feel bars */}
-      <div className="flex items-start gap-3 sm:gap-3.5">
-        <FeelBar label={t("healthBar.info")} value={scriptFeel.infoLevel} levelMap={INFO_LEVEL} maxBars={4} />
-        <FeelBar label={t("healthBar.lethal")} value={scriptFeel.lethalityLevel} levelMap={LETHAL_LEVEL} maxBars={3} />
-        <FeelBar label={t("healthBar.chaos")} value={scriptFeel.chaosLevel} levelMap={CHAOS_LEVEL} maxBars={3} />
-        <FeelBar label={t("healthBar.stLoad")} value={scriptFeel.stWorkload} levelMap={ST_LEVEL} maxBars={3} />
-      </div>
+      <GameFeelRosterPanel feel={scriptFeel} variant="healthStrip" />
 
       <div className="bg-subtle hidden h-7 w-px shrink-0 sm:block" />
 

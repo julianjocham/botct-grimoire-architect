@@ -62,15 +62,6 @@ export type GrimoireAction =
   | { type: "SET_DETAIL"; id: string | null }
   | { type: "RESET" };
 
-// ─── UI display config ────────────────────────────────────────────────────────
-
-// Config for rendering feel-level bars in the UI
-export interface FeelBarConfig {
-  key: "infoLevel" | "lethalityLevel" | "chaosLevel" | "stWorkload";
-  label: string;
-  levels: string[];
-}
-
 // ─── Step component props ─────────────────────────────────────────────────────
 
 export interface ScriptStepProps {

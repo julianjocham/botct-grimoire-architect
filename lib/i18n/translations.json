@@ -167,6 +167,24 @@
       "djinnJinxes": "{n} Djinn Jinx{es} — see Interactions tab",
       "travelers": "Travelers"
     },
+    "gameFeelRoster": {
+      "empty": "Select characters to see roster score totals.",
+      "st": "ST complexity",
+      "stValue": "avg {avg} · Σ{sum}",
+      "lethality": "Lethality / cycle",
+      "lethalityValue": "Σ{sum}",
+      "infoGood": "Good info",
+      "infoGoodValue": "Σ{sum}",
+      "infoEvil": "Evil info",
+      "infoEvilValue": "Σ{sum}",
+      "tooltipNone": "No contributors for this metric.",
+      "tooltipStAllMinimal": "Every role is at minimum ST complexity (1); no role above the floor.",
+      "tooltipLine": "{name}: {value}",
+      "tooltipStHeading": "ST complexity by role",
+      "tooltipLethalityHeading": "Lethality (max deaths per full night+day cycle)",
+      "tooltipInfoGoodHeading": "Good-side info index (townsfolk, outsiders, travelers)",
+      "tooltipInfoEvilHeading": "Evil-side info index (minions, demon)"
+    },
     "characterDetail": {
       "ability": "Ability",
       "strength": "Strength",
@@ -200,10 +218,10 @@
       "empty": "Add characters to see interaction warnings and tips."
     },
     "healthBar": {
-      "info": "Info",
-      "lethal": "Lethal",
-      "chaos": "Chaos",
-      "stLoad": "ST Load",
+      "stComplexity": "ST load",
+      "lethalPerCycle": "Kills/c",
+      "infoGood": "Good I",
+      "infoEvil": "Evil I",
       "night": "Night",
       "nightTitle": "First night: {first} steps · Other nights: {other} steps",
       "good": "Good",
@@ -213,13 +231,8 @@
       "noCritical": "No critical issues"
     },
     "analysisSidebar": {
-      "teamStrength": "Team Strength",
-      "good": "Good",
-      "evil": "Evil",
       "gameFeel": "Game Feel",
-      "interactions": "Interactions ({count})",
-      "issues": "Issues",
-      "characterStrengths": "Character Strengths",
+      "rosterScores": "Per-character scores",
       "empty": "Select characters to see live analysis."
     },
     "print": {
@@ -235,12 +248,6 @@
       "day-ability": "day ability",
       "info-disruption": "disruption",
       "demon-resilience": "demon resilience"
-    },
-    "feelLabels": {
-      "infoLevel": "Info",
-      "lethalityLevel": "Lethality",
-      "chaosLevel": "Chaos",
-      "stWorkload": "ST Load"
     },
     "synergy": "synergy",
     "synergies": "synergies",
@@ -422,6 +429,24 @@
       "djinnJinxes": "{n} Djinn-Jinx{es} — siehe Interaktionen",
       "travelers": "Travelers"
     },
+    "gameFeelRoster": {
+      "empty": "Wähle Charaktere, um die Summen der Rollen-Scores zu sehen.",
+      "st": "ST-Komplexität",
+      "stValue": "Ø {avg} · Σ{sum}",
+      "lethality": "Letalität / Zyklus",
+      "lethalityValue": "Σ{sum}",
+      "infoGood": "Gute Info",
+      "infoGoodValue": "Σ{sum}",
+      "infoEvil": "Böse Info",
+      "infoEvilValue": "Σ{sum}",
+      "tooltipNone": "Keine Beiträge für diese Kennzahl.",
+      "tooltipStAllMinimal": "Alle Rollen haben minimale ST-Komplexität (1); keine über dem Boden.",
+      "tooltipLine": "{name}: {value}",
+      "tooltipStHeading": "ST-Komplexität je Rolle",
+      "tooltipLethalityHeading": "Letalität (max. Todesfälle pro voller Nacht+Tag)",
+      "tooltipInfoGoodHeading": "Info-Index gut (Townsfolk, Outsiders, Travelers)",
+      "tooltipInfoEvilHeading": "Info-Index böse (Minions, Demon)"
+    },
     "characterDetail": {
       "ability": "Fähigkeit",
       "strength": "Stärke",
@@ -455,10 +480,10 @@
       "empty": "Füge Charaktere hinzu, um Interaktionswarnungen und Tipps zu sehen."
     },
     "healthBar": {
-      "info": "Info",
-      "lethal": "Tödlich",
-      "chaos": "Chaos",
-      "stLoad": "ST-Last",
+      "stComplexity": "ST-Last",
+      "lethalPerCycle": "Tote/Zykl.",
+      "infoGood": "Gut I",
+      "infoEvil": "Bös I",
       "night": "Nacht",
       "nightTitle": "Erste Nacht: {first} Schritte · Andere Nächte: {other} Schritte",
       "good": "Gut",
@@ -468,13 +493,8 @@
       "noCritical": "Keine kritischen Probleme"
     },
     "analysisSidebar": {
-      "teamStrength": "Teamstärke",
-      "good": "Gut",
-      "evil": "Böse",
       "gameFeel": "Spielgefühl",
-      "interactions": "Interaktionen ({count})",
-      "issues": "Probleme",
-      "characterStrengths": "Charakterstärken",
+      "rosterScores": "Scores pro Rolle",
       "empty": "Wähle Charaktere aus, um die Live-Analyse zu sehen."
     },
     "print": {
@@ -490,12 +510,6 @@
       "day-ability": "Tagesfähigkeit",
       "info-disruption": "Störung",
       "demon-resilience": "Demon-Resistenz"
-    },
-    "feelLabels": {
-      "infoLevel": "Info",
-      "lethalityLevel": "Tödlichkeit",
-      "chaosLevel": "Chaos",
-      "stWorkload": "ST-Last"
     },
     "synergy": "Synergie",
     "synergies": "Synergien",

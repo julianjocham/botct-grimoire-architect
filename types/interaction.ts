@@ -1,5 +1,3 @@
-import { Character } from "./character";
-
 // ─── Interaction data model ───────────────────────────────────────────────────
 
 export type InteractionCategory =
@@ -39,12 +37,4 @@ export interface InteractionHint {
   title: string;
   description: string;
   category: InteractionCategory;
-}
-
-// ─── Component props ──────────────────────────────────────────────────────────
-
-export interface InteractionFeedProps {
-  hints: InteractionHint[];
-  characters: Character[];
-  onDetail: (id: string) => void;
 }

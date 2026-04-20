@@ -19,12 +19,47 @@ export interface NightStep {
   contextHints: string[];
 }
 
-// Script feel descriptors
+/** Roster-wide sums / averages of the rule-based per-character scores (edition-agnostic). */
+export interface ScriptRosterScoreFeel {
+  stComplexitySum: number;
+  /** Mean ST Part-A band (1–5), one decimal. */
+  stComplexityAvg: number;
+  lethalityPerCycleSum: number;
+  /** Sum of `infoGathering` for townsfolk, outsiders, and travelers. */
+  infoGatheringGoodSum: number;
+  /** Sum of `infoGathering` for minions and demons. */
+  infoGatheringEvilSum: number;
+  /** Total info index (all in-play characters). */
+  infoGatheringSum: number;
+  characterCount: number;
+  /** Count of characters in the “good info” bucket (for bar scaling). */
+  infoGoodRosterCount: number;
+  /** Count of characters in the “evil info” bucket (for bar scaling). */
+  infoEvilRosterCount: number;
+}
+
+export interface RosterScoreContributionEntry {
+  id: string;
+  name: string;
+  value: number;
+}
+
+/** Per-character contributions for roster-level tooltips (only non-zero / meaningful rows per metric). */
+export interface RosterScoreContributions {
+  /** ST band 1–5 for each character (everyone in roster). */
+  stComplexity: RosterScoreContributionEntry[];
+  /** `lethalityPerCycle` > 0 only, highest first. */
+  lethality: RosterScoreContributionEntry[];
+  /** Good-side info index > 0 only. */
+  infoGood: RosterScoreContributionEntry[];
+  /** Evil-side info index > 0 only. */
+  infoEvil: RosterScoreContributionEntry[];
+}
+
+/** Script / table “feel” from scored metrics. */
 export interface ScriptFeel {
-  infoLevel: "Blind" | "Low" | "Moderate" | "High" | "Flooded";
-  lethalityLevel: "Gentle" | "Standard" | "Deadly" | "Massacre";
-  chaosLevel: "Orderly" | "Moderate" | "Chaotic" | "Pandemonium";
-  stWorkload: "Light" | "Moderate" | "Heavy" | "Exhausting";
+  rosterScores: ScriptRosterScoreFeel;
+  contributions: RosterScoreContributions;
   summary: string;
 }
 

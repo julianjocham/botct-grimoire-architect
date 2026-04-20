@@ -1,4 +1,4 @@
-import { filterByTeam, filterByTags } from "../utils/filters";
+import { filterByTeam } from "../utils/filters";
 import { Character, CompositionWarning } from "@/types";
 
 /**
@@ -52,60 +52,11 @@ function checkScriptRequirements(selected: Character[]): CompositionWarning[] {
 }
 
 /**
- * Check game balance warnings (apply in both modes)
+ * Game-roster balance heuristics were tag-driven and drifted from the official data model.
+ * Reserved for future score-driven tips; empty for now so the UI is not misleading.
  */
-function checkGameBalance(selected: Character[]): CompositionWarning[] {
-  const warnings: CompositionWarning[] = [];
-
-  // Info saturation
-  const infoRecurring = selected.filter(
-    (c) => c.tags?.includes("info-recurring") && c.team !== "demon" && c.team !== "minion"
-  );
-
-  if (infoRecurring.length > 5)
-    warnings.push(
-      createWarning(
-        "high-info",
-        `High info density (${infoRecurring.length} recurring). Evil needs strong misinformation.`,
-        "tip"
-      )
-    );
-
-  const infoFirstNight = filterByTags(selected, ["info-first-night"]);
-  if (infoRecurring.length === 0 && infoFirstNight.length < 2)
-    warnings.push(createWarning("low-info", "Very low information. Good team is flying blind.", "important"));
-
-  // Protection
-  const protection = filterByTags(filterByTeam(selected, "townsfolk"), ["protection"]);
-  if (protection.length === 0)
-    warnings.push(
-      createWarning("no-protection", "No protection roles. Demon kills will be unimpeded every night.", "tip")
-    );
-
-  // Misinformation
-  const misinformation = filterByTags(selected, ["info-disruption", "poison-drunk"]);
-  if (misinformation.length === 0 && infoRecurring.length >= 2)
-    warnings.push(
-      createWarning("no-misinformation", "Good has strong info but evil has no misinformation tools.", "important")
-    );
-
-  // Setup modifiers
-  const setupMods = selected.filter((c) => c.setup);
-  if (setupMods.length > 2)
-    warnings.push(
-      createWarning(
-        "excessive-setup-modifiers",
-        `${setupMods.length} setup modifiers. Outsider count may be confusing.`,
-        "important"
-      )
-    );
-
-  // Day abilities
-  const dayAbilities = filterByTags(filterByTeam(selected, "townsfolk"), ["day-ability"]);
-  if (dayAbilities.length === 0)
-    warnings.push(createWarning("no-day-abilities", "No day-ability Townsfolk. Daytime play is purely social.", "tip"));
-
-  return warnings;
+function checkGameBalance(_selected: Character[]): CompositionWarning[] {
+  return [];
 }
 
 /**
