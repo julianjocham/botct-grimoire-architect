@@ -12,14 +12,14 @@ import { useTranslation } from "@/contexts/LanguageContext";
 type PrintMode = "pretty" | "clean" | "script-pretty" | "script-clean";
 
 interface PrintPortalProps {
-  scriptChars: Character[];
+  overviewCharacters: Character[];
   analysis: ScriptAnalysis;
   printMode: PrintMode;
 }
 
 const subscribe = () => () => {};
 
-export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalProps) {
+export function PrintPortal({ overviewCharacters, analysis, printMode }: PrintPortalProps) {
   const { t } = useTranslation();
   const isClient = useSyncExternalStore(
     subscribe,
@@ -41,7 +41,7 @@ export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalPro
       <PrintPage isPretty={isPretty} pageBreak>
         <h1 className={cn(pageHeading, "mb-3")}>{t("print.characterOverview")}</h1>
         {SCRIPT_BUILD_TEAM_ORDER.map((team) => {
-          const chars = scriptChars.filter((c) => c.team === team).sort((a, b) => a.name.localeCompare(b.name));
+          const chars = overviewCharacters.filter((c) => c.team === team).sort((a, b) => a.name.localeCompare(b.name));
           if (chars.length === 0) return null;
           return (
             <div key={team} className="mb-2.5">

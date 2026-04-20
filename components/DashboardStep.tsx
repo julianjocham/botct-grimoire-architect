@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { DashboardStepProps } from "@/types";
+import { Character, DashboardStepProps } from "@/types";
 import { analyzeScript } from "@/lib/engine";
+import { getEditionTravelers } from "@/lib/data";
 import { NightOrder } from "./NightOrder";
 import { PrintPortal } from "@/components/features/PrintPortal";
 import { TEAM_COLORS, TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
@@ -17,8 +18,16 @@ import { useTranslation } from "@/contexts/LanguageContext";
 
 type PrintMode = "pretty" | "clean" | "script-pretty" | "script-clean";
 
+const OFFICIAL_PREMADE_TO_EDITION: Record<string, "tb" | "bmr" | "snv"> = {
+  "trouble-brewing": "tb",
+  "bad-moon-rising": "bmr",
+  "sects-and-violets": "snv"
+};
+
 export function DashboardStep({
   scriptDisplayName,
+  scriptSource,
+  premadeScriptId,
   scriptIds,
   playerCount,
   gameIds,
@@ -38,7 +47,24 @@ export function DashboardStep({
   );
   const selectedTravelers = editionTravelers.filter((tr) => gameIds.includes(tr.id));
   const gameChars = allCharacters.filter((c) => coreGameIds.includes(c.id));
-  const scriptChars = allCharacters.filter((c) => scriptIds.includes(c.id));
+
+  const scriptTravelerExtras = useMemo(() => {
+    if (scriptSource === "tb" || scriptSource === "bmr" || scriptSource === "snv") return editionTravelers;
+    if (scriptSource === "premade" && premadeScriptId) {
+      const ed = OFFICIAL_PREMADE_TO_EDITION[premadeScriptId];
+      return ed ? getEditionTravelers(ed) : [];
+    }
+    return [];
+  }, [scriptSource, premadeScriptId, editionTravelers]);
+
+  const scriptOverviewChars = useMemo(() => {
+    const byId = new Map(allCharacters.map((c) => [c.id, c] as const));
+    const ids = new Set(scriptIds);
+    for (const c of scriptTravelerExtras) ids.add(c.id);
+    return [...ids]
+      .map((id) => byId.get(id))
+      .filter((c): c is Character => c !== undefined);
+  }, [allCharacters, scriptIds, scriptTravelerExtras]);
 
   const analysis = useMemo(
     () => analyzeScript(coreGameIds, allCharacters, interactions, "game"),
@@ -269,7 +295,7 @@ export function DashboardStep({
         </div>
       </div>
 
-      <PrintPortal scriptChars={scriptChars} analysis={analysis} printMode={printMode} />
+      <PrintPortal overviewCharacters={scriptOverviewChars} analysis={analysis} printMode={printMode} />
     </div>
   );
 }

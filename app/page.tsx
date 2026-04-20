@@ -145,6 +145,7 @@ function App() {
         {step === "dashboard" && (
           <DashboardStep
             scriptSource={scriptSource}
+            premadeScriptId={premadeScriptId}
             scriptDisplayName={scriptDisplayName}
             scriptIds={scriptIds}
             playerCount={playerCount!}

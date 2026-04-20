@@ -106,6 +106,7 @@ export interface AnalysisSidebarProps {
 
 export interface DashboardStepProps {
   scriptSource: EditionKey | null;
+  premadeScriptId: string | null;
   scriptDisplayName: string;
   scriptIds: string[];
   playerCount: number;
