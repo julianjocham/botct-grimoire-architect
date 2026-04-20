@@ -238,11 +238,6 @@ export function CharacterDetail({
                     />
                     {counter.name}
                   </button>
-                  {character.counterDetail[counter.id] && (
-                    <div className="font-body text-muted text-sm leading-[1.4]">
-                      {character.counterDetail[counter.id]}
-                    </div>
-                  )}
                 </div>
               ))}
             </div>

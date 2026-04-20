@@ -2,22 +2,20 @@ import rawCharacters from "@/data/characters.json";
 import enrichmentData from "@/data/enrichment.json";
 import jinxesData from "@/data/jinxes.json";
 import editionsData from "@/data/editions.json";
-import categoryRulesData from "@/data/categoryRules.json";
-import { generateCategoryInteractions } from "./analysis/interactions";
-import { CategoryRule, Character, CharacterEnrichment, EditionConfig, Interaction, RawCharacter } from "@/types";
+import { Character, CharacterEnrichment, EditionConfig, Interaction, RawCharacter } from "@/types";
 
 const enrichment = enrichmentData as Record<string, CharacterEnrichment>;
 
 function mergeCharacter(c: RawCharacter): Character {
   const e = enrichment[c.id];
+  const counters = Array.isArray(e?.counters) ? e.counters : Object.keys(e?.counters ?? {});
   return {
     ...c,
     stComplexity: e?.stComplexity ?? 2,
-    abilityCategory: e?.abilityCategory ?? "info-start",
+    abilityCategory: e?.abilityCategory ?? "unknown",
     tags: e?.tags ?? [],
     strength: e?.strength ?? { composite: 0 },
-    counters: e?.counters ?? [],
-    counterDetail: e?.counterDetail ?? {},
+    counters,
     stAdvice: e?.stAdvice ?? "",
     newStWarning: e?.newStWarning,
     bluffAdvice: e?.bluffAdvice,
@@ -48,13 +46,8 @@ export const allLoric: Character[] = (rawCharacters as RawCharacter[])
 // Full character pool including travelers, fabled, loric — used by the custom script builder
 export const allCharactersWithExtras: Character[] = [...allCharacters, ...allTravelers, ...allFabled, ...allLoric];
 
-export const categoryRules: CategoryRule[] = categoryRulesData.rules as CategoryRule[];
-
-// All interactions: official jinxes (pair-specific game rules) + category-generated interactions
-export const allInteractions: Interaction[] = [
-  ...(jinxesData as Interaction[]),
-  ...generateCategoryInteractions(allCharacters, categoryRules, jinxesData as Interaction[])
-];
+// All interactions use official data only.
+export const allInteractions: Interaction[] = jinxesData as Interaction[];
 
 export const editions = editionsData as Record<string, EditionConfig>;
 

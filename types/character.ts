@@ -19,18 +19,17 @@ export interface RawCharacter {
 
 // Enrichment data from enrichment.json, keyed by character id
 export interface CharacterEnrichment {
-  stComplexity: 1 | 2 | 3 | 4 | 5;
-  abilityCategory: AbilityCategory;
-  tags: CharacterTag[];
-  strength: {
+  stComplexity?: 1 | 2 | 3 | 4 | 5 | null;
+  abilityCategory?: AbilityCategory;
+  tags?: CharacterTag[];
+  strength?: {
     composite: number; // -100 to +100; positive = benefits good team
     peakPower?: number; // -20 to +20; maximum single-action impact
     reliability?: number; // 0.0–1.0; how often the ability works as intended
     vulnerability?: number; // 0.0–1.0; ease of being countered or disabled
     scalingBonus?: number; // -5 to +5; extra value per additional player
   };
-  counters: string[]; // character IDs
-  counterDetail: Record<string, string>;
+  counters?: string[] | Record<string, string>;
   stAdvice: string;
   newStWarning?: string;
   bluffAdvice?: string;
@@ -50,7 +49,6 @@ export interface Character extends RawCharacter {
     scalingBonus?: number;
   };
   counters: string[];
-  counterDetail: Record<string, string>;
   stAdvice: string;
   newStWarning?: string;
   bluffAdvice?: string;

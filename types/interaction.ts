@@ -1,4 +1,4 @@
-import { Character, AbilityCategory, CharacterTag } from "./character";
+import { Character } from "./character";
 
 // ─── Interaction data model ───────────────────────────────────────────────────
 
@@ -18,7 +18,7 @@ export type InteractionCategory =
   | "lethal-evil"
   | "new-st-warning";
 
-// Pairwise interaction (jinxes from jinxes.json; all others generated from categoryRules.json)
+// Pairwise interaction sourced from official interaction data.
 export interface Interaction {
   a: string;
   b: string;
@@ -26,25 +26,6 @@ export interface Interaction {
   bName?: string;
   type: "counter" | "synergy" | "dramatic" | "puzzle" | "jinx";
   severity: "critical" | "important" | "tip";
-  title: string;
-  description: string;
-  strengthImpact: number;
-  category: InteractionCategory;
-  ruleId?: string;
-  generatedByCategoryRule?: boolean;
-  ruleTitleTemplate?: string;
-  ruleDescriptionTemplate?: string;
-}
-
-// Rule for auto-generating category-based interactions
-export interface CategoryRule {
-  id: string;
-  sourceTag?: CharacterTag;
-  sourceCategory?: AbilityCategory;
-  targetTag?: CharacterTag;
-  targetCategory?: AbilityCategory;
-  type: Interaction["type"];
-  severity: Interaction["severity"];
   title: string;
   description: string;
   strengthImpact: number;
