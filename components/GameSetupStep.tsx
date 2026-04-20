@@ -39,7 +39,6 @@ export function GameSetupStep({
   playerCount,
   gameIds,
   allCharacters,
-  editionTravelers,
   onSetPlayerCount,
   onToggleGameChar,
   onContinue,
@@ -48,19 +47,27 @@ export function GameSetupStep({
 }: GameSetupStepProps) {
   const { t } = useTranslation();
   const scriptChars = allCharacters.filter((c) => scriptIds.includes(c.id));
+  const scriptTravelers = scriptChars.filter((c) => c.team === "traveler");
+  const scriptFabled = scriptChars.filter((c) => c.team === "fabled");
+  const scriptLoric = scriptChars.filter((c) => c.team === "loric");
   const rawReq = playerCount ? RAW_COUNTS[String(playerCount)] : null;
   const req = rawReq ? getAdjustedReq(rawReq, gameIds) : null;
 
   const neededTravelers = playerCount && playerCount > 15 ? playerCount - 15 : 0;
-  const travelerIdSet = new Set(editionTravelers.map((t) => t.id));
-  const coreGameIds = gameIds.filter((id) => !travelerIdSet.has(id));
-  const selectedTravelerIds = gameIds.filter((id) => travelerIdSet.has(id));
+  const characterById = useMemo(() => new Map(allCharacters.map((c) => [c.id, c] as const)), [allCharacters]);
+  const coreGameIds = gameIds.filter((id) => {
+    const team = characterById.get(id)?.team;
+    return team === "townsfolk" || team === "outsider" || team === "minion" || team === "demon";
+  });
+  const selectedTravelerIds = gameIds.filter((id) => characterById.get(id)?.team === "traveler");
+  const selectedFabledIds = gameIds.filter((id) => characterById.get(id)?.team === "fabled");
+  const selectedLoricIds = gameIds.filter((id) => characterById.get(id)?.team === "loric");
 
   const gameCounts = {
-    townsfolk: coreGameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "townsfolk").length,
-    outsider: coreGameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "outsider").length,
-    minion: coreGameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "minion").length,
-    demon: coreGameIds.filter((id) => allCharacters.find((c) => c.id === id)?.team === "demon").length
+    townsfolk: coreGameIds.filter((id) => characterById.get(id)?.team === "townsfolk").length,
+    outsider: coreGameIds.filter((id) => characterById.get(id)?.team === "outsider").length,
+    minion: coreGameIds.filter((id) => characterById.get(id)?.team === "minion").length,
+    demon: coreGameIds.filter((id) => characterById.get(id)?.team === "demon").length
   };
 
   const totalNeeded = req ? req.townsfolk + req.outsider + req.minion + req.demon : 0;
@@ -393,7 +400,7 @@ export function GameSetupStep({
             </div>
 
             {/* Traveler picker */}
-            {neededTravelers > 0 && editionTravelers.length > 0 && (
+            {neededTravelers > 0 && scriptTravelers.length > 0 && (
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
                   <div className="font-display text-gold text-2xs tracking-widest uppercase">
@@ -409,7 +416,7 @@ export function GameSetupStep({
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
-                  {editionTravelers.map((traveler) => {
+                  {scriptTravelers.map((traveler) => {
                     const inGame = gameIds.includes(traveler.id);
                     const blocked = !inGame && travelersComplete;
                     return (
@@ -426,6 +433,64 @@ export function GameSetupStep({
                     );
                   })}
                 </div>
+              </div>
+            )}
+
+            {(scriptFabled.length > 0 || scriptLoric.length > 0) && (
+              <div className="flex flex-col gap-3">
+                {scriptFabled.length > 0 && (
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="font-display text-gold text-2xs tracking-widest uppercase">
+                        {TEAM_LABEL.fabled}
+                      </div>
+                      <div className="text-2xs bg-deep text-dim border-subtle rounded-lg border px-1.5 py-px font-mono">
+                        {selectedFabledIds.length} / {scriptFabled.length}
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
+                      {scriptFabled.map((char) => (
+                        <CharacterSelectCard
+                          key={char.id}
+                          character={char}
+                          gameIds={gameIds}
+                          allCharacters={allCharacters}
+                          isBlocked={false}
+                          onDetail={onDetail}
+                          onToggle={onToggleGameChar}
+                          accentColor={{ bg: "#1a0d22", border: "#5a3a7a", text: "#b89ad5" }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {scriptLoric.length > 0 && (
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="font-display text-gold text-2xs tracking-widest uppercase">
+                        {TEAM_LABEL.loric}
+                      </div>
+                      <div className="text-2xs bg-deep text-dim border-subtle rounded-lg border px-1.5 py-px font-mono">
+                        {selectedLoricIds.length} / {scriptLoric.length}
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
+                      {scriptLoric.map((char) => (
+                        <CharacterSelectCard
+                          key={char.id}
+                          character={char}
+                          gameIds={gameIds}
+                          allCharacters={allCharacters}
+                          isBlocked={false}
+                          onDetail={onDetail}
+                          onToggle={onToggleGameChar}
+                          accentColor={{ bg: "#081a1a", border: "#2e5a5a", text: "#68c9c9" }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </>

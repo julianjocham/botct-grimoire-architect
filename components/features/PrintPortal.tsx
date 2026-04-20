@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { useSyncExternalStore } from "react";
 import { Character } from "@/types";
 import { ScriptAnalysis } from "@/types";
-import { TEAM_LABEL, TEAM_ORDER } from "@/constants/team";
+import { SCRIPT_BUILD_TEAM_ORDER, TEAM_LABEL } from "@/constants/team";
 import { CharacterIcon } from "@/components/ui/CharacterIcon";
 import { cn } from "@/lib/cn";
 import { useTranslation } from "@/contexts/LanguageContext";
@@ -40,7 +40,7 @@ export function PrintPortal({ scriptChars, analysis, printMode }: PrintPortalPro
     <div id="print-portal" className="font-serif">
       <PrintPage isPretty={isPretty} pageBreak>
         <h1 className={cn(pageHeading, "mb-3")}>{t("print.characterOverview")}</h1>
-        {TEAM_ORDER.map((team) => {
+        {SCRIPT_BUILD_TEAM_ORDER.map((team) => {
           const chars = scriptChars.filter((c) => c.team === team).sort((a, b) => a.name.localeCompare(b.name));
           if (chars.length === 0) return null;
           return (

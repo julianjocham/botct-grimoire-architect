@@ -71,7 +71,7 @@ function App() {
     ? (allCharactersWithTravelers.find((c) => c.id === detailCharacterId) ?? null)
     : null;
   const detailEffStr = detailCharacterId
-    ? calculateEffectiveStrength(detailCharacterId, contextIds, allCharacters)
+    ? calculateEffectiveStrength(detailCharacterId, contextIds, allCharactersWithTravelers)
     : null;
 
   return (
@@ -132,7 +132,7 @@ function App() {
             scriptIds={scriptIds}
             playerCount={playerCount}
             gameIds={gameIds}
-            allCharacters={allCharacters}
+            allCharacters={allCharactersWithTravelers}
             editionTravelers={editionTravelers}
             onSetPlayerCount={(count) => dispatch({ type: "SET_PLAYER_COUNT", count })}
             onToggleGameChar={(id) => dispatch({ type: "TOGGLE_GAME_CHAR", id })}
@@ -149,7 +149,7 @@ function App() {
             scriptIds={scriptIds}
             playerCount={playerCount!}
             gameIds={gameIds}
-            allCharacters={allCharacters}
+            allCharacters={allCharactersWithTravelers}
             editionTravelers={editionTravelers}
             interactions={allInteractions}
             nightPhase={nightPhase}
@@ -198,7 +198,7 @@ function App() {
           <CharacterDetail
             character={detailChar}
             effectiveStrength={detailEffStr}
-            allCharacters={allCharacters}
+            allCharacters={allCharactersWithTravelers}
             selectedIds={contextIds}
             onClose={() => dispatch({ type: "SET_DETAIL", id: null })}
             onToggle={(id) => {
