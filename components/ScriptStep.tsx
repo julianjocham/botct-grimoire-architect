@@ -56,7 +56,6 @@ export function ScriptStep({
   const isCustom = scriptSource === "custom";
   const isTeensyville = scriptType === "teensyville";
 
-  const officialScripts = premadeScripts.filter((s) => s.type === "official");
   const teensyvilleScripts = premadeScripts.filter((s) => s.type === "teensyville");
   const fullPremadeScripts = premadeScripts.filter((s) => s.type === "full");
 
@@ -127,7 +126,11 @@ export function ScriptStep({
       {/* Edition cards — full scripts only */}
       {!isCustom && !isTeensyville && (
         <>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+          <div>
+            <div className="font-display text-gold mb-3 text-sm tracking-wider uppercase">
+              {t("script.officialScripts")}
+            </div>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {EDITIONS.map((ed) => {
               const pool = editionPools[ed.key];
               const isSelected = scriptSource === ed.key;
@@ -198,6 +201,7 @@ export function ScriptStep({
                 </div>
               );
             })}
+            </div>
           </div>
 
           {/* Custom option */}
@@ -212,24 +216,6 @@ export function ScriptStep({
             >
               {t("script.buildCustom")}
             </button>
-          </div>
-
-          {/* Official scripts */}
-          <div>
-            <div className="font-display text-gold mb-3 text-sm tracking-wider uppercase">
-              {t("script.officialScripts")}
-            </div>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-              {officialScripts.map((script) => (
-                <PremadeScriptCard
-                  key={script.id}
-                  script={script}
-                  allCharacters={allCharacters}
-                  isSelected={scriptSource === "premade" && premadeScriptId === script.id}
-                  onSelect={() => onSelectPremade(script.id, script.characters)}
-                />
-              ))}
-            </div>
           </div>
 
           {/* Community full scripts */}
